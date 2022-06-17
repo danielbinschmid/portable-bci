@@ -4,6 +4,9 @@
 *.lock
 *.vscode
 __pycache__*
+*.vs
+*CMakeFiles*
+*data*
 
 /py_env/custom_workspace/data/*
 /py_env/custom_workspace/logs/
@@ -12,3 +15,9 @@ __pycache__*
 /node_env/evaluation/benchmarks/cache/*
 /node_env/evaluation/data/*
 /node_env/webapp_port/data/*
+
+/cpp_env/wasm_env/build/
+/cpp_env/wasm_env/CMakeFiles/
+/cpp_env/wasm_env/out/*
+/cpp_env/wasm_env/webidl_build/*
+/cpp_env/wasm_env/third-party/Eigen/*
