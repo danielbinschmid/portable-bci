@@ -1,7 +1,14 @@
 *.edf
-/node_env/evaluation/benchmarks/cache/*
-/node_env/evaluation/data/*
 *node_modules*
-/node_env/webapp_port/data/*
 *NO_PUSH*
 *.lock
+*.vscode
+__pycache__*
+
+/py_env/custom_workspace/data/*
+/py_env/custom_workspace/logs/
+/py_env/custom_workspace/benchmarks/
+
+/node_env/evaluation/benchmarks/cache/*
+/node_env/evaluation/data/*
+/node_env/webapp_port/data/*
