@@ -1,0 +1,1 @@
+add_library(${GEOMETRY} STATIC "riemann.cpp" )

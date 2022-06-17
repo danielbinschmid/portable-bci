@@ -1,0 +1,69 @@
+interface Timetensor_d {
+    void Timetensor_d();
+
+    attribute long length;
+    attribute long nChannels;
+    attribute boolean isCov;
+};
+
+interface Timeseries_d {
+    void Timeseries_d([Const] long nChannels, [Const] long nBands, [Const] long sampleRate, [Const] long expectedTimesteps);
+
+    void addTimestep(double[] timestep);
+
+    [Const] long getLength();
+
+    void clear();
+
+    [Ref] Timetensor_d popAll([Ref] Timetensor_d result);
+
+    [Ref] Timetensor_d popN(long n, [Ref] Timetensor_d result);
+
+    [Ref] Timetensor_d getNLastSteps(long n, [Ref] Timetensor_d result);
+
+};
+
+interface ArrayBuffer_d {
+    void ArrayBuffer_d();
+    attribute VoidPtr data;
+    attribute long length;
+    
+};
+
+enum EMetric {
+  "EMetric::ALE",
+  "EMetric::Riemann",
+  "EMetric::Euclidian",
+  "EMetric::LogEuclidian",
+  "EMetric::LogDet",
+  "EMetric::Kullback",
+  "EMetric::Harmonic",
+  "EMetric::Wasserstein",
+  "EMetric::Identity"
+};
+
+interface RiemannKernel_d {
+    void RiemannKernel_d();
+
+    void addTrial([Ref] Timetensor_d trial);
+
+    void addBreak([Ref] Timetensor_d break_);
+
+	[Ref] ArrayBuffer_d fitTrials([Ref] ArrayBuffer_d result);
+
+    EMetric getMeanMetric();
+
+    [Const] DOMString getCommaSeparatedMeanMetrics();
+
+    [Const] DOMString setMeanMetric(EMetric metric);
+
+    void fitBreaks();
+
+    void reset();
+
+	[Ref] ArrayBuffer_d apply([Ref] Timetensor_d trial, [Ref] ArrayBuffer_d result);
+
+    
+};
+
+
