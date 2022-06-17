@@ -1,0 +1,3 @@
+[submodule "py_env/HDembedding-BCI"]
+	path = py_env/HDembedding-BCI
+	url = https://github.com/danielbinschmid/HDembedding-BCI
