@@ -1,0 +1,14 @@
+{
+  "name": "bci",
+  "version": "1.0.0",
+  "main": "index.js",
+  "module": "main.js",
+  "author": "Daniel Bin Schmid",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "@tensorflow/tfjs-node-gpu": "^3.18.0",
+    "esm": "^3.2.25",
+    "ntqdm": "^1.0.0"
+  }
+}

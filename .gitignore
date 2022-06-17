@@ -1,0 +1,7 @@
+*.edf
+/node_env/evaluation/benchmarks/cache/*
+/node_env/evaluation/data/*
+*node_modules*
+/node_env/webapp_port/data/*
+*NO_PUSH*
+*.lock
