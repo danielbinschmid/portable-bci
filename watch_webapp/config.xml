@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.star.hciwear" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>StarHCIWear</name>
+    <description>An app to control and stream EEG data</description>
+    <author email="danielbinschmid@outlook.de">
+        Daniel Bin Schmid
+    </author>
+    <content src="index.html" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <preference name="xwalkCommandLine" value="--ignore-gpu-blacklist --enable-gpu-rasterization"/>
+    <platform name="android">
+        <preference name="android-manifest/application/@android:hardwareAccelerated" value="true" />
+        <hook type="before_build" src="hooks\before_build\move_iconfonts_css.js"/>
+        <preference name="android-minSdkVersion" value="21" />
+        <preference name="xwalkMultipleApk" value="false" />
+
+    </platform>
+</widget>

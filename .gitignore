@@ -6,7 +6,7 @@
 __pycache__*
 *.vs
 *CMakeFiles*
-*data*
+*package-lock*
 
 /py_env/custom_workspace/data/*
 /py_env/custom_workspace/logs/
@@ -21,3 +21,8 @@ __pycache__*
 /cpp_env/wasm_env/out/*
 /cpp_env/wasm_env/webidl_build/*
 /cpp_env/wasm_env/third-party/Eigen/*
+/cpp_env/wasm_env/Kernel/src/data/
+
+/watch_webapp/platforms/*
+/watch_webapp/plugins/*
+/watch_webapp/www/*
