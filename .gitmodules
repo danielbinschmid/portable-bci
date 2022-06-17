@@ -1,3 +1,9 @@
 [submodule "py_env/HDembedding-BCI"]
 	path = py_env/HDembedding-BCI
 	url = https://github.com/danielbinschmid/HDembedding-BCI
+[submodule "cpp_env/wasm_env/third-party/RIGBy-cpp"]
+	path = cpp_env/wasm_env/third-party/RIGBy-cpp
+	url = https://github.com/danielbinschmid/RIGBy-cpp
+[submodule "cpp_env/wasm_env/third-party/iir1"]
+	path = cpp_env/wasm_env/third-party/iir1
+	url = https://github.com/danielbinschmid/iir1
