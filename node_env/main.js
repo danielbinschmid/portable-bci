@@ -26,10 +26,10 @@ function printAccuracies(riemann) {
 function riemannInstantiatedCallback(riemannInstance) {
     const riemann = riemannInstance;
 
-    evaluate(riemann);
+    // evaluate(riemann);
     // benchmarkMeanRuntimes(riemann);
     // test(riemann);
-    // printAccuracies()
+    printAccuracies()
 }
 
 

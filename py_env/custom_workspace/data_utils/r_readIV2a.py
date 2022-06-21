@@ -5,12 +5,12 @@ def resample(nb_timesteps, target_frequency, windowlength_seconds):
     """
     data of shape (nb_trials, nb_channels, nb_timesteps)
     """
-    target_nb_timesteps = target_frequency * windowlength_seconds
+    target_nb_timesteps = int(target_frequency * windowlength_seconds)
     l = list(np.linspace(0, nb_timesteps - 1, target_nb_timesteps).astype(int))
     return l
 
 
-def get_data(subject, training, PATH, class_vec=[1, 2, 3]):
+def get_data(subject, training, PATH, class_vec=[1, 2, 3], trialtimerange=3.5, offset=2.5):
     """	Loads the dataset 2a of the BCI Competition IV
 	available on http://bnci-horizon-2020.eu/database/data-sets
 
@@ -24,7 +24,8 @@ def get_data(subject, training, PATH, class_vec=[1, 2, 3]):
 	"""
     NO_channels = 22
     NO_tests = 6 * 48
-    Window_Length = 7 * 250
+    Window_Length = int(trialtimerange * 250)
+    offset_length = int(offset * 250)
 
     class_return = np.zeros(NO_tests)
     data_return = np.zeros((NO_tests, NO_channels, Window_Length))
@@ -51,14 +52,12 @@ def get_data(subject, training, PATH, class_vec=[1, 2, 3]):
             if a_artifacts[trial] == 0 and int(a_y[trial]) in class_vec:
                 data_return[NO_valid_trial, :, :] = np.transpose(
                     a_X[
-                        int(a_trial[trial]) : (int(a_trial[trial]) + Window_Length), :22
+                        int(a_trial[trial]) + offset_length : (int(a_trial[trial]) + offset_length + Window_Length), :22
                     ]
                 )
                 class_return[NO_valid_trial] = int(a_y[trial])
                 NO_valid_trial += 1
 
-    d = data_return[0:int(NO_valid_trial), [1, 5, 13, 17], :]
-    print(d.shape)
-    d = d[:, :, resample(Window_Length, 128, 7)]
-    print(d.shape)
+    d = data_return[0:int(NO_valid_trial), [1, 5, 13, 17]]
+    d = d[:, :, resample(Window_Length, 128, trialtimerange)]
     return d, class_return[0:int(NO_valid_trial)]

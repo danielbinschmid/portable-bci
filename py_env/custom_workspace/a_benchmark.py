@@ -7,8 +7,8 @@ if __name__ == "__main__":
 
 import datetime
 import tensorflow as tf
+
 import keras.callbacks
-import torch
 import n_CNN_LSTM
 from n_EEGNet import EEGNet
 import z_Physionet as physio
@@ -26,173 +26,11 @@ from r_read3classMI import get_data
 import r_readIV2a as IV2a
 import os
 from keras import utils as np_utils
+from keras import Model
 import json
 from keras.initializers import glorot_uniform  # Or your initializer of choice
 import keras.backend as K
 
-def validate_cnn_lstm_garcia(
-    data: list[tuple[np.ndarray, z.Annotation]],
-    classes: list[any],
-    label_to_gt: dict[any, np.ndarray],
-    window_size: float = 0.6,
-    batch_size: int = None,
-    learning_rate: float = 0.0005,
-    epochs: int = 1500,
-    validation_split: float = 0.1,
-) -> tuple[list[float], list[float]]:
-    """
-    Trains the CNN + LSTM by Garcia-Moreno et al and yields training and validation losses.
-
-    Paper: Garcia-Moreno, Francisco M., et al. 
-    "Reducing response time in motor imagery using a headband and deep learning." Sensors 20.23 (2020): 6730. 
-    on the physionet Motor Imagery data set
-
-    Good results for 
-    learning_rate=0.0001,
-    epochs=5000
-    & the training set as single batch
-
-    @params:
-        - data: list of events of recorded EEG data. Each element is a tuple of its data and its corresponding annotation.
-        - classes: list of labels to consider. Useful when data contains multiple classes but a lower amount of classes is desired.
-        - label_to_gt: Maps a label object to its ground truth class as numeric value that depicts the input to the loss function.
-        - window_size: The high level window size that averages belonging frequency band windows
-        - batch_size: Training batch size
-        - learning_rate: Training learning rate
-        - epochs: Number of epochs
-        - validation_split: validation split as percentage
-
-    @returns:
-        A tuple (batch_losses, validation_losses)
-    """
-    raw_data_shape = data[0][0].shape
-    training_split, validation_split = training_test_split(
-        len(data), test_split=validation_split
-    )
-    validation_data = validation_split_to_data(
-        data, validation_split, window_size=window_size, label_to_gt=label_to_gt
-    )
-    training_batches, training_split = to_training_batches(
-        data=data,
-        training_split=training_split,
-        batch_size=batch_size,
-        window_size=window_size,
-        label_to_gt=label_to_gt,
-    )
-    num_training_events = len(training_split)
-    if len(training_batches) == 0:
-        raise ValueError("no training batches generated")
-    preprocessed_data_shape: torch.Size = training_batches[0][0].size()
-    num_windows = preprocessed_data_shape[2]
-    lstm = n_CNN_LSTM.OneDimCNNLSTM(
-        num_classes=len(classes),
-        input_size=int(raw_data_shape[0] * raw_data_shape[1]),
-        num_kernels=32,
-        hidden_size=32,
-        num_layers=2,
-        num_windows=num_windows,
-    )
-    lstm.float()
-    weights = training_class_weights(
-        training_split=training_split, data=data, label_to_gt=label_to_gt
-    )
-    loss_func = torch.nn.NLLLoss(weights)
-    batch_losses, validation_losses = lstm.fit(
-        training_batches,
-        num_training_events,
-        epochs=epochs,
-        learning_rate=learning_rate,
-        loss_func=loss_func,
-        validation_set=validation_data,
-    )
-    lstm.eval()
-    return batch_losses, validation_losses
-
-
-def validate_cnn_lstm_own_data(
-    label_to_gt: dict[muse.Labels, np.ndarray],
-    classes: list[muse.Labels] = [muse.Labels.LEFT_ARM, muse.Labels.RIGHT_ARM],
-    session_size: float = 20.0,
-    window_size: float = 0.6,
-    batch_size: int = 36,
-    learning_rate: float = 0.0005,
-    epochs: int = 1500,
-    validation_split: float = 0.1,
-    test_split: float = 0.0,
-):
-    """
-    Validates CNN+LSTM by Garcia-Moreno et al on own data.
-    """
-    if test_split > 0:
-        raise NotImplementedError()
-    data = muse.read_edf(session_size, [muse.Labels.LEFT_ARM, muse.Labels.RIGHT_ARM])
-    batch_losses, validation_losses = validate_cnn_lstm_garcia(
-        data,
-        classes=classes,
-        label_to_gt=label_to_gt,
-        window_size=window_size,
-        batch_size=batch_size,
-        learning_rate=learning_rate,
-        epochs=epochs,
-        validation_split=validation_split,
-    )
-    return batch_losses, validation_losses
-
-
-def validate_cnn_lstm(
-    label_to_gt: dict[physio.Labels, np.ndarray] = {
-        physio.Labels.BOTH_FEETS: np.asarray(0),
-        physio.Labels.BOTH_FISTS: np.asarray(1),
-    },
-    channel_setting: physio.ChannelSettings = physio.ChannelSettings.MUSE,
-    classes: list[physio.Labels] = [physio.Labels.BOTH_FISTS, physio.Labels.BOTH_FEETS],
-    subjects: list[int] = [1],
-    session_size: float = 4.0,
-    window_size: float = 0.5,
-    batch_size: int = 37,
-    learning_rate: float = 0.0005,
-    epochs: int = 1500,
-    validation_split: float = 0.1,
-    test_split: float = 0.0,
-):
-    """
-    Validates CNN+LSTM by Garcia-Moreno et al on physionet data.
-    """
-    if test_split > 0.0:
-        raise NotImplementedError("test pipeline not implemented yet")
-    data = fetch_MI_data(
-        channel_setting=channel_setting,
-        classes=classes,
-        subjects=subjects,
-        session_size=session_size,
-        data_as_bands=True,
-    )
-    if len(data) == 0:
-        raise ValueError("No events in data found")
-    batch_losses, validation_losses = validate_cnn_lstm_garcia(
-        data,
-        classes=classes,
-        label_to_gt=label_to_gt,
-        window_size=window_size,
-        batch_size=batch_size,
-        learning_rate=learning_rate,
-        epochs=epochs,
-        validation_split=validation_split,
-    )
-    """
-    for test_idx in test_split:
-        test_event, test_label = data[test_idx]
-        test_event = combine_dims(test_event, start=0, count=2)
-        test_event = onedcnn_lstm.window_data(test_event, window_size=0.5, overlap=0.5)
-        test_batch = torch.from_numpy(np.expand_dims(test_event, axis=0)).float()
-        y_hat = lstm.forward(test_batch).detach().cpu().numpy()
-        print("%%")
-        print("Ground truth: ")
-        print(label_to_gt[test_label.label])
-        print("Prediction: ")
-        print(y_hat)
-    """
-    return batch_losses, validation_losses
 
 
 def validate_EEGNet():
@@ -284,6 +122,47 @@ def validate_EEGNet():
     with open(p, 'w', encoding='utf-8') as f:
         json.dump(benchmark_data, f, ensure_ascii=False, indent=4)
 
+
+def fit_multiple_subjects(
+        time_range: int, 
+        offset_time, nb_samples: int, 
+        nb_channels: int, nb_classes: int, 
+        nb_epochs: int,
+        benchmark_file: str, 
+        class_vec: list,
+        global_dataset_path: str, 
+        subjects: list, 
+        model: Model, 
+        log_dir: str,
+        initial_weights=None, 
+        validation_data=None,
+        validation_split=0.,
+        early_stopping_callback=None):
+
+    if initial_weights is not None:
+        model.set_weights(initial_weights)
+
+    # fetch training trials
+    train_data, train_labels = ([], [])
+    for subj in subjects:
+        train_data_subj, train_labels_subj = IV2a.get_data(subj, True, global_dataset_path, class_vec=class_vec, trialtimerange= time_range, offset=offset_time)
+        train_data, train_labels = (train_data + list(train_data_subj), train_labels + list(train_labels_subj))
+    train_data, train_labels = (np.asarray(train_data), np.asarray(train_labels))
+
+    # transform data
+    train_labels = train_labels - 1
+    train_labels = np_utils.to_categorical(train_labels, nb_classes)
+    train_data = train_data.reshape((train_data.shape[0], nb_channels,nb_samples, 1))
+
+    # train
+    tensorboard_callback = keras.callbacks.TensorBoard(log_dir=log_dir, histogram_freq=1)
+
+    callbacks = [tensorboard_callback]
+    if early_stopping_callback is not None:
+        callbacks.append(early_stopping_callback)
+    history = model.fit(train_data, train_labels, batch_size = 15, epochs = nb_epochs, verbose = 2, 
+            validation_split=validation_split, validation_data=validation_data, callbacks=callbacks)
+
 def validate_EEGNet_IV2a():
     # -------------- CONFIG ------------
     global_dataset_path = os.path.abspath(os.path.join(os.curdir, "data", "IV2a")) + "/"
@@ -292,94 +171,135 @@ def validate_EEGNet_IV2a():
     class_vec = [1, 2, 3]
     nb_channels = 4
     nb_epochs = 150
-    subjects = [1,2,3, 4, 5, 6, 7, 8, 9] # 1,2,3, 4, 5, 6, 7, 8, 9
-    mode = "subject-blind-transfer" # "subject-dependent_no-transfer"
-    time_range = 7.0
+    nb_epochs_finetuning = 12
+    subjects = [1, 2, 3, 4, 5, 6, 7, 8, 9] # 1,2,3, 4, 5, 6, 7, 8, 9
+    modes = ["naive-finetuning", "all_subjects", "individual"] # "naive-finetuning", "subject-blind-transfer", "individual"
+    time_range = 4
+    offset_time = 2
     nb_runs = 10
 
     target_frequency = 128
     nb_samples = int(time_range * target_frequency)
-    benchmark_file = "IV2a_cross-subject-blind-transfer" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+    benchmark_file = "IV2a_21-06_" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
 
     # -------------- START --------------
-    model = EEGNet(nb_classes, nb_channels, nb_samples, dropoutRate = 0.5, kernLength = 32, F1 = 8, D = 2, F2 = 16, 
-               dropoutType = 'Dropout')
-    
-    model.compile(loss='categorical_crossentropy', optimizer='adam', 
-              metrics = ['accuracy'])
-
-    initial_weights = model.get_weights()
-
     benchmark_data = {}
 
     for run in range(nb_runs):
         print("RUN %d"%run)
-
-        # ------ SUBJECT INDEPENDENT TRAINING ----------
-        if mode == "subject-blind-transfer":
-            new_weights = initial_weights
-            model.set_weights(new_weights)
-
-            # fetch training trials
-            train_data, train_labels = ([], [])
-            for subj in subjects:
-                train_data_subj, train_labels_subj = IV2a.get_data(subj, True, global_dataset_path, class_vec=class_vec)
-                train_data, train_labels = (train_data + list(train_data_subj), train_labels + list(train_labels_subj))
-            train_data, train_labels = (np.asarray(train_data), np.asarray(train_labels))
-
-            # transform data
-            train_labels = train_labels - 1
-            train_labels = np_utils.to_categorical(train_labels, nb_classes)
-            train_data = train_data.reshape((train_data.shape[0], nb_channels,nb_samples, 1))
-
-            # train
-            log_dir = "logs/fit/" + benchmark_file + "/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-            tensorboard_callback = keras.callbacks.TensorBoard(log_dir=log_dir, histogram_freq=1)
-            history = model.fit(train_data, train_labels, batch_size = 15, epochs = nb_epochs, verbose = 2, 
-                    callbacks=[tensorboard_callback])
-        # -----------------------------------------------
-
         run_accuracies = {}
-        for subject in subjects:
-            print("///////////// SUBJECT %s //////////////" %subject)
-            # new_weights = [glorot_uniform()(w.shape) for w in initial_weights]
+
+        for mode in modes:
+            print("MODE %s"%mode)
+            mode_accuracies = {}
+            model = EEGNet(nb_classes, nb_channels, nb_samples, dropoutRate = 0.5, kernLength = 32, F1 = 8, D = 2, F2 = 16, 
+               dropoutType = 'Dropout')
+            model.compile(loss='categorical_crossentropy', optimizer='adam', 
+                    metrics = ['accuracy'])
+
+            initial_weights = model.get_weights()
+
+            # ------ TRAINING same for all subjects ----------
+            if mode == "all_subjects":
+                log_dir = "logs/fit/" + benchmark_file + "/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+                fit_multiple_subjects(
+                    time_range=time_range,
+                    offset_time=offset_time,
+                    nb_samples=nb_samples,
+                    nb_channels=nb_channels,
+                    nb_classes=nb_classes,
+                    nb_epochs=nb_epochs,
+                    benchmark_file=benchmark_file,
+                    class_vec=class_vec,
+                    global_dataset_path=global_dataset_path,
+                    subjects=subjects,
+                    model=model,
+                    log_dir=log_dir,
+                    initial_weights=initial_weights)
+            # -----------------------------------------------
+
             
-            # -------- SUBJECT TEST DATA ----------
-            test_data, test_labels   = IV2a.get_data(subject, False, global_dataset_path, class_vec=class_vec)
-            test_labels = test_labels - 1
-            test_labels = np_utils.to_categorical(test_labels, nb_classes)
-            test_data = test_data.reshape((test_data.shape[0], nb_channels,nb_samples, 1))
-
-            # -------- SUBJECT SPECIFIC TRAINING ---------
-            if mode != "subject-blind-transfer":
-                new_weights = initial_weights
-                model.set_weights(new_weights)
-                train_data, train_labels = IV2a.get_data(subject, True, global_dataset_path, class_vec=class_vec)
-                # convert data to NHWC (trials, channels, timesteps, kernels) format, kernel is 1
-                train_labels = train_labels - 1
+            for subject in subjects:
+                print("///////////// SUBJECT %s //////////////" %subject)
+                # new_weights = [glorot_uniform()(w.shape) for w in initial_weights]
                 
-                train_labels = np_utils.to_categorical(train_labels, nb_classes)
-                
-                train_data = train_data.reshape((train_data.shape[0], nb_channels,nb_samples, 1))
+                # -------- SUBJECT TEST DATA ----------
+                test_data, test_labels   = IV2a.get_data(subject, False, global_dataset_path, class_vec=class_vec, trialtimerange= time_range, offset=offset_time)
+                test_labels = test_labels - 1
+                test_labels = np_utils.to_categorical(test_labels, nb_classes)
+                test_data = test_data.reshape((test_data.shape[0], nb_channels,nb_samples, 1))
 
-                log_dir = "logs/fit/" + benchmark_file + "/" + "subj-" + str(subject) + "_run-" + str(run) + "_" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-                tensorboard_callback = keras.callbacks.TensorBoard(log_dir=log_dir, histogram_freq=1)
-                history = model.fit(train_data, train_labels, batch_size = 15, epochs = nb_epochs, verbose = 2, 
-                        validation_data=(test_data, test_labels), callbacks=[tensorboard_callback])
-            # --------------------------------------------
+                # -------- SUBJECT SPECIFIC TRAINING ---------
+                if mode != "subject-blind-transfer":
+                    model.set_weights(initial_weights)
+                    if mode == "naive-finetuning":
 
-            # -------- SUBJECT SPECIFIC EVALUATION ---------
-            probs           = model.predict(test_data)
-            preds           = probs.argmax(axis = -1)  
-            fold_accuracy   = np.mean(preds == test_labels.argmax(axis=-1))
-            print("Classification accuracy: %f " % (fold_accuracy))
-            run_accuracies[subject] = fold_accuracy
-            # ----------------------------------------------
-      
-        p = os.path.join("benchmarks" , benchmark_file, str(run) + "/")
-        os.makedirs(p)
-        with open(p + "accs" + '.json', 'w', encoding='utf-8') as f:
-            json.dump(run_accuracies, f, ensure_ascii=False, indent=4)
+                        #  -------- fit model to all subjects except relevant one ---------
+                        # fetch training trials
+                        subjects_ = subjects.copy()
+                        subjects_.remove(subject)
+                        log_dir = "logs/fit/" + benchmark_file + "/pretrain_" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+
+                        fit_multiple_subjects(
+                            time_range=time_range,
+                            offset_time=offset_time,
+                            nb_samples=nb_samples,
+                            nb_channels=nb_channels,
+                            nb_classes=nb_classes,
+                            nb_epochs=nb_epochs,
+                            benchmark_file=benchmark_file,
+                            class_vec=class_vec,
+                            global_dataset_path=global_dataset_path,
+                            subjects=subjects,
+                            model=model,
+                            log_dir=log_dir,
+                            initial_weights=initial_weights,
+                            validation_data=(test_data, test_labels))
+
+                    if mode == "naive-finetuning" or mode == "individual":
+                        # --------------------------- fine tune to relevant subject --------------------------
+                        log_dir = "logs/fit/" + benchmark_file + "/" + "finetune_subj-" + str(subject) + "_run-" + str(run) + "_" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+                        nb_epochs_ = nb_epochs_finetuning if mode == "naive-finetuning" else nb_epochs
+                        initial_weights_ = None if mode == "naive-finetuning" else initial_weights
+                        # valdiation_split_ = 0.25 if mode == "naive-finetuning" else 0.
+                        # validation_data = None if mode == "naive-finetuning" else (test_data, test_labels)
+
+                        # callback = keras.callbacks.EarlyStopping(monitor='accuracy', patience=3) 
+
+                        fit_multiple_subjects(
+                            time_range=time_range,
+                            offset_time=offset_time,
+                            nb_samples=nb_samples,
+                            nb_channels=nb_channels,
+                            nb_classes=nb_classes,
+                            nb_epochs=nb_epochs_,
+                            benchmark_file=benchmark_file,
+                            class_vec=class_vec,
+                            global_dataset_path=global_dataset_path,
+                            subjects=[subject],
+                            model=model,
+                            log_dir=log_dir,
+                            initial_weights=initial_weights_,
+                            validation_data=(test_data, test_labels))
+                        
+
+                # --------------------------------------------
+
+                # -------- SUBJECT SPECIFIC EVALUATION ---------
+                probs           = model.predict(test_data)
+                preds           = probs.argmax(axis = -1)  
+                fold_accuracy   = np.mean(preds == test_labels.argmax(axis=-1))
+                print("Classification accuracy: %f " % (fold_accuracy))
+                mode_accuracies[subject] = fold_accuracy
+                # ----------------------------------------------
+                callback = tf.keras.callbacks.EarlyStopping(monitor='loss', patience=5)
+                p = os.path.join("benchmarks" , benchmark_file, "run_" + str(run), mode + "_" "subj-" + str(subject) + "_" + "/")
+                os.makedirs(p)
+                with open(p + "accs" + '.json', 'w', encoding='utf-8') as f:
+                    json.dump(mode_accuracies, f, ensure_ascii=False, indent=4)
+                print("cached accs")
+
+            run_accuracies[mode] = mode_accuracies
 
         benchmark_data["run_" + str(run)] = run_accuracies
 
