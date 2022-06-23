@@ -89,7 +89,7 @@ def validate_EEGNet_IV2a():
 
     target_frequency = 128
     nb_samples = int(time_range * target_frequency)
-    benchmark_file = "xxxxxxxx_" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+    benchmark_file = "IV2a_layer-constrained-finetuning_" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
 
     # -------------- START --------------
     benchmark_data = {}

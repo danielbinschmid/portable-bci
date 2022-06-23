@@ -11,6 +11,7 @@ __pycache__*
 /py_env/custom_workspace/data/*
 /py_env/custom_workspace/logs/
 /py_env/custom_workspace/benchmarks/
+/py_env/custom_workspace/checkpoints/
 
 /node_env/evaluation/benchmarks/cache/*
 /node_env/evaluation/data/*

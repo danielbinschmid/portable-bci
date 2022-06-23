@@ -8,10 +8,8 @@ if __name__ == "__main__":
 import datetime
 import tensorflow as tf
 
-import keras.optimizers
-
 import keras.callbacks
-from n_EEGNet import EEGNet, freezeBlocks, EEGNetBlock, unfreezeBlock
+from n_EEGNet import EEGNet, freezeLayer, EEGNetBlock
 import numpy as np
 
 import r_readIV2a as IV2a
@@ -19,6 +17,7 @@ import os
 from keras import utils as np_utils
 from keras import Model
 import json
+from keras.initializers import glorot_uniform  # Or your initializer of choice
 import keras.backend as K
 
 
@@ -41,7 +40,7 @@ def fit_multiple_subjects(
 
     if initial_weights is not None:
         model.set_weights(initial_weights)
-    
+
     # fetch training trials
     train_data, train_labels = ([], [])
     for subj in subjects:
@@ -60,8 +59,6 @@ def fit_multiple_subjects(
     callbacks = [tensorboard_callback]
     if early_stopping_callback is not None:
         callbacks.append(early_stopping_callback)
-
-
     history = model.fit(train_data, train_labels, batch_size = 15, epochs = nb_epochs, verbose = 2, 
             validation_split=validation_split, validation_data=validation_data, callbacks=callbacks)
 
@@ -74,12 +71,11 @@ def validate_EEGNet_IV2a():
     class_vec = [1, 2, 3]
     nb_channels = 4
     nb_epochs = 150
-    nb_epochs_finetuning = 25
-    finetuning_learningrate = 1e-4
+    nb_epochs_finetuning = 12
 
     configFrozenLayers = [
-        [EEGNetBlock.BLOCK1_CONVPOOL, EEGNetBlock.BLOCK2_CONVPOOL],
-        [EEGNetBlock.BLOCK1_CONVPOOL],
+        [EEGNetBlock.BLOCK3_DENSESOFTMAX],
+        [EEGNetBlock.BLOCK3_DENSESOFTMAX, EEGNetBlock.BLOCK2_CONVPOOL]
     ]
 
     subjects = [1, 2, 3, 4, 5, 6, 7, 8, 9] # 1,2,3, 4, 5, 6, 7, 8, 9
@@ -89,7 +85,7 @@ def validate_EEGNet_IV2a():
 
     target_frequency = 128
     nb_samples = int(time_range * target_frequency)
-    benchmark_file = "xxxxxxxx_" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+    benchmark_file = "IV2a_layer-constrained-finetuning_" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
 
     # -------------- START --------------
     benchmark_data = {}
@@ -109,7 +105,6 @@ def validate_EEGNet_IV2a():
             numFrozenBlocks = len(frozenBlocks)
             frozenBlocksID = "nb_frozen_blocks_" + str(numFrozenBlocks)
             run_accuracies[frozenBlocksID] = {}
-            print(frozenBlocksID)
 
             for subject in subjects:
                 print("///////////// SUBJECT %s //////////////" %subject)
@@ -127,7 +122,7 @@ def validate_EEGNet_IV2a():
                 # fetch training trials
                 subjects_ = subjects.copy()
                 subjects_.remove(subject)
-                log_dir = "logs/fit/" + benchmark_file + "/pretrain_" + frozenBlocksID + "_" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+                log_dir = "logs/fit/" + benchmark_file + "/pretrain_" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
 
                 fit_multiple_subjects(
                     time_range=time_range,
@@ -146,13 +141,10 @@ def validate_EEGNet_IV2a():
                     validation_data=(test_data, test_labels)
                 )
 
-                freezeBlocks(model, frozenBlocks)
-
-                model.compile(loss='categorical_crossentropy', optimizer=keras.optimizers.Adam(learning_rate=finetuning_learningrate), 
-                    metrics = ['accuracy'])
-
+                for frozenBlock in frozenBlocks:
+                    freezeLayer(model, frozenBlock)
                 # --------------------------- fine tune to relevant subject --------------------------
-                log_dir = "logs/fit/" + benchmark_file + "/" + "finetune_subj-" + str(subject) + "_" + frozenBlocksID  +"_run-" + str(run) + "_" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+                log_dir = "logs/fit/" + benchmark_file + "/" + "finetune_subj-" + str(subject) + "_run-" + str(run) + "_" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
                 nb_epochs_ = nb_epochs_finetuning
                 initial_weights_ = None
                 # valdiation_split_ = 0.25 if mode == "naive-finetuning" else 0.
@@ -176,7 +168,7 @@ def validate_EEGNet_IV2a():
                     initial_weights=initial_weights_,
                     validation_data=(test_data, test_labels)
                 )
-    
+
                 # -------- SUBJECT SPECIFIC EVALUATION ---------
                 probs           = model.predict(test_data)
                 preds           = probs.argmax(axis = -1)  
@@ -185,16 +177,10 @@ def validate_EEGNet_IV2a():
                 run_accuracies[frozenBlocksID][subject] = fold_accuracy
                 # ----------------------------------------------
                 # callback = tf.keras.callbacks.EarlyStopping(monitor='loss', patience=5)
-                p = os.path.join("benchmarks" , benchmark_file, "run_" + str(run), "subj-" + str(subject) + "_" + frozenBlocksID + "/")
+                p = os.path.join("benchmarks" , benchmark_file, "run_" + str(run), "subj-" + str(subject) + "_" + "/")
                 os.makedirs(p)
                 with open(p + "accs" + '.json', 'w', encoding='utf-8') as f:
                     json.dump(run_accuracies, f, ensure_ascii=False, indent=4)
-
-                for block in frozenBlocks:
-                    unfreezeBlock(model, block)
-
-                model.compile(loss='categorical_crossentropy', optimizer='adam', 
-                    metrics = ['accuracy'])
 
         benchmark_data["run_" + str(run)] = run_accuracies
 

@@ -10,6 +10,7 @@ import { evaluate } from "./evaluation/experiment_transferLogEucl";
 import { test } from "./evaluation/test_runs";
 import { meanMetricAccuracies, crossSessionMeanMetricAccuracies, transferBaselineAccs, transferEuclAccs } from "./evaluation/benchmarks/evaluateResults";
 import { benchmarkMeanRuntimes } from "./webapp_port/experiment_meanMetricRuntimes";
+import { init, warmUpPrediction } from "./webapp_port/test_deepconvnet";
 
 function printAccuracies(riemann) {
     console.log("Single session 3 fold cross validation:");
@@ -29,7 +30,11 @@ function riemannInstantiatedCallback(riemannInstance) {
     // evaluate(riemann);
     // benchmarkMeanRuntimes(riemann);
     // test(riemann);
-    printAccuracies()
+    // printAccuracies()
+    init().then((model) => {
+        warmUpPrediction(model).then((number) =>
+        warmUpPrediction(model));
+    })
 }
 
 

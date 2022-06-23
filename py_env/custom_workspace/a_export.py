@@ -11,6 +11,7 @@ import tensorflowjs as tfjs
 import keras.callbacks
 import torch
 import n_CNN_LSTM
+from n_DeepConvNet import DeepConvNet
 from n_EEGNet import EEGNet
 import z_Physionet as physio
 import numpy as np
@@ -92,6 +93,22 @@ def dummy_pretrained_cnn_lstm():
     optimized_traced_model._save_for_lite_interpreter("lite_model_2.ptl")
     """
 
+def export_deepConvNet():
+    # -------- CONFIG ---------
+    n_classes = 3
+    n_channels = 4
+    n_samples = 256
+    dropout_rate = 0.5
+
+    weight_folder = "D:/bachelor-thesis/git/portable-bci/py_env/custom_workspace/checkpoints/39-0.70.hdf5"
+    # -------------------------
+    model = DeepConvNet(n_classes,n_channels, n_samples, dropout_rate)
+    model.load_weights(weight_folder)
+    model.compile(loss='categorical_crossentropy', optimizer='adam', 
+              metrics = ['accuracy'])
+
+    tfjs.converters.save_keras_model(model, "data/deepConvNet")    
+
 def export_EEGNet():
     # -------------- CONFIG ------------
     global_dataset_path = os.path.abspath(os.path.join(os.curdir, "data", "3classMI"))
@@ -137,4 +154,5 @@ def export_EEGNet():
     # with open("data/EEGNet/config.json", 'w', encoding='utf-8') as f:
         # json.dump(model_config_json, f)
 if __name__ == "__main__":
-    export_EEGNet()
+    # export_EEGNet()
+    export_deepConvNet()

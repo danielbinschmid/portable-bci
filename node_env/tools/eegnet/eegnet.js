@@ -1,6 +1,14 @@
+const tf =  require('@tensorflow/tfjs-node-gpu');
+// import { model } from '@tensorflow/tfjs-node-gpu';
+
+
+/**
+ * 
+ 
 """
 Implementation is from https://github.com/vlawhern/arl-eegmodels
 """
+
 from keras.models import Model
 from keras.layers import Dense, Activation, Permute, Dropout
 from keras.layers import Conv2D, MaxPooling2D, AveragePooling2D
@@ -11,8 +19,6 @@ from keras.regularizers import l1_l2
 from keras.layers import Input, Flatten
 from keras.constraints import max_norm
 from keras import backend as K
-
-from enum import Enum, auto
 
 
 def EEGNet(
@@ -103,7 +109,6 @@ def EEGNet(
         padding="same",
         input_shape=(Chans, Samples, 1),
         use_bias=False,
-        name="1_conv2D",
     )(input1)
     block1 = BatchNormalization()(block1)
     block1 = DepthwiseConv2D(
@@ -111,16 +116,13 @@ def EEGNet(
         use_bias=False,
         depth_multiplier=D,
         depthwise_constraint=max_norm(1.0),
-        name="1_depthConv2D",
     )(block1)
     block1 = BatchNormalization()(block1)
     block1 = Activation("elu")(block1)
     block1 = AveragePooling2D((1, 4))(block1)
     block1 = dropoutType(dropoutRate)(block1)
 
-    block2 = SeparableConv2D(
-        F2, (1, 16), use_bias=False, padding="same", name="2_conv2D"
-    )(block1)
+    block2 = SeparableConv2D(F2, (1, 16), use_bias=False, padding="same")(block1)
     block2 = BatchNormalization()(block2)
     block2 = Activation("elu")(block2)
     block2 = AveragePooling2D((1, 8))(block2)
@@ -134,54 +136,4 @@ def EEGNet(
     softmax = Activation("softmax", name="softmax")(dense)
 
     return Model(inputs=input1, outputs=softmax)
-
-
-class EEGNetBlock(Enum):
-    BLOCK1_CONVPOOL = auto()
-    BLOCK2_CONVPOOL = auto()
-    BLOCK3_DENSESOFTMAX = auto()
-
-
-ALL_BLOCKS = [
-    EEGNetBlock.BLOCK1_CONVPOOL,
-    EEGNetBlock.BLOCK2_CONVPOOL,
-    EEGNetBlock.BLOCK3_DENSESOFTMAX,
-]
-
-blockLayerNames = {
-    EEGNetBlock.BLOCK1_CONVPOOL: [
-        "input_1",
-        "1_conv2D",
-        "batch_normalization",
-        "1_depthConv2D",
-        "batch_normalization_1",
-        "activation",
-        "average_pooling2d",
-        "dropout",
-    ],
-    EEGNetBlock.BLOCK2_CONVPOOL: [
-        "2_conv2D",
-        "batch_normalization_2",
-        "activation_1",
-        "average_pooling2d_1",
-        "dropout_1",
-    ],
-    EEGNetBlock.BLOCK3_DENSESOFTMAX: ["flatten", "dense", "softmax"],
-}
-
-
-def freezeBlocks(model: Model, blocks: list[EEGNetBlock]):
-    for block in blocks:
-        for layer in model.layers:
-            if layer.name in blockLayerNames[block]:
-                layer.trainable = False
-
-
-def unfreezeBlock(model: Model, block: EEGNetBlock):
-    for layer in model.layers:
-        if layer.name in blockLayerNames[block]:
-            layer.trainable = True
-
-
-if __name__ == "__main__":
-    model = EEGNet(4, 4, 128 * 4)
+*/
