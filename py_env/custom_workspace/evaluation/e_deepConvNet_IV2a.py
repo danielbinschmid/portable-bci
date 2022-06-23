@@ -52,7 +52,7 @@ def pretrain_after_stopping():
     shuffle_split_path       = data_split_folderpath + "shuffle.txt"
     training_split_path      = data_split_folderpath + "train_indeces.txt"
     validation_split_path    = data_split_folderpath + "validation_indeces.txt" 
-    weight_path              = "./deepConvNet_train1_20220623-130450.h5"
+    weight_path              = "./data/deepConvNet/weights/deepConvNet_train1_20220623-130450.h5"
 
 
     # ---------------------- TRAIN -------------------------------
@@ -169,7 +169,7 @@ def load_and_test():
     model = DeepConvNet(nb_classes=nb_classes, Chans=nb_channels)
     model.compile(optimizer=keras.optimizers.Adam(lr), loss='categorical_crossentropy', 
                 metrics = ['accuracy'])
-    model.load_weights("./deepConvNet_train2_20220623-182725.h5")
+    model.load_weights("./data/deepConvNet/weights/deepConvNet_train2_20220623-182725.h5")
 
     avg = 0
     for subject in subjects:
@@ -196,13 +196,14 @@ def finetune():
     crop_range   = CROP_RANGE
     frequency    = FREQUENCY
     batch_size   = BATCH_SIZE
-    lr = 1e-4
+    lr = 1e-5
+    epochs = 50
 
     blocks_to_freeze = [dcnn.DeepConvNetBlock.BLOCK1_CONV, dcnn.DeepConvNetBlock.BLOCK2_CONV, dcnn.DeepConvNetBlock.BLOCK3_CONV]
 
     global_dataset_path = os.path.abspath(os.path.join(os.curdir, "data", "IV2a")) + "/"
     experiment_ID = "finetune_DeepConvNet_" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-    weight_path = "./deepConvNet_train2_20220623-182725.h5"
+    weight_path = "./data/deepConvNet/weights/deepConvNet_train2_20220623-182725.h5"
 
     get_log_dir = lambda subject: "logs/fit/" + experiment_ID + "/"  + str(subject) +  "/pretrain_" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
 
@@ -223,13 +224,15 @@ def finetune():
         cropped_train_data, cropped_train_labels = crop_trials(train_data, train_labels, frequency, crop_range, time_range)
         shuffle                                  = genShuffle(len(cropped_train_data))
         cropped_train_data, cropped_train_labels = cropped_train_data[shuffle], cropped_train_labels[shuffle]
+
+        test_data, test_labels = get_data(False, global_dataset_path, class_vec, [subject], time_range, offset_time, nb_classes)
+        test_data_cropped, test_labels_cropped = crop_trials(test_data, test_labels, frequency, crop_range, time_range)
         
         log_dir                = get_log_dir(subject)
         tensorboard_callback   = keras.callbacks.TensorBoard(log_dir=log_dir, histogram_freq=1)
         callbacks              = [tensorboard_callback]
-        history                = model.fit(cropped_train_data, cropped_train_labels, batch_size=128, epochs=15, verbose=2, callbacks=callbacks)
- 
-        test_data, test_labels = get_data(False, global_dataset_path, class_vec, [subject], time_range, offset_time, nb_classes)
+        history                = model.fit(cropped_train_data, cropped_train_labels, batch_size=batch_size, epochs=epochs, verbose=2, callbacks=callbacks, validation_data=(test_data_cropped,test_labels_cropped))
+        
         acc = benchmark_subject(model, test_data, test_labels, frequency, crop_range, time_range)
         avg += acc
 
