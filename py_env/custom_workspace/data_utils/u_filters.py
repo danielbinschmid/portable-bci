@@ -1,6 +1,4 @@
 from scipy.signal import butter, sosfilt
-import sys
-
 
 def butter_bandpass(lowcut, highcut, fs, order=5):
     nyq = 0.5 * fs
