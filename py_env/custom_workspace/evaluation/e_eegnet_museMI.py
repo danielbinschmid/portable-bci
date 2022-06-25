@@ -5,7 +5,6 @@ if __name__ == "__main__":
     sys.path.append("../data_utils/custom_typing/")
     sys.path.append("../nn_utils/")
 
-from re import sub
 from r_readmuseMI import read_crops
 import os
 from n_EEGNet import EEGNet, EEGNetBlock, freezeBlocks, unfreezeBlock
@@ -15,10 +14,10 @@ from keras import utils as np_utils
 import keras.callbacks
 import random
 
-def get_data(subjects, train_split=0.0):
+def get_data(subjects, train_split=0.0, crop_size=4.0):
     trial_data, trial_labels, pretrain_data, pretrain_labels = [], [], [], []
     for subject in subjects:
-        d, l, d_train, l_train = read_crops(subject, train_split=train_split)
+        d, l, d_train, l_train = read_crops(subject, train_split=train_split, crop_session_size=crop_size)
         trial_data, trial_labels = trial_data + d, trial_labels + l
         pretrain_data, pretrain_labels = pretrain_data + d_train, pretrain_labels + l_train
     trial_data, trial_labels = np.asarray(trial_data), np.asarray(trial_labels)
@@ -44,8 +43,8 @@ def eval():
 
     frozenBlocks = [EEGNetBlock.BLOCK1_CONVPOOL, EEGNetBlock.BLOCK2_CONVPOOL]
 
-    subjects = [4, 5, 2, 3] 
-    time_range = 4
+    subjects = [2, 3, 4, 5] 
+    time_range = 2
     nb_runs = 10
     finetune_split = 0.25
 
@@ -61,13 +60,13 @@ def eval():
         subjects_ = subjects.copy()
         subjects_.remove(subject)
 
-        pretrain_data, pretrain_labels, _, _ = get_data(subjects_)
+        pretrain_data, pretrain_labels, _, _ = get_data(subjects_, crop_size=time_range)
         shuffle = shuffle_indeces(len(pretrain_data))
         pretrain_data, pretrain_labels = pretrain_data[shuffle], pretrain_labels[shuffle]
 
-        test_data_all, test_labels_all, _, _ = get_data([subject], train_split=0.0)
+        test_data_all, test_labels_all, _, _ = get_data([subject], train_split=0.0, crop_size=time_range)
 
-        test_data, test_labels, finetune_data, finetune_labels = get_data([subject], train_split=finetune_split)
+        test_data, test_labels, finetune_data, finetune_labels = get_data([subject], train_split=finetune_split, crop_size=time_range)
         shuffle = shuffle_indeces(len(test_data))
         test_data, test_labels = test_data[shuffle], test_labels[shuffle]
         

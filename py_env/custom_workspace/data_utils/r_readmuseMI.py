@@ -2,6 +2,7 @@ import numpy as np
 import os
 import pandas
 from u_filters import butter_bandpass_filter
+import json
 CLASSID_TO_LABEL = {
     "left": 0,
     "right": 1
@@ -48,19 +49,19 @@ def readsubject(subject: int) -> tuple[list[np.ndarray], np.ndarray]:
             # print(df.head())
             df_ = df[channel_col_names]
             data = df_.to_numpy().T
+
+            # bandpass filter and centering
             data = interpolate_channels(data)
             data = data - np.mean(data, axis=1, keepdims=True)
-            
             for chIdx in range(data.shape[0]):
-                data[chIdx] = butter_bandpass_filter(data[chIdx], 0.5, 48, frequency, order=2)       
-            # bandpass filter and centering
+                data[chIdx] = butter_bandpass_filter(data[chIdx], 0.5, 48, frequency, order=2)
 
             trial_data.append(data)
             labels.append(CLASSID_TO_LABEL[c])
 
     return trial_data, np.asarray(labels)
 
-def read_crops(subject: int, target_frequency: float=128, train_split: float= 0.0) -> tuple[list[np.ndarray], list[int]]:
+def read_crops(subject: int, target_frequency: float=128, train_split: float= 0.0, crop_session_size: float=4.0) -> tuple[list[np.ndarray], list[int]]:
     """
     Computes a realistic split. 
     
@@ -71,7 +72,7 @@ def read_crops(subject: int, target_frequency: float=128, train_split: float= 0.
     # ------------- CONFIG -------------
     frequency = 250 # in Hz
     crop_shift = 25 # int
-    crop_session_size = 4 # float, in seconds
+    crop_session_size = crop_session_size # float, in seconds
     crop_size = frequency * crop_session_size
     # ----------------------------------
 
@@ -130,13 +131,36 @@ def read_crops(subject: int, target_frequency: float=128, train_split: float= 0.
 
 
 def read_crops_4fold():
-    pass
+    raise NotImplementedError()
 
 def read_crops_kfold():
-    pass
+    raise NotImplementedError()
+
+
+def export_json():
+    # --------- CONFIG ----------
+    subjects = [2, 3, 4, 5]
+    
+    save_path_raw = "./data/museMIJson/"
+
+    # ---------------------------
+    for subject in subjects:
+        data, labels = readsubject(subject)
+        trial_container = {}
+        for trialIdx in range(len(data)):
+            trial, label = data[trialIdx], labels[trialIdx]
+            container = {
+                "data": trial.tolist(),
+                "label": int(label)
+            }
+            trial_container["trial_" + str(trialIdx)] = container
+        print(trial_container)
+        with open(save_path_raw + "subj_" + str(subject) + ".json", 'w', encoding='utf-8') as f:
+            json.dump(trial_container, f)
 
 
 if __name__ == "__main__":
     os.chdir("..")
     d, l = read_crops(2)
     # print(d[0])
+    # export_json()
