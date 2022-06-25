@@ -1,7 +1,7 @@
 import { Riemann } from '../../tools/riemann/riemann';
 import tqdm from "ntqdm"; // https://github.com/jhedin/ntqdm
 import { arange } from './array_utils';
-import { Data } from '../run_eval';
+import { Data } from '../experiments/experiments_RiemannMean.js/run_eval';
 const fs = require('fs');
 const IV2aDataFolter = './evaluation/data/IV2a/';
 const prefix = IV2aDataFolter + "subj_";
@@ -49,10 +49,6 @@ function get(benchmark_data, timeseries, nSteps, tShift, riemann) {
     }
     return data;
 }
-
-
-
-
 
 /**
  * 

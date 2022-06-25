@@ -1,5 +1,5 @@
 import { arange } from "./array_utils";
-import { Data } from "../run_eval";
+import { Data } from "../experiments/experiments_RiemannMean.js/run_eval";
 
 const shuffleArray = array => {
     for (let i = array.length - 1; i > 0; i--) {

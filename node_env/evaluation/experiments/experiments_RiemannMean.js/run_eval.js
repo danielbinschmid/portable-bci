@@ -1,11 +1,11 @@
-import { HdcHersche, Encodings } from "../tools/hdc/hdchersche";
-import { maxIdx, arange } from "./data_utils/array_utils";
+import { HdcHersche, Encodings } from "../../../tools/hdc/hdchersche";
+import { maxIdx, arange } from "../../data_utils/array_utils";
 
-import { Riemann, getAllMeanMetrics, EMetric } from "../tools/riemann/riemann";
+import { Riemann, getAllMeanMetrics, EMetric } from "../../../tools/riemann/riemann";
 
-import { collectIV2a } from "./data_utils/readIV2a";
-import { computeSplit } from "./data_utils/kcross_utils";
-import { saveAsJSON } from "./data_utils/save_benchmarks";
+import { collectIV2a } from "../../data_utils/readIV2a";
+import { computeSplit } from "../../data_utils/kcross_utils";
+import { saveAsJSON } from "../../data_utils/save_benchmarks";
 
 import tqdm from "ntqdm"; // https://github.com/jhedin/ntqdm
 

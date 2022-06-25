@@ -1,16 +1,14 @@
 // ESM syntax is supported.
 import { Riemann } from "./tools/riemann/riemann";
-// import { evaluate } from "./evaluation/experiment_meanMetrics3FoldCross";
-// import { evaluate } from "./evaluation/experiment_meanMetricRuntimes";
-// import { evaluate } from "./evaluation/experiment_noCostMeans";
-// import { evaluate } from "./evaluation/experiment_noTransfer";
-// import { evaluate } from "./evaluation/experiment_transferBaseline";
-import { evaluate } from "./evaluation/experiment_transferLogEucl";
 
-import { test } from "./evaluation/test_runs";
+// import { evaluate } from "./evaluation/experiment_transferLogEucl";
+import { evaluate } from "./evaluation/experiments/experiment_hdcMuseMI";
+// import { test } from "./evaluation/test_runs";
 import { meanMetricAccuracies, crossSessionMeanMetricAccuracies, transferBaselineAccs, transferEuclAccs } from "./evaluation/benchmarks/evaluateResults";
 import { benchmarkMeanRuntimes } from "./webapp_port/experiment_meanMetricRuntimes";
 import { init, warmUpPrediction } from "./webapp_port/test_deepconvnet";
+
+import { collectMuseMI } from "./evaluation/data_utils/readMuseMI";
 
 function printAccuracies(riemann) {
     console.log("Single session 3 fold cross validation:");
@@ -23,18 +21,26 @@ function printAccuracies(riemann) {
     transferEuclAccs();
 }
 
-
-function riemannInstantiatedCallback(riemannInstance) {
-    const riemann = riemannInstance;
-
-    // evaluate(riemann);
-    // benchmarkMeanRuntimes(riemann);
-    // test(riemann);
-    // printAccuracies()
+function test_deepconvnet() {
     init().then((model) => {
         warmUpPrediction(model).then((number) =>
         warmUpPrediction(model));
     })
+}
+
+/**
+ * 
+ * @param {Riemann} riemannInstance 
+ */
+function riemannInstantiatedCallback(riemannInstance) {
+    const riemann = riemannInstance;
+
+    evaluate(riemann)
+    // evaluate(riemann);
+    // benchmarkMeanRuntimes(riemann);
+    // test(riemann);
+    // printAccuracies()
+    
 }
 
 

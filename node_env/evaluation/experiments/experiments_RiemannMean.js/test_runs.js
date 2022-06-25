@@ -1,5 +1,5 @@
-import d from "./data/IV2a/subj_1_all.json"
-import { Riemann } from "../tools/riemann/riemann";
+import d from "../../data/IV2a/subj_1_all.json"
+import { Riemann } from "../../../tools/riemann/riemann";
 import tqdm from "ntqdm";
 /**
  * 

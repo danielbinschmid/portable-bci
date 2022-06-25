@@ -11,6 +11,50 @@ export function arange(start, end) {
 }
 
 /**
+ * Shuffles array in place.
+ * @param {Array} a items An array containing the items.
+ */
+export function shuffle(a) {
+    var j, x, i;
+    for (i = a.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1));
+        x = a[i];
+        a[i] = a[j];
+        a[j] = x;
+    }
+    return a;
+}
+
+/**
+ * Shuffles array in place.
+ * @param {Array} a items An array containing the items.
+ */
+ export function shuffle2(a, b) {
+    var j, x, y, i;
+    for (i = a.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1));
+        x = a[i];
+        y = b[i]
+        a[i] = a[j];
+        b[i] = b[j];
+        a[j] = x;
+        b[j] = y;
+    }
+}
+/**
+ * 
+ * @param {number} scalar 
+ * @param {number} size 
+ */
+export function fill(scalar, size) {
+    const arr = [];
+    for (let i = 0; i < size; i++) {
+        arr.push(scalar);
+    }
+    return arr;
+}
+
+/**
  * Index of maximum value in array
  * @param {number[]} arr 
  * @returns {number}
