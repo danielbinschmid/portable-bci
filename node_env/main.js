@@ -37,12 +37,11 @@ function test_deepconvnet() {
  */
 function riemannInstantiatedCallback(riemannInstance) {
     const riemann = riemannInstance;
-    // evaluate(riemann);
-    // evaluate(riemann)
-    // evaluate(riemann);
+    
+    evaluate(riemann);
     // benchmarkMeanRuntimes(riemann);
     // test(riemann);
-    printAccuracies()
+    // printAccuracies()
     
 }
 

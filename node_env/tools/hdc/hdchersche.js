@@ -62,6 +62,7 @@ export class HdcHersche {
         this._riemann = riemann;
 
         this._riemannKernel = this._riemann.RiemannKernel();
+        this._riemannKernel.setMeanMetric(riemann.EMetric.Euclidian);
         this._associativeMemory = tf.tensor2d([1], [1, 1]);
 
         // data length configs

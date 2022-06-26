@@ -6,6 +6,14 @@ import { maxIdx } from '../../evaluation/data_utils/array_utils';
 import { bernoulli } from './hdc_utils/probability';
 import { Riemann } from "../riemann/riemann";
 
+export var SETTINGS = {
+    nBands: 0,
+    nChannels: 0,
+    hdDim: 0,
+    classLabels: [0, 1, 2],
+    useTSpaceNGrams: false
+}
+
 export class HdcRiemannCiM {
     /** @type {number} - hyperdimension */
     _hdDim;
@@ -35,27 +43,32 @@ export class HdcRiemannCiM {
     _classLabels;
     /** @type {tf.Tensor2D} Associative memory */
     _AM;
+    /** @type {boolean} whether to use ngrams for the transformation of the tangent space. Defaults to false  */
+    _useTSpaceNGrams;
 
     /**
      * 
-     * @param {number} nBands 
-     * @param {number} nChannels 
-     * @param {number} hdDim 
-     * @param {Riemann} riemann 
-     * @param {number[]} classLabels
+     * @param {SETTINGS} settings
+     * @param {Riemann} riemann
      */
-    constructor(nBands, nChannels, hdDim, riemann, classLabels = [0, 1, 2]) {
+    constructor(settings, riemann) {
         // ------------------------------
         this._riemann = riemann;
         this._riemannKernel = riemann.RiemannKernel();
-        this._hdDim = hdDim;
-        this._nBands = nBands;
-        this._nChannels = nChannels;
-        this._nTSpaceDims = (nChannels * (nChannels + 1)) / 2;
+        this._hdDim = settings.hdDim;
+        this._nBands = settings.nBands;
+        this._nChannels = settings.nChannels;
+        this._nTSpaceDims = (settings.nChannels * (settings.nChannels + 1)) / 2;
         this._nTrials = 0;
         this._qLevel = 100;
         this._trialLabels = [];
-        this._classLabels = classLabels;
+        this._classLabels = settings.classLabels;
+        if (settings.useTSpaceNGrams) {
+            this._useTSpaceNGrams = settings.useTSpaceNGrams;
+        } else {
+            this._useTSpaceNGrams = false;
+        }
+        
 
         //  -----------------------------
         [this._iMBands, this._iMTSpace] = this._genItemMemory();
@@ -158,11 +171,14 @@ export class HdcRiemannCiM {
 
                 const trialTensor = tf.tidy(() => {
                     var trialTensor_ = vm._CiMEmbedding.apply(trial).toBool();
-                    trialTensor_ = this._transformTSpace(trialTensor_);
+                    if (!this._useTSpaceNGrams) {
+                        trialTensor_ = this._transformTSpace(trialTensor_);   
+                    } else {
+                        trialTensor_ = this._transformTSpaceNGram(trialTensor_); 
+                    }
                     trialTensor_ = this._transformFBands(trialTensor_);
                     return trialTensor_
                 });
-
                 trialsTransformed.push(trialTensor);
             }
             const returnTensor = tf.stack(trialsTransformed);
@@ -318,6 +334,43 @@ export class HdcRiemannCiM {
             weights: [CiM]
         });
         this._CiMEmbedding = embedding;
+    }
+
+
+    /**
+     * @param {tf.Tensor3D} trialTensor shape (nBands, nTSpaceDim, hdDim)
+     * @returns {tf.Tensor2D}
+     */
+     _transformTSpaceNGram(trialTensor) {
+        const vm = this;
+        const t = tf.tidy(() => {
+            const shifted = [];
+            for (var Tidx = 0; Tidx < this._nTSpaceDims; Tidx++) {
+                var tSpaceDim = trialTensor.gather(tf.tensor1d([Tidx], 'int32'), 1);
+                const part1 = tSpaceDim.slice([0, 0, Tidx], [this._nBands, 1, this._hdDim - Tidx]);
+                const part2 = tSpaceDim.slice([0, 0, 0], [this._nBands, 1, Tidx]);
+                tSpaceDim = part1.concat(part2, 2);
+                shifted.push(tSpaceDim)
+            }
+            var trialTensor_ = tf.concat(shifted, 1);
+            // multiply vecs
+            const bandTensors = trialTensor_.unstack();
+            const bandTensorsNew = [];
+            for (const bandTensor of bandTensors) {
+                const nTSpaceVecs = bandTensor.unstack();
+                var currentVec = nTSpaceVecs[0];
+
+                
+                for (var i = 1; i < nTSpaceVecs.length; i++) {
+                    currentVec = currentVec.logicalXor(nTSpaceVecs[i]);
+                }
+                bandTensorsNew.push(currentVec);
+            }
+            trialTensor_ = tf.stack(bandTensorsNew);
+
+            return trialTensor_;
+        })
+        return t;
     }
 }
 
