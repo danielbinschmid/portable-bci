@@ -2,13 +2,16 @@
 import { Riemann } from "./tools/riemann/riemann";
 
 // import { evaluate } from "./evaluation/experiment_transferLogEucl";
-import { evaluate } from "./evaluation/experiments/experiment_hdcMuseMI";
+// import { evaluate } from "./evaluation/experiments/experiment_hdcMuseMI";
+import { evaluate } from "./evaluation/experiments/experiment_hdcRiemannCiM";
 // import { test } from "./evaluation/test_runs";
 import { meanMetricAccuracies, crossSessionMeanMetricAccuracies, transferBaselineAccs, transferEuclAccs } from "./evaluation/benchmarks/evaluateResults";
 import { benchmarkMeanRuntimes } from "./webapp_port/experiment_meanMetricRuntimes";
 import { init, warmUpPrediction } from "./webapp_port/test_deepconvnet";
 
 import { collectMuseMI } from "./evaluation/data_utils/readMuseMI";
+
+
 
 function printAccuracies(riemann) {
     console.log("Single session 3 fold cross validation:");
@@ -34,12 +37,12 @@ function test_deepconvnet() {
  */
 function riemannInstantiatedCallback(riemannInstance) {
     const riemann = riemannInstance;
-
-    evaluate(riemann)
+    // evaluate(riemann);
+    // evaluate(riemann)
     // evaluate(riemann);
     // benchmarkMeanRuntimes(riemann);
     // test(riemann);
-    // printAccuracies()
+    printAccuracies()
     
 }
 

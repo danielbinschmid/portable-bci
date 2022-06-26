@@ -19,6 +19,8 @@ const suffix = "_all.json";
 function get(benchmark_data, timeseries, nSteps, tShift, riemann) {
     const data = []
 
+    const nChannels = 4;
+
     for (const trialIdx of tqdm(arange(0, benchmark_data.length), { logging: true })) { // benchmark_data.length
 
         const trial = benchmark_data[trialIdx];
@@ -36,7 +38,14 @@ function get(benchmark_data, timeseries, nSteps, tShift, riemann) {
         // get trial
         for (var t = 0; t < nSteps; t++) {
             const channelData = [];
-            for (const channel of trial) { channelData.push(channel[t + tShift]); }
+            var chIdx = 0;
+            for (const channel of trial) { 
+                if (chIdx < nChannels) {
+                    channelData.push(channel[t + tShift]); 
+                }
+                
+                chIdx ++;
+            }
             timeseries.addTimestep(channelData);
         }
         let trialTensor = riemann.Timetensor();
