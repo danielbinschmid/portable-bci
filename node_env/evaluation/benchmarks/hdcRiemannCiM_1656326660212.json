@@ -1,0 +1,382 @@
+{
+    "run_0": {
+        "subj_1": {
+            "isReversed_false": 0.8666666666666667,
+            "isReversed_true": 0.7815533980582524
+        },
+        "subj_2": {
+            "isReversed_false": 0.3933649289099526,
+            "isReversed_true": 0.44554455445544555
+        },
+        "subj_3": {
+            "isReversed_false": 0.6439024390243903,
+            "isReversed_true": 0.6847290640394089
+        },
+        "subj_4": {
+            "isReversed_false": 0.64,
+            "isReversed_true": 0.5510204081632653
+        },
+        "subj_5": {
+            "isReversed_false": 0.40096618357487923,
+            "isReversed_true": 0.4512820512820513
+        },
+        "subj_6": {
+            "isReversed_false": 0.5123456790123457,
+            "isReversed_true": 0.4691358024691358
+        },
+        "subj_7": {
+            "isReversed_false": 0.4834123222748815,
+            "isReversed_true": 0.535
+        },
+        "subj_8": {
+            "isReversed_false": 0.7389162561576355,
+            "isReversed_true": 0.6377551020408163
+        },
+        "subj_9": {
+            "isReversed_false": 0.6432160804020101,
+            "isReversed_true": 0.536723163841808
+        }
+    },
+    "run_1": {
+        "subj_1": {
+            "isReversed_false": 0.8571428571428571,
+            "isReversed_true": 0.7864077669902912
+        },
+        "subj_2": {
+            "isReversed_false": 0.4265402843601896,
+            "isReversed_true": 0.42574257425742573
+        },
+        "subj_3": {
+            "isReversed_false": 0.6487804878048781,
+            "isReversed_true": 0.7192118226600985
+        },
+        "subj_4": {
+            "isReversed_false": 0.6457142857142857,
+            "isReversed_true": 0.5459183673469388
+        },
+        "subj_5": {
+            "isReversed_false": 0.4492753623188406,
+            "isReversed_true": 0.35384615384615387
+        },
+        "subj_6": {
+            "isReversed_false": 0.48148148148148145,
+            "isReversed_true": 0.4876543209876543
+        },
+        "subj_7": {
+            "isReversed_false": 0.45023696682464454,
+            "isReversed_true": 0.575
+        },
+        "subj_8": {
+            "isReversed_false": 0.7241379310344828,
+            "isReversed_true": 0.6785714285714286
+        },
+        "subj_9": {
+            "isReversed_false": 0.6633165829145728,
+            "isReversed_true": 0.5254237288135594
+        }
+    },
+    "run_2": {
+        "subj_1": {
+            "isReversed_false": 0.8428571428571429,
+            "isReversed_true": 0.8106796116504854
+        },
+        "subj_2": {
+            "isReversed_false": 0.4265402843601896,
+            "isReversed_true": 0.43564356435643564
+        },
+        "subj_3": {
+            "isReversed_false": 0.6390243902439025,
+            "isReversed_true": 0.6995073891625616
+        },
+        "subj_4": {
+            "isReversed_false": 0.6685714285714286,
+            "isReversed_true": 0.49489795918367346
+        },
+        "subj_5": {
+            "isReversed_false": 0.4251207729468599,
+            "isReversed_true": 0.4
+        },
+        "subj_6": {
+            "isReversed_false": 0.5061728395061729,
+            "isReversed_true": 0.5123456790123457
+        },
+        "subj_7": {
+            "isReversed_false": 0.4834123222748815,
+            "isReversed_true": 0.52
+        },
+        "subj_8": {
+            "isReversed_false": 0.7339901477832512,
+            "isReversed_true": 0.6683673469387755
+        },
+        "subj_9": {
+            "isReversed_false": 0.6582914572864321,
+            "isReversed_true": 0.5254237288135594
+        }
+    },
+    "run_3": {
+        "subj_1": {
+            "isReversed_false": 0.819047619047619,
+            "isReversed_true": 0.7766990291262136
+        },
+        "subj_2": {
+            "isReversed_false": 0.3981042654028436,
+            "isReversed_true": 0.46534653465346537
+        },
+        "subj_3": {
+            "isReversed_false": 0.6682926829268293,
+            "isReversed_true": 0.6896551724137931
+        },
+        "subj_4": {
+            "isReversed_false": 0.68,
+            "isReversed_true": 0.5153061224489796
+        },
+        "subj_5": {
+            "isReversed_false": 0.42995169082125606,
+            "isReversed_true": 0.4358974358974359
+        },
+        "subj_6": {
+            "isReversed_false": 0.5061728395061729,
+            "isReversed_true": 0.4876543209876543
+        },
+        "subj_7": {
+            "isReversed_false": 0.4786729857819905,
+            "isReversed_true": 0.56
+        },
+        "subj_8": {
+            "isReversed_false": 0.7241379310344828,
+            "isReversed_true": 0.6785714285714286
+        },
+        "subj_9": {
+            "isReversed_false": 0.6683417085427136,
+            "isReversed_true": 0.5480225988700564
+        }
+    },
+    "run_4": {
+        "subj_1": {
+            "isReversed_false": 0.8571428571428571,
+            "isReversed_true": 0.7766990291262136
+        },
+        "subj_2": {
+            "isReversed_false": 0.44549763033175355,
+            "isReversed_true": 0.4801980198019802
+        },
+        "subj_3": {
+            "isReversed_false": 0.6585365853658537,
+            "isReversed_true": 0.6748768472906403
+        },
+        "subj_4": {
+            "isReversed_false": 0.68,
+            "isReversed_true": 0.5255102040816326
+        },
+        "subj_5": {
+            "isReversed_false": 0.3961352657004831,
+            "isReversed_true": 0.38974358974358975
+        },
+        "subj_6": {
+            "isReversed_false": 0.5617283950617284,
+            "isReversed_true": 0.4691358024691358
+        },
+        "subj_7": {
+            "isReversed_false": 0.5213270142180095,
+            "isReversed_true": 0.565
+        },
+        "subj_8": {
+            "isReversed_false": 0.7192118226600985,
+            "isReversed_true": 0.6887755102040817
+        },
+        "subj_9": {
+            "isReversed_false": 0.6582914572864321,
+            "isReversed_true": 0.5423728813559322
+        }
+    },
+    "run_5": {
+        "subj_1": {
+            "isReversed_false": 0.8571428571428571,
+            "isReversed_true": 0.7864077669902912
+        },
+        "subj_2": {
+            "isReversed_false": 0.43601895734597157,
+            "isReversed_true": 0.46534653465346537
+        },
+        "subj_3": {
+            "isReversed_false": 0.6731707317073171,
+            "isReversed_true": 0.6748768472906403
+        },
+        "subj_4": {
+            "isReversed_false": 0.6571428571428571,
+            "isReversed_true": 0.5051020408163265
+        },
+        "subj_5": {
+            "isReversed_false": 0.41545893719806765,
+            "isReversed_true": 0.4
+        },
+        "subj_6": {
+            "isReversed_false": 0.4876543209876543,
+            "isReversed_true": 0.5
+        },
+        "subj_7": {
+            "isReversed_false": 0.4597156398104265,
+            "isReversed_true": 0.605
+        },
+        "subj_8": {
+            "isReversed_false": 0.6847290640394089,
+            "isReversed_true": 0.6428571428571429
+        },
+        "subj_9": {
+            "isReversed_false": 0.6683417085427136,
+            "isReversed_true": 0.5254237288135594
+        }
+    },
+    "run_6": {
+        "subj_1": {
+            "isReversed_false": 0.8333333333333334,
+            "isReversed_true": 0.7912621359223301
+        },
+        "subj_2": {
+            "isReversed_false": 0.4549763033175355,
+            "isReversed_true": 0.41089108910891087
+        },
+        "subj_3": {
+            "isReversed_false": 0.6536585365853659,
+            "isReversed_true": 0.6847290640394089
+        },
+        "subj_4": {
+            "isReversed_false": 0.6628571428571428,
+            "isReversed_true": 0.5306122448979592
+        },
+        "subj_5": {
+            "isReversed_false": 0.3864734299516908,
+            "isReversed_true": 0.4256410256410256
+        },
+        "subj_6": {
+            "isReversed_false": 0.5493827160493827,
+            "isReversed_true": 0.49382716049382713
+        },
+        "subj_7": {
+            "isReversed_false": 0.4881516587677725,
+            "isReversed_true": 0.565
+        },
+        "subj_8": {
+            "isReversed_false": 0.7093596059113301,
+            "isReversed_true": 0.673469387755102
+        },
+        "subj_9": {
+            "isReversed_false": 0.6733668341708543,
+            "isReversed_true": 0.5480225988700564
+        }
+    },
+    "run_7": {
+        "subj_1": {
+            "isReversed_false": 0.8523809523809524,
+            "isReversed_true": 0.8009708737864077
+        },
+        "subj_2": {
+            "isReversed_false": 0.44549763033175355,
+            "isReversed_true": 0.4158415841584158
+        },
+        "subj_3": {
+            "isReversed_false": 0.6536585365853659,
+            "isReversed_true": 0.6945812807881774
+        },
+        "subj_4": {
+            "isReversed_false": 0.6342857142857142,
+            "isReversed_true": 0.5510204081632653
+        },
+        "subj_5": {
+            "isReversed_false": 0.38164251207729466,
+            "isReversed_true": 0.39487179487179486
+        },
+        "subj_6": {
+            "isReversed_false": 0.5370370370370371,
+            "isReversed_true": 0.5061728395061729
+        },
+        "subj_7": {
+            "isReversed_false": 0.5071090047393365,
+            "isReversed_true": 0.55
+        },
+        "subj_8": {
+            "isReversed_false": 0.7093596059113301,
+            "isReversed_true": 0.6632653061224489
+        },
+        "subj_9": {
+            "isReversed_false": 0.6733668341708543,
+            "isReversed_true": 0.536723163841808
+        }
+    },
+    "run_8": {
+        "subj_1": {
+            "isReversed_false": 0.8333333333333334,
+            "isReversed_true": 0.8009708737864077
+        },
+        "subj_2": {
+            "isReversed_false": 0.4597156398104265,
+            "isReversed_true": 0.4158415841584158
+        },
+        "subj_3": {
+            "isReversed_false": 0.6780487804878049,
+            "isReversed_true": 0.7044334975369458
+        },
+        "subj_4": {
+            "isReversed_false": 0.6571428571428571,
+            "isReversed_true": 0.5459183673469388
+        },
+        "subj_5": {
+            "isReversed_false": 0.3719806763285024,
+            "isReversed_true": 0.41025641025641024
+        },
+        "subj_6": {
+            "isReversed_false": 0.5432098765432098,
+            "isReversed_true": 0.5432098765432098
+        },
+        "subj_7": {
+            "isReversed_false": 0.4786729857819905,
+            "isReversed_true": 0.54
+        },
+        "subj_8": {
+            "isReversed_false": 0.6995073891625616,
+            "isReversed_true": 0.6785714285714286
+        },
+        "subj_9": {
+            "isReversed_false": 0.6482412060301508,
+            "isReversed_true": 0.536723163841808
+        }
+    },
+    "run_9": {
+        "subj_1": {
+            "isReversed_false": 0.8523809523809524,
+            "isReversed_true": 0.7961165048543689
+        },
+        "subj_2": {
+            "isReversed_false": 0.47393364928909953,
+            "isReversed_true": 0.47029702970297027
+        },
+        "subj_3": {
+            "isReversed_false": 0.6439024390243903,
+            "isReversed_true": 0.6798029556650246
+        },
+        "subj_4": {
+            "isReversed_false": 0.6685714285714286,
+            "isReversed_true": 0.4846938775510204
+        },
+        "subj_5": {
+            "isReversed_false": 0.34299516908212563,
+            "isReversed_true": 0.4358974358974359
+        },
+        "subj_6": {
+            "isReversed_false": 0.4876543209876543,
+            "isReversed_true": 0.5123456790123457
+        },
+        "subj_7": {
+            "isReversed_false": 0.4597156398104265,
+            "isReversed_true": 0.605
+        },
+        "subj_8": {
+            "isReversed_false": 0.7339901477832512,
+            "isReversed_true": 0.6326530612244898
+        },
+        "subj_9": {
+            "isReversed_false": 0.6934673366834171,
+            "isReversed_true": 0.5310734463276836
+        }
+    }
+}

@@ -1,90 +1,32 @@
 import * as tf from '@tensorflow/tfjs-node-gpu';
-// import '@tensorflow/tfjs-backend-wasm';
-// import { randomUniformVariable } from '@tensorflow/tfjs-layers/dist/variables';
-
 import { maxIdx } from '../../evaluation/data_utils/array_utils';
 import { bernoulli } from './hdc_utils/probability';
 import { Riemann } from "../riemann/riemann";
+import { HdcCiMBase, SETTINGS } from "./hdcCiMBase";
 
-export var SETTINGS = {
-    nBands: 0,
-    nChannels: 0,
-    hdDim: 0,
-    classLabels: [0, 1, 2],
-    useTSpaceNGrams: false
-}
 
-export class HdcRiemannCiM {
-    /** @type {number} - hyperdimension */
-    _hdDim;
-    /** @type {number} number of frequency band */
-    _nBands;
-    /** @type {number} Number of channels of the EEG recording device */
-    _nChannels;
-    /** @type {tf.Tensor3D} Item memory for frequency bands */
+export class HdcCiMBsc extends HdcCiMBase {
+    /** @type {tf.Tensor2D} Item memory for frequency bands */
     _iMBands;
-    /** @type {tf.Tensor3D} Item memory for tangent space dimensions */
+    /** @type {tf.Tensor2D} Item memory for tangent space dimensions */
     _iMTSpace;
-    /** @type {number} number of dimensions in tangent space */
-    _nTSpaceDims;
-    /** @type {Riemann} Wasm backend */
-    _riemann;
-    /** @type {RiemannKernel_d} Riemann kernel in wasm backend */
-    _riemannKernel;
-    /** @type {number} Number of collected training trials */
-    _nTrials;
-    /** @type {number} Quantization level, defaults to 100 */
-    _qLevel;
     /** @type {tf.layers.Layer} Continuous item memory for quantization mapping */
     _CiMEmbedding;
-    /** @type {number[]} Labels of collected trials */
-    _trialLabels;
-    /** @type {number[]} Class label vector */
-    _classLabels;
     /** @type {tf.Tensor2D} Associative memory */
     _AM;
-    /** @type {boolean} whether to use ngrams for the transformation of the tangent space. Defaults to false  */
-    _useTSpaceNGrams;
 
     /**
      * 
-     * @param {SETTINGS} settings
-     * @param {Riemann} riemann
+     * @param {SETTINGS} settings 
+     * @param {Riemann} riemann 
      */
     constructor(settings, riemann) {
-        // ------------------------------
-        this._riemann = riemann;
-        this._riemannKernel = riemann.RiemannKernel();
-        this._hdDim = settings.hdDim;
-        this._nBands = settings.nBands;
-        this._nChannels = settings.nChannels;
-        this._nTSpaceDims = (settings.nChannels * (settings.nChannels + 1)) / 2;
-        this._nTrials = 0;
-        this._qLevel = 100;
-        this._trialLabels = [];
-        this._classLabels = settings.classLabels;
-        if (settings.useTSpaceNGrams) {
-            this._useTSpaceNGrams = settings.useTSpaceNGrams;
-        } else {
-            this._useTSpaceNGrams = false;
-        }
-        
+        super(settings, riemann);
 
-        //  -----------------------------
         [this._iMBands, this._iMTSpace] = this._genItemMemory();
         this._genCiM();
-        this._riemannKernel.setMeanMetric(riemann.EMetric.Euclidian);
     }
 
-    /**
-     * Adds a training trial
-     * @param {Timetensor_d} timetensor 
-     */
-    addTrial(timetensor, label) {
-        this._riemannKernel.addTrial(timetensor);
-        this._nTrials += 1;
-        this._trialLabels.push(label);
-    }
 
     /**
      * Predicts the label of a trial/ timetensor
@@ -129,20 +71,18 @@ export class HdcRiemannCiM {
         // create AM
         const trainingSet = this._encodeBatch(trainBuffer_, this._nTrials);
         this._genAM(trainingSet);
-        
+
         var acc = null;
-        if (emitTrainingAccuracy) 
-        {
+        if (emitTrainingAccuracy) {
             const trainTensors = trainingSet.unstack();
             var nCorrects = 0;
-            for (var trialIdx = 0; trialIdx < trainTensors.length; trialIdx++) 
-            {
+            for (var trialIdx = 0; trialIdx < trainTensors.length; trialIdx++) {
                 const probs = this._queryAM(trainTensors[trialIdx]);
-                const pred =  maxIdx(probs.arraySync());
+                const pred = maxIdx(probs.arraySync());
                 nCorrects += pred == this._trialLabels[trialIdx];
             }
             acc = nCorrects / trainTensors.length;
-            
+
             tf.dispose(trainTensors);
         }
         trainingSet.dispose();
@@ -163,7 +103,7 @@ export class HdcRiemannCiM {
         const batchTensor = tf.tidy(() => {
             var trainTensor = tf.tensor3d(typedArr, [nTrials, vm._nBands, vm._nTSpaceDims]);
             trainTensor = vm._quantize(trainTensor, nTrials);
-            
+
             // unstack trials to prevent allocating the whole training set as single tensor
             const trials = trainTensor.unstack();
             const trialsTransformed = []
@@ -172,9 +112,9 @@ export class HdcRiemannCiM {
                 const trialTensor = tf.tidy(() => {
                     var trialTensor_ = vm._CiMEmbedding.apply(trial).toBool();
                     if (!this._useTSpaceNGrams) {
-                        trialTensor_ = this._transformTSpace(trialTensor_);   
+                        trialTensor_ = this._transformTSpace(trialTensor_);
                     } else {
-                        trialTensor_ = this._transformTSpaceNGram(trialTensor_); 
+                        trialTensor_ = this._transformTSpaceNGram(trialTensor_);
                     }
                     trialTensor_ = this._transformFBands(trialTensor_);
                     return trialTensor_
@@ -192,7 +132,7 @@ export class HdcRiemannCiM {
      * @param {tf.Tensor3D} trialTensor - of shape (nBands, nTSpaceDims, hdDim) 
      * @returns {tf.Tensor2D} - of shape (nBands, hdDim)
      */
-    _transformTSpace(trialTensor) {
+     _transformTSpace(trialTensor) {
         const vm = this;
         return tf.tidy(() => {
             var trialTensor_ = trialTensor.logicalXor(vm._iMTSpace);
@@ -226,38 +166,10 @@ export class HdcRiemannCiM {
     }
 
     /**
-     * Quantizes tangent space via formula:
-     * int( (x - mean) * (q / sigma) + (q - 1) / 2) )
-     * 
-     * @param {tf.Tensor3D} trainTensor - of shape (nTrials, nBands, nTSpaceDims)
-     */
-    _quantize(trainTensor, nTrials) {
-        const vm = this;
-        return tf.tidy(() => {
-            // moments
-            const moments = tf.moments(trainTensor, 2);
-            const std = moments.variance.sqrt();
-            const sigma = std.mul(tf.scalar(3)).reshape([nTrials, vm._nBands, 1]).tile([1, 1, vm._nTSpaceDims]);
-            const means = moments.mean.reshape([nTrials, vm._nBands, 1]).tile([1, 1, vm._nTSpaceDims]);
-
-            // int( (x - mean) * (q / sigma) + (q - 1) / 2) )
-            trainTensor = trainTensor.sub(means);
-            trainTensor = trainTensor.div(sigma);
-            trainTensor = trainTensor.mul(tf.scalar(vm._qLevel));
-            trainTensor = trainTensor.add(tf.scalar((vm._qLevel - 1) / 2)).toInt();
-
-            // clip to quantization levels
-            trainTensor = trainTensor.clipByValue(0, vm._qLevel - 1);
-
-            return trainTensor
-        });
-    }
-
-    /**
      * 
      * @param {tf.Tensor2D} trainingSet 
      */
-    _genAM(trainingSet) {
+     _genAM(trainingSet) {
         const labels = this._trialLabels.map((val, ind) => [val, ind]);
         const classSymbols = [];
 
@@ -359,7 +271,6 @@ export class HdcRiemannCiM {
             for (const bandTensor of bandTensors) {
                 const nTSpaceVecs = bandTensor.unstack();
                 var currentVec = nTSpaceVecs[0];
-
                 
                 for (var i = 1; i < nTSpaceVecs.length; i++) {
                     currentVec = currentVec.logicalXor(nTSpaceVecs[i]);
@@ -373,4 +284,3 @@ export class HdcRiemannCiM {
         return t;
     }
 }
-

@@ -4,8 +4,9 @@ import { Riemann } from "./tools/riemann/riemann";
 // import { evaluate } from "./evaluation/experiment_transferLogEucl";
 // import { evaluate } from "./evaluation/experiments/experiment_hdcMuseMI";
 import { evaluate } from "./evaluation/experiments/experiment_hdcRiemannCiM";
+import { testCiM, testCosDist } from "./tools/hdc/hdcCiMHrr";
 // import { test } from "./evaluation/test_runs";
-import { meanMetricAccuracies, crossSessionMeanMetricAccuracies, transferBaselineAccs, transferEuclAccs } from "./evaluation/benchmarks/evaluateResults";
+import { meanMetricAccuracies, crossSessionMeanMetricAccuracies, transferBaselineAccs, transferEuclAccs, riemannCiMAccs } from "./evaluation/benchmarks/evaluateResults";
 import { benchmarkMeanRuntimes } from "./webapp_port/experiment_meanMetricRuntimes";
 import { init, warmUpPrediction } from "./webapp_port/test_deepconvnet";
 
@@ -22,6 +23,8 @@ function printAccuracies(riemann) {
     transferBaselineAccs();
     console.log("Euclidian mean online cross session: ")
     transferEuclAccs();
+    console.log("Riemann CiM Accs with Euclidian mean, no transfer cross session: ")
+    riemannCiMAccs();
 }
 
 function test_deepconvnet() {
@@ -38,6 +41,8 @@ function test_deepconvnet() {
 function riemannInstantiatedCallback(riemannInstance) {
     const riemann = riemannInstance;
     
+    // testCiM()
+    // testCosDist()
     evaluate(riemann);
     // benchmarkMeanRuntimes(riemann);
     // test(riemann);

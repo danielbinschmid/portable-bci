@@ -1,9 +1,12 @@
-import { HdcRiemannCiM, SETTINGS  } from "../../tools/hdc/hdcRiemannCiM";
+import { SETTINGS } from "../../tools/hdc/hdcCiMBase";
+import { HdcCiMBsc } from "../../tools/hdc/hdcCiMBsc";
+import { HdcCiMHrr } from "../../tools/hdc/hdcCiMHrr";
 import { HdcHersche, Encodings } from "../../tools/hdc/hdchersche";
 import { collectIV2a } from "../data_utils/readIV2a";
 import { Riemann } from "../../tools/riemann/riemann";
 import { maxIdx, arange } from "../data_utils/array_utils";
 import tqdm from "ntqdm"; // https://github.com/jhedin/ntqdm
+import { saveAsJSON } from "../data_utils/save_benchmarks";
 
 function get_data(data, isReversed) {
     const data_ = {};
@@ -42,12 +45,19 @@ export async function evaluate(riemann) {
 
     const nRuns = 10;
     const timeseries = riemann.Timeseries(basicSettings.nChannels, basicSettings.nBands, frequency, trialLengthSecs * frequency);
+
+    const experimentID = "hdcRiemannCiM"
     // -------------------------
 
     const dataAll = {};
+    const accs = {};
 
     for (var run = 0; run < nRuns; run++) {
+        const run_id = "run_" + run
+        accs[run_id] = {};
         for (const subject of subjects) {
+            const subj_id = "subj_" + subject
+            accs[run_id][subj_id] = {};
             if (!dataAll[subject]) 
             { 
                 console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
@@ -56,14 +66,16 @@ export async function evaluate(riemann) {
                 console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
             }
             for (const isReversed of [false, true]) {
+                const sessionID = "isReversed_" + isReversed;
                 console.log("--------------------------------------------------------------------------")
                 console.log("TEST RUN " + run + ", SUBJECT "+ subject + ", reversed sessions: " + isReversed);
 
-                const hdc = new HdcRiemannCiM(basicSettings, riemann);
+                const hdc = new HdcCiMHrr(basicSettings, riemann);
+                // const hdc = new HdcHersche(basicSettings.nBands, basicSettings.nChannels, basicSettings.classLabels, Encodings.THERMOMETER, { q: 2 * 393}, riemann);
                 const data = get_data(dataAll[subject], isReversed);
 
                 console.log("fitting hdc ..")
-                for (var trialIdx = 0; trialIdx < data.train_data.length; trialIdx++) { hdc.addTrial(data.train_data[trialIdx].trial, data.train_labels[trialIdx] - 1); }
+                for (var trialIdx = 0; trialIdx < data.train_data.length; trialIdx++) { hdc.collectTrial(data.train_data[trialIdx].trial, data.train_labels[trialIdx] - 1); }
                 const trainingAcc = await hdc.fit(true);
 
                 var nCorrects = 0;
@@ -77,8 +89,11 @@ export async function evaluate(riemann) {
                 const acc = nCorrects / data.benchmark_data.length; // data.benchmark_data.length
                 console.log("cross sesh acc: " + acc + ", training set acc: " + trainingAcc);
                 console.log("--------------------------------------------------------------------------")
+
+                accs[run_id][subj_id][sessionID] = acc;
             }
-            
+            // saveAsJSON(accs, "cache/" + experimentID);
         }
     }    
+    // saveAsJSON(accs, experimentID);
 }
