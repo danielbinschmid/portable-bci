@@ -44,7 +44,6 @@ export class HdcCiMHrr extends HdcCiMBase {
         })
 
         const predictionArray = await prediction.array();
-        console.log(predictionArray)
         prediction.dispose();
 
         return predictionArray
@@ -54,17 +53,27 @@ export class HdcCiMHrr extends HdcCiMBase {
      * 
      * @param {tf.Tensor1D} trial 
      */
-    _queryAM(trial) {
+    _queryAM(trial, AM_=this._AM) {
         const vm = this;
         return tf.tidy(() => {
-            const AM = this._AM.unstack();
+            const AM = AM_.unstack();
             var dists = []
             for (const AMVec of AM) {
-                dists.push(tf.dot(AMVec, trial));
+                dists.push(tf.dot(AMVec, trial).div(tf.mul(vm._vecLength(AMVec), vm._vecLength(trial))));
                 // dists.push(tf.scalar(1).sub(tf.losses.cosineDistance(AMVec, trial)));
             }
             dists = tf.stack(dists);
             return dists;
+        });
+    }
+
+    /**
+     * 
+     * @param {tf.Tensor1D} vec 
+     */
+    _vecLength(vec) {
+        return tf.tidy(() => {
+            return tf.mul(vec, vec).sum(0).sqrt();
         });
     }
 
@@ -199,6 +208,124 @@ export class HdcCiMHrr extends HdcCiMBase {
      * @param {tf.Tensor2D} trainingSet 
      */
      _genAM(trainingSet) {
+        const useOnlineHD = true;
+        if (useOnlineHD) 
+        { 
+            this._genAMOnlineHD(trainingSet, 1); 
+            // this._genAMNaive(trainingSet);
+
+            const accBeforeRetrain = this._predictBatch(trainingSet);
+            console.log("accuracy on training set before retraining: " + accBeforeRetrain)
+
+            this._retrain(trainingSet, 0.2, 20);
+
+            const accAfterRetrain = this._predictBatch(trainingSet);
+            console.log("accuracy on training set after retraining: " + accAfterRetrain)
+
+        }
+        else 
+        { this._genAMNaive(trainingSet); }
+    }
+
+    _predictBatch(set) {
+        const trainTensors = set.unstack();
+        var nCorrects = 0;
+        for (var trialIdx = 0; trialIdx < trainTensors.length; trialIdx++) {
+            const probs = this._queryAM(trainTensors[trialIdx]);
+            const pred = maxIdx(probs.arraySync());
+            nCorrects += pred == this._trialLabels[trialIdx];
+        }
+        const acc = nCorrects / trainTensors.length;
+        return acc;
+    }
+
+    /**
+     * 
+     * @param {tf.Tensor2D} trainingSet 
+     */
+    _genAMOnlineHD(trainingSet, learning_rate=1) {
+
+        this._AM = tf.tidy(() => {
+            const labels = this._trialLabels.map((val, ind) => [val, ind]);
+            /** @type {tf.Tensor1D[]} */
+            const AM = [];
+
+            // init AM with first occurrence of class
+            for (const classIdx of this._classLabels) {
+                const c = {}
+                const classLabels = labels.filter((val, ind, arr) => val[0] == classIdx).map((val, ind) => val[1]);
+                if (classLabels[0] === undefined || classLabels[0] === null) { throw new Error("one class not present in training data"); }
+                const classTrials = trainingSet.gather(tf.tensor1d([classLabels[0]], 'int32'));
+                AM.push(classTrials.reshape([this._hdDim]));
+            }
+
+            const trainingTrials = trainingSet.unstack();
+
+            for (const trialIdx of arange(0, this._trialLabels.length)) {
+                const trial = trainingTrials[trialIdx];
+                const probs = this._queryAM(trial, tf.stack(AM)).arraySync();
+                const prediction = maxIdx(probs);
+                // update AM
+                
+                const rateTrue = tf.scalar(1).sub(tf.scalar(probs[this._trialLabels[trialIdx]])).mul(tf.scalar(learning_rate));
+                const rateFalse = tf.scalar(1).sub(tf.scalar(probs[prediction])).mul(tf.scalar(learning_rate));
+
+                if (prediction == this._trialLabels[trialIdx]) 
+                { 
+                    AM[prediction] = AM[prediction].add(trial.mul(rateTrue));
+                } 
+                else 
+                {  
+                    AM[this._trialLabels[trialIdx]] = AM[this._trialLabels[trialIdx]].add(trial.mul(rateTrue));
+                    AM[prediction].sub(trial.mul(rateFalse));
+                }
+            }
+
+            for (const label of this._classLabels) {
+                AM[label] = AM[label].div(tf.mul(AM[label], AM[label]).sum(0).sqrt());
+            }
+            
+            return tf.stack(AM);
+        })
+    }
+
+    _retrain(trainingSet, learning_rate=0.2, iterations=20) {
+        const AM = this._AM.unstack();
+        console.log("retraining ..");
+        this._AM = tf.tidy(() => {
+            for (const it of tqdm(arange(0, iterations), { logging: true})) {
+                const trainingTrials = trainingSet.unstack();
+
+                for (const trialIdx of arange(0, this._trialLabels.length)) {
+                    const trial = trainingTrials[trialIdx];
+                    const probs = this._queryAM(trial, tf.stack(AM)).arraySync();
+                    const prediction = maxIdx(probs);
+                    // update AM
+
+                    if (prediction != this._trialLabels[trialIdx]) 
+                    { 
+                        const rateTrue = tf.scalar(1).sub(tf.scalar(probs[this._trialLabels[trialIdx]])).mul(tf.scalar(learning_rate));
+                        const rateFalse = tf.scalar(1).sub(tf.scalar(probs[prediction])).mul(tf.scalar(learning_rate));
+                        AM[this._trialLabels[trialIdx]] = AM[this._trialLabels[trialIdx]].add(trial.mul(rateTrue));
+                        AM[prediction].sub(trial.mul(rateFalse));
+                    } 
+                    // AM[prediction] = AM[prediction].div(tf.mul(AM[prediction], AM[prediction]).sum(0).sqrt());
+                }
+
+                for (const label of this._classLabels) {
+                    AM[label] = AM[label].div(tf.mul(AM[label], AM[label]).sum(0).sqrt());
+                }
+            }
+            
+            return tf.stack(AM);
+        })
+    }
+
+    /**
+     * 
+     * @param {tf.Tensor2D} trainingSet 
+     */
+    _genAMNaive(trainingSet) {
         const labels = this._trialLabels.map((val, ind) => [val, ind]);
         const classSymbols = [];
 
@@ -210,7 +337,7 @@ export class HdcCiMHrr extends HdcCiMBase {
                 const classTrials = trainingSet.gather(classLabelsTensor);
 
                 var classSymbol = classTrials.sum(0);
-                classSymbol = classSymbol.div(tf.mul(classSymbol, classSymbol).sum(0).sqrt())
+                classSymbol = classSymbol.div(tf.mul(classSymbol, classSymbol).sum(0).sqrt());
 
                 return classSymbol;
             });

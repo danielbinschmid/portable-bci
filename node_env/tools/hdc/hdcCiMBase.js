@@ -82,7 +82,7 @@ export class HdcCiMBase {
      * int( (x - mean) * (q / sigma) + (q - 1) / 2) )
      * x, 1 / (1 + np.exp(-10*x)) - distributes better
      * 
-     * 1 / (1 + exp(-10* ((x - mean) * (1 / sigma)) ) ) * q
+     * 1 / (1 + exp(-alpha* ((x - mean) * (1 / sigma)) ) ) * q
      * @param {tf.Tensor3D} trainTensor - of shape (nTrials, nBands, nTSpaceDims)
      */
     _quantize(trainTensor, nTrials) {
