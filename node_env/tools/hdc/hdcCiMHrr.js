@@ -44,6 +44,7 @@ export class HdcCiMHrr extends HdcCiMBase {
         })
 
         const predictionArray = await prediction.array();
+        console.log(predictionArray)
         prediction.dispose();
 
         return predictionArray
@@ -65,6 +66,23 @@ export class HdcCiMHrr extends HdcCiMBase {
             dists = tf.stack(dists);
             return dists;
         });
+    }
+
+    getQuanitizedTrials() {
+        // fit riemann and collect buffer for training
+        const trainBuffer_ = this._riemann.ArrayBuffer();
+        this._riemannKernel.fitTrials(trainBuffer_);
+
+        var typedArr = this._riemann.ArrayBufferToTypedArray(trainBuffer_);
+        typedArr = new Float32Array(typedArr);
+
+        const vm = this;
+        const batchTensor = tf.tidy(() => {
+            var trainTensor = tf.tensor3d(typedArr, [this._nTrials, vm._nBands, vm._nTSpaceDims]);
+            trainTensor = vm._quantize(trainTensor, this._nTrials);
+            return trainTensor;
+        });
+        return batchTensor.arraySync();
     }
 
     /**

@@ -3,7 +3,7 @@ import { Riemann } from "./tools/riemann/riemann";
 
 // import { evaluate } from "./evaluation/experiment_transferLogEucl";
 // import { evaluate } from "./evaluation/experiments/experiment_hdcMuseMI";
-import { evaluate } from "./evaluation/experiments/experiment_hdcRiemannCiM";
+import { evaluate, analyzeQuantization } from "./evaluation/experiments/experiment_hdcRiemannCiM";
 import { testCiM } from "./tools/hdc/hdcCiMHrr";
 // import { test } from "./evaluation/test_runs";
 import { meanMetricAccuracies, crossSessionMeanMetricAccuracies, transferBaselineAccs, transferEuclAccs, riemannCiMAccs } from "./evaluation/benchmarks/evaluateResults";
@@ -40,7 +40,8 @@ function test_deepconvnet() {
  */
 function riemannInstantiatedCallback(riemannInstance) {
     const riemann = riemannInstance;
-    
+
+    // analyzeQuantization(riemann);
     // testCiM()
     // testCosDist()
     evaluate(riemann);

@@ -80,26 +80,32 @@ export class HdcCiMBase {
     /**
      * Quantizes tangent space via formula:
      * int( (x - mean) * (q / sigma) + (q - 1) / 2) )
+     * x, 1 / (1 + np.exp(-10*x)) - distributes better
      * 
+     * 1 / (1 + exp(-10* ((x - mean) * (1 / sigma)) ) ) * q
      * @param {tf.Tensor3D} trainTensor - of shape (nTrials, nBands, nTSpaceDims)
      */
     _quantize(trainTensor, nTrials) {
         const vm = this;
+        const alpha = 15;
         return tf.tidy(() => {
             // moments
             const moments = tf.moments(trainTensor, 2);
             const std = moments.variance.sqrt();
-            const sigma = std.mul(tf.scalar(3)).reshape([nTrials, vm._nBands, 1]).tile([1, 1, vm._nTSpaceDims]);
+            const sigma = std.mul(tf.scalar(6)).reshape([nTrials, vm._nBands, 1]).tile([1, 1, vm._nTSpaceDims]);
             const means = moments.mean.reshape([nTrials, vm._nBands, 1]).tile([1, 1, vm._nTSpaceDims]);
 
             // int( (x - mean) * (q / sigma) + (q - 1) / 2) )
             trainTensor = trainTensor.sub(means);
             trainTensor = trainTensor.div(sigma);
+            trainTensor = tf.tensor3d([1], [1, 1, 1]).tile([nTrials, vm._nBands, vm._nTSpaceDims])
+                                .div(
+                                    tf.exp(trainTensor.mul(tf.scalar(-alpha))).add(tf.scalar(1))
+                                )
             trainTensor = trainTensor.mul(tf.scalar(vm._qLevel));
-            trainTensor = trainTensor.add(tf.scalar((vm._qLevel - 1) / 2)).toInt();
 
             // clip to quantization levels
-            trainTensor = trainTensor.clipByValue(0, vm._qLevel - 1);
+            trainTensor = trainTensor.toInt().clipByValue(0, vm._qLevel - 1);
 
             return trainTensor
         });
