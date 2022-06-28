@@ -4,19 +4,7 @@ import { bernoulli } from './hdc_utils/probability';
 import { Riemann } from "../riemann/riemann";
 import { HdcCiMBase, SETTINGS } from "./hdcCiMBase";
 import tqdm from "ntqdm";
-/**
- * Circular convolution:
- * 
- * 
-const d = 4
-var x = tf.tensor1d([1, 2, 3, 4]) // [1, 2, 1, 2]
-var y = tf.tensor1d([1, 2, 1, 2]) // [1, 2, 3, 4]
 
-x = x.reshape([d, 1])
-y = tf.concat([y.reverse(), y.reverse()]).reshape([d * 2, 1, 1])
-var result = tf.conv1d (x, y, 1, 'same');
-result.print()
- */
 
 export class HdcCiMHrr extends HdcCiMBase {
     /** @type {tf.Tensor2D} Item memory for frequency bands */
@@ -71,7 +59,8 @@ export class HdcCiMHrr extends HdcCiMBase {
             const AM = this._AM.unstack();
             var dists = []
             for (const AMVec of AM) {
-                dists.push(tf.scalar(1).sub(tf.losses.cosineDistance(AMVec, trial)));
+                dists.push(tf.dot(AMVec, trial));
+                // dists.push(tf.scalar(1).sub(tf.losses.cosineDistance(AMVec, trial)));
             }
             dists = tf.stack(dists);
             return dists;
@@ -144,21 +133,6 @@ export class HdcCiMHrr extends HdcCiMBase {
         return batchTensor;
     }
 
-    /**
-     * 
-     * @param {tf.Tensor1D} a - hypervector
-     * @param {tf.Tensor1D} b - hypervector
-     * @returns {tf.Tensor1D}
-     */
-     _circularConv(a, b) {
-        const vm = this;
-        return tf.tidy(() => {
-            a = a.reshape([vm._hdDim, 1])
-            b = tf.concat([b.reverse(), b.reverse()]).reshape([vm._hdDim * 2, 1, 1])
-            const result = tf.conv1d (a, b, 1, 'same');
-            return result;
-        })
-    }
 
     /**
      * 
@@ -175,7 +149,7 @@ export class HdcCiMHrr extends HdcCiMBase {
 
             // bundle
             trialTensor_ = trialTensor_.sum(1);
-            trialTensor_ = trialTensor_.div(tf.abs(trialTensor_).sum(1).reshape([this._nBands, 1]).tile([1, this._hdDim]));
+            trialTensor_ = trialTensor_.div(tf.mul(trialTensor_, trialTensor_).sum(1).sqrt().reshape([this._nBands, 1]).tile([1, this._hdDim]));
 
             return trialTensor_;
         });
@@ -196,7 +170,7 @@ export class HdcCiMHrr extends HdcCiMBase {
 
             // bundle
             trialTensor_ = trialTensor_.sum(0);
-            trialTensor_ = trialTensor_.div(tf.abs(trialTensor_).sum(0));
+            trialTensor_ = trialTensor_.div(tf.mul(trialTensor_, trialTensor_).sum(0).sqrt());
 
             return trialTensor_;
         });
@@ -218,7 +192,7 @@ export class HdcCiMHrr extends HdcCiMBase {
                 const classTrials = trainingSet.gather(classLabelsTensor);
 
                 var classSymbol = classTrials.sum(0);
-                classSymbol = classSymbol.div(tf.abs(classSymbol).sum(0));
+                classSymbol = classSymbol.div(tf.mul(classSymbol, classSymbol).sum(0).sqrt())
 
                 return classSymbol;
             });
@@ -280,42 +254,6 @@ export class HdcCiMHrr extends HdcCiMBase {
         });
         this._CiMEmbedding = embedding;
     }
-
-
-    /**
-     * @param {tf.Tensor3D} trialTensor shape (nBands, nTSpaceDim, hdDim)
-     * @returns {tf.Tensor2D}
-     */
-     _transformTSpaceNGram(trialTensor) {
-        const vm = this;
-        const t = tf.tidy(() => {
-            const shifted = [];
-            for (var Tidx = 0; Tidx < this._nTSpaceDims; Tidx++) {
-                var tSpaceDim = trialTensor.gather(tf.tensor1d([Tidx], 'int32'), 1);
-                const part1 = tSpaceDim.slice([0, 0, Tidx], [this._nBands, 1, this._hdDim - Tidx]);
-                const part2 = tSpaceDim.slice([0, 0, 0], [this._nBands, 1, Tidx]);
-                tSpaceDim = part1.concat(part2, 2);
-                shifted.push(tSpaceDim)
-            }
-            var trialTensor_ = tf.concat(shifted, 1);
-            // multiply vecs
-            const bandTensors = trialTensor_.unstack();
-            const bandTensorsNew = [];
-            for (const bandTensor of bandTensors) {
-                const nTSpaceVecs = bandTensor.unstack();
-                var currentVec = nTSpaceVecs[0];
-                
-                for (var i = 1; i < nTSpaceVecs.length; i++) {
-                    currentVec = currentVec.logicalXor(nTSpaceVecs[i]);
-                }
-                bandTensorsNew.push(currentVec);
-            }
-            trialTensor_ = tf.stack(bandTensorsNew);
-
-            return trialTensor_;
-        })
-        return t;
-    }
 }
 
 export function testCiM() {
@@ -348,7 +286,8 @@ export function testCiM() {
     for (const level1 of allLevels) {
         var j = 0;
         for (const level2 of allLevels) {
-            const cosDist = tf.losses.cosineDistance(tf.tensor1d(level1), tf.tensor1d(level2)).toFloat();
+            // const cosDist = tf.losses.cosineDistance(tf.tensor1d(level1), tf.tensor1d(level2)).toFloat();
+            const cosDist = tf.dot(tf.tensor1d(level1), tf.tensor1d(level2)).arraySync();
             console.log("cos dist betw. " + i + " & " + j +" = " + cosDist);
             j++;
         }  
@@ -356,13 +295,3 @@ export function testCiM() {
     }
 }
 
-export function testCosDist() {
-    const d = 10000
-    var t1 = tf.randomNormal([d], 0, 1 / (Math.sqrt(d)));
-    t1 = t1.div(tf.abs(t1).sum(0));
-    var t2 = tf.randomNormal([d], 0, 1 / (Math.sqrt(d)));
-    
-    t2 = t1.div(tf.abs(t2).sum(0))
-    const r = tf.losses.cosineDistance(t1, t2).arraySync();
-    console.log(r)
-}

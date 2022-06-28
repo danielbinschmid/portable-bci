@@ -4,7 +4,7 @@ import { Riemann } from "./tools/riemann/riemann";
 // import { evaluate } from "./evaluation/experiment_transferLogEucl";
 // import { evaluate } from "./evaluation/experiments/experiment_hdcMuseMI";
 import { evaluate } from "./evaluation/experiments/experiment_hdcRiemannCiM";
-import { testCiM, testCosDist } from "./tools/hdc/hdcCiMHrr";
+import { testCiM } from "./tools/hdc/hdcCiMHrr";
 // import { test } from "./evaluation/test_runs";
 import { meanMetricAccuracies, crossSessionMeanMetricAccuracies, transferBaselineAccs, transferEuclAccs, riemannCiMAccs } from "./evaluation/benchmarks/evaluateResults";
 import { benchmarkMeanRuntimes } from "./webapp_port/experiment_meanMetricRuntimes";
