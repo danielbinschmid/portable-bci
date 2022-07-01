@@ -6,7 +6,9 @@ declare type ArrayBuffer_d = {
 declare type Timetensor_d = {
     length: Number,
     nChannels: Number,
+    nBands: Number,
     isCov: boolean
+    getData: (arg0: ArrayBuffer_d) => void
 }
 
 declare type EMetric = {
@@ -25,9 +27,10 @@ declare type Timeseries_d = {
     addTimestep: (arg0: Number[]) => void,
     getLength: () => Number,
     clear: () => void,
-    popAll: (result: Timetensor_d) => Timetensor_d,
-    popN: (arg0: Numberm, result: Timetensor_d) => Timetensor_d,
-    getNLastSteps: (arg0: Number, result: Timetensor_d) => Timetensor_d
+    loadCachedTensor: (data: Number[], nTimesteps: Number, isCov: boolean, result: Timetensor_d) => void,
+    popAll: (result: Timetensor_d) => void,
+    popN: (arg0: Numberm, result: Timetensor_d) => void,
+    getNLastSteps: (arg0: Number, result: Timetensor_d) => void
 }
 
 declare type RiemannKernel_d = {

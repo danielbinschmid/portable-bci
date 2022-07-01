@@ -2,7 +2,7 @@ import { SETTINGS } from "../../tools/hdc/hdcCiMBase";
 import { HdcCiMBsc } from "../../tools/hdc/hdcCiMBsc";
 import { HdcCiMHrr } from "../../tools/hdc/hdcCiMHrr";
 import { HdcHersche, Encodings } from "../../tools/hdc/hdchersche";
-import { collectIV2a } from "../data_utils/readIV2a";
+import { collectIV2a, loadCached } from "../data_utils/readIV2a";
 import { Riemann } from "../../tools/riemann/riemann";
 import { maxIdx, arange, flatten3 } from "../data_utils/array_utils";
 import tqdm from "ntqdm"; // https://github.com/jhedin/ntqdm
@@ -34,6 +34,7 @@ export async function evaluate(riemann) {
     const frequency = 250;
     const trialLengthSecs = 3.5;
     const breakLengthSecs = 2.5;
+    const cached = true;
 
     const basicSettings = {
             nBands: 43,
@@ -46,10 +47,12 @@ export async function evaluate(riemann) {
     const nRuns = 10;
     const timeseries = riemann.Timeseries(basicSettings.nChannels, basicSettings.nBands, frequency, trialLengthSecs * frequency);
 
-    const experimentID = "hdcRiemannCiM"
+    const experimentID = "hdcHRR_retrain-it-20_lr-0-2_init-lr-1"
     // -------------------------
 
-    const dataAll = {};
+    var dataAll = {};
+    if (cached) {dataAll = loadCached(riemann, subjects); }
+
     const accs = {};
 
     for (var run = 0; run < nRuns; run++) {
@@ -71,13 +74,14 @@ export async function evaluate(riemann) {
                 console.log("TEST RUN " + run + ", SUBJECT "+ subject + ", reversed sessions: " + isReversed);
 
                 const hdc = new HdcCiMHrr(basicSettings, riemann);
+
                 // const hdc = new HdcHersche(basicSettings.nBands, basicSettings.nChannels, basicSettings.classLabels, Encodings.THERMOMETER, { q: 2 * 393}, riemann);
                 const data = get_data(dataAll[subject], isReversed);
 
                 console.log("fitting hdc ..")
                 for (var trialIdx = 0; trialIdx < data.train_data.length; trialIdx++) { hdc.collectTrial(data.train_data[trialIdx].trial, data.train_labels[trialIdx] - 1); }
                 const trainingAcc = await hdc.fit(true);
-
+                 
                 var nCorrects = 0;
                 for (const trialIdx of tqdm(arange(0, data.benchmark_data.length), {logging: true} )) 
                 {
@@ -91,11 +95,12 @@ export async function evaluate(riemann) {
                 console.log("--------------------------------------------------------------------------")
 
                 accs[run_id][subj_id][sessionID] = acc;
+ 
             }
-            // saveAsJSON(accs, "cache/" + experimentID);
+            saveAsJSON(accs, "cache/" + experimentID);
         }
     }    
-    // saveAsJSON(accs, experimentID);
+    saveAsJSON(accs, experimentID);
 }
 
 export function analyzeQuantization(riemann) {

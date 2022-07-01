@@ -87,6 +87,11 @@ export function flatten3(data) {
     return flattened
 }
 
+/**
+ * 
+ * @param {number[][]} data 
+ * @returns {number[]}
+ */
 export function flatten2(data) {
     var flattened = [];
 

@@ -110,4 +110,27 @@ export class HdcCiMBase {
             return trainTensor
         });
     }
+
+    getQuanitizedTrials() {
+        // fit riemann and collect buffer for training
+        const trainBuffer_ = this._riemann.ArrayBuffer();
+        this._riemannKernel.fitTrials(trainBuffer_);
+
+        var typedArr = this._riemann.ArrayBufferToTypedArray(trainBuffer_);
+        typedArr = new Float32Array(typedArr);
+
+        const vm = this;
+        const batchTensor = tf.tidy(() => {
+            var trainTensor = tf.tensor3d(typedArr, [this._nTrials, vm._nBands, vm._nTSpaceDims]);
+            trainTensor = vm._quantize(trainTensor, this._nTrials);
+            return trainTensor;
+        });
+        return batchTensor.arraySync();
+    }
+
+    clear() {
+        this._riemannKernel.reset();
+        this._nTrials = 0;
+        this._trialLabels = [];
+    }
 }

@@ -1,6 +1,5 @@
 #include "Timeseries.h"
 #include <stdexcept>
-#include <iostream>
 
 template <>
 Timeseries<double>::Timeseries(const long nChannels, const long nBands, const long sampleRate, const long expectedTimesteps) 
@@ -53,11 +52,19 @@ void Timeseries<double>::addTimestep(double* timestep)
 }
 
 template <>
-Timetensor<double>& Timeseries<double>::popAll(Timetensor<double>& result) 
+void Timeseries<double>::loadCachedTensor(double* data, long nTimesteps, bool isCov, Timetensor<double>& result)
+{
+    std::vector<std::string> bandIds;
+    for (const auto& filter: this->filters) { bandIds.push_back(filter.first); }
+
+    result.loadFromCached(data, nTimesteps, bandIds, nChannels, isCov);
+}
+
+template <>
+void Timeseries<double>::popAll(Timetensor<double>& result) 
 {
     result.init(this->data, this->getLength(), true);
     this->clear();
-    return result;
 }
 
 std::pair<std::string, std::vector<double>> makeBandDataPair(std::string id, std::vector<double> data) 
@@ -66,7 +73,7 @@ std::pair<std::string, std::vector<double>> makeBandDataPair(std::string id, std
 }
 
 template <>
-Timetensor<double>& Timeseries<double>::popN(long n, Timetensor<double>& result) 
+void Timeseries<double>::popN(long n, Timetensor<double>& result) 
 {
     std::vector<std::pair<std::string, std::vector<double>>> bands;
     bands.resize(this->nBands);
@@ -88,11 +95,10 @@ Timetensor<double>& Timeseries<double>::popN(long n, Timetensor<double>& result)
         }
     }
     result.init(bands, n, true);
-    return result;
 }
 
 template <>
-Timetensor<double>& Timeseries<double>::getNLastSteps(long n, Timetensor<double>& result) 
+void Timeseries<double>::getNLastSteps(long n, Timetensor<double>& result) 
 {
     std::vector<std::pair<std::string, std::vector<double>>> bands;
     bands.resize(this->nBands);
@@ -108,7 +114,6 @@ Timetensor<double>& Timeseries<double>::getNLastSteps(long n, Timetensor<double>
         bands[bandIdx] = makeBandDataPair(id, slicedSeries);
     }
     result.init(bands, n, true);
-    return result;
 }
 
 template <class T>
@@ -205,21 +210,25 @@ std::vector<std::tuple<std::string, double, double>> Timeseries<T>::genFilterban
     return bandConfigs;
 }
 
+template <class T>
+void Timeseries<T>::loadCachedTensor(T* data, long nTimesteps, bool isCov, Timetensor<T>& result)
+{
+}
+
 
 template <class T> 
-Timetensor<T>& Timeseries<T>::popAll(Timetensor<T>& result) 
+void Timeseries<T>::popAll(Timetensor<T>& result) 
+{
+}
+
+template <class T>
+void Timeseries<T>::popN(long n, Timetensor<T>& result) 
 {
 
 }
 
 template <class T>
-Timetensor<T>& Timeseries<T>::popN(long n, Timetensor<T>& result) 
-{
-
-}
-
-template <class T>
-Timetensor<T>& Timeseries<T>::getNLastSteps(long n, Timetensor<T>& result) 
+void Timeseries<T>::getNLastSteps(long n, Timetensor<T>& result) 
 {
 
 }

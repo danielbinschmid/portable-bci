@@ -3,13 +3,15 @@ import { Riemann } from "./tools/riemann/riemann";
 
 // import { evaluate } from "./evaluation/experiment_transferLogEucl";
 // import { evaluate } from "./evaluation/experiments/experiment_hdcMuseMI";
-import { evaluate, analyzeQuantization } from "./evaluation/experiments/experiment_hdcRiemannCiM";
+// import { evaluate, analyzeQuantization } from "./evaluation/experiments/experiment_hdcRiemannCiM";
+// import { evaluate } from "./evaluation/experiments/experiment_hdcSubjectTransfer";
+import { evaluate } from "./evaluation/experiments/experiment_subjectMemory";
 import { testCiM } from "./tools/hdc/hdcCiMHrr";
 // import { test } from "./evaluation/test_runs";
-import { meanMetricAccuracies, crossSessionMeanMetricAccuracies, transferBaselineAccs, transferEuclAccs, riemannCiMAccs } from "./evaluation/benchmarks/evaluateResults";
+import { meanMetricAccuracies, crossSessionMeanMetricAccuracies, transferBaselineAccs, transferEuclAccs, riemannCiMAccs, hrrRetrainAcc } from "./evaluation/benchmarks/evaluateResults";
 import { benchmarkMeanRuntimes } from "./webapp_port/experiment_meanMetricRuntimes";
 import { init, warmUpPrediction } from "./webapp_port/test_deepconvnet";
-
+import { cacheIV2a, loadCached } from "./evaluation/data_utils/readIV2a";
 import { collectMuseMI } from "./evaluation/data_utils/readMuseMI";
 
 
@@ -23,8 +25,10 @@ function printAccuracies(riemann) {
     transferBaselineAccs();
     console.log("Euclidian mean online cross session: ")
     transferEuclAccs();
-    console.log("Riemann CiM Accs with Euclidian mean, no transfer cross session: ")
-    riemannCiMAccs();
+    // console.log("Riemann CiM Accs with Euclidian mean, no transfer cross session: ")
+    // riemannCiMAccs();
+    console.log("Riemann CiM with HRR and retraining:")
+    hrrRetrainAcc();
 }
 
 function test_deepconvnet() {
@@ -48,7 +52,9 @@ function riemannInstantiatedCallback(riemannInstance) {
     // benchmarkMeanRuntimes(riemann);
     // test(riemann);
     // printAccuracies()
-    
+    // cacheIV2a(riemann);
+    // const a = loadCached(riemann);
+    // console.log(a)
 }
 
 

@@ -197,6 +197,41 @@ Module['VoidPtr'] = VoidPtr;
   var self = this.ptr;
   _emscripten_bind_VoidPtr___destroy___0(self);
 };
+// ArrayBuffer_d
+/** @suppress {undefinedVars, duplicate} @this{Object} */function ArrayBuffer_d() {
+  this.ptr = _emscripten_bind_ArrayBuffer_d_ArrayBuffer_d_0();
+  getCache(ArrayBuffer_d)[this.ptr] = this;
+};;
+ArrayBuffer_d.prototype = Object.create(WrapperObject.prototype);
+ArrayBuffer_d.prototype.constructor = ArrayBuffer_d;
+ArrayBuffer_d.prototype.__class__ = ArrayBuffer_d;
+ArrayBuffer_d.__cache__ = {};
+Module['ArrayBuffer_d'] = ArrayBuffer_d;
+
+  ArrayBuffer_d.prototype['get_data'] = ArrayBuffer_d.prototype.get_data = /** @suppress {undefinedVars, duplicate} @this{Object} */function() {
+  var self = this.ptr;
+  return wrapPointer(_emscripten_bind_ArrayBuffer_d_get_data_0(self), VoidPtr);
+};
+    ArrayBuffer_d.prototype['set_data'] = ArrayBuffer_d.prototype.set_data = /** @suppress {undefinedVars, duplicate} @this{Object} */function(arg0) {
+  var self = this.ptr;
+  if (arg0 && typeof arg0 === 'object') arg0 = arg0.ptr;
+  _emscripten_bind_ArrayBuffer_d_set_data_1(self, arg0);
+};
+    Object.defineProperty(ArrayBuffer_d.prototype, 'data', { get: ArrayBuffer_d.prototype.get_data, set: ArrayBuffer_d.prototype.set_data });
+  ArrayBuffer_d.prototype['get_length'] = ArrayBuffer_d.prototype.get_length = /** @suppress {undefinedVars, duplicate} @this{Object} */function() {
+  var self = this.ptr;
+  return _emscripten_bind_ArrayBuffer_d_get_length_0(self);
+};
+    ArrayBuffer_d.prototype['set_length'] = ArrayBuffer_d.prototype.set_length = /** @suppress {undefinedVars, duplicate} @this{Object} */function(arg0) {
+  var self = this.ptr;
+  if (arg0 && typeof arg0 === 'object') arg0 = arg0.ptr;
+  _emscripten_bind_ArrayBuffer_d_set_length_1(self, arg0);
+};
+    Object.defineProperty(ArrayBuffer_d.prototype, 'length', { get: ArrayBuffer_d.prototype.get_length, set: ArrayBuffer_d.prototype.set_length });
+  ArrayBuffer_d.prototype['__destroy__'] = ArrayBuffer_d.prototype.__destroy__ = /** @suppress {undefinedVars, duplicate} @this{Object} */function() {
+  var self = this.ptr;
+  _emscripten_bind_ArrayBuffer_d___destroy___0(self);
+};
 // Timetensor_d
 /** @suppress {undefinedVars, duplicate} @this{Object} */function Timetensor_d() {
   this.ptr = _emscripten_bind_Timetensor_d_Timetensor_d_0();
@@ -208,6 +243,12 @@ Timetensor_d.prototype.__class__ = Timetensor_d;
 Timetensor_d.__cache__ = {};
 Module['Timetensor_d'] = Timetensor_d;
 
+Timetensor_d.prototype['getData'] = Timetensor_d.prototype.getData = /** @suppress {undefinedVars, duplicate} @this{Object} */function(result) {
+  var self = this.ptr;
+  if (result && typeof result === 'object') result = result.ptr;
+  _emscripten_bind_Timetensor_d_getData_1(self, result);
+};;
+
   Timetensor_d.prototype['get_length'] = Timetensor_d.prototype.get_length = /** @suppress {undefinedVars, duplicate} @this{Object} */function() {
   var self = this.ptr;
   return _emscripten_bind_Timetensor_d_get_length_0(self);
@@ -218,6 +259,16 @@ Module['Timetensor_d'] = Timetensor_d;
   _emscripten_bind_Timetensor_d_set_length_1(self, arg0);
 };
     Object.defineProperty(Timetensor_d.prototype, 'length', { get: Timetensor_d.prototype.get_length, set: Timetensor_d.prototype.set_length });
+  Timetensor_d.prototype['get_nBands'] = Timetensor_d.prototype.get_nBands = /** @suppress {undefinedVars, duplicate} @this{Object} */function() {
+  var self = this.ptr;
+  return _emscripten_bind_Timetensor_d_get_nBands_0(self);
+};
+    Timetensor_d.prototype['set_nBands'] = Timetensor_d.prototype.set_nBands = /** @suppress {undefinedVars, duplicate} @this{Object} */function(arg0) {
+  var self = this.ptr;
+  if (arg0 && typeof arg0 === 'object') arg0 = arg0.ptr;
+  _emscripten_bind_Timetensor_d_set_nBands_1(self, arg0);
+};
+    Object.defineProperty(Timetensor_d.prototype, 'nBands', { get: Timetensor_d.prototype.get_nBands, set: Timetensor_d.prototype.set_nBands });
   Timetensor_d.prototype['get_nChannels'] = Timetensor_d.prototype.get_nChannels = /** @suppress {undefinedVars, duplicate} @this{Object} */function() {
   var self = this.ptr;
   return _emscripten_bind_Timetensor_d_get_nChannels_0(self);
@@ -274,64 +325,39 @@ Timeseries_d.prototype['clear'] = Timeseries_d.prototype.clear = /** @suppress {
   _emscripten_bind_Timeseries_d_clear_0(self);
 };;
 
+Timeseries_d.prototype['loadCachedTensor'] = Timeseries_d.prototype.loadCachedTensor = /** @suppress {undefinedVars, duplicate} @this{Object} */function(data, nTimesteps, isCov, result) {
+  var self = this.ptr;
+  ensureCache.prepare();
+  if (typeof data == 'object') { data = ensureFloat64(data); }
+  if (nTimesteps && typeof nTimesteps === 'object') nTimesteps = nTimesteps.ptr;
+  if (isCov && typeof isCov === 'object') isCov = isCov.ptr;
+  if (result && typeof result === 'object') result = result.ptr;
+  _emscripten_bind_Timeseries_d_loadCachedTensor_4(self, data, nTimesteps, isCov, result);
+};;
+
 Timeseries_d.prototype['popAll'] = Timeseries_d.prototype.popAll = /** @suppress {undefinedVars, duplicate} @this{Object} */function(result) {
   var self = this.ptr;
   if (result && typeof result === 'object') result = result.ptr;
-  return wrapPointer(_emscripten_bind_Timeseries_d_popAll_1(self, result), Timetensor_d);
+  _emscripten_bind_Timeseries_d_popAll_1(self, result);
 };;
 
 Timeseries_d.prototype['popN'] = Timeseries_d.prototype.popN = /** @suppress {undefinedVars, duplicate} @this{Object} */function(n, result) {
   var self = this.ptr;
   if (n && typeof n === 'object') n = n.ptr;
   if (result && typeof result === 'object') result = result.ptr;
-  return wrapPointer(_emscripten_bind_Timeseries_d_popN_2(self, n, result), Timetensor_d);
+  _emscripten_bind_Timeseries_d_popN_2(self, n, result);
 };;
 
 Timeseries_d.prototype['getNLastSteps'] = Timeseries_d.prototype.getNLastSteps = /** @suppress {undefinedVars, duplicate} @this{Object} */function(n, result) {
   var self = this.ptr;
   if (n && typeof n === 'object') n = n.ptr;
   if (result && typeof result === 'object') result = result.ptr;
-  return wrapPointer(_emscripten_bind_Timeseries_d_getNLastSteps_2(self, n, result), Timetensor_d);
+  _emscripten_bind_Timeseries_d_getNLastSteps_2(self, n, result);
 };;
 
   Timeseries_d.prototype['__destroy__'] = Timeseries_d.prototype.__destroy__ = /** @suppress {undefinedVars, duplicate} @this{Object} */function() {
   var self = this.ptr;
   _emscripten_bind_Timeseries_d___destroy___0(self);
-};
-// ArrayBuffer_d
-/** @suppress {undefinedVars, duplicate} @this{Object} */function ArrayBuffer_d() {
-  this.ptr = _emscripten_bind_ArrayBuffer_d_ArrayBuffer_d_0();
-  getCache(ArrayBuffer_d)[this.ptr] = this;
-};;
-ArrayBuffer_d.prototype = Object.create(WrapperObject.prototype);
-ArrayBuffer_d.prototype.constructor = ArrayBuffer_d;
-ArrayBuffer_d.prototype.__class__ = ArrayBuffer_d;
-ArrayBuffer_d.__cache__ = {};
-Module['ArrayBuffer_d'] = ArrayBuffer_d;
-
-  ArrayBuffer_d.prototype['get_data'] = ArrayBuffer_d.prototype.get_data = /** @suppress {undefinedVars, duplicate} @this{Object} */function() {
-  var self = this.ptr;
-  return wrapPointer(_emscripten_bind_ArrayBuffer_d_get_data_0(self), VoidPtr);
-};
-    ArrayBuffer_d.prototype['set_data'] = ArrayBuffer_d.prototype.set_data = /** @suppress {undefinedVars, duplicate} @this{Object} */function(arg0) {
-  var self = this.ptr;
-  if (arg0 && typeof arg0 === 'object') arg0 = arg0.ptr;
-  _emscripten_bind_ArrayBuffer_d_set_data_1(self, arg0);
-};
-    Object.defineProperty(ArrayBuffer_d.prototype, 'data', { get: ArrayBuffer_d.prototype.get_data, set: ArrayBuffer_d.prototype.set_data });
-  ArrayBuffer_d.prototype['get_length'] = ArrayBuffer_d.prototype.get_length = /** @suppress {undefinedVars, duplicate} @this{Object} */function() {
-  var self = this.ptr;
-  return _emscripten_bind_ArrayBuffer_d_get_length_0(self);
-};
-    ArrayBuffer_d.prototype['set_length'] = ArrayBuffer_d.prototype.set_length = /** @suppress {undefinedVars, duplicate} @this{Object} */function(arg0) {
-  var self = this.ptr;
-  if (arg0 && typeof arg0 === 'object') arg0 = arg0.ptr;
-  _emscripten_bind_ArrayBuffer_d_set_length_1(self, arg0);
-};
-    Object.defineProperty(ArrayBuffer_d.prototype, 'length', { get: ArrayBuffer_d.prototype.get_length, set: ArrayBuffer_d.prototype.set_length });
-  ArrayBuffer_d.prototype['__destroy__'] = ArrayBuffer_d.prototype.__destroy__ = /** @suppress {undefinedVars, duplicate} @this{Object} */function() {
-  var self = this.ptr;
-  _emscripten_bind_ArrayBuffer_d___destroy___0(self);
 };
 // RiemannKernel_d
 /** @suppress {undefinedVars, duplicate} @this{Object} */function RiemannKernel_d() {

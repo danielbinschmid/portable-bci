@@ -54,9 +54,18 @@ export var HdcConfig = {
 }
 
 export var Data = {
-    train_data: [{break_: null, trial: null}],
+    train_data: [{
+        /** @type {Timetensor_d} */
+        break_: null, 
+        /** @type {Timetensor_d} */
+        trial: null
+    }],
     train_labels: [1],
-    benchmark_data: [{break_: null, trial: null}],
+    benchmark_data: [{
+        /** @type {Timetensor_d} */
+        break_: null, 
+        /** @type {Timetensor_d} */
+        trial: null}],
     benchmark_labels: [1]
 }
 

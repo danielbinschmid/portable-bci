@@ -1,4 +1,4 @@
-#include "template_typedefs.h"
+#include <template_typedefs.h>
 using Geometry::EMetric;
 #include <emscripten.h>
 
@@ -22,10 +22,40 @@ void EMSCRIPTEN_KEEPALIVE emscripten_bind_VoidPtr___destroy___0(void** self) {
   delete self;
 }
 
+// ArrayBuffer_d
+
+ArrayBuffer_d* EMSCRIPTEN_KEEPALIVE emscripten_bind_ArrayBuffer_d_ArrayBuffer_d_0() {
+  return new ArrayBuffer_d();
+}
+
+void* EMSCRIPTEN_KEEPALIVE emscripten_bind_ArrayBuffer_d_get_data_0(ArrayBuffer_d* self) {
+  return self->data;
+}
+
+void EMSCRIPTEN_KEEPALIVE emscripten_bind_ArrayBuffer_d_set_data_1(ArrayBuffer_d* self, void* arg0) {
+  self->data = arg0;
+}
+
+int EMSCRIPTEN_KEEPALIVE emscripten_bind_ArrayBuffer_d_get_length_0(ArrayBuffer_d* self) {
+  return self->length;
+}
+
+void EMSCRIPTEN_KEEPALIVE emscripten_bind_ArrayBuffer_d_set_length_1(ArrayBuffer_d* self, int arg0) {
+  self->length = arg0;
+}
+
+void EMSCRIPTEN_KEEPALIVE emscripten_bind_ArrayBuffer_d___destroy___0(ArrayBuffer_d* self) {
+  delete self;
+}
+
 // Timetensor_d
 
 Timetensor_d* EMSCRIPTEN_KEEPALIVE emscripten_bind_Timetensor_d_Timetensor_d_0() {
   return new Timetensor_d();
+}
+
+void EMSCRIPTEN_KEEPALIVE emscripten_bind_Timetensor_d_getData_1(Timetensor_d* self, ArrayBuffer_d* result) {
+  self->getData(*result);
 }
 
 int EMSCRIPTEN_KEEPALIVE emscripten_bind_Timetensor_d_get_length_0(Timetensor_d* self) {
@@ -34,6 +64,14 @@ int EMSCRIPTEN_KEEPALIVE emscripten_bind_Timetensor_d_get_length_0(Timetensor_d*
 
 void EMSCRIPTEN_KEEPALIVE emscripten_bind_Timetensor_d_set_length_1(Timetensor_d* self, int arg0) {
   self->length = arg0;
+}
+
+int EMSCRIPTEN_KEEPALIVE emscripten_bind_Timetensor_d_get_nBands_0(Timetensor_d* self) {
+  return self->nBands;
+}
+
+void EMSCRIPTEN_KEEPALIVE emscripten_bind_Timetensor_d_set_nBands_1(Timetensor_d* self, int arg0) {
+  self->nBands = arg0;
 }
 
 int EMSCRIPTEN_KEEPALIVE emscripten_bind_Timetensor_d_get_nChannels_0(Timetensor_d* self) {
@@ -74,45 +112,23 @@ void EMSCRIPTEN_KEEPALIVE emscripten_bind_Timeseries_d_clear_0(Timeseries_d* sel
   self->clear();
 }
 
-Timetensor_d* EMSCRIPTEN_KEEPALIVE emscripten_bind_Timeseries_d_popAll_1(Timeseries_d* self, Timetensor_d* result) {
-  return &self->popAll(*result);
+void EMSCRIPTEN_KEEPALIVE emscripten_bind_Timeseries_d_loadCachedTensor_4(Timeseries_d* self, double* data, int nTimesteps, bool isCov, Timetensor_d* result) {
+  self->loadCachedTensor(data, nTimesteps, isCov, *result);
 }
 
-Timetensor_d* EMSCRIPTEN_KEEPALIVE emscripten_bind_Timeseries_d_popN_2(Timeseries_d* self, int n, Timetensor_d* result) {
-  return &self->popN(n, *result);
+void EMSCRIPTEN_KEEPALIVE emscripten_bind_Timeseries_d_popAll_1(Timeseries_d* self, Timetensor_d* result) {
+  self->popAll(*result);
 }
 
-Timetensor_d* EMSCRIPTEN_KEEPALIVE emscripten_bind_Timeseries_d_getNLastSteps_2(Timeseries_d* self, int n, Timetensor_d* result) {
-  return &self->getNLastSteps(n, *result);
+void EMSCRIPTEN_KEEPALIVE emscripten_bind_Timeseries_d_popN_2(Timeseries_d* self, int n, Timetensor_d* result) {
+  self->popN(n, *result);
+}
+
+void EMSCRIPTEN_KEEPALIVE emscripten_bind_Timeseries_d_getNLastSteps_2(Timeseries_d* self, int n, Timetensor_d* result) {
+  self->getNLastSteps(n, *result);
 }
 
 void EMSCRIPTEN_KEEPALIVE emscripten_bind_Timeseries_d___destroy___0(Timeseries_d* self) {
-  delete self;
-}
-
-// ArrayBuffer_d
-
-ArrayBuffer_d* EMSCRIPTEN_KEEPALIVE emscripten_bind_ArrayBuffer_d_ArrayBuffer_d_0() {
-  return new ArrayBuffer_d();
-}
-
-void* EMSCRIPTEN_KEEPALIVE emscripten_bind_ArrayBuffer_d_get_data_0(ArrayBuffer_d* self) {
-  return self->data;
-}
-
-void EMSCRIPTEN_KEEPALIVE emscripten_bind_ArrayBuffer_d_set_data_1(ArrayBuffer_d* self, void* arg0) {
-  self->data = arg0;
-}
-
-int EMSCRIPTEN_KEEPALIVE emscripten_bind_ArrayBuffer_d_get_length_0(ArrayBuffer_d* self) {
-  return self->length;
-}
-
-void EMSCRIPTEN_KEEPALIVE emscripten_bind_ArrayBuffer_d_set_length_1(ArrayBuffer_d* self, int arg0) {
-  self->length = arg0;
-}
-
-void EMSCRIPTEN_KEEPALIVE emscripten_bind_ArrayBuffer_d___destroy___0(ArrayBuffer_d* self) {
   delete self;
 }
 

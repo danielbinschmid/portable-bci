@@ -10,8 +10,6 @@ set(RIGBYCPP rigbycpp)
 set(MAIN_PROJECT Kernel)
 option(WEBIDL "export to js" ON)
 
-
-
 add_subdirectory(Kernel)
 add_subdirectory(third-party/Eigen)
 add_subdirectory(third-party/RIGBY-cpp)

@@ -3,6 +3,7 @@
 #include <Eigen/Core>
 #include <vector>
 #include <Riemann/riemann.h>
+#include <ArrayBuffer.h>
 
 template <class T>
 class Timetensor {
@@ -19,8 +20,13 @@ public:
 
     long nChannels;
 
+    long nBands;
+
     bool isCov;
 
+    void getData(ArrayBuffer<T>& result);
+
+    void loadFromCached(T* data, long nTimesteps, std::vector<std::string> bandIds, long nChannels, bool isCov);
 
     std::vector<std::pair<std::string, Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic>>> data;
 };

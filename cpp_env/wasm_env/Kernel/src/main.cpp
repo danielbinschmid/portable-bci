@@ -194,8 +194,67 @@ void referenceDataRun()
     }
 }
 
+void testTensorCaching() 
+{
+    std::cout << "eval tensor caching" << "\n";
+    const long nChannels = 4;
+    const long nBands = 13;
+    const long sampleRate = 250; 
+    const long expectedTimesteps = 1000;   
+
+    Timeseries_d tSeries(nChannels, nBands, sampleRate, expectedTimesteps);
+
+    const long nTrials = 10;
+    const long nSteps = expectedTimesteps;
+
+    std::cout << "creating timetensor" << "\n";
+    for (int t = 0; t < nSteps; t++)
+    { // through timesteps
+        double* timestep = new double[nChannels];
+        for (int channelIdx = 0; channelIdx < nChannels; channelIdx++)
+        {
+            timestep[channelIdx] = (double) (rand() % 100);
+        }
+        tSeries.addTimestep(timestep);
+    }
+    Timetensor_d tensor;
+    tSeries.popAll(tensor);
+
+    std::cout << "fetching buffer" << "\n";
+    ArrayBuffer_d buf;
+    tensor.getData(buf);
+
+    double* refData =(double*) buf.data;
+    
+    std::cout << "reload buffer" << "\n";
+    Timetensor_d loadedTensor;
+    tSeries.loadCachedTensor(refData, nSteps, tensor.isCov, loadedTensor);
+    
+    std::cout << "fetch reloaded buffer" << "\n";
+    ArrayBuffer_d loadBuf;
+    loadedTensor.getData(loadBuf);
+    double * loadData = (double*) loadBuf.data;
+
+    std::cout << "start assertions" << "\n";
+
+    assert(loadedTensor.isCov == tensor.isCov);
+    assert(loadedTensor.length == tensor.length);
+    assert(loadedTensor.nBands == tensor.nBands);
+    assert(loadedTensor.nChannels == tensor.nChannels);
+    assert(loadBuf.length == buf.length);
+
+    double* d1 = (double*) buf.data;
+    double* d2 = (double*) loadBuf.data;
+    for (int i = 0; i < loadBuf.length; i++)
+    {
+        assert(refData[i] == loadData[i]);
+    }
+
+    std::cout << "assertions fulfilled" << "\n";
+}
 
 int main()
 {   
+    testTensorCaching();
     referenceDataRun();
 }

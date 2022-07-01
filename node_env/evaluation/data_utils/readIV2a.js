@@ -1,9 +1,11 @@
 import { Riemann } from '../../tools/riemann/riemann';
 import tqdm from "ntqdm"; // https://github.com/jhedin/ntqdm
 import { arange } from './array_utils';
+import { saveAsJSON } from './save_benchmarks';
 import { Data } from '../experiments/experiments_RiemannMean.js/run_eval';
 const fs = require('fs');
 const IV2aDataFolter = './evaluation/data/IV2a/';
+const cacheFolder = IV2aDataFolter + 'cached/';
 const prefix = IV2aDataFolter + "subj_";
 const suffix = "_all.json";
 
@@ -101,4 +103,157 @@ export function readIV2a(subjedIdx) {
     let rawdata = fs.readFileSync(prefix + subjedIdx.toString() + suffix);
     let d = JSON.parse(rawdata);
     return d;
+}
+
+var CacheType = {
+    train_data: [0],
+
+}
+
+/**
+ * 
+ * @param {Riemann} riemann 
+ */
+export function cacheIV2a(riemann) {
+    const subjects = arange(1, 10);
+    const nChannels = 4;
+    const nBands = 43;
+    const sampleRate = 250;
+    const expectedTSteps = 1000;
+    const timeseries = riemann.Timeseries(nChannels, nBands, sampleRate, expectedTSteps);
+
+    const trialLength = 3.5
+    const breakLength = 2.5
+
+    const dataAll = {}
+
+    for (const subject of subjects) {
+        dataAll[subject] = {}
+        const data = collectIV2a([subject], timeseries, trialLength * sampleRate, breakLength * sampleRate, riemann)[subject];
+
+        for (const sessionA of [false, true]) {
+            var dataCollected = undefined;
+            var dataLabels = undefined;
+            var id = undefined;
+            if (sessionA) {
+                dataCollected = data.benchmark_data;
+                dataLabels = data.benchmark_labels;
+                id = "benchmark_data";
+            } else {
+                dataCollected = data.train_data;
+                dataLabels = data.train_labels;
+                id = "train_data"
+            }
+
+            const dataConverted = []; 
+
+            for (const benchmarkTrialIdx of arange(0, dataCollected.length)) {
+                const trialData = dataCollected[benchmarkTrialIdx];
+                const trialBuf = riemann.ArrayBuffer();
+                const breakBuf = riemann.ArrayBuffer();
+                trialData.trial.getData(trialBuf);
+                trialData.break_.getData(breakBuf);
+                const trialArr = Array.from(riemann.ArrayBufferToTypedArray(trialBuf))
+                const breakArr = Array.from(riemann.ArrayBufferToTypedArray(breakBuf))
+
+                const trialObj = {
+                    isCov: trialData.trial.isCov,
+                    length: trialData.trial.length,
+                    nBands: trialData.trial.nBands,
+                    nChannels: trialData.trial.nChannels,
+                    data: trialArr
+                }
+                const breakObj = {
+                    isCov: trialData.break_.isCov,
+                    length: trialData.break_.length,
+                    nBands: trialData.break_.nBands,
+                    nChannels: trialData.break_.nChannels,
+                    data: breakArr
+                }
+    
+                dataConverted.push({
+                    trial: trialObj,
+                    break_: breakObj,
+                    label: dataLabels[benchmarkTrialIdx]
+                });
+            }
+
+            dataAll[subject][id] = dataConverted;
+        }
+
+        saveAsJSON(dataAll, "subj_" + subject, cacheFolder);
+    }
+
+    
+}
+
+/**
+ * 
+ * @param {Riemann} riemann 
+ * @returns {Data[]}
+ */
+export function loadCached(riemann, subjects=[1,2,3,4,5,6,7,8,9]) {
+    const nChannels = 4;
+    const nBands = 43;
+    const sampleRate = 250;
+    const expectedTSteps = 1000;
+    const timeseries = riemann.Timeseries(nChannels, nBands, sampleRate, expectedTSteps);
+    const trialLength = 3.5
+    const breakLength = 2.5
+    const isCov = true;
+
+    const dataAll = {}
+    for (const subject of subjects) {
+        const rawdata = fs.readFileSync(cacheFolder + "subj_" + subject + ".json");
+        let subjectData = JSON.parse(rawdata)[subject];
+        dataAll[subject] = {}
+        for (const sessionA of [false, true]) {
+            var d = undefined;
+            var label = undefined;
+            var id_session = undefined;
+            if (sessionA) {
+                d = subjectData.train_data;
+                id_session = "train_"
+            } else {
+                d = subjectData.benchmark_data;
+                id_session = "benchmark_";
+            }
+            const converted_trials = []
+            const converted_labels = []
+            for (const trial of d) {
+                const label = trial.label;
+                const converted_trial = {}
+                converted_labels.push(label);
+
+                for (const isBreak of [false, true]) {
+                    var obj = undefined
+                    var id_tensor = undefined;
+                    if (isBreak) {
+                        obj = trial.trial;
+                        id_tensor = "trial";
+                    } else {
+                        obj = trial.break_;
+                        id_tensor = "break_";
+                    }
+
+                    var isCov_trial = obj.isCov
+                    var length_trial = obj.length
+                    var nBands_trial = obj.nBands
+                    var nChannels_trial= obj.nChannels
+                    var data_trial = obj.data;
+
+                    const timetensor = riemann.Timetensor();
+                    timeseries.loadCachedTensor(data_trial, length_trial, isCov_trial, timetensor);
+                    converted_trial[id_tensor] = timetensor;
+                }
+                converted_trials.push(converted_trial);
+            }
+
+            dataAll[subject][id_session + "data"] = converted_trials;
+            dataAll[subject][id_session + "labels"] = converted_labels;
+
+        }
+    }
+    return dataAll
+    
 }

@@ -2,7 +2,6 @@
 #include <vector>
 
 #include <unsupported/Eigen/MatrixFunctions>
-#include "ArrayBuffer.h"
 #include <Riemann/riemann.h>
 #include "Timetensor.h"
 #include <cassert>

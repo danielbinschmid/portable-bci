@@ -4,8 +4,8 @@ const benchmarkFolder = './evaluation/benchmarks/';
 
 
 
-export function saveAsJSON(obj, name) {
+export function saveAsJSON(obj, name, folder=benchmarkFolder) {
     const currentMillis = "_" + Date.now().toString();
     let benchmarksStringified = JSON.stringify(obj);
-    fs.writeFileSync(benchmarkFolder + name + currentMillis +  '.json', benchmarksStringified);
+    fs.writeFileSync(folder + name + currentMillis +  '.json', benchmarksStringified);
 }

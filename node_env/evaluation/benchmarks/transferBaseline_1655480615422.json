@@ -1,1 +1,1386 @@
-{"test_run_0":{"subj_1":{"transfer_mean_metric_ALE":{"training_mean_metric_ALE":{"transfer-baseline":{"fold_1":{"switch_true":0.7766990291262136,"switch_false":0.7857142857142857}}}},"transfer_mean_metric_Euclidian":{"training_mean_metric_Euclidian":{"transfer-baseline":{"fold_1":{"switch_true":0.8058252427184466,"switch_false":0.8285714285714286}}}},"transfer_mean_metric_Harmonic":{"training_mean_metric_Harmonic":{"transfer-baseline":{"fold_1":{"switch_true":0.8009708737864077,"switch_false":0.7857142857142857}}}},"transfer_mean_metric_Identity":{"training_mean_metric_Identity":{"transfer-baseline":{"fold_1":{"switch_true":0.8203883495145631,"switch_false":0.8238095238095238}}}},"transfer_mean_metric_Kullback":{"training_mean_metric_Kullback":{"transfer-baseline":{"fold_1":{"switch_true":0.7815533980582524,"switch_false":0.819047619047619}}}},"transfer_mean_metric_LogDet":{"training_mean_metric_LogDet":{"transfer-baseline":{"fold_1":{"switch_true":0.8009708737864077,"switch_false":0.7857142857142857}}}},"transfer_mean_metric_LogEuclidian":{"training_mean_metric_LogEuclidian":{"transfer-baseline":{"fold_1":{"switch_true":0.8106796116504854,"switch_false":0.8142857142857143}}}},"transfer_mean_metric_Riemann":{"training_mean_metric_Riemann":{"transfer-baseline":{"fold_1":{"switch_true":0.7961165048543689,"switch_false":0.8142857142857143}}}},"transfer_mean_metric_Wasserstein":{"training_mean_metric_Wasserstein":{"transfer-baseline":{"fold_1":{"switch_true":0.7961165048543689,"switch_false":0.8285714285714286}}}}},"subj_2":{"transfer_mean_metric_ALE":{"training_mean_metric_ALE":{"transfer-baseline":{"fold_1":{"switch_true":0.4900990099009901,"switch_false":0.44549763033175355}}}},"transfer_mean_metric_Euclidian":{"training_mean_metric_Euclidian":{"transfer-baseline":{"fold_1":{"switch_true":0.504950495049505,"switch_false":0.43601895734597157}}}},"transfer_mean_metric_Harmonic":{"training_mean_metric_Harmonic":{"transfer-baseline":{"fold_1":{"switch_true":0.4900990099009901,"switch_false":0.46445497630331756}}}},"transfer_mean_metric_Identity":{"training_mean_metric_Identity":{"transfer-baseline":{"fold_1":{"switch_true":0.43564356435643564,"switch_false":0.3981042654028436}}}},"transfer_mean_metric_Kullback":{"training_mean_metric_Kullback":{"transfer-baseline":{"fold_1":{"switch_true":0.5198019801980198,"switch_false":0.46919431279620855}}}},"transfer_mean_metric_LogDet":{"training_mean_metric_LogDet":{"transfer-baseline":{"fold_1":{"switch_true":0.48514851485148514,"switch_false":0.46445497630331756}}}},"transfer_mean_metric_LogEuclidian":{"training_mean_metric_LogEuclidian":{"transfer-baseline":{"fold_1":{"switch_true":0.5148514851485149,"switch_false":0.4786729857819905}}}},"transfer_mean_metric_Riemann":{"training_mean_metric_Riemann":{"transfer-baseline":{"fold_1":{"switch_true":0.4900990099009901,"switch_false":0.4597156398104265}}}},"transfer_mean_metric_Wasserstein":{"training_mean_metric_Wasserstein":{"transfer-baseline":{"fold_1":{"switch_true":0.46534653465346537,"switch_false":0.4786729857819905}}}}},"subj_3":{"transfer_mean_metric_ALE":{"training_mean_metric_ALE":{"transfer-baseline":{"fold_1":{"switch_true":0.7487684729064039,"switch_false":0.7560975609756098}}}},"transfer_mean_metric_Euclidian":{"training_mean_metric_Euclidian":{"transfer-baseline":{"fold_1":{"switch_true":0.729064039408867,"switch_false":0.751219512195122}}}},"transfer_mean_metric_Harmonic":{"training_mean_metric_Harmonic":{"transfer-baseline":{"fold_1":{"switch_true":0.7142857142857143,"switch_false":0.7414634146341463}}}},"transfer_mean_metric_Identity":{"training_mean_metric_Identity":{"transfer-baseline":{"fold_1":{"switch_true":0.6748768472906403,"switch_false":0.6292682926829268}}}},"transfer_mean_metric_Kullback":{"training_mean_metric_Kullback":{"transfer-baseline":{"fold_1":{"switch_true":0.6995073891625616,"switch_false":0.7658536585365854}}}},"transfer_mean_metric_LogDet":{"training_mean_metric_LogDet":{"transfer-baseline":{"fold_1":{"switch_true":0.7339901477832512,"switch_false":0.7219512195121951}}}},"transfer_mean_metric_LogEuclidian":{"training_mean_metric_LogEuclidian":{"transfer-baseline":{"fold_1":{"switch_true":0.729064039408867,"switch_false":0.7365853658536585}}}},"transfer_mean_metric_Riemann":{"training_mean_metric_Riemann":{"transfer-baseline":{"fold_1":{"switch_true":0.7389162561576355,"switch_false":0.7268292682926829}}}},"transfer_mean_metric_Wasserstein":{"training_mean_metric_Wasserstein":{"transfer-baseline":{"fold_1":{"switch_true":0.7192118226600985,"switch_false":0.7609756097560976}}}}},"subj_4":{"transfer_mean_metric_ALE":{"training_mean_metric_ALE":{"transfer-baseline":{"fold_1":{"switch_true":0.5510204081632653,"switch_false":0.7485714285714286}}}},"transfer_mean_metric_Euclidian":{"training_mean_metric_Euclidian":{"transfer-baseline":{"fold_1":{"switch_true":0.5306122448979592,"switch_false":0.7371428571428571}}}},"transfer_mean_metric_Harmonic":{"training_mean_metric_Harmonic":{"transfer-baseline":{"fold_1":{"switch_true":0.5510204081632653,"switch_false":0.72}}}},"transfer_mean_metric_Identity":{"training_mean_metric_Identity":{"transfer-baseline":{"fold_1":{"switch_true":0.5306122448979592,"switch_false":0.6742857142857143}}}},"transfer_mean_metric_Kullback":{"training_mean_metric_Kullback":{"transfer-baseline":{"fold_1":{"switch_true":0.5357142857142857,"switch_false":0.7142857142857143}}}},"transfer_mean_metric_LogDet":{"training_mean_metric_LogDet":{"transfer-baseline":{"fold_1":{"switch_true":0.5663265306122449,"switch_false":0.7028571428571428}}}},"transfer_mean_metric_LogEuclidian":{"training_mean_metric_LogEuclidian":{"transfer-baseline":{"fold_1":{"switch_true":0.5561224489795918,"switch_false":0.7371428571428571}}}},"transfer_mean_metric_Riemann":{"training_mean_metric_Riemann":{"transfer-baseline":{"fold_1":{"switch_true":0.5459183673469388,"switch_false":0.6857142857142857}}}},"transfer_mean_metric_Wasserstein":{"training_mean_metric_Wasserstein":{"transfer-baseline":{"fold_1":{"switch_true":0.5510204081632653,"switch_false":0.7257142857142858}}}}},"subj_5":{"transfer_mean_metric_ALE":{"training_mean_metric_ALE":{"transfer-baseline":{"fold_1":{"switch_true":0.4564102564102564,"switch_false":0.42028985507246375}}}},"transfer_mean_metric_Euclidian":{"training_mean_metric_Euclidian":{"transfer-baseline":{"fold_1":{"switch_true":0.4307692307692308,"switch_false":0.4396135265700483}}}},"transfer_mean_metric_Harmonic":{"training_mean_metric_Harmonic":{"transfer-baseline":{"fold_1":{"switch_true":0.4307692307692308,"switch_false":0.43478260869565216}}}},"transfer_mean_metric_Identity":{"training_mean_metric_Identity":{"transfer-baseline":{"fold_1":{"switch_true":0.4205128205128205,"switch_false":0.42028985507246375}}}},"transfer_mean_metric_Kullback":{"training_mean_metric_Kullback":{"transfer-baseline":{"fold_1":{"switch_true":0.4512820512820513,"switch_false":0.45410628019323673}}}},"transfer_mean_metric_LogDet":{"training_mean_metric_LogDet":{"transfer-baseline":{"fold_1":{"switch_true":0.38461538461538464,"switch_false":0.42028985507246375}}}},"transfer_mean_metric_LogEuclidian":{"training_mean_metric_LogEuclidian":{"transfer-baseline":{"fold_1":{"switch_true":0.38974358974358975,"switch_false":0.4492753623188406}}}},"transfer_mean_metric_Riemann":{"training_mean_metric_Riemann":{"transfer-baseline":{"fold_1":{"switch_true":0.46153846153846156,"switch_false":0.4251207729468599}}}},"transfer_mean_metric_Wasserstein":{"training_mean_metric_Wasserstein":{"transfer-baseline":{"fold_1":{"switch_true":0.47692307692307695,"switch_false":0.4251207729468599}}}}},"subj_6":{"transfer_mean_metric_ALE":{"training_mean_metric_ALE":{"transfer-baseline":{"fold_1":{"switch_true":0.5185185185185185,"switch_false":0.5617283950617284}}}},"transfer_mean_metric_Euclidian":{"training_mean_metric_Euclidian":{"transfer-baseline":{"fold_1":{"switch_true":0.5555555555555556,"switch_false":0.5987654320987654}}}},"transfer_mean_metric_Harmonic":{"training_mean_metric_Harmonic":{"transfer-baseline":{"fold_1":{"switch_true":0.5123456790123457,"switch_false":0.5617283950617284}}}},"transfer_mean_metric_Identity":{"training_mean_metric_Identity":{"transfer-baseline":{"fold_1":{"switch_true":0.5246913580246914,"switch_false":0.5308641975308642}}}},"transfer_mean_metric_Kullback":{"training_mean_metric_Kullback":{"transfer-baseline":{"fold_1":{"switch_true":0.5370370370370371,"switch_false":0.5679012345679012}}}},"transfer_mean_metric_LogDet":{"training_mean_metric_LogDet":{"transfer-baseline":{"fold_1":{"switch_true":0.5679012345679012,"switch_false":0.5617283950617284}}}},"transfer_mean_metric_LogEuclidian":{"training_mean_metric_LogEuclidian":{"transfer-baseline":{"fold_1":{"switch_true":0.49382716049382713,"switch_false":0.5679012345679012}}}},"transfer_mean_metric_Riemann":{"training_mean_metric_Riemann":{"transfer-baseline":{"fold_1":{"switch_true":0.49382716049382713,"switch_false":0.5308641975308642}}}},"transfer_mean_metric_Wasserstein":{"training_mean_metric_Wasserstein":{"transfer-baseline":{"fold_1":{"switch_true":0.5370370370370371,"switch_false":0.5925925925925926}}}}},"subj_7":{"transfer_mean_metric_ALE":{"training_mean_metric_ALE":{"transfer-baseline":{"fold_1":{"switch_true":0.65,"switch_false":0.6208530805687204}}}},"transfer_mean_metric_Euclidian":{"training_mean_metric_Euclidian":{"transfer-baseline":{"fold_1":{"switch_true":0.67,"switch_false":0.6066350710900474}}}},"transfer_mean_metric_Harmonic":{"training_mean_metric_Harmonic":{"transfer-baseline":{"fold_1":{"switch_true":0.67,"switch_false":0.5971563981042654}}}},"transfer_mean_metric_Identity":{"training_mean_metric_Identity":{"transfer-baseline":{"fold_1":{"switch_true":0.62,"switch_false":0.4834123222748815}}}},"transfer_mean_metric_Kullback":{"training_mean_metric_Kullback":{"transfer-baseline":{"fold_1":{"switch_true":0.635,"switch_false":0.6208530805687204}}}},"transfer_mean_metric_LogDet":{"training_mean_metric_LogDet":{"transfer-baseline":{"fold_1":{"switch_true":0.65,"switch_false":0.5924170616113744}}}},"transfer_mean_metric_LogEuclidian":{"training_mean_metric_LogEuclidian":{"transfer-baseline":{"fold_1":{"switch_true":0.645,"switch_false":0.6161137440758294}}}},"transfer_mean_metric_Riemann":{"training_mean_metric_Riemann":{"transfer-baseline":{"fold_1":{"switch_true":0.64,"switch_false":0.5971563981042654}}}},"transfer_mean_metric_Wasserstein":{"training_mean_metric_Wasserstein":{"transfer-baseline":{"fold_1":{"switch_true":0.655,"switch_false":0.6303317535545023}}}}},"subj_8":{"transfer_mean_metric_ALE":{"training_mean_metric_ALE":{"transfer-baseline":{"fold_1":{"switch_true":0.7040816326530612,"switch_false":0.7389162561576355}}}},"transfer_mean_metric_Euclidian":{"training_mean_metric_Euclidian":{"transfer-baseline":{"fold_1":{"switch_true":0.7193877551020408,"switch_false":0.7487684729064039}}}},"transfer_mean_metric_Harmonic":{"training_mean_metric_Harmonic":{"transfer-baseline":{"fold_1":{"switch_true":0.6989795918367347,"switch_false":0.7241379310344828}}}},"transfer_mean_metric_Identity":{"training_mean_metric_Identity":{"transfer-baseline":{"fold_1":{"switch_true":0.7040816326530612,"switch_false":0.7339901477832512}}}},"transfer_mean_metric_Kullback":{"training_mean_metric_Kullback":{"transfer-baseline":{"fold_1":{"switch_true":0.6989795918367347,"switch_false":0.7093596059113301}}}},"transfer_mean_metric_LogDet":{"training_mean_metric_LogDet":{"transfer-baseline":{"fold_1":{"switch_true":0.7142857142857143,"switch_false":0.7438423645320197}}}},"transfer_mean_metric_LogEuclidian":{"training_mean_metric_LogEuclidian":{"transfer-baseline":{"fold_1":{"switch_true":0.7244897959183674,"switch_false":0.7487684729064039}}}},"transfer_mean_metric_Riemann":{"training_mean_metric_Riemann":{"transfer-baseline":{"fold_1":{"switch_true":0.7091836734693877,"switch_false":0.7635467980295566}}}},"transfer_mean_metric_Wasserstein":{"training_mean_metric_Wasserstein":{"transfer-baseline":{"fold_1":{"switch_true":0.7142857142857143,"switch_false":0.7487684729064039}}}}},"subj_9":{"transfer_mean_metric_ALE":{"training_mean_metric_ALE":{"transfer-baseline":{"fold_1":{"switch_true":0.5028248587570622,"switch_false":0.6381909547738693}}}},"transfer_mean_metric_Euclidian":{"training_mean_metric_Euclidian":{"transfer-baseline":{"fold_1":{"switch_true":0.5254237288135594,"switch_false":0.6582914572864321}}}},"transfer_mean_metric_Harmonic":{"training_mean_metric_Harmonic":{"transfer-baseline":{"fold_1":{"switch_true":0.4971751412429379,"switch_false":0.6432160804020101}}}},"transfer_mean_metric_Identity":{"training_mean_metric_Identity":{"transfer-baseline":{"fold_1":{"switch_true":0.536723163841808,"switch_false":0.6733668341708543}}}},"transfer_mean_metric_Kullback":{"training_mean_metric_Kullback":{"transfer-baseline":{"fold_1":{"switch_true":0.5084745762711864,"switch_false":0.6432160804020101}}}},"transfer_mean_metric_LogDet":{"training_mean_metric_LogDet":{"transfer-baseline":{"fold_1":{"switch_true":0.5141242937853108,"switch_false":0.6482412060301508}}}},"transfer_mean_metric_LogEuclidian":{"training_mean_metric_LogEuclidian":{"transfer-baseline":{"fold_1":{"switch_true":0.5310734463276836,"switch_false":0.6482412060301508}}}},"transfer_mean_metric_Riemann":{"training_mean_metric_Riemann":{"transfer-baseline":{"fold_1":{"switch_true":0.480225988700565,"switch_false":0.6532663316582915}}}},"transfer_mean_metric_Wasserstein":{"training_mean_metric_Wasserstein":{"transfer-baseline":{"fold_1":{"switch_true":0.5028248587570622,"switch_false":0.6582914572864321}}}}}},"test_run_1":{"subj_1":{"transfer_mean_metric_ALE":{"training_mean_metric_ALE":{"transfer-baseline":{"fold_1":{"switch_true":0.7669902912621359,"switch_false":0.8}}}},"transfer_mean_metric_Euclidian":{"training_mean_metric_Euclidian":{"transfer-baseline":{"fold_1":{"switch_true":0.7864077669902912,"switch_false":0.8285714285714286}}}},"transfer_mean_metric_Harmonic":{"training_mean_metric_Harmonic":{"transfer-baseline":{"fold_1":{"switch_true":0.8058252427184466,"switch_false":0.7904761904761904}}}},"transfer_mean_metric_Identity":{"training_mean_metric_Identity":{"transfer-baseline":{"fold_1":{"switch_true":0.7912621359223301,"switch_false":0.8476190476190476}}}},"transfer_mean_metric_Kullback":{"training_mean_metric_Kullback":{"transfer-baseline":{"fold_1":{"switch_true":0.7912621359223301,"switch_false":0.7952380952380952}}}},"transfer_mean_metric_LogDet":{"training_mean_metric_LogDet":{"transfer-baseline":{"fold_1":{"switch_true":0.7912621359223301,"switch_false":0.7761904761904762}}}},"transfer_mean_metric_LogEuclidian":{"training_mean_metric_LogEuclidian":{"transfer-baseline":{"fold_1":{"switch_true":0.7815533980582524,"switch_false":0.8142857142857143}}}},"transfer_mean_metric_Riemann":{"training_mean_metric_Riemann":{"transfer-baseline":{"fold_1":{"switch_true":0.7912621359223301,"switch_false":0.8238095238095238}}}},"transfer_mean_metric_Wasserstein":{"training_mean_metric_Wasserstein":{"transfer-baseline":{"fold_1":{"switch_true":0.7864077669902912,"switch_false":0.8142857142857143}}}}},"subj_2":{"transfer_mean_metric_ALE":{"training_mean_metric_ALE":{"transfer-baseline":{"fold_1":{"switch_true":0.5099009900990099,"switch_false":0.4218009478672986}}}},"transfer_mean_metric_Euclidian":{"training_mean_metric_Euclidian":{"transfer-baseline":{"fold_1":{"switch_true":0.5,"switch_false":0.4549763033175355}}}},"transfer_mean_metric_Harmonic":{"training_mean_metric_Harmonic":{"transfer-baseline":{"fold_1":{"switch_true":0.46534653465346537,"switch_false":0.5023696682464455}}}},"transfer_mean_metric_Identity":{"training_mean_metric_Identity":{"transfer-baseline":{"fold_1":{"switch_true":0.4752475247524752,"switch_false":0.4312796208530806}}}},"transfer_mean_metric_Kullback":{"training_mean_metric_Kullback":{"transfer-baseline":{"fold_1":{"switch_true":0.48514851485148514,"switch_false":0.44075829383886256}}}},"transfer_mean_metric_LogDet":{"training_mean_metric_LogDet":{"transfer-baseline":{"fold_1":{"switch_true":0.5198019801980198,"switch_false":0.4312796208530806}}}},"transfer_mean_metric_LogEuclidian":{"training_mean_metric_LogEuclidian":{"transfer-baseline":{"fold_1":{"switch_true":0.504950495049505,"switch_false":0.4786729857819905}}}},"transfer_mean_metric_Riemann":{"training_mean_metric_Riemann":{"transfer-baseline":{"fold_1":{"switch_true":0.5099009900990099,"switch_false":0.44549763033175355}}}},"transfer_mean_metric_Wasserstein":{"training_mean_metric_Wasserstein":{"transfer-baseline":{"fold_1":{"switch_true":0.4801980198019802,"switch_false":0.46919431279620855}}}}},"subj_3":{"transfer_mean_metric_ALE":{"training_mean_metric_ALE":{"transfer-baseline":{"fold_1":{"switch_true":0.7142857142857143,"switch_false":0.751219512195122}}}},"transfer_mean_metric_Euclidian":{"training_mean_metric_Euclidian":{"transfer-baseline":{"fold_1":{"switch_true":0.7487684729064039,"switch_false":0.7414634146341463}}}},"transfer_mean_metric_Harmonic":{"training_mean_metric_Harmonic":{"transfer-baseline":{"fold_1":{"switch_true":0.7339901477832512,"switch_false":0.7365853658536585}}}},"transfer_mean_metric_Identity":{"training_mean_metric_Identity":{"transfer-baseline":{"fold_1":{"switch_true":0.6847290640394089,"switch_false":0.6585365853658537}}}},"transfer_mean_metric_Kullback":{"training_mean_metric_Kullback":{"transfer-baseline":{"fold_1":{"switch_true":0.7044334975369458,"switch_false":0.7463414634146341}}}},"transfer_mean_metric_LogDet":{"training_mean_metric_LogDet":{"transfer-baseline":{"fold_1":{"switch_true":0.7192118226600985,"switch_false":0.7609756097560976}}}},"transfer_mean_metric_LogEuclidian":{"training_mean_metric_LogEuclidian":{"transfer-baseline":{"fold_1":{"switch_true":0.7339901477832512,"switch_false":0.7609756097560976}}}},"transfer_mean_metric_Riemann":{"training_mean_metric_Riemann":{"transfer-baseline":{"fold_1":{"switch_true":0.729064039408867,"switch_false":0.7463414634146341}}}},"transfer_mean_metric_Wasserstein":{"training_mean_metric_Wasserstein":{"transfer-baseline":{"fold_1":{"switch_true":0.7192118226600985,"switch_false":0.7707317073170732}}}}},"subj_4":{"transfer_mean_metric_ALE":{"training_mean_metric_ALE":{"transfer-baseline":{"fold_1":{"switch_true":0.5510204081632653,"switch_false":0.72}}}},"transfer_mean_metric_Euclidian":{"training_mean_metric_Euclidian":{"transfer-baseline":{"fold_1":{"switch_true":0.5561224489795918,"switch_false":0.6971428571428572}}}},"transfer_mean_metric_Harmonic":{"training_mean_metric_Harmonic":{"transfer-baseline":{"fold_1":{"switch_true":0.5663265306122449,"switch_false":0.6914285714285714}}}},"transfer_mean_metric_Identity":{"training_mean_metric_Identity":{"transfer-baseline":{"fold_1":{"switch_true":0.5459183673469388,"switch_false":0.6685714285714286}}}},"transfer_mean_metric_Kullback":{"training_mean_metric_Kullback":{"transfer-baseline":{"fold_1":{"switch_true":0.5306122448979592,"switch_false":0.6914285714285714}}}},"transfer_mean_metric_LogDet":{"training_mean_metric_LogDet":{"transfer-baseline":{"fold_1":{"switch_true":0.5357142857142857,"switch_false":0.7257142857142858}}}},"transfer_mean_metric_LogEuclidian":{"training_mean_metric_LogEuclidian":{"transfer-baseline":{"fold_1":{"switch_true":0.5306122448979592,"switch_false":0.72}}}},"transfer_mean_metric_Riemann":{"training_mean_metric_Riemann":{"transfer-baseline":{"fold_1":{"switch_true":0.5408163265306123,"switch_false":0.7485714285714286}}}},"transfer_mean_metric_Wasserstein":{"training_mean_metric_Wasserstein":{"transfer-baseline":{"fold_1":{"switch_true":0.5255102040816326,"switch_false":0.7428571428571429}}}}},"subj_5":{"transfer_mean_metric_ALE":{"training_mean_metric_ALE":{"transfer-baseline":{"fold_1":{"switch_true":0.4153846153846154,"switch_false":0.42995169082125606}}}},"transfer_mean_metric_Euclidian":{"training_mean_metric_Euclidian":{"transfer-baseline":{"fold_1":{"switch_true":0.4153846153846154,"switch_false":0.42028985507246375}}}},"transfer_mean_metric_Harmonic":{"training_mean_metric_Harmonic":{"transfer-baseline":{"fold_1":{"switch_true":0.441025641025641,"switch_false":0.3961352657004831}}}},"transfer_mean_metric_Identity":{"training_mean_metric_Identity":{"transfer-baseline":{"fold_1":{"switch_true":0.4358974358974359,"switch_false":0.42028985507246375}}}},"transfer_mean_metric_Kullback":{"training_mean_metric_Kullback":{"transfer-baseline":{"fold_1":{"switch_true":0.4153846153846154,"switch_false":0.41545893719806765}}}},"transfer_mean_metric_LogDet":{"training_mean_metric_LogDet":{"transfer-baseline":{"fold_1":{"switch_true":0.46153846153846156,"switch_false":0.4444444444444444}}}},"transfer_mean_metric_LogEuclidian":{"training_mean_metric_LogEuclidian":{"transfer-baseline":{"fold_1":{"switch_true":0.4153846153846154,"switch_false":0.4396135265700483}}}},"transfer_mean_metric_Riemann":{"training_mean_metric_Riemann":{"transfer-baseline":{"fold_1":{"switch_true":0.4256410256410256,"switch_false":0.463768115942029}}}},"transfer_mean_metric_Wasserstein":{"training_mean_metric_Wasserstein":{"transfer-baseline":{"fold_1":{"switch_true":0.4307692307692308,"switch_false":0.42995169082125606}}}}},"subj_6":{"transfer_mean_metric_ALE":{"training_mean_metric_ALE":{"transfer-baseline":{"fold_1":{"switch_true":0.5308641975308642,"switch_false":0.5555555555555556}}}},"transfer_mean_metric_Euclidian":{"training_mean_metric_Euclidian":{"transfer-baseline":{"fold_1":{"switch_true":0.5246913580246914,"switch_false":0.5679012345679012}}}},"transfer_mean_metric_Harmonic":{"training_mean_metric_Harmonic":{"transfer-baseline":{"fold_1":{"switch_true":0.5061728395061729,"switch_false":0.5802469135802469}}}},"transfer_mean_metric_Identity":{"training_mean_metric_Identity":{"transfer-baseline":{"fold_1":{"switch_true":0.5,"switch_false":0.5740740740740741}}}},"transfer_mean_metric_Kullback":{"training_mean_metric_Kullback":{"transfer-baseline":{"fold_1":{"switch_true":0.5061728395061729,"switch_false":0.5925925925925926}}}},"transfer_mean_metric_LogDet":{"training_mean_metric_LogDet":{"transfer-baseline":{"fold_1":{"switch_true":0.5246913580246914,"switch_false":0.5802469135802469}}}},"transfer_mean_metric_LogEuclidian":{"training_mean_metric_LogEuclidian":{"transfer-baseline":{"fold_1":{"switch_true":0.5,"switch_false":0.5925925925925926}}}},"transfer_mean_metric_Riemann":{"training_mean_metric_Riemann":{"transfer-baseline":{"fold_1":{"switch_true":0.5185185185185185,"switch_false":0.5987654320987654}}}},"transfer_mean_metric_Wasserstein":{"training_mean_metric_Wasserstein":{"transfer-baseline":{"fold_1":{"switch_true":0.5308641975308642,"switch_false":0.5555555555555556}}}}}}}
+{
+    "test_run_0": {
+        "subj_1": {
+            "transfer_mean_metric_ALE": {
+                "training_mean_metric_ALE": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.7766990291262136,
+                            "switch_false": 0.7857142857142857
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Euclidian": {
+                "training_mean_metric_Euclidian": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.8058252427184466,
+                            "switch_false": 0.8285714285714286
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Harmonic": {
+                "training_mean_metric_Harmonic": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.8009708737864077,
+                            "switch_false": 0.7857142857142857
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Identity": {
+                "training_mean_metric_Identity": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.8203883495145631,
+                            "switch_false": 0.8238095238095238
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Kullback": {
+                "training_mean_metric_Kullback": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.7815533980582524,
+                            "switch_false": 0.819047619047619
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_LogDet": {
+                "training_mean_metric_LogDet": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.8009708737864077,
+                            "switch_false": 0.7857142857142857
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_LogEuclidian": {
+                "training_mean_metric_LogEuclidian": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.8106796116504854,
+                            "switch_false": 0.8142857142857143
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Riemann": {
+                "training_mean_metric_Riemann": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.7961165048543689,
+                            "switch_false": 0.8142857142857143
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Wasserstein": {
+                "training_mean_metric_Wasserstein": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.7961165048543689,
+                            "switch_false": 0.8285714285714286
+                        }
+                    }
+                }
+            }
+        },
+        "subj_2": {
+            "transfer_mean_metric_ALE": {
+                "training_mean_metric_ALE": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.4900990099009901,
+                            "switch_false": 0.44549763033175355
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Euclidian": {
+                "training_mean_metric_Euclidian": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.504950495049505,
+                            "switch_false": 0.43601895734597157
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Harmonic": {
+                "training_mean_metric_Harmonic": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.4900990099009901,
+                            "switch_false": 0.46445497630331756
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Identity": {
+                "training_mean_metric_Identity": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.43564356435643564,
+                            "switch_false": 0.3981042654028436
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Kullback": {
+                "training_mean_metric_Kullback": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.5198019801980198,
+                            "switch_false": 0.46919431279620855
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_LogDet": {
+                "training_mean_metric_LogDet": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.48514851485148514,
+                            "switch_false": 0.46445497630331756
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_LogEuclidian": {
+                "training_mean_metric_LogEuclidian": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.5148514851485149,
+                            "switch_false": 0.4786729857819905
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Riemann": {
+                "training_mean_metric_Riemann": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.4900990099009901,
+                            "switch_false": 0.4597156398104265
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Wasserstein": {
+                "training_mean_metric_Wasserstein": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.46534653465346537,
+                            "switch_false": 0.4786729857819905
+                        }
+                    }
+                }
+            }
+        },
+        "subj_3": {
+            "transfer_mean_metric_ALE": {
+                "training_mean_metric_ALE": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.7487684729064039,
+                            "switch_false": 0.7560975609756098
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Euclidian": {
+                "training_mean_metric_Euclidian": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.729064039408867,
+                            "switch_false": 0.751219512195122
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Harmonic": {
+                "training_mean_metric_Harmonic": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.7142857142857143,
+                            "switch_false": 0.7414634146341463
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Identity": {
+                "training_mean_metric_Identity": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.6748768472906403,
+                            "switch_false": 0.6292682926829268
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Kullback": {
+                "training_mean_metric_Kullback": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.6995073891625616,
+                            "switch_false": 0.7658536585365854
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_LogDet": {
+                "training_mean_metric_LogDet": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.7339901477832512,
+                            "switch_false": 0.7219512195121951
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_LogEuclidian": {
+                "training_mean_metric_LogEuclidian": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.729064039408867,
+                            "switch_false": 0.7365853658536585
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Riemann": {
+                "training_mean_metric_Riemann": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.7389162561576355,
+                            "switch_false": 0.7268292682926829
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Wasserstein": {
+                "training_mean_metric_Wasserstein": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.7192118226600985,
+                            "switch_false": 0.7609756097560976
+                        }
+                    }
+                }
+            }
+        },
+        "subj_4": {
+            "transfer_mean_metric_ALE": {
+                "training_mean_metric_ALE": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.5510204081632653,
+                            "switch_false": 0.7485714285714286
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Euclidian": {
+                "training_mean_metric_Euclidian": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.5306122448979592,
+                            "switch_false": 0.7371428571428571
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Harmonic": {
+                "training_mean_metric_Harmonic": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.5510204081632653,
+                            "switch_false": 0.72
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Identity": {
+                "training_mean_metric_Identity": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.5306122448979592,
+                            "switch_false": 0.6742857142857143
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Kullback": {
+                "training_mean_metric_Kullback": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.5357142857142857,
+                            "switch_false": 0.7142857142857143
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_LogDet": {
+                "training_mean_metric_LogDet": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.5663265306122449,
+                            "switch_false": 0.7028571428571428
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_LogEuclidian": {
+                "training_mean_metric_LogEuclidian": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.5561224489795918,
+                            "switch_false": 0.7371428571428571
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Riemann": {
+                "training_mean_metric_Riemann": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.5459183673469388,
+                            "switch_false": 0.6857142857142857
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Wasserstein": {
+                "training_mean_metric_Wasserstein": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.5510204081632653,
+                            "switch_false": 0.7257142857142858
+                        }
+                    }
+                }
+            }
+        },
+        "subj_5": {
+            "transfer_mean_metric_ALE": {
+                "training_mean_metric_ALE": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.4564102564102564,
+                            "switch_false": 0.42028985507246375
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Euclidian": {
+                "training_mean_metric_Euclidian": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.4307692307692308,
+                            "switch_false": 0.4396135265700483
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Harmonic": {
+                "training_mean_metric_Harmonic": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.4307692307692308,
+                            "switch_false": 0.43478260869565216
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Identity": {
+                "training_mean_metric_Identity": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.4205128205128205,
+                            "switch_false": 0.42028985507246375
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Kullback": {
+                "training_mean_metric_Kullback": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.4512820512820513,
+                            "switch_false": 0.45410628019323673
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_LogDet": {
+                "training_mean_metric_LogDet": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.38461538461538464,
+                            "switch_false": 0.42028985507246375
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_LogEuclidian": {
+                "training_mean_metric_LogEuclidian": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.38974358974358975,
+                            "switch_false": 0.4492753623188406
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Riemann": {
+                "training_mean_metric_Riemann": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.46153846153846156,
+                            "switch_false": 0.4251207729468599
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Wasserstein": {
+                "training_mean_metric_Wasserstein": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.47692307692307695,
+                            "switch_false": 0.4251207729468599
+                        }
+                    }
+                }
+            }
+        },
+        "subj_6": {
+            "transfer_mean_metric_ALE": {
+                "training_mean_metric_ALE": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.5185185185185185,
+                            "switch_false": 0.5617283950617284
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Euclidian": {
+                "training_mean_metric_Euclidian": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.5555555555555556,
+                            "switch_false": 0.5987654320987654
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Harmonic": {
+                "training_mean_metric_Harmonic": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.5123456790123457,
+                            "switch_false": 0.5617283950617284
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Identity": {
+                "training_mean_metric_Identity": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.5246913580246914,
+                            "switch_false": 0.5308641975308642
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Kullback": {
+                "training_mean_metric_Kullback": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.5370370370370371,
+                            "switch_false": 0.5679012345679012
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_LogDet": {
+                "training_mean_metric_LogDet": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.5679012345679012,
+                            "switch_false": 0.5617283950617284
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_LogEuclidian": {
+                "training_mean_metric_LogEuclidian": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.49382716049382713,
+                            "switch_false": 0.5679012345679012
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Riemann": {
+                "training_mean_metric_Riemann": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.49382716049382713,
+                            "switch_false": 0.5308641975308642
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Wasserstein": {
+                "training_mean_metric_Wasserstein": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.5370370370370371,
+                            "switch_false": 0.5925925925925926
+                        }
+                    }
+                }
+            }
+        },
+        "subj_7": {
+            "transfer_mean_metric_ALE": {
+                "training_mean_metric_ALE": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.65,
+                            "switch_false": 0.6208530805687204
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Euclidian": {
+                "training_mean_metric_Euclidian": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.67,
+                            "switch_false": 0.6066350710900474
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Harmonic": {
+                "training_mean_metric_Harmonic": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.67,
+                            "switch_false": 0.5971563981042654
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Identity": {
+                "training_mean_metric_Identity": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.62,
+                            "switch_false": 0.4834123222748815
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Kullback": {
+                "training_mean_metric_Kullback": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.635,
+                            "switch_false": 0.6208530805687204
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_LogDet": {
+                "training_mean_metric_LogDet": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.65,
+                            "switch_false": 0.5924170616113744
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_LogEuclidian": {
+                "training_mean_metric_LogEuclidian": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.645,
+                            "switch_false": 0.6161137440758294
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Riemann": {
+                "training_mean_metric_Riemann": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.64,
+                            "switch_false": 0.5971563981042654
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Wasserstein": {
+                "training_mean_metric_Wasserstein": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.655,
+                            "switch_false": 0.6303317535545023
+                        }
+                    }
+                }
+            }
+        },
+        "subj_8": {
+            "transfer_mean_metric_ALE": {
+                "training_mean_metric_ALE": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.7040816326530612,
+                            "switch_false": 0.7389162561576355
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Euclidian": {
+                "training_mean_metric_Euclidian": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.7193877551020408,
+                            "switch_false": 0.7487684729064039
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Harmonic": {
+                "training_mean_metric_Harmonic": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.6989795918367347,
+                            "switch_false": 0.7241379310344828
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Identity": {
+                "training_mean_metric_Identity": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.7040816326530612,
+                            "switch_false": 0.7339901477832512
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Kullback": {
+                "training_mean_metric_Kullback": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.6989795918367347,
+                            "switch_false": 0.7093596059113301
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_LogDet": {
+                "training_mean_metric_LogDet": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.7142857142857143,
+                            "switch_false": 0.7438423645320197
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_LogEuclidian": {
+                "training_mean_metric_LogEuclidian": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.7244897959183674,
+                            "switch_false": 0.7487684729064039
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Riemann": {
+                "training_mean_metric_Riemann": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.7091836734693877,
+                            "switch_false": 0.7635467980295566
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Wasserstein": {
+                "training_mean_metric_Wasserstein": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.7142857142857143,
+                            "switch_false": 0.7487684729064039
+                        }
+                    }
+                }
+            }
+        },
+        "subj_9": {
+            "transfer_mean_metric_ALE": {
+                "training_mean_metric_ALE": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.5028248587570622,
+                            "switch_false": 0.6381909547738693
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Euclidian": {
+                "training_mean_metric_Euclidian": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.5254237288135594,
+                            "switch_false": 0.6582914572864321
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Harmonic": {
+                "training_mean_metric_Harmonic": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.4971751412429379,
+                            "switch_false": 0.6432160804020101
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Identity": {
+                "training_mean_metric_Identity": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.536723163841808,
+                            "switch_false": 0.6733668341708543
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Kullback": {
+                "training_mean_metric_Kullback": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.5084745762711864,
+                            "switch_false": 0.6432160804020101
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_LogDet": {
+                "training_mean_metric_LogDet": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.5141242937853108,
+                            "switch_false": 0.6482412060301508
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_LogEuclidian": {
+                "training_mean_metric_LogEuclidian": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.5310734463276836,
+                            "switch_false": 0.6482412060301508
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Riemann": {
+                "training_mean_metric_Riemann": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.480225988700565,
+                            "switch_false": 0.6532663316582915
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Wasserstein": {
+                "training_mean_metric_Wasserstein": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.5028248587570622,
+                            "switch_false": 0.6582914572864321
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "test_run_1": {
+        "subj_1": {
+            "transfer_mean_metric_ALE": {
+                "training_mean_metric_ALE": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.7669902912621359,
+                            "switch_false": 0.8
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Euclidian": {
+                "training_mean_metric_Euclidian": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.7864077669902912,
+                            "switch_false": 0.8285714285714286
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Harmonic": {
+                "training_mean_metric_Harmonic": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.8058252427184466,
+                            "switch_false": 0.7904761904761904
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Identity": {
+                "training_mean_metric_Identity": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.7912621359223301,
+                            "switch_false": 0.8476190476190476
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Kullback": {
+                "training_mean_metric_Kullback": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.7912621359223301,
+                            "switch_false": 0.7952380952380952
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_LogDet": {
+                "training_mean_metric_LogDet": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.7912621359223301,
+                            "switch_false": 0.7761904761904762
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_LogEuclidian": {
+                "training_mean_metric_LogEuclidian": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.7815533980582524,
+                            "switch_false": 0.8142857142857143
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Riemann": {
+                "training_mean_metric_Riemann": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.7912621359223301,
+                            "switch_false": 0.8238095238095238
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Wasserstein": {
+                "training_mean_metric_Wasserstein": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.7864077669902912,
+                            "switch_false": 0.8142857142857143
+                        }
+                    }
+                }
+            }
+        },
+        "subj_2": {
+            "transfer_mean_metric_ALE": {
+                "training_mean_metric_ALE": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.5099009900990099,
+                            "switch_false": 0.4218009478672986
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Euclidian": {
+                "training_mean_metric_Euclidian": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.5,
+                            "switch_false": 0.4549763033175355
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Harmonic": {
+                "training_mean_metric_Harmonic": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.46534653465346537,
+                            "switch_false": 0.5023696682464455
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Identity": {
+                "training_mean_metric_Identity": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.4752475247524752,
+                            "switch_false": 0.4312796208530806
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Kullback": {
+                "training_mean_metric_Kullback": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.48514851485148514,
+                            "switch_false": 0.44075829383886256
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_LogDet": {
+                "training_mean_metric_LogDet": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.5198019801980198,
+                            "switch_false": 0.4312796208530806
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_LogEuclidian": {
+                "training_mean_metric_LogEuclidian": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.504950495049505,
+                            "switch_false": 0.4786729857819905
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Riemann": {
+                "training_mean_metric_Riemann": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.5099009900990099,
+                            "switch_false": 0.44549763033175355
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Wasserstein": {
+                "training_mean_metric_Wasserstein": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.4801980198019802,
+                            "switch_false": 0.46919431279620855
+                        }
+                    }
+                }
+            }
+        },
+        "subj_3": {
+            "transfer_mean_metric_ALE": {
+                "training_mean_metric_ALE": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.7142857142857143,
+                            "switch_false": 0.751219512195122
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Euclidian": {
+                "training_mean_metric_Euclidian": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.7487684729064039,
+                            "switch_false": 0.7414634146341463
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Harmonic": {
+                "training_mean_metric_Harmonic": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.7339901477832512,
+                            "switch_false": 0.7365853658536585
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Identity": {
+                "training_mean_metric_Identity": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.6847290640394089,
+                            "switch_false": 0.6585365853658537
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Kullback": {
+                "training_mean_metric_Kullback": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.7044334975369458,
+                            "switch_false": 0.7463414634146341
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_LogDet": {
+                "training_mean_metric_LogDet": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.7192118226600985,
+                            "switch_false": 0.7609756097560976
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_LogEuclidian": {
+                "training_mean_metric_LogEuclidian": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.7339901477832512,
+                            "switch_false": 0.7609756097560976
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Riemann": {
+                "training_mean_metric_Riemann": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.729064039408867,
+                            "switch_false": 0.7463414634146341
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Wasserstein": {
+                "training_mean_metric_Wasserstein": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.7192118226600985,
+                            "switch_false": 0.7707317073170732
+                        }
+                    }
+                }
+            }
+        },
+        "subj_4": {
+            "transfer_mean_metric_ALE": {
+                "training_mean_metric_ALE": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.5510204081632653,
+                            "switch_false": 0.72
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Euclidian": {
+                "training_mean_metric_Euclidian": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.5561224489795918,
+                            "switch_false": 0.6971428571428572
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Harmonic": {
+                "training_mean_metric_Harmonic": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.5663265306122449,
+                            "switch_false": 0.6914285714285714
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Identity": {
+                "training_mean_metric_Identity": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.5459183673469388,
+                            "switch_false": 0.6685714285714286
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Kullback": {
+                "training_mean_metric_Kullback": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.5306122448979592,
+                            "switch_false": 0.6914285714285714
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_LogDet": {
+                "training_mean_metric_LogDet": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.5357142857142857,
+                            "switch_false": 0.7257142857142858
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_LogEuclidian": {
+                "training_mean_metric_LogEuclidian": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.5306122448979592,
+                            "switch_false": 0.72
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Riemann": {
+                "training_mean_metric_Riemann": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.5408163265306123,
+                            "switch_false": 0.7485714285714286
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Wasserstein": {
+                "training_mean_metric_Wasserstein": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.5255102040816326,
+                            "switch_false": 0.7428571428571429
+                        }
+                    }
+                }
+            }
+        },
+        "subj_5": {
+            "transfer_mean_metric_ALE": {
+                "training_mean_metric_ALE": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.4153846153846154,
+                            "switch_false": 0.42995169082125606
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Euclidian": {
+                "training_mean_metric_Euclidian": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.4153846153846154,
+                            "switch_false": 0.42028985507246375
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Harmonic": {
+                "training_mean_metric_Harmonic": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.441025641025641,
+                            "switch_false": 0.3961352657004831
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Identity": {
+                "training_mean_metric_Identity": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.4358974358974359,
+                            "switch_false": 0.42028985507246375
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Kullback": {
+                "training_mean_metric_Kullback": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.4153846153846154,
+                            "switch_false": 0.41545893719806765
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_LogDet": {
+                "training_mean_metric_LogDet": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.46153846153846156,
+                            "switch_false": 0.4444444444444444
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_LogEuclidian": {
+                "training_mean_metric_LogEuclidian": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.4153846153846154,
+                            "switch_false": 0.4396135265700483
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Riemann": {
+                "training_mean_metric_Riemann": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.4256410256410256,
+                            "switch_false": 0.463768115942029
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Wasserstein": {
+                "training_mean_metric_Wasserstein": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.4307692307692308,
+                            "switch_false": 0.42995169082125606
+                        }
+                    }
+                }
+            }
+        },
+        "subj_6": {
+            "transfer_mean_metric_ALE": {
+                "training_mean_metric_ALE": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.5308641975308642,
+                            "switch_false": 0.5555555555555556
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Euclidian": {
+                "training_mean_metric_Euclidian": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.5246913580246914,
+                            "switch_false": 0.5679012345679012
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Harmonic": {
+                "training_mean_metric_Harmonic": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.5061728395061729,
+                            "switch_false": 0.5802469135802469
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Identity": {
+                "training_mean_metric_Identity": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.5,
+                            "switch_false": 0.5740740740740741
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Kullback": {
+                "training_mean_metric_Kullback": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.5061728395061729,
+                            "switch_false": 0.5925925925925926
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_LogDet": {
+                "training_mean_metric_LogDet": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.5246913580246914,
+                            "switch_false": 0.5802469135802469
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_LogEuclidian": {
+                "training_mean_metric_LogEuclidian": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.5,
+                            "switch_false": 0.5925925925925926
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Riemann": {
+                "training_mean_metric_Riemann": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.5185185185185185,
+                            "switch_false": 0.5987654320987654
+                        }
+                    }
+                }
+            },
+            "transfer_mean_metric_Wasserstein": {
+                "training_mean_metric_Wasserstein": {
+                    "transfer-baseline": {
+                        "fold_1": {
+                            "switch_true": 0.5308641975308642,
+                            "switch_false": 0.5555555555555556
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

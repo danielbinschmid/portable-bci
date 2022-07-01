@@ -5,6 +5,7 @@ const crossSessionMeanMetricAccuraciesJson = require("./noTransfer_17_06.json");
 const transferBaselineJson = require("./transferBaseline_1655480615422.json");
 const transferEuclJson = require("./transferEucl_17_06.json");
 const riemannCiM = require("./hdcRiemannCiM_1656326660212.json")
+const hrrRetrainJson = require("./hdcHRR_retrain-it-20_lr-0-2_init-lr-1.json")
 // const noCostMeansJSON = require("./noCostMeans_1655384591067.json"); transferBaseline_1655473784778
 
 export function meanMetricAccuracies()
@@ -244,6 +245,44 @@ export function riemannCiMAccs() {
                 const test_id = test_run_prefix + test_run;
                 const subj_id = subject_prefix + subject;
                 const acc = riemannCiM[test_id][subj_id][switch_];
+                accuracies[subject] += acc;
+            }
+        }
+    }
+
+    var avg = 0;
+    for (const subj of subjects) {
+        accuracies[subj] = accuracies[subj] / (test_runs.length * switches.length);
+        avg += accuracies[subj];
+    }
+
+    console.log(accuracies);
+
+    console.log("average: " + (avg / subjects.length))
+}
+
+export function hrrRetrainAcc() {
+    const test_runs = arange(0,2);
+    const test_run_prefix = "run_";
+    const subjects = arange(1, 10);
+    const subject_prefix = "subj_";
+    const switches = ["isReversed_false", "isReversed_true"];
+
+
+    const accuracies = {}
+    for (const subj of subjects) {
+        accuracies[subj] = 0;
+    }
+
+    for (const test_run of test_runs)
+    {
+        for (const subject of subjects) 
+        {
+            for (const switch_ of switches)
+            {
+                const test_id = test_run_prefix + test_run;
+                const subj_id = subject_prefix + subject;
+                const acc = hrrRetrainJson[test_id][subj_id][switch_];
                 accuracies[subject] += acc;
             }
         }

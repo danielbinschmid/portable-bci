@@ -50,19 +50,21 @@ public:
      * Clears storage and resets filter.
      */ 
     void clear();
+
+    void loadCachedTensor(T* data, long nTimesteps, bool isCov, Timetensor<T>& result);
     
     /**
      * Returns a timetensor containing all timesteps and clears the Timeseries.
      */
-    Timetensor<T>& popAll(Timetensor<T>& result);
+    void popAll(Timetensor<T>& result);
 
     /**
      * Returns the last n timesteps as Timetensor and removes only them from the internal storage.
      */
-    Timetensor<T>& popN(long n, Timetensor<T>& result);
+    void popN(long n, Timetensor<T>& result);
 
     /**
      * Returns last n timesteps.
      */
-    Timetensor<T>& getNLastSteps(long n, Timetensor<T>& result);
+    void getNLastSteps(long n, Timetensor<T>& result);
 };

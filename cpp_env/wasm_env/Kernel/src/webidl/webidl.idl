@@ -1,7 +1,16 @@
+interface ArrayBuffer_d {
+    void ArrayBuffer_d();
+    attribute VoidPtr data;
+    attribute long length;
+};
+
 interface Timetensor_d {
     void Timetensor_d();
 
+    void getData([Ref] ArrayBuffer_d result);
+
     attribute long length;
+    attribute long nBands;
     attribute long nChannels;
     attribute boolean isCov;
 };
@@ -15,19 +24,14 @@ interface Timeseries_d {
 
     void clear();
 
-    [Ref] Timetensor_d popAll([Ref] Timetensor_d result);
+    void loadCachedTensor(double[] data, long nTimesteps, boolean isCov, [Ref] Timetensor_d result);
 
-    [Ref] Timetensor_d popN(long n, [Ref] Timetensor_d result);
+    void popAll([Ref] Timetensor_d result);
 
-    [Ref] Timetensor_d getNLastSteps(long n, [Ref] Timetensor_d result);
+    void popN(long n, [Ref] Timetensor_d result);
 
-};
+    void getNLastSteps(long n, [Ref] Timetensor_d result);
 
-interface ArrayBuffer_d {
-    void ArrayBuffer_d();
-    attribute VoidPtr data;
-    attribute long length;
-    
 };
 
 enum EMetric {
