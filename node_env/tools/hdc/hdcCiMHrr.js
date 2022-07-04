@@ -229,7 +229,7 @@ export class HdcCiMHrr extends HdcCiMBase {
      * 
      * @param {tf.Tensor2D} trainingSet 
      */
-    _genAM(trainingSet, labels, initLr=0.2 ,retrain=true, retrainingIts=50, retrainingLr=0.1) {
+    _genAM(trainingSet, labels, initLr=1,retrain=true, retrainingIts=20, retrainingLr=0.2) {
         const useOnlineHD = true;
         var AM = null
         if (useOnlineHD) {

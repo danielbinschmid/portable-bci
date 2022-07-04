@@ -8,12 +8,11 @@ import { Riemann } from "./tools/riemann/riemann";
 import { evaluate } from "./evaluation/experiments/experiment_subjectMemory";
 import { testCiM } from "./tools/hdc/hdcCiMHrr";
 // import { test } from "./evaluation/test_runs";
-import { meanMetricAccuracies, crossSessionMeanMetricAccuracies, transferBaselineAccs, transferEuclAccs, riemannCiMAccs, hrrRetrainAcc } from "./evaluation/benchmarks/evaluateResults";
+import { meanMetricAccuracies, crossSessionMeanMetricAccuracies, transferBaselineAccs, transferEuclAccs, riemannCiMAccs, hrrRetrainAcc, crossSubjectDataAugmentedRetrainingAccs } from "./evaluation/benchmarks/evaluateResults";
 import { benchmarkMeanRuntimes } from "./webapp_port/experiment_meanMetricRuntimes";
 import { init, warmUpPrediction } from "./webapp_port/test_deepconvnet";
 import { cacheIV2a, loadCached } from "./evaluation/data_utils/readIV2a";
 import { collectMuseMI } from "./evaluation/data_utils/readMuseMI";
-
 
 
 function printAccuracies(riemann) {
@@ -29,6 +28,9 @@ function printAccuracies(riemann) {
     // riemannCiMAccs();
     console.log("Riemann CiM with HRR and retraining:")
     hrrRetrainAcc();
+
+    console.log("crossSubjectDataAugmentedRetrainingAccs")
+    crossSubjectDataAugmentedRetrainingAccs();
 }
 
 function test_deepconvnet() {

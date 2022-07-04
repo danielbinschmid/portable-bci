@@ -115,11 +115,11 @@ export class SubjectMemoryHrr {
      * @param {number} nTrials 
      * @returns {(tf.Tensor2D | number[])[]}
      */
-    getTopTrials(nTrials) {
+    getTopTrials(nTrials, subjectIds=this._subjectIds) {
         const nTrialsSubj = Math.floor(nTrials / this._subjectIds.length);
         const trials = [];
         const labels = []
-        for (const subjectId of this._subjectIds) {
+        for (const subjectId of subjectIds) {
             const nTrialsLabel = Math.floor(nTrialsSubj / this._hdc._classLabels.length);
             for (const label of this._hdc._classLabels) {
                 for (const i of arange(0, nTrialsLabel)) {
@@ -128,7 +128,7 @@ export class SubjectMemoryHrr {
                 }
             }
         }
-        return [tf.stack(trials), labels]
+        return [trials, labels]
     }
 
     query(trial, verbose=false) {

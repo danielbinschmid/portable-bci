@@ -51,7 +51,7 @@ export async function evaluate(riemann) {
     const nRuns = 10;
     const timeseries = riemann.Timeseries(basicSettings.nChannels, basicSettings.nBands, frequency, trialLengthSecs * frequency);
 
-    const experimentID = "hdcRiemannCiM"
+    const experimentID = "crossSubjectDataAugmentedRetraining"
     // -------------------------
 
     var dataAll = {};
@@ -59,19 +59,23 @@ export async function evaluate(riemann) {
 
     const accs = {};
     for (var run = 0; run < nRuns; run++) {
-        for (const isReversed of [false, true]) {
-            const run_id = "run_" + run
-            accs[run_id] = {};
+        const run_id = "run_" + run
+        accs[run_id] = {};
+        for (const isReversed of [false]) {
+            const sessionID = "isReversed_" + isReversed;
+            accs[run_id][sessionID] = {}
+            
             const hdc = new HdcCiMHrr(basicSettings, riemann);
             const subjMemory = new SubjectMemoryHrr(riemann, hdc);
             for (const subjRef of allSubjects) {
-                subjMemory.genSubjectMemory(dataAll[subjRef].train_data, dataAll[subjRef].train_labels, ""+ subjRef);
+                const data = get_data(dataAll[subjRef], isReversed);
+                subjMemory.genSubjectMemory(data.train_data, data.train_labels, ""+ subjRef);
             }
             for (const subject of subjects) {
                 const subj_id = "subj_" + subject
-                accs[run_id][subj_id] = {};
+                accs[run_id][sessionID][subj_id] = {};
                 
-                const sessionID = "isReversed_" + isReversed;
+                
                 console.log("--------------------------------------------------------------------------")
                 console.log("TEST RUN " + run + ", SUBJECT "+ subject + ", reversed sessions: " + isReversed);
 
@@ -85,18 +89,24 @@ export async function evaluate(riemann) {
                     train_labels.push(data.train_labels[trialIdx] - 1);
                 }
 
-                const nTrialsAugmented = 60;
-                const [augmentationTrials, augmentationLabels] = subjMemory.getTopTrials(nTrialsAugmented);
+                const nTrialsAugmented = 5;
+                const [augmentationTrials, augmentationLabels] = subjMemory.getTopTrials(nTrialsAugmented, [subject]);
 
 
                 for (const trialIdx of arange(0, train_data.length)) { hdc._riemannKernel.addTrial(train_data[trialIdx].trial); }
                 const buff = riemann.ArrayBuffer();
                 hdc._riemannKernel.fitTrials(buff);
-                const batch = hdc._encodeBatch(buff, train_data.length);
-                const train_batch = tf.concat([batch, augmentationTrials]);
-                train_labels = train_labels.concat(augmentationLabels)
+                const batches = tf.tidy(() => {
+                    const batch = hdc._encodeBatch(buff, train_data.length);
+                    const batchTrials = batch.unstack();
+                    const concat = batchTrials.concat(augmentationTrials).concat(augmentationTrials);
+                    return concat;
+                });
+                train_labels = train_labels.concat(augmentationLabels).concat(augmentationLabels);
+                shuffle2(batches, train_labels);
+                const train_batch = tf.stack(batches);
 
-                hdc._AM = hdc._genAM(train_batch, train_labels, 1, true, 50, 0.1);
+                hdc._AM = hdc._genAM(train_batch, train_labels, 1, true, 20, 0.2);
 
                 var subjKNearest = 0
                 var own = 0
@@ -120,9 +130,12 @@ export async function evaluate(riemann) {
                     subjKNearest += maxIdx(predictions) == data.benchmark_labels[trialIdx] - 1
                     own += ownPrediction;
                 }
+                accs[run_id][sessionID][subj_id]["subjMem"] = subjKNearest / data.benchmark_data.length;
+                accs[run_id][sessionID][subj_id]["subjIndiv"] = own / data.benchmark_data.length;
                 console.log("subject memory accuracy: " + subjKNearest / data.benchmark_data.length);
                 console.log("subject individual AM accuracy: " + own / data.benchmark_data.length);
                 for (const s of arange(0, allSubjects.length)) {
+                    accs[run_id][sessionID][subj_id]["subj" + s] = subjectsKNearest[s] / data.benchmark_data.length;
                     console.log("accuracy for subject " + s + ": " + subjectsKNearest[s] / data.benchmark_data.length )
                 }
                 
@@ -144,8 +157,8 @@ export async function evaluate(riemann) {
 
                 accs[run_id][subj_id][sessionID] = acc;
                 */
+                //saveAsJSON(accs, "cache/" + experimentID);
             }
-            // saveAsJSON(accs, "cache/" + experimentID);
         }
     }    
     // saveAsJSON(accs, experimentID);
