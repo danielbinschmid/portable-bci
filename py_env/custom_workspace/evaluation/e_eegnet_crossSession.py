@@ -95,9 +95,10 @@ def validate_EEGNet_IV2a():
     nb_channels = 4
     nb_epochs = 150
     nb_epochs_finetuning = 12
-
+    finetuning_learningrate = 1e-4
+    
     frozenBlocks = [EEGNetBlock.BLOCK1_CONVPOOL, EEGNetBlock.BLOCK2_CONVPOOL]
-
+    
     configCycles = [
         {"proportion": 0.05, "n_cycles": 10 },
         {"proportion": 0.1, "n_cycles": 10 },
