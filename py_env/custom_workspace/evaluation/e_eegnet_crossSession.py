@@ -18,6 +18,7 @@ import r_readIV2a as IV2a
 from keras import utils as np_utils
 from keras import Model
 import json
+from tqdm.keras import TqdmCallback
 
 class DataHandler:
     def __init__(self, global_dataset_path, class_vec, time_range, offset_time, nb_samples, nb_channels) -> None:
@@ -54,7 +55,7 @@ def gen_random_indeces(l) -> list[int]:
 def get_cycle_indeces(proportion, nCycles, rand_indeces):
     n_trials = len(rand_indeces)
     n_cycle_trials = int(proportion * n_trials)
-    cycle_start = lambda cycleIdx: cycleIdx * n_cycle_trials if cycleIdx * n_cycle_trials < n_trials else n_trials - n_cycle_trials
+    cycle_start = lambda cycleIdx: cycleIdx * n_cycle_trials if cycleIdx * n_cycle_trials + n_cycle_trials < n_trials else n_trials - n_cycle_trials
 
     cycles_finetune = [[rand_indeces[i] for i in range(cycle_start(cycleIdx), cycle_start(cycleIdx) + n_cycle_trials)] for cycleIdx in range(0, nCycles)]
     cycles_benchmark = [[rand_indeces[i] for i in range(0, n_trials) if i not in np.arange(cycle_start(cycleIdx), cycle_start(cycleIdx) + n_cycle_trials)] for cycleIdx in range(0, nCycles)]
@@ -78,10 +79,10 @@ def fit_data(
     # train
     tensorboard_callback = keras.callbacks.TensorBoard(log_dir=log_dir, histogram_freq=1)
 
-    callbacks = [tensorboard_callback]
+    callbacks = [TqdmCallback(verbose=0), tensorboard_callback]
     if early_stopping_callback is not None:
         callbacks.append(early_stopping_callback)
-    history = model.fit(train_data, train_labels, batch_size = 15, epochs = nb_epochs, verbose = 2, 
+    history = model.fit(train_data, train_labels, batch_size = 15, epochs = nb_epochs, verbose = 0, 
             validation_split=validation_split, validation_data=validation_data, callbacks=callbacks)
 
 
@@ -182,7 +183,7 @@ def validate_EEGNet_IV2a():
                     sesh_finetune_data, sesh_finetune_labels = test_data[train_cycle_indeces[cycleIdx]], test_labels[train_cycle_indeces[cycleIdx]]
                     sesh_test_data, sesh_test_labels = test_data[benchmark_cycle_indeces[cycleIdx]], test_labels[benchmark_cycle_indeces[cycleIdx]]
 
-                    log_dir = "logs/fit/" + benchmark_file + "/" + "subj-" + str(subject) + "_finetune-sesh_" + "proportion-" + configCycle["proportion"] + "_cycle-" + str(cycleIdx) + "_run-" + str(run) + "_" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+                    log_dir = "logs/fit/" + benchmark_file + "/" + "subj-" + str(subject) + "_finetune-sesh_" + "proportion-" + str(configCycle["proportion"]) + "_cycle-" + str(cycleIdx) + "_run-" + str(run) + "_" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
                     model.set_weights(subj_finetuned_weights)
                     fit_data(
                         sesh_finetune_data, 
