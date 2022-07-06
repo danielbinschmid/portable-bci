@@ -7,7 +7,7 @@ import { Riemann } from "./tools/riemann/riemann";
 import { evaluate } from "./evaluation/experiments/experiment_onlineCrossSessionAdaption";
 import { testCiM } from "./tools/hdc/hdcCiMHrr";
 // import { test } from "./evaluation/test_runs";
-import { onlineCrossSessionAdaptionAcc, meanMetricAccuracies, crossSessionMeanMetricAccuracies, transferBaselineAccs, transferEuclAccs, riemannCiMAccs, hrrRetrainAcc, crossSubjectDataAugmentedRetrainingAccs } from "./evaluation/benchmarks/evaluateResults";
+import { onlineCrossSessionAdaptionNoRiemannRefChangeAcc, onlineCrossSessionAdaptionAcc, meanMetricAccuracies, crossSessionMeanMetricAccuracies, transferBaselineAccs, transferEuclAccs, riemannCiMAccs, hrrRetrainAcc, crossSubjectDataAugmentedRetrainingAccs } from "./evaluation/benchmarks/evaluateResults";
 import { benchmarkMeanRuntimes } from "./webapp_port/experiment_meanMetricRuntimes";
 import { init, warmUpPrediction } from "./webapp_port/test_deepconvnet";
 import { cacheIV2a, loadCached } from "./evaluation/data_utils/readIV2a";
@@ -32,6 +32,11 @@ function printAccuracies(riemann) {
     crossSubjectDataAugmentedRetrainingAccs();
 }
 
+function crossSessionAdaptionAccs() {
+    onlineCrossSessionAdaptionAcc()
+    onlineCrossSessionAdaptionNoRiemannRefChangeAcc();
+}
+
 function test_deepconvnet() {
     init().then((model) => {
         warmUpPrediction(model).then((number) =>
@@ -49,14 +54,14 @@ function riemannInstantiatedCallback(riemannInstance) {
     // analyzeQuantization(riemann);
     // testCiM()
     // testCosDist()
-    // onlineCrossSessionAdaptionAcc()
-    evaluate(riemann);
+    // evaluate(riemann);
     // benchmarkMeanRuntimes(riemann);
     // test(riemann);
     // printAccuracies()
     // cacheIV2a(riemann);
     // const a = loadCached(riemann);
     // console.log(a)
+    crossSessionAdaptionAccs();
 }
 
 
