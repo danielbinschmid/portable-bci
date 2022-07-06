@@ -1,0 +1,9 @@
+eegnet-3classMI_-1-2_20220604-210508 - was the first trial, it is malicious because the data loading script to remove the 
+test fold (from k-fold-cross) did not remove the test fold but the first training fold. Furthermore it halfed the data from 
+a previous experiment where a environment with less training data was simulated.
+
+eegnet-3classMI_-1-2-3_20220605-112422 - was the second trial, run on three classes. For every test run the same initial 
+weights have been used.
+
+eegnet-3classMI_-1-2-3_20220605-160228 and eegnet-3classMI_-1-2-3_20220605-161133 have been trials to balance out 
+bad initialization in 'subject-dependent, subject 1' experiment

@@ -11,7 +11,7 @@ const hrrRetrainJson = require("./hdcHRR_retrain-it-20_lr-0-2_init-lr-1.json")
 export function meanMetricAccuracies()
 {       
     const test_runs = [0, 1, 2]
-    const test_run_prefix = "test_run_" ;
+    const test_run_prefix = "test_run_";
     const subjects = arange(1, 10);
     const subject_prefix = "subj_";
     const metrics = [
@@ -407,14 +407,14 @@ export function onlineCrossSessionAdaptionAcc() {
 }
 
 export function onlineCrossSessionAdaptionNoRiemannRefChangeAcc() {
-    const d1 = require("./onlineCrossSessionAdaption_noRiemannRefChange_12its_0-01lr_1657116031000.json")
+    const d1 = require("./onlineCrossSessionAdaption_noRiemannRefChange_12its_0-01lr_1657120450204.json")
 
     const run_prefix = "run_"
     const subj_prefix = "subj_"
     const proportionPrefix = "proportion_"
 
     const runs = [0]
-    const subjects = [1, 2, 3, 4 ,5, 6]
+    const subjects = arange(1, 10)
     const modes = ["isReversed_false", "isReversed_true"]
     const baselineID = "pretrain_ref_acc"
     const proportions = [0.5, 0.2, 0.15, 0.1, 0.05]
