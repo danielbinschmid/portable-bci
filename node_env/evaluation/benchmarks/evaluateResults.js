@@ -407,13 +407,13 @@ export function onlineCrossSessionAdaptionAcc() {
 }
 
 export function onlineCrossSessionAdaptionNoRiemannRefChangeAcc() {
-    const d1 = require("./onlineCrossSessionAdaption_noRiemannRefChange_12its_0-01lr_1657120450204.json")
+    const d1 = require("./onlineCrossSessionAdaption_noRiemannRefChange_12its_0-01lr_1657131637883.json")
 
     const run_prefix = "run_"
     const subj_prefix = "subj_"
     const proportionPrefix = "proportion_"
 
-    const runs = [0]
+    const runs = [0, 1]
     const subjects = arange(1, 10)
     const modes = ["isReversed_false", "isReversed_true"]
     const baselineID = "pretrain_ref_acc"

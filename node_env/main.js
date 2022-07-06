@@ -12,6 +12,7 @@ import { benchmarkMeanRuntimes } from "./webapp_port/experiment_meanMetricRuntim
 import { init, warmUpPrediction } from "./webapp_port/test_deepconvnet";
 import { cacheIV2a, loadCached } from "./evaluation/data_utils/readIV2a";
 import { collectMuseMI } from "./evaluation/data_utils/readMuseMI";
+import { exec } from "./webapp_port/experiment_edgeAdaption";
 
 
 function printAccuracies(riemann) {
@@ -61,7 +62,8 @@ function riemannInstantiatedCallback(riemannInstance) {
     // cacheIV2a(riemann);
     // const a = loadCached(riemann);
     // console.log(a)
-    crossSessionAdaptionAccs();
+    // crossSessionAdaptionAccs();
+    exec()
 }
 
 
