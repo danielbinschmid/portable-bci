@@ -138,7 +138,7 @@ export class HdcCiMHrr extends HdcCiMRetrainBase {
         console.log("retraining ..");
         return tf.tidy(() => {
             AM = AM.unstack();
-            for (const it of tqdm(arange(0, iterations), { logging: true })) {
+            for (const it of arange(0, iterations)) {
                 AM = tf.tidy(() => {
                     const trainingTrials = trainingSet.unstack();
                     for (const trialIdx of arange(0, labels.length)) {

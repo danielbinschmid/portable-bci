@@ -196,7 +196,13 @@ export class HdcCiMBase {
         var acc = null;
         if (emitTrainingAccuracy) { acc = this._predictBatch(trainingSet, this._trialLabels, this._AM); }
         trainingSet.dispose();
+        this._resetTrialMetaData();
         return acc;
+    }
+
+    _resetTrialMetaData() {
+        this._nTrials = 0;
+        this._trialLabels = [];
     }
 
     /**
