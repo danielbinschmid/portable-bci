@@ -114,7 +114,7 @@ def validate_EEGNet_IV2a():
 
     target_frequency = 128
     nb_samples = int(time_range * target_frequency)
-    benchmark_file = "IV2a_layer-constrained-finetuning_" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+    benchmark_file = "crossSession_" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
 
     datahandler = DataHandler(global_dataset_path, class_vec, time_range, offset_time, nb_samples, nb_channels)
 
@@ -123,7 +123,8 @@ def validate_EEGNet_IV2a():
 
     for run in range(nb_runs):
         print("RUN %d"%run)
-        run_accuracies = {}
+        run_id = "run_" + str(run)
+        benchmark_data[run_id] = {}
 
         model = EEGNet(nb_classes, nb_channels, nb_samples, dropoutRate = 0.5, kernLength = 32, F1 = 8, D = 2, F2 = 16, 
             dropoutType = 'Dropout')
@@ -134,6 +135,9 @@ def validate_EEGNet_IV2a():
 
         for subject in subjects:
             print("///////////// SUBJECT %s //////////////" %subject)
+            subject_id = "subj_" + str(subject)
+            benchmark_data[run_id][subject_id] = {}
+
             model.set_weights(initial_weights)
 
             # -------- SUBJECT TEST DATA ----------
@@ -171,6 +175,7 @@ def validate_EEGNet_IV2a():
             preds           = probs.argmax(axis = -1)  
             fold_accuracy   = np.mean(preds == test_labels.argmax(axis=-1))
             print("Classification accuracy before session finetuning: %f " % (fold_accuracy))
+            benchmark_data[run_id][subject_id]["before_session_finetuning"] = fold_accuracy
 
             subj_finetuned_weights = model.get_weights()
 
@@ -179,6 +184,9 @@ def validate_EEGNet_IV2a():
 
             for configCycle in configCycles:
                 train_cycle_indeces, benchmark_cycle_indeces = get_cycle_indeces(configCycle["proportion"], configCycle["n_cycles"], shuffled_indeces)
+                cycle_id = "proportion_" + str(configCycle["proportion"]) + "nCycles_" + str(configCycle["n_cycles"])
+
+                cycle_accs = []
                 for cycleIdx in range(0, len(train_cycle_indeces)):
                     sesh_finetune_data, sesh_finetune_labels = test_data[train_cycle_indeces[cycleIdx]], test_labels[train_cycle_indeces[cycleIdx]]
                     sesh_test_data, sesh_test_labels = test_data[benchmark_cycle_indeces[cycleIdx]], test_labels[benchmark_cycle_indeces[cycleIdx]]
@@ -199,19 +207,19 @@ def validate_EEGNet_IV2a():
                     preds           = probs.argmax(axis = -1)  
                     fold_accuracy   = np.mean(preds == test_labels.argmax(axis=-1))
                     print("Classification accuracy after session finetuning: %f " % (fold_accuracy))
+                    cycle_accs.append(fold_accuracy)
+                benchmark_data[run_id][subject_id][cycle_id] = cycle_accs
 
-            # ----------------------------------------------
-            # callback = tf.keras.callbacks.EarlyStopping(monitor='loss', patience=5)
-            # p = os.path.join("benchmarks" , benchmark_file, "run_" + str(run), "subj-" + str(subject) + "_" + "/")
-            # os.makedirs(p)
-            # with open(p + "accs" + '.json', 'w', encoding='utf-8') as f:
-            #     json.dump(run_accuracies, f, ensure_ascii=False, indent=4)
+                p = os.path.join("benchmarks" , benchmark_file, "run_" + str(run), "subj-" + str(subject), cycle_id + "/")
+                os.makedirs(p)
+                with open(p + "accs" + '.json', 'w', encoding='utf-8') as f:
+                    json.dump(benchmark_data[run_id], f, ensure_ascii=False, indent=4)
 
-        # benchmark_data["run_" + str(run)] = run_accuracies
+        benchmark_data["run_" + str(run)] = benchmark_data[run_id]
 
-    # p = os.path.join("benchmarks", benchmark_file, "all_" + benchmark_file + ".json")
-    # with open(p, 'w', encoding='utf-8') as f:
-    #     json.dump(benchmark_data, f, ensure_ascii=False, indent=4)
+    p = os.path.join("benchmarks", benchmark_file, "all_" + benchmark_file + ".json")
+    with open(p, 'w', encoding='utf-8') as f:
+        json.dump(benchmark_data, f, ensure_ascii=False, indent=4)
 
 if __name__ == "__main__":
     validate_EEGNet_IV2a()
