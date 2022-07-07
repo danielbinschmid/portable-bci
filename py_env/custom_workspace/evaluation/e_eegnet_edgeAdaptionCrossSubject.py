@@ -106,7 +106,6 @@ def validate_EEGNet_IV2a():
         {"proportion": 0.2, "n_cycles": 5 },
         {"proportion": 0.5, "n_cycles": 2 },
     ]
-    configCycles.reverse()
 
     subjects = [1, 2, 3, 4, 5, 6, 7, 8, 9] # 1,2,3, 4, 5, 6, 7, 8, 9
     time_range = 4
