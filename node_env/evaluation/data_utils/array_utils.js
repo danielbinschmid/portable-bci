@@ -22,7 +22,6 @@ export function shuffle(a) {
         a[i] = a[j];
         a[j] = x;
     }
-    return a;
 }
 
 /**

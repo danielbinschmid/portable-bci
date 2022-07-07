@@ -29,6 +29,32 @@ function logDivider() {
     console.log("--------------------------------------------------------------------------");
 }
 
+function balancedShuffle(labels, classVec) {
+    const classIndeces = []
+    for (const cIdx of classVec) {classIndeces.push([]); }
+
+    for (const cIdx of arange(0, classVec.length)) {
+        const cVal = classVec[cIdx];
+        for (const trialIdx of arange(0, labels.length)) 
+        { 
+            if (labels[trialIdx] == cVal) { classIndeces[cIdx].push(trialIdx); } 
+        }
+    }
+
+    for (const cIdx of arange(0, classVec.length)) { shuffle(classIndeces[cIdx]); }
+    const shuffledIndeces = []
+    var l = classIndeces[0].length;
+    for (const cIndeces of classIndeces) { if (cIndeces.length < l) { l = cIndeces.length}; }
+
+    for (const i of arange(0, l)) {
+        for (const cIndeces of classIndeces) { shuffledIndeces.push(cIndeces[i]); }
+    }
+
+    console.log(shuffledIndeces);
+
+    return shuffledIndeces;
+}
+
 /**
  * 
  * @param {*} configProportionAdaptionData 
@@ -113,16 +139,11 @@ export async function evaluate(riemann) {
 
                 logDivider()
                 console.log("TEST RUN " + run + ", SUBJECT "+ subject + ", reversed sessions: " + isReversed);
-
                 const data = get_data(dataAll[subject], isReversed);
-
                 const hdc = new HdcCiMHrr(basicSettings, riemann);
-
-
                 console.log("_________PRETRAINING_END_________")
 
-                const shuffledIndeces = arange(0, data.benchmark_data.length);
-                shuffle(shuffledIndeces);
+                const shuffledIndeces = balancedShuffle(data.benchmark_labels, [1, 2, 3]);
 
                 for (const configProportionAdaptionData of configsProportionAdaptionData) {
                     console.log("_________PROPORTION_START_________")
