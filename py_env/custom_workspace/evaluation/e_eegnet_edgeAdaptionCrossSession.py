@@ -161,7 +161,7 @@ def validate_EEGNet_IV2a():
                 nb_epochs_ = nb_epochs_finetuning
                 initial_weights_ = None
 
-                subj_finetune_data, subj_finetune_labels = datahandler.getdata(True, [subject])
+                subj_finetune_data, subj_finetune_labels = datahandler.getdata(is_first_session_train, [subject])
 
                 fit_data(
                     train_data=subj_finetune_data,
