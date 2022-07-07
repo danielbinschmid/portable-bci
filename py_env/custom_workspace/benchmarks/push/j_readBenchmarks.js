@@ -105,6 +105,36 @@ function crossSession() {
     console.log(accs)
 }
 
+function subjectBlindTransfer() {
+    const jsonAccs = require('./all_IV2a_cross-subject-blind-transfer20220606-152249.json');
+
+    const runs = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    const run_prefix = "run_"
+    const subjects = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+    const accs = {}
+    for (const subj of subjects) {
+        accs[subj] = 0;
+    }
+
+    for (const run of runs) {
+        for (const subj of subjects) {
+            accs[subj] += jsonAccs[run_prefix + run][subj];
+        }
+    }
+
+    var av = 0
+    for (const subj of subjects) {
+        accs[subj] = accs[subj] / runs.length;
+        av += accs[subj];
+    }
+    av = av / subjects.length;
+
+    console.log(accs)
+
+    console.log("on average: " + av)
+}
+
 crossSession()
 // readNaiveFinetuning()
 // readLayerConstrained()
