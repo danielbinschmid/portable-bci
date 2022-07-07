@@ -115,7 +115,7 @@ def validate_EEGNet_IV2a():
 
     target_frequency = 128
     nb_samples = int(time_range * target_frequency)
-    benchmark_file = "crossSession_" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+    benchmark_file = "crossSubject_" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
 
     datahandler = DataHandler(global_dataset_path, class_vec, time_range, offset_time, nb_samples, nb_channels)
 
