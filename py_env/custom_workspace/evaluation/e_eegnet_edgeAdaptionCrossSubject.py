@@ -79,7 +79,7 @@ def fit_data(
     # train
     tensorboard_callback = keras.callbacks.TensorBoard(log_dir=log_dir, histogram_freq=1)
 
-    callbacks = [TqdmCallback(verbose=0), tensorboard_callback]
+    callbacks = [tensorboard_callback] # TqdmCallback(verbose=0)
     if early_stopping_callback is not None:
         callbacks.append(early_stopping_callback)
     history = model.fit(train_data, train_labels, batch_size = 15, epochs = nb_epochs, verbose = 0, 
