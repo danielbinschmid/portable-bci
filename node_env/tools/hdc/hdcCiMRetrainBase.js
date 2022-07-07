@@ -24,6 +24,24 @@ export class HdcCiMRetrainBase extends HdcCiMBase {
     }
 
     /**
+     * Fits the model to the collected trials
+     * @param {boolean} emitTrainingAccuracy - whether to emit accuracy on training set
+     */
+    async fit(emitTrainingAccuracy = true, initLr=1, retrain=true, retrainingIts = 20, retrainingLr=0.2) {
+        const trainBuffer_ = this._riemann.ArrayBuffer();
+        this._riemannKernel.fitTrials(trainBuffer_);
+
+        const trainingSet = this._encodeBatch(trainBuffer_, this._nTrials);
+        this._AM = this._genAM(trainingSet, this._trialLabels, initLr, retrain, retrainingIts, retrainingLr);
+
+        var acc = null;
+        if (emitTrainingAccuracy) { acc = this._predictBatch(trainingSet, this._trialLabels, this._AM); }
+        trainingSet.dispose();
+        this._resetTrialMetaData();
+        return acc;
+    }
+
+    /**
      * 
      * @param {tf.Tensor2D} trainingSet 
      */
@@ -31,7 +49,7 @@ export class HdcCiMRetrainBase extends HdcCiMBase {
         const useOnlineHD = true;
         var AM = null
 
-        
+
         if (useOnlineHD) {
             AM = this._genAMOnlineHD(trainingSet, labels, initLr);
             // AM = this._genAMNaive(trainingSet, labels);
@@ -44,11 +62,11 @@ export class HdcCiMRetrainBase extends HdcCiMBase {
                 const accAfterRetrain = this._predictBatch(trainingSet, labels, AM);
                 console.log("accuracy on training set after retraining: " + accAfterRetrain);
             }
-            
+
         }
-        else { AM = this._genAMNaive(trainingSet, labels);  }
+        else { AM = this._genAMNaive(trainingSet, labels); }
         return AM;
-    
+
     }
 
     /**
@@ -65,7 +83,7 @@ export class HdcCiMRetrainBase extends HdcCiMBase {
 
     async retrain(iterations, lr) {
         // this._riemannKernel.fitBreaks();
-         
+
         const trainingSet = tf.tidy(() => {
             const batch = []
             for (const timetensor of this._retrainTimetensors) {

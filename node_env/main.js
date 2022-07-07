@@ -4,7 +4,8 @@ import { Riemann } from "./tools/riemann/riemann";
 // import { evaluate } from "./evaluation/experiment_transferLogEucl";
 // import { evaluate } from "./evaluation/experiments/experiment_hdcMuseMI";
 // import { evaluate, analyzeQuantization } from "./evaluation/experiments/experiment_hdcRiemannCiM";
-import { evaluate } from "./evaluation/experiments/experiment_onlineCrossSessionAdaption";
+// import { evaluate } from "./evaluation/experiments/experiment_onlineCrossSessionAdaption";
+import { evaluate } from "./evaluation/experiments/experiment_onlineCrossSubjectAdaptionNaive";
 import { testCiM } from "./tools/hdc/hdcCiMHrr";
 // import { test } from "./evaluation/test_runs";
 import { onlineCrossSessionAdaptionNoRiemannRefChangeAcc, onlineCrossSessionAdaptionAcc, meanMetricAccuracies, crossSessionMeanMetricAccuracies, transferBaselineAccs, transferEuclAccs, riemannCiMAccs, hrrRetrainAcc, crossSubjectDataAugmentedRetrainingAccs } from "./evaluation/benchmarks/evaluateResults";
@@ -55,7 +56,7 @@ function riemannInstantiatedCallback(riemannInstance) {
     // analyzeQuantization(riemann);
     // testCiM()
     // testCosDist()
-    // evaluate(riemann);
+    evaluate(riemann);
     // benchmarkMeanRuntimes(riemann);
     // test(riemann);
     // printAccuracies()
@@ -63,7 +64,7 @@ function riemannInstantiatedCallback(riemannInstance) {
     // const a = loadCached(riemann);
     // console.log(a)
     // crossSessionAdaptionAccs();
-    exec()
+    // exec()
 }
 
 
