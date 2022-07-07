@@ -137,65 +137,69 @@ def validate_EEGNet_IV2a():
             subject_id = "subj_" + str(subject)
             benchmark_data[run_id][subject_id] = {}
 
-            model.set_weights(initial_weights)
+            for is_first_session_train in [True, False]: 
+                session_id = "session_" + str(is_first_session_train)
+                benchmark_data[run_id][subject_id][session_id] = {}
 
-            # -------- SUBJECT TEST DATA ----------
-            test_data, test_labels = datahandler.getdata(False, [subject])
+                model.set_weights(initial_weights)
 
-            # -------- SUBJECT SPECIFIC TRAINING ---------
-            #  -------- fit model to all subjects except relevant one ---------
-            subjects_ = subjects.copy()
-            subjects_.remove(subject)
-            log_dir = "logs/fit/" + benchmark_file + "/pretrain_" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+                # -------- SUBJECT TEST DATA ----------
+                test_data, test_labels = datahandler.getdata(not is_first_session_train, [subject])
 
-            train_data, train_labels = datahandler.getdata(True, subjects_)
+                # -------- SUBJECT SPECIFIC TRAINING ---------
+                #  -------- fit model to all subjects except relevant one ---------
+                subjects_ = subjects.copy()
+                subjects_.remove(subject)
+                log_dir = "logs/fit/" + benchmark_file + "/pretrain_" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
 
-            fit_data(train_data, train_labels, nb_epochs, model, log_dir, initial_weights, (test_data, test_labels))
+                train_data, train_labels = datahandler.getdata(is_first_session_train, subjects_)
 
-            # -------- SUBJECT SPECIFIC EVALUATION ---------
-            probs           = model.predict(test_data)
-            preds           = probs.argmax(axis = -1)  
-            fold_accuracy   = np.mean(preds == test_labels.argmax(axis=-1))
-            print("Classification accuracy before session finetuning: %f " % (fold_accuracy))
-            benchmark_data[run_id][subject_id]["before_session_finetuning"] = fold_accuracy
+                fit_data(train_data, train_labels, nb_epochs, model, log_dir, initial_weights, (test_data, test_labels))
 
-            subj_finetuned_weights = model.get_weights()
+                # -------- SUBJECT SPECIFIC EVALUATION ---------
+                probs           = model.predict(test_data)
+                preds           = probs.argmax(axis = -1)  
+                fold_accuracy   = np.mean(preds == test_labels.argmax(axis=-1))
+                print("Classification accuracy before session finetuning: %f " % (fold_accuracy))
+                benchmark_data[run_id][subject_id][session_id]["before_session_finetuning"] = fold_accuracy
 
-            shuffled_indeces = gen_random_indeces(test_data.shape[0])
-            freezeBlocks(model, frozenBlocks)
+                subj_finetuned_weights = model.get_weights()
 
-            for configCycle in configCycles:
-                train_cycle_indeces, benchmark_cycle_indeces = get_cycle_indeces(configCycle["proportion"], configCycle["n_cycles"], shuffled_indeces)
-                cycle_id = "proportion_" + str(configCycle["proportion"]) + "nCycles_" + str(configCycle["n_cycles"])
+                shuffled_indeces = gen_random_indeces(test_data.shape[0])
+                freezeBlocks(model, frozenBlocks)
 
-                cycle_accs = []
-                for cycleIdx in range(0, len(train_cycle_indeces)):
-                    sesh_finetune_data, sesh_finetune_labels = test_data[train_cycle_indeces[cycleIdx]], test_labels[train_cycle_indeces[cycleIdx]]
-                    sesh_test_data, sesh_test_labels = test_data[benchmark_cycle_indeces[cycleIdx]], test_labels[benchmark_cycle_indeces[cycleIdx]]
+                for configCycle in configCycles:
+                    train_cycle_indeces, benchmark_cycle_indeces = get_cycle_indeces(configCycle["proportion"], configCycle["n_cycles"], shuffled_indeces)
+                    cycle_id = "proportion_" + str(configCycle["proportion"])
 
-                    log_dir = "logs/fit/" + benchmark_file + "/" + "subj-" + str(subject) + "_finetune-sesh_" + "proportion-" + str(configCycle["proportion"]) + "_cycle-" + str(cycleIdx) + "_run-" + str(run) + "_" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-                    model.set_weights(subj_finetuned_weights)
-                    fit_data(
-                        sesh_finetune_data, 
-                        sesh_finetune_labels, 
-                        nb_epochs=nb_epochs_finetuning, 
-                        model=model, 
-                        log_dir=log_dir, 
-                        initial_weights=subj_finetuned_weights, 
-                        validation_data=(sesh_test_data, sesh_test_labels) 
-                    )
-                    # -------- SUBJECT SPECIFIC EVALUATION ---------
-                    probs           = model.predict(test_data)
-                    preds           = probs.argmax(axis = -1)  
-                    fold_accuracy   = np.mean(preds == test_labels.argmax(axis=-1))
-                    print("Classification accuracy after session finetuning: %f " % (fold_accuracy))
-                    cycle_accs.append(fold_accuracy)
-                benchmark_data[run_id][subject_id][cycle_id] = cycle_accs
+                    cycle_accs = []
+                    for cycleIdx in range(0, len(train_cycle_indeces)):
+                        sesh_finetune_data, sesh_finetune_labels = test_data[train_cycle_indeces[cycleIdx]], test_labels[train_cycle_indeces[cycleIdx]]
+                        sesh_test_data, sesh_test_labels = test_data[benchmark_cycle_indeces[cycleIdx]], test_labels[benchmark_cycle_indeces[cycleIdx]]
 
-                p = os.path.join("benchmarks" , benchmark_file, "run_" + str(run), "subj-" + str(subject), cycle_id + "/")
-                os.makedirs(p)
-                with open(p + "accs" + '.json', 'w', encoding='utf-8') as f:
-                    json.dump(benchmark_data[run_id], f, ensure_ascii=False, indent=4)
+                        log_dir = "logs/fit/" + benchmark_file + "/" + "subj-" + str(subject) + "_finetune-sesh_" + "proportion-" + str(configCycle["proportion"]) + "_cycle-" + str(cycleIdx) + "_run-" + str(run) + "_" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+                        model.set_weights(subj_finetuned_weights)
+                        fit_data(
+                            sesh_finetune_data, 
+                            sesh_finetune_labels, 
+                            nb_epochs=nb_epochs_finetuning, 
+                            model=model, 
+                            log_dir=log_dir, 
+                            initial_weights=subj_finetuned_weights, 
+                            validation_data=(sesh_test_data, sesh_test_labels) 
+                        )
+                        # -------- SUBJECT SPECIFIC EVALUATION ---------
+                        probs           = model.predict(test_data)
+                        preds           = probs.argmax(axis = -1)  
+                        fold_accuracy   = np.mean(preds == test_labels.argmax(axis=-1))
+                        print("Classification accuracy after session finetuning: %f " % (fold_accuracy))
+                        cycle_accs.append(fold_accuracy)
+                    benchmark_data[run_id][subject_id][session_id][cycle_id] = cycle_accs
+
+                    p = os.path.join("benchmarks" , benchmark_file, "run_" + str(run), session_id, "subj-" + str(subject), cycle_id + "/")
+                    os.makedirs(p)
+                    with open(p + "accs" + '.json', 'w', encoding='utf-8') as f:
+                        json.dump(benchmark_data, f, ensure_ascii=False, indent=4)
 
         benchmark_data["run_" + str(run)] = benchmark_data[run_id]
 
