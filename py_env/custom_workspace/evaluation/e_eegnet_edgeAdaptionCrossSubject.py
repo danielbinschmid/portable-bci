@@ -94,8 +94,7 @@ def validate_EEGNet_IV2a():
     class_vec = [1, 2, 3]
     nb_channels = 4
     nb_epochs = 150
-    nb_epochs_finetuning = 25
-    finetuning_learningrate = 1e-4
+    nb_epochs_finetuning = 12
     
     frozenBlocks = [EEGNetBlock.BLOCK1_CONVPOOL, EEGNetBlock.BLOCK2_CONVPOOL]
     
@@ -164,8 +163,6 @@ def validate_EEGNet_IV2a():
 
             shuffled_indeces = gen_random_indeces(test_data.shape[0])
             freezeBlocks(model, frozenBlocks)
-            model.compile(loss='categorical_crossentropy', optimizer=keras.optimizers.Adam(learning_rate=finetuning_learningrate), 
-                    metrics = ['accuracy'])
 
             for configCycle in configCycles:
                 train_cycle_indeces, benchmark_cycle_indeces = get_cycle_indeces(configCycle["proportion"], configCycle["n_cycles"], shuffled_indeces)
