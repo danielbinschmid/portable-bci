@@ -47,7 +47,7 @@ export async function evaluate(riemann) {
     const nRuns = 10;
     const timeseries = riemann.Timeseries(basicSettings.nChannels, basicSettings.nBands, frequency, trialLengthSecs * frequency);
 
-    const experimentID = "transfer"
+    const experimentID = "transfer_refChangeWeight-4"
     // -------------------------
 
     var dataAll = {};
@@ -62,7 +62,7 @@ export async function evaluate(riemann) {
             const subj_id = "subj_" + subject
             accs[run_id][subj_id] = {};
 
-            for (const isReversed of [false]) {
+            for (const isReversed of [false, true]) {
                 const sessionID = "isReversed_" + isReversed;
                 console.log("--------------------------------------------------------------------------")
                 console.log("TEST RUN " + run + ", SUBJECT "+ subject + ", reversed sessions: " + isReversed);
