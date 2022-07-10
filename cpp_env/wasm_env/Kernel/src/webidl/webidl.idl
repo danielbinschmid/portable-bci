@@ -53,7 +53,9 @@ interface RiemannKernel_d {
 
     void addBreak([Ref] Timetensor_d break_);
 
-	[Ref] ArrayBuffer_d fitTrials([Ref] ArrayBuffer_d result);
+    void updateMean([Ref] Timetensor_d timetensor, double weight);
+
+	void fitTrials([Ref] ArrayBuffer_d result);
 
     EMetric getMeanMetric();
 
@@ -65,7 +67,7 @@ interface RiemannKernel_d {
 
     void reset();
 
-	[Ref] ArrayBuffer_d apply([Ref] Timetensor_d trial, [Ref] ArrayBuffer_d result);
+	void apply([Ref] Timetensor_d trial, [Ref] ArrayBuffer_d result);
 
     
 };

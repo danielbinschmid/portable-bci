@@ -1,0 +1,43 @@
+Date: 07.07
+
+for 5 epochs, finetuning took 13175 ms.
+app.e1f261f3fa35760de618.js:1 {5: 13175}
+app.e1f261f3fa35760de618.js:1 for 5 epochs, finetuning took 12709 ms.
+app.e1f261f3fa35760de618.js:1 {5: 12709}
+app.e1f261f3fa35760de618.js:1 for 5 epochs, finetuning took 12812 ms.
+app.e1f261f3fa35760de618.js:1 {5: 12812}
+for 10 epochs, finetuning took 21007 ms.
+app.8c3f6bfc7d05e387767a.js:1 {10: 21007}
+app.8c3f6bfc7d05e387767a.js:1 for 10 epochs, finetuning took 20747 ms.
+app.8c3f6bfc7d05e387767a.js:1 {10: 20747}
+app.8c3f6bfc7d05e387767a.js:1 for 10 epochs, finetuning took 21255 ms.
+app.8c3f6bfc7d05e387767a.js:1 {10: 21255}
+vendor.a80d84399dfa39785cd4.js:2808 [Violation]'click' handler took 200ms
+app.8c3f6bfc7d05e387767a.js:1 for 10 epochs, finetuning took 20372 ms.
+app.8c3f6bfc7d05e387767a.js:1 {10: 20372}
+danielbin — heute um 18:17 Uhr
+for 15 epochs, finetuning took 29868 ms.
+app.95b5ba731b4abdff0a55.js:1 {15: 29868}
+vendor.9e0fa36eed496940f276.js:2808 [Violation]'click' handler took 214ms
+app.95b5ba731b4abdff0a55.js:1 for 15 epochs, finetuning took 29139 ms.
+app.95b5ba731b4abdff0a55.js:1 {15: 29139}
+vendor.9e0fa36eed496940f276.js:2808 [Violation]'click' handler took 160ms
+app.95b5ba731b4abdff0a55.js:1 for 15 epochs, finetuning took 28985 ms.
+app.95b5ba731b4abdff0a55.js:1 {15: 28985}
+danielbin — heute um 18:25 Uhr
+for 20 trials, finetuning took 35316 ms.
+app.73f3559ba1f7b6f9f980.js:1 {20: 35316}
+vendor.14a4ff82122558be8a2a.js:2808 [Violation]'click' handler took 192ms
+app.73f3559ba1f7b6f9f980.js:1 for 20 trials, finetuning took 35177 ms.
+app.73f3559ba1f7b6f9f980.js:1 {20: 35177}
+for 30 trials, finetuning took 53439 ms.
+app.7e86bb17bf6f85cf84f4.js:1 {30: 53439}
+app.7e86bb17bf6f85cf84f4.js:1 for 30 trials, finetuning took 52555 ms.
+app.7e86bb17bf6f85cf84f4.js:1 {30: 52555}
+danielbin — heute um 19:08 Uhr
+for 100 trials, finetuning took 169613 ms.
+app.70fc40f218bf586c9a44.js:1 {100: 169613}
+app.70fc40f218bf586c9a44.js:1 for 100 trials, finetuning took 168974 ms.
+app.70fc40f218bf586c9a44.js:1 {100: 168974}
+danielbin — heute um 19:24 Uhr
+{200: 338307}

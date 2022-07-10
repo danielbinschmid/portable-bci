@@ -1,4 +1,4 @@
-#include <template_typedefs.h>
+#include "template_typedefs.h"
 using Geometry::EMetric;
 #include <emscripten.h>
 
@@ -146,8 +146,12 @@ void EMSCRIPTEN_KEEPALIVE emscripten_bind_RiemannKernel_d_addBreak_1(RiemannKern
   self->addBreak(*break_);
 }
 
-ArrayBuffer_d* EMSCRIPTEN_KEEPALIVE emscripten_bind_RiemannKernel_d_fitTrials_1(RiemannKernel_d* self, ArrayBuffer_d* result) {
-  return &self->fitTrials(*result);
+void EMSCRIPTEN_KEEPALIVE emscripten_bind_RiemannKernel_d_updateMean_2(RiemannKernel_d* self, Timetensor_d* timetensor, double weight) {
+  self->updateMean(*timetensor, weight);
+}
+
+void EMSCRIPTEN_KEEPALIVE emscripten_bind_RiemannKernel_d_fitTrials_1(RiemannKernel_d* self, ArrayBuffer_d* result) {
+  self->fitTrials(*result);
 }
 
 EMetric EMSCRIPTEN_KEEPALIVE emscripten_bind_RiemannKernel_d_getMeanMetric_0(RiemannKernel_d* self) {
@@ -170,8 +174,8 @@ void EMSCRIPTEN_KEEPALIVE emscripten_bind_RiemannKernel_d_reset_0(RiemannKernel_
   self->reset();
 }
 
-ArrayBuffer_d* EMSCRIPTEN_KEEPALIVE emscripten_bind_RiemannKernel_d_apply_2(RiemannKernel_d* self, Timetensor_d* trial, ArrayBuffer_d* result) {
-  return &self->apply(*trial, *result);
+void EMSCRIPTEN_KEEPALIVE emscripten_bind_RiemannKernel_d_apply_2(RiemannKernel_d* self, Timetensor_d* trial, ArrayBuffer_d* result) {
+  self->apply(*trial, *result);
 }
 
 void EMSCRIPTEN_KEEPALIVE emscripten_bind_RiemannKernel_d___destroy___0(RiemannKernel_d* self) {

@@ -1,6 +1,6 @@
 
 First, activate emsdk:
-Navigate into the emsdk directory and then run
+run
 ```shell
 source ~/emsdk/emsdk_env.sh
 ```

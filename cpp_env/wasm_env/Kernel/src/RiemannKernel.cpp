@@ -49,12 +49,12 @@ Eigen::MatrixXd RiemannKernel<double>::computeCov(Eigen::MatrixXd data, int nTim
 template <>
 ArrayBuffer<double>& RiemannKernel<double>::fit(bool emit, std::vector<Timetensor<double>> trialsForFit, ArrayBuffer<double>& result)
 {   
-
     const long nTrials = trialsForFit.size();
     if (nTrials < 1)
     {
         std::runtime_error("no trials to fit");
     }
+    this->nTrials += nTrials;
 
     const long nBands = trialsForFit.begin()->data.size(),
                nChannels = trialsForFit.begin()->nChannels;
@@ -81,15 +81,11 @@ ArrayBuffer<double>& RiemannKernel<double>::fit(bool emit, std::vector<Timetenso
     }
 
     // compute cov matrices
-
     for (const auto &trial : trialsForFit)
     {
         if (trial.isCov)
         {
-            for (int bandIdx = 0; bandIdx < nBands; bandIdx++)
-            {
-                covs[bandIdx].second.push_back(trial.data[bandIdx].second);
-            }
+            for (int bandIdx = 0; bandIdx < nBands; bandIdx++) { covs[bandIdx].second.push_back(trial.data[bandIdx].second); }
         }
         else 
         {
@@ -102,7 +98,6 @@ ArrayBuffer<double>& RiemannKernel<double>::fit(bool emit, std::vector<Timetenso
         }
         
     }
-
 
     // compute means
     for (int bandIdx = 0; bandIdx < nBands; bandIdx++)
@@ -128,7 +123,7 @@ ArrayBuffer<double>& RiemannKernel<double>::fit(bool emit, std::vector<Timetenso
 }
 
 template <>
-ArrayBuffer<double>& RiemannKernel<double>::apply(Timetensor<double>& trial, ArrayBuffer<double>& result)
+void RiemannKernel<double>::apply(Timetensor<double>& trial, ArrayBuffer<double>& result)
 {
     std::vector<std::pair<std::string, std::vector<Eigen::MatrixXd>>> covs;
     covs.resize(trial.data.size());
@@ -148,13 +143,7 @@ ArrayBuffer<double>& RiemannKernel<double>::apply(Timetensor<double>& trial, Arr
         covs[bandIdx].first = trial.data[bandIdx].first;
     } 
 
-    return this->vectorizeBatchOfCovs(covs, result);
-}
-
-template <>
-RiemannKernel<double>::RiemannKernel()
-{
-    this->meanMetric = Geometry::EMetric::Riemann;
+    this->vectorizeBatchOfCovs(covs, result);
 }
 
 template <>
@@ -170,13 +159,12 @@ void RiemannKernel<double>::addBreak(Timetensor<double>& break_)
 }
 
 template <>
-ArrayBuffer<double>& RiemannKernel<double>::fitTrials(ArrayBuffer<double>& result)
+void RiemannKernel<double>::fitTrials(ArrayBuffer<double>& result)
 {
     this->fit(true, this->trials, result);
     this->trials.clear();
     this->trials.shrink_to_fit();
     this->trials.reserve(this->expectedNTrials);
-    return result;
 }
 
 template <>
@@ -227,7 +215,33 @@ Geometry::EMetric RiemannKernel<double>::getMeanMetric()
     return this->meanMetric;
 }
 
+template <>
+void RiemannKernel<double>::updateMean(Timetensor<double>& timetensor, double weight)
+{
+    if (this->meanMetric != Geometry::EMetric::Euclidian) { std::runtime_error("only euclidian mean metric for updating mean iteratively"); }
+    
+    for (int bandIdx = 0; bandIdx < this->means.size(); bandIdx++) 
+    {
+        if (timetensor.data[bandIdx].first != this->means[bandIdx].first) { std::runtime_error("band ids are not corresponding"); }
+        this->means[bandIdx].second = this->means[bandIdx].second * ((double) this->nTrials) + timetensor.data[bandIdx].second * weight;
+        this->means[bandIdx].second /= (double) (this->nTrials + weight);
+    }   
+    this->nTrials += 1;
+}
+
+template <>
+RiemannKernel<double>::RiemannKernel()
+{
+    this->meanMetric = Geometry::EMetric::Riemann;
+    this->nTrials = 0;
+}
+
 // --------------------- GENERICS -------------------------
+
+template <class T>
+void RiemannKernel<T>::updateMean(Timetensor<T>& timetensor, double weight)
+{
+}
 
 template <class T>
 const char* RiemannKernel<T>::setMeanMetric(Geometry::EMetric metric)
@@ -255,12 +269,12 @@ void RiemannKernel<T>::fitBreaks()
 }
 
 template <class T>
-ArrayBuffer<T>& RiemannKernel<T>::fitTrials(ArrayBuffer<T>& result)
+void RiemannKernel<T>::fitTrials(ArrayBuffer<T>& result)
 {
 }
 
 template <class T>
-ArrayBuffer<T>& RiemannKernel<T>::apply(Timetensor<T>& trial, ArrayBuffer<T>& result)
+void RiemannKernel<T>::apply(Timetensor<T>& trial, ArrayBuffer<T>& result)
 {
 }
 

@@ -382,10 +382,17 @@ RiemannKernel_d.prototype['addBreak'] = RiemannKernel_d.prototype.addBreak = /**
   _emscripten_bind_RiemannKernel_d_addBreak_1(self, break_);
 };;
 
+RiemannKernel_d.prototype['updateMean'] = RiemannKernel_d.prototype.updateMean = /** @suppress {undefinedVars, duplicate} @this{Object} */function(timetensor, weight) {
+  var self = this.ptr;
+  if (timetensor && typeof timetensor === 'object') timetensor = timetensor.ptr;
+  if (weight && typeof weight === 'object') weight = weight.ptr;
+  _emscripten_bind_RiemannKernel_d_updateMean_2(self, timetensor, weight);
+};;
+
 RiemannKernel_d.prototype['fitTrials'] = RiemannKernel_d.prototype.fitTrials = /** @suppress {undefinedVars, duplicate} @this{Object} */function(result) {
   var self = this.ptr;
   if (result && typeof result === 'object') result = result.ptr;
-  return wrapPointer(_emscripten_bind_RiemannKernel_d_fitTrials_1(self, result), ArrayBuffer_d);
+  _emscripten_bind_RiemannKernel_d_fitTrials_1(self, result);
 };;
 
 RiemannKernel_d.prototype['getMeanMetric'] = RiemannKernel_d.prototype.getMeanMetric = /** @suppress {undefinedVars, duplicate} @this{Object} */function() {
@@ -418,7 +425,7 @@ RiemannKernel_d.prototype['apply'] = RiemannKernel_d.prototype.apply = /** @supp
   var self = this.ptr;
   if (trial && typeof trial === 'object') trial = trial.ptr;
   if (result && typeof result === 'object') result = result.ptr;
-  return wrapPointer(_emscripten_bind_RiemannKernel_d_apply_2(self, trial, result), ArrayBuffer_d);
+  _emscripten_bind_RiemannKernel_d_apply_2(self, trial, result);
 };;
 
   RiemannKernel_d.prototype['__destroy__'] = RiemannKernel_d.prototype.__destroy__ = /** @suppress {undefinedVars, duplicate} @this{Object} */function() {

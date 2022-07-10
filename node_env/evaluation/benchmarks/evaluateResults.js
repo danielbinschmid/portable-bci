@@ -469,8 +469,67 @@ export function onlineCrossSessionAdaptionNoRiemannRefChangeAcc() {
     }
     console.log("baseline average: " + baselineAvg / subjects.length);
     
-
 }
+
+export function onlineCrossSubjectNaive() {
+    const d1 = require("./onlineCrossSubjectNaive_1657207245859.json")
+
+    const run_prefix = "run_"
+    const subj_prefix = "subj_"
+    const proportionPrefix = "proportion_"
+
+    const runs = [0, 1, 2]
+    const subjects = arange(1, 10)
+    const modes = ["isReversed_false", "isReversed_true"]
+    const proportions = [0.5, 0.2, 0.15, 0.1, 0.05]
+
+
+    const accs = {}
+    for (const subject of subjects) {
+        accs[subject] = {}
+        for (const proportion of proportions) {
+            accs[subject][proportionPrefix + proportion] = 0;
+        }
+    }
+
+    for (const run of runs) {
+        for (const subject of subjects) {
+            for (const mode of modes) {
+                for (const proportion of proportions) {
+                    var li = d1[run_prefix + run][subj_prefix + subject][mode][proportionPrefix + proportion]
+                    var a = 0;
+                    const l = li.length;
+                    for (const e of li) {
+                        a += e; 
+                    }
+                    a = a / l;
+                    accs[subject][proportionPrefix + proportion] += a;
+                }
+            }
+        }
+    }
+
+    const proportionAvgs = {}
+    for (const proportion of proportions) {
+        proportionAvgs[proportionPrefix + proportion] = 0
+    }
+
+    for (const subject of subjects) {
+        for (const proportion of proportions) { 
+            accs[subject][proportionPrefix + proportion] = accs[subject][proportionPrefix + proportion] / (runs.length * modes.length);
+            proportionAvgs[proportionPrefix + proportion] += accs[subject][proportionPrefix + proportion];
+        }
+    }
+    console.log(accs);
+
+
+    for (const proportion of proportions) {
+        console.log(proportionPrefix + proportion + ": " + (proportionAvgs[proportionPrefix + proportion] / subjects.length));
+    }
+    
+}
+
+
 
 
 

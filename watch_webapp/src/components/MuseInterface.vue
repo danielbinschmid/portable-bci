@@ -9,6 +9,7 @@
         <v-btn @click="loadjson()"> loadjson </v-btn>
         <v-btn @click="transfer_learning()"> transfer </v-btn>
         <v-btn @click="runBenchmarkRuntime()"> filteringRunTimes </v-btn>
+        <v-btn @click="runBenchmarkTrainingEEGNet()"> ondevice EEGNet training </v-btn>
         <div v-for="(log, index) in logs" :key="index">
             {{ log }}
         </div>
@@ -24,6 +25,8 @@ import { prefilterMulitspectralHersche, initCoeffs } from "@/tools/scripts/bandp
 import { EEGNet } from "@/tools/eegnet/load";
 import { benchmarkMeanRuntimes } from "@/tools/evaluation/experiment_meanMetricRuntimes.js";
 import { runBenchmarkFiltering } from "@/tools/evaluation/benchmarkFiltering";
+import { runExperiment } from "@/tools/evaluation/experiment_edgeAdaption.js";
+
 function getChromeVersion () {     
     var raw = navigator.userAgent.match(/Chrom(e|ium)\/([0-9]+)\./);
 
@@ -70,6 +73,9 @@ export default {
         async runBenchmarkRuntime() {
             const runtime = runBenchmarkFiltering(4, 43, 250, 500, window.riemann);
             console.log(runtime);
+        },
+        async runBenchmarkTrainingEEGNet() {
+            runExperiment()
         },
         webgl_detect(return_context) {
             if (!!window.WebGLRenderingContext) {

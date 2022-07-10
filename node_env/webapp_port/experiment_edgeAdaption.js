@@ -7,9 +7,9 @@ export async function exec() {
     const model = new EEGNet();
     await model.init();
 
-    const nFinetuneTrials = 200 * 9
+    const nFinetuneTrials = 50
     /** @type {ModelFitArgs} */
-    const fitSettings = {batchSize: 32, epochs: 15, verbose: 2}
+    const fitSettings = {batchSize: 32, epochs: 12, verbose: 2}
     /** @type {ModelCompileArgs} */
     const compileArgs = {loss: 'categoricalCrossentropy', optimizer: 'adam', metrics: 'accuracy'}
     

@@ -19,6 +19,8 @@ private:
     
     const int expectedNTrials = 100;
 
+    unsigned long nTrials;
+
     ArrayBuffer<T>& vectorizeBatchOfCovs(std::vector<std::pair<std::string, std::vector < Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic> >>> trials, ArrayBuffer<T>& result);
 
     Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic> computeCov(Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic> data, int nTimesteps);
@@ -33,13 +35,15 @@ public:
 
     void addBreak(Timetensor<T>& break_);
 
-	ArrayBuffer<T>& fitTrials(ArrayBuffer<T>& result);
+	void fitTrials(ArrayBuffer<T>& result);
 
     void fitBreaks();
 
     void reset();
 
-    const char* setMeanMetric(Geometry::EMetric);
+    void updateMean(Timetensor<T>& timetensor, double weight);
+
+    const char* setMeanMetric(Geometry::EMetric metric);
 
     Geometry::EMetric getMeanMetric();
 
@@ -47,7 +51,7 @@ public:
     
     Geometry::EMetric meanMetric;
 
-	ArrayBuffer<T>& apply(Timetensor<T>& trial, ArrayBuffer<T>& result);
+	void apply(Timetensor<T>& trial, ArrayBuffer<T>& result);
 
 
 

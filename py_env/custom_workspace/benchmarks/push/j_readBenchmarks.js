@@ -66,43 +66,69 @@ function readLayerConstrained() {
 }
 
 function crossSession() {
-    const fname = "./all_crossSession_20220706-182319.json"
-    const accsJson = require(fname);
+    const d1 = require("./all_crossSession_1657217205638.json")
 
-    const run_prefix = "run_";
-    const runs = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-    const subj_prefix = "subj_";
-    const subjects = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    const run_prefix = "run_"
+    const runs = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
-    const ref_id = "before_session_finetuning";
+    const subj_prefix = "subj_"
+    const subjects = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
-    const proportion_prefix = "proportion_";
-    const proportions = ["0.05", "0.1", "0.15", "0.2", "0.5"]
+    const sessions = ["session_True", "session_False"]
+
+    const refID = "before_session_finetuning"
+
+    const proportion_prefix = "proportion_"
+    const proportions = [0.05, 0.1, 0.15, 0.2, 0.5]
 
     const accs = {}
-    for (const proportion of proportions) {
-        accs[proportion] = 0;
+    for (const subject of subjects) {
+        accs[subject] = {}
+        accs[subject][refID] = 0;
+        for (const proportion of proportions) {
+            accs[subject][proportion_prefix + proportion] = 0;
+        }
     }
 
-    var avgRef = 0
     for (const run of runs) {
         for (const subject of subjects) {
-            avgRef += accsJson[run_prefix + run][subj_prefix + subject][ref_id] * (1 / (subjects.length * runs.length));
-    
-            for (const proportion of proportions) {
-                const propAccs = accsJson[run_prefix + run][subj_prefix + subject][proportion_prefix + proportion]
-                var avg = 0;
-                for (const propAcc of propAccs) {
-                    avg += propAcc * (1 / propAccs.length);
+            for (const session of sessions) {
+                accs[subject][refID] += d1[run_prefix + run][subj_prefix + subject][session][refID];
+                for (const proportion of proportions) {
+                    var li = d1[run_prefix + run][subj_prefix + subject][session][proportion_prefix + proportion]
+                    var a = 0;
+                    const l = li.length;
+                    for (const e of li) {
+                        a += e; 
+                    }
+                    a = a / l;
+                    accs[subject][proportion_prefix + proportion] += a;
                 }
-                accs[proportion] += avg * (1 / (subjects.length * runs.length));
             }
         }
     }
-    
 
-    console.log("ref: " + avgRef)
-    console.log(accs)
+    const proportionAvgs = {}
+    for (const proportion of proportions) {
+        proportionAvgs[proportion_prefix + proportion] = 0
+    }
+    var baselineAvg = 0;
+
+    for (const subject of subjects) {
+        accs[subject][refID] = accs[subject][refID] / (runs.length * sessions.length);
+        baselineAvg += accs[subject][refID];
+        for (const proportion of proportions) { 
+            accs[subject][proportion_prefix + proportion] = accs[subject][proportion_prefix + proportion] / (runs.length * sessions.length);
+            proportionAvgs[proportion_prefix + proportion] += accs[subject][proportion_prefix + proportion];
+        }
+    }
+    // console.log(accs);
+
+
+    for (const proportion of proportions) {
+        console.log(proportion_prefix + proportion + ": " + (proportionAvgs[proportion_prefix + proportion] / subjects.length));
+    }
+    console.log("baseline average: " + baselineAvg / subjects.length);
 }
 
 function subjectBlindTransfer() {
@@ -135,6 +161,74 @@ function subjectBlindTransfer() {
     console.log("on average: " + av)
 }
 
+function crossSubject() {
+    const d1 = require("./all_crossSubject_20220707-101903.json")
+
+    const run_prefix = "run_"
+    const runs = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+    const subj_prefix = "subj_"
+    const subjects = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+    const sessions = ["session_True", "session_False"]
+
+    const refID = "before_session_finetuning"
+
+    const proportion_prefix = "proportion_"
+    const proportions = [0.05, 0.1, 0.15, 0.2, 0.5]
+
+    const accs = {}
+    for (const subject of subjects) {
+        accs[subject] = {}
+        accs[subject][refID] = 0;
+        for (const proportion of proportions) {
+            accs[subject][proportion_prefix + proportion] = 0;
+        }
+    }
+
+    for (const run of runs) {
+        for (const subject of subjects) {
+            for (const session of sessions) {
+                accs[subject][refID] += d1[run_prefix + run][subj_prefix + subject][session][refID];
+                for (const proportion of proportions) {
+                    var li = d1[run_prefix + run][subj_prefix + subject][session][proportion_prefix + proportion]
+                    var a = 0;
+                    const l = li.length;
+                    for (const e of li) {
+                        a += e; 
+                    }
+                    a = a / l;
+                    accs[subject][proportion_prefix + proportion] += a;
+                }
+            }
+        }
+    }
+
+    const proportionAvgs = {}
+    for (const proportion of proportions) {
+        proportionAvgs[proportion_prefix + proportion] = 0
+    }
+    var baselineAvg = 0;
+
+    for (const subject of subjects) {
+        accs[subject][refID] = accs[subject][refID] / (runs.length * sessions.length);
+        baselineAvg += accs[subject][refID];
+        for (const proportion of proportions) { 
+            accs[subject][proportion_prefix + proportion] = accs[subject][proportion_prefix + proportion] / (runs.length * sessions.length);
+            proportionAvgs[proportion_prefix + proportion] += accs[subject][proportion_prefix + proportion];
+        }
+    }
+    // console.log(accs);
+
+
+    for (const proportion of proportions) {
+        console.log(proportion_prefix + proportion + ": " + (proportionAvgs[proportion_prefix + proportion] / subjects.length));
+    }
+    console.log("baseline average: " + baselineAvg / subjects.length);
+} 
+
 crossSession()
+console.log("///////////")
+crossSubject()
 // readNaiveFinetuning()
 // readLayerConstrained()

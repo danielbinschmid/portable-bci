@@ -36,11 +36,12 @@ declare type Timeseries_d = {
 declare type RiemannKernel_d = {
     addTrial: (arg0: Timetensor_d) => void,
     addBreak: (arg0: Timetensor_d) => void,
+    updateMean: (arg0: Timetensor_d, arg1: Number) => void,
     getMeanMetric: () => EMetric, 
     getCommaSeparatedMeanMetrics: () => String,
     setMeanMetric: (arg0: EMetric) => String,
-    fitTrials: (result: ArrayBuffer_d) => ArrayBuffer_d,
+    fitTrials: (result: ArrayBuffer_d) => void,
     fitBreaks: () => void,
     reset: () => void,
-    apply: (arg0: Timetensor_d, result: ArrayBuffer_d) => ArrayBuffer_d
+    apply: (arg0: Timetensor_d, result: ArrayBuffer_d) => void
 } 
