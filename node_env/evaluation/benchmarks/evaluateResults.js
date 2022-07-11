@@ -5,7 +5,7 @@ const crossSessionMeanMetricAccuraciesJson = require("./noTransfer_17_06.json");
 const transferBaselineJson = require("./transferBaseline_1655480615422.json");
 const transferEuclJson = require("./transferEucl_17_06.json");
 const riemannCiM = require("./hdcRiemannCiM_1656326660212.json")
-const hrrRetrainJson = require("./hdcHRR_retrain-it-20_lr-0-2_init-lr-1.json")
+
 // const noCostMeansJSON = require("./noCostMeans_1655384591067.json"); transferBaseline_1655473784778
 
 export function meanMetricAccuracies()
@@ -262,7 +262,8 @@ export function riemannCiMAccs() {
 }
 
 export function hrrRetrainAcc() {
-    const test_runs = arange(0,2);
+    const hrrRetrainJson = require("./hdcHRR_retrain-it-20_lr-0-2_init-lr-1.json")
+    const test_runs = arange(0,8);
     const test_run_prefix = "run_";
     const subjects = arange(1, 10);
     const subject_prefix = "subj_";
@@ -529,6 +530,36 @@ export function onlineCrossSubjectNaive() {
     
 }
 
+export function sessionTransferRiemannEuclidianAccs() {
+    const d1 = require("./transfer_refChangeWeight-4_1657462371112.json")
+
+    const run_prefix = "run_"
+    const runs = arange(0, 10)
+
+    const subj_prefix = "subj_"
+    const subjects = arange(1, 10);
+
+    const sessions = ["isReversed_false", "isReversed_true"]
+
+    const ids = ["ref_acc", "adaption_acc", "optimal_riemann_ref", "optimal_riemann_ref_breaks"]
+
+    const accs = {}
+    for (const id of ids) {
+        accs[id] = 0;
+    }
+
+    for (const run of runs) {
+        for (const subj of subjects) {
+            for (const session of sessions) {
+                for (const id of ids) {
+                    accs[id] += d1[run_prefix + run][subj_prefix + subj][session][id] / (runs.length * sessions.length * subjects.length);
+                }
+            }
+        }
+    }
+
+    console.log(accs);
+}
 
 
 

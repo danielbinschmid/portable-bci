@@ -47,7 +47,7 @@ export async function evaluate(riemann) {
     const nRuns = 10;
     const timeseries = riemann.Timeseries(basicSettings.nChannels, basicSettings.nBands, frequency, trialLengthSecs * frequency);
 
-    const experimentID = "hdcHRR_retrain-it-20_lr-0-2_init-lr-1"
+    const experimentID = "hdcHRR_retrain_rerun"
     // -------------------------
 
     var dataAll = {};

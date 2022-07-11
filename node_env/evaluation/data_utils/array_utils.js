@@ -70,6 +70,61 @@ export function maxIdx(arr) {
     return curIdx;
 }
 
+/**
+ * 
+ * @param {Number[]} arr 
+ * @param {*} nMax 
+ */
+export function maxIndeces(arr, nMax) {
+    if (nMax > arr.length) { throw ("nMax is bigger than length of array"); }
+
+    arr = arr.map((val, ind, arr) => {return [ind, val]});
+    arr = arr.sort(function(a, b){return a[1] - b[1]}).reverse();
+
+    const maxEls = []
+    for (const i of arange(0, nMax)) {
+        maxEls.push(arr[i][0]);
+    }
+    return maxEls;
+}
+
+
+/**
+ * 
+ * @param {Number[]} arr 
+ * @param {*} nMin 
+ */
+ export function minIndeces(arr, nMin) {
+    if (nMin > arr.length) { throw ("nMax is bigger than length of array"); }
+
+    arr = arr.map((val, ind, arr) => {return [ind, val]});
+    arr = arr.sort(function(a, b){return a[1] - b[1]});
+
+    const maxEls = []
+    for (const i of arange(0, nMin)) {
+        maxEls.push(arr[i][0]);
+    }
+    return maxEls;
+}
+
+/**
+ * 
+ * @param {Number[]} vector 
+ * @param {Number} percentile 
+ */
+ export function isBelowPercentileVector(vector, percentile) {
+    const nMin = Math.floor(percentile * vector.length);
+    const minIndecesArr = minIndeces(vector, nMin);
+
+    const result = []
+    for (const i of arange(0, vector.length)) {
+        result.push(minIndecesArr.findIndex((val, ind, arr) => {
+            return val == i;
+        }) != -1);
+    }
+    return result;
+}
+
 
 export function flatten3(data) {
     var flattened = [];

@@ -41,6 +41,17 @@ export class HdcCiMRetrainBase extends HdcCiMBase {
         return acc;
     }
 
+    async fitEmitBatch(initLr=1, retrain=true, retrainingIts = 20, retrainingLr=0.2) {
+        const trainBuffer_ = this._riemann.ArrayBuffer();
+        this._riemannKernel.fitTrials(trainBuffer_);
+
+        const trainingSet = this._encodeBatch(trainBuffer_, this._nTrials);
+        this._AM = this._genAM(trainingSet, this._trialLabels, initLr, retrain, retrainingIts, retrainingLr);
+        
+        this._resetTrialMetaData();
+        return trainingSet;
+    }
+
     /**
      * 
      * @param {tf.Tensor2D} trainingSet 
