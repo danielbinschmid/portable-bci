@@ -224,7 +224,7 @@ export async function evaluate(riemann) {
 
                 for (const percentile of percentiles) {
                     const percentile_id = "percentile_" + percentile;
-                    accs[run_id][sessionID][subj_id][percentile_id] = {}
+                    accsJson[run_id][sessionID][subj_id][percentile_id] = {}
                     console.log("<<<<<<<")
                     console.log("   subject: " + subject)
                     console.log("   percentile: " + percentile)
@@ -240,17 +240,17 @@ export async function evaluate(riemann) {
                     console.log("   finetunedTestingAcc: "  + accs.finetunedTestingAcc);
                     console.log("   finetunedTrainingAcc: " + accs.finetunedTrainingAcc);
 
-                    accs[run_id][sessionID][subj_id][percentile_id]["trainingAccBefore"]     = accs.trainingAccBefore;
-                    accs[run_id][sessionID][subj_id][percentile_id]["trainingAccAfter"]      = accs.trainingAccBefore;
-                    accs[run_id][sessionID][subj_id][percentile_id]["testAccBefore"]         = accs.trainingAccBefore;
-                    accs[run_id][sessionID][subj_id][percentile_id]["testAccAfter"]          = accs.trainingAccBefore;
-                    accs[run_id][sessionID][subj_id][percentile_id]["finetunedTestingAcc"]   = accs.trainingAccBefore;
-                    accs[run_id][sessionID][subj_id][percentile_id]["finetunedTrainingAcc"]  = accs.trainingAccBefore;
+                    accsJson[run_id][sessionID][subj_id][percentile_id]["trainingAccBefore"]     = accs.trainingAccBefore;
+                    accsJson[run_id][sessionID][subj_id][percentile_id]["trainingAccAfter"]      = accs.trainingAccBefore;
+                    accsJson[run_id][sessionID][subj_id][percentile_id]["testAccBefore"]         = accs.trainingAccBefore;
+                    accsJson[run_id][sessionID][subj_id][percentile_id]["testAccAfter"]          = accs.trainingAccBefore;
+                    accsJson[run_id][sessionID][subj_id][percentile_id]["finetunedTestingAcc"]   = accs.trainingAccBefore;
+                    accsJson[run_id][sessionID][subj_id][percentile_id]["finetunedTrainingAcc"]  = accs.trainingAccBefore;
                     console.log(">>>>>>>")
                 }   
-                saveAsJSON(accs, "cache/" + experimentID);
+                saveAsJSON(accsJson, "cache/" + experimentID);
             }
         }
     }    
-    saveAsJSON(accs, experimentID);
+    saveAsJSON(accsJson, experimentID);
 }
