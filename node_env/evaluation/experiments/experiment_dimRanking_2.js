@@ -185,7 +185,7 @@ function prepareFusion(subjectsProcessed, subject, subjects, dimRanking) {
 export async function evaluate(riemann) {
     // --------- CONFIG ---------
     const subjects = [1, 2, 3, 4, 5, 6, 7, 8, 9]// [1, 3, 8, 9]
-    const percentiles = [0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95]
+    const percentiles = [0.2] // [0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95]
     const frequency = 250;
     const trialLengthSecs = 3.5;
     const breakLengthSecs = 2.5;
@@ -198,18 +198,18 @@ export async function evaluate(riemann) {
             useTSpaceNGrams: false
     }
 
-    const nRuns = 1;
-    const experimentID = "dimRanking"
+    const nRuns = 10;
+    const experimentID = "dimRankingSubjectTransfer_0.2percentile"
     // -------------------------
 
     var dataAll = loadCached(riemann, subjects);
-
+    const accsJson = {}
     for (var run = 0; run < nRuns; run++) {
         const run_id = "run_" + run
-            
-        for (const isReversed of [false]) {
+        accsJson[run_id] = {}
+        for (const isReversed of [true, false]) {
             const sessionID = "isReversed_" + isReversed;
-
+            accsJson[run_id][sessionID] = {}
             const hdc = new HdcCiMHrr(basicSettings, riemann);
             const dimRanking = new DimensionRankingHrr(hdc);
 
@@ -218,9 +218,13 @@ export async function evaluate(riemann) {
 
             // fusion
             for (const subject of subjects) {
+                const subj_id = "subj_" + subject;
+                accsJson[run_id][sessionID][subj_id] = {}
                 const fusionPack = prepareFusion(subjectsProcessed, subject, subjects, dimRanking);
 
                 for (const percentile of percentiles) {
+                    const percentile_id = "percentile_" + percentile;
+                    accs[run_id][sessionID][subj_id][percentile_id] = {}
                     console.log("<<<<<<<")
                     console.log("   subject: " + subject)
                     console.log("   percentile: " + percentile)
@@ -228,18 +232,25 @@ export async function evaluate(riemann) {
                     const fusedAM = await dimRanking.fuseAMsCenter(fusionPack.extraAMsData, fusionPack.centerAMData, percentile);
                     const finetunedAM = hdc._retrainAM(subjectsProcessed[subject].trainingSet, subjectsProcessed[subject].trainingLabels, fusedAM, 0.01, 5)
                     const accs = runTest(subjectsProcessed, hdc, fusedAM, finetunedAM, subject);
- 
+                    
                     console.log("   trainingAccBefore: "    + accs.trainingAccBefore);
                     console.log("   trainingAccAfter: "     + accs.trainingAccAfter);
                     console.log("   testAccBefore: "        + accs.testAccBefore);
                     console.log("   testAccAfter: "         + accs.testAccAfter);
                     console.log("   finetunedTestingAcc: "  + accs.finetunedTestingAcc);
                     console.log("   finetunedTrainingAcc: " + accs.finetunedTrainingAcc);
+
+                    accs[run_id][sessionID][subj_id][percentile_id]["trainingAccBefore"]     = accs.trainingAccBefore;
+                    accs[run_id][sessionID][subj_id][percentile_id]["trainingAccAfter"]      = accs.trainingAccBefore;
+                    accs[run_id][sessionID][subj_id][percentile_id]["testAccBefore"]         = accs.trainingAccBefore;
+                    accs[run_id][sessionID][subj_id][percentile_id]["testAccAfter"]          = accs.trainingAccBefore;
+                    accs[run_id][sessionID][subj_id][percentile_id]["finetunedTestingAcc"]   = accs.trainingAccBefore;
+                    accs[run_id][sessionID][subj_id][percentile_id]["finetunedTrainingAcc"]  = accs.trainingAccBefore;
                     console.log(">>>>>>>")
                 }   
+                saveAsJSON(accs, "cache/" + experimentID);
             }
         }
-        // saveAsJSON(accs, "cache/" + experimentID);
     }    
-    // saveAsJSON(accs, experimentID);
+    saveAsJSON(accs, experimentID);
 }
