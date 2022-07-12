@@ -1,3 +1,7 @@
+/**
+ * Experiment to measure run time of different Riemann metrics on online execution.
+ */
+
 import { HdcHersche, Encodings } from "../../../tools/hdc/hdchersche";
 import { maxIdx, arange } from "../../data_utils/array_utils";
 

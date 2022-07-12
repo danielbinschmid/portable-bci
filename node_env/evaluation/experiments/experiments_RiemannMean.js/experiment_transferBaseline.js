@@ -1,3 +1,7 @@
+/**
+ * Riemann mean adaption on offline validation. Serves as baseline to determine full potential of Riemann mean calibration.
+ */
+
 import { HdcHersche, Encodings } from "../tools/hdc/hdchersche";
 import { maxIdx, arange } from "./data_utils/array_utils";
 

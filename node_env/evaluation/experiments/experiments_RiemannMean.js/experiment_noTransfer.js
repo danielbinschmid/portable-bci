@@ -1,3 +1,7 @@
+/**
+ * Cross session experiment without Riemann mean adaption
+ */
+
 import { HdcHersche, Encodings } from "../tools/hdc/hdchersche";
 import { maxIdx, arange } from "./data_utils/array_utils";
 

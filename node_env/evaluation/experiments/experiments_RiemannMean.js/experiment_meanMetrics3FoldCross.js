@@ -1,3 +1,7 @@
+/**
+ * Single session 3-fold-cross validation with different Riemann mean metrics.
+ */
+
 import { HdcHersche, Encodings } from "../tools/hdc/hdchersche";
 import { maxIdx, arange } from "./data_utils/array_utils";
 

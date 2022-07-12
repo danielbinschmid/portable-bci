@@ -1,3 +1,7 @@
+/**
+ * Successful cross subject hdc experiment.
+ */
+
 import { SETTINGS } from "../../tools/hdc/hdcCiMBase";
 import { HdcCiMBsc } from "../../tools/hdc/hdcCiMBsc";
 import { HdcCiMHrr } from "../../tools/hdc/hdcCiMHrr";

@@ -1,3 +1,7 @@
+/**
+ * Cross subject and Riemann cross session combined
+ */
+
 import { SETTINGS } from "../../tools/hdc/hdcCiMBase";
 import { HdcCiMBsc } from "../../tools/hdc/hdcCiMBsc";
 import { HdcCiMHrr } from "../../tools/hdc/hdcCiMHrr";
@@ -57,6 +61,7 @@ async function processSubjects(isReversed, dataAll, hdc, subjects, riemann) {
 
         const data = get_data(dataAll[subject], isReversed);
         hdc._riemannKernel = riemann.RiemannKernel();
+        hdc._riemannKernel.setMeanMetric(riemann.EMetric.Euclidian);
         for (var trialIdx = 0; trialIdx < data.train_data.length; trialIdx++) { hdc.collectTrial(data.train_data[trialIdx].trial, data.train_labels[trialIdx] - 1); }
         const labels = [...hdc._trialLabels]
         const trainingBatch = await hdc.fitEmitBatch();

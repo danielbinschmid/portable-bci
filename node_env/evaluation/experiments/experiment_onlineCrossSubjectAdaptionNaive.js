@@ -1,3 +1,7 @@
+/**
+ * Supervised online calibration if no subject data is previously available
+ */
+
 import { SETTINGS, HdcCiMBase } from "../../tools/hdc/hdcCiMBase";
 import * as tf from '@tensorflow/tfjs-node-gpu';
 import { HdcCiMBsc } from "../../tools/hdc/hdcCiMBsc";

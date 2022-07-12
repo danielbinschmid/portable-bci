@@ -1,1 +1,1282 @@
-{"run_0":{"subj_1":{"isReversed_false":{"ref_acc":0.8476190476190476,"adaption_acc":0.8333333333333334,"optimal_riemann_ref":0.8333333333333334,"optimal_riemann_ref_breaks":0.819047619047619},"isReversed_true":{"ref_acc":0.8058252427184466,"adaption_acc":0.8058252427184466,"optimal_riemann_ref":0.7961165048543689,"optimal_riemann_ref_breaks":0.7961165048543689}},"subj_2":{"isReversed_false":{"ref_acc":0.45023696682464454,"adaption_acc":0.4549763033175355,"optimal_riemann_ref":0.47393364928909953,"optimal_riemann_ref_breaks":0.46445497630331756},"isReversed_true":{"ref_acc":0.4504950495049505,"adaption_acc":0.45544554455445546,"optimal_riemann_ref":0.45544554455445546,"optimal_riemann_ref_breaks":0.4504950495049505}},"subj_3":{"isReversed_false":{"ref_acc":0.7658536585365854,"adaption_acc":0.7463414634146341,"optimal_riemann_ref":0.751219512195122,"optimal_riemann_ref_breaks":0.6682926829268293},"isReversed_true":{"ref_acc":0.6896551724137931,"adaption_acc":0.729064039408867,"optimal_riemann_ref":0.7389162561576355,"optimal_riemann_ref_breaks":0.6748768472906403}},"subj_4":{"isReversed_false":{"ref_acc":0.6685714285714286,"adaption_acc":0.68,"optimal_riemann_ref":0.6571428571428571,"optimal_riemann_ref_breaks":0.6514285714285715},"isReversed_true":{"ref_acc":0.49489795918367346,"adaption_acc":0.49489795918367346,"optimal_riemann_ref":0.4846938775510204,"optimal_riemann_ref_breaks":0.4642857142857143}},"subj_5":{"isReversed_false":{"ref_acc":0.391304347826087,"adaption_acc":0.4057971014492754,"optimal_riemann_ref":0.43478260869565216,"optimal_riemann_ref_breaks":0.4444444444444444},"isReversed_true":{"ref_acc":0.40512820512820513,"adaption_acc":0.40512820512820513,"optimal_riemann_ref":0.4512820512820513,"optimal_riemann_ref_breaks":0.4512820512820513}},"subj_6":{"isReversed_false":{"ref_acc":0.4876543209876543,"adaption_acc":0.5432098765432098,"optimal_riemann_ref":0.5185185185185185,"optimal_riemann_ref_breaks":0.5246913580246914},"isReversed_true":{"ref_acc":0.5,"adaption_acc":0.5185185185185185,"optimal_riemann_ref":0.5308641975308642,"optimal_riemann_ref_breaks":0.5185185185185185}},"subj_7":{"isReversed_false":{"ref_acc":0.5402843601895735,"adaption_acc":0.6018957345971564,"optimal_riemann_ref":0.6492890995260664,"optimal_riemann_ref_breaks":0.5971563981042654},"isReversed_true":{"ref_acc":0.67,"adaption_acc":0.67,"optimal_riemann_ref":0.69,"optimal_riemann_ref_breaks":0.64}},"subj_8":{"isReversed_false":{"ref_acc":0.6896551724137931,"adaption_acc":0.7192118226600985,"optimal_riemann_ref":0.7536945812807881,"optimal_riemann_ref_breaks":0.7044334975369458},"isReversed_true":{"ref_acc":0.7091836734693877,"adaption_acc":0.7040816326530612,"optimal_riemann_ref":0.6887755102040817,"optimal_riemann_ref_breaks":0.7091836734693877}},"subj_9":{"isReversed_false":{"ref_acc":0.6834170854271356,"adaption_acc":0.7035175879396985,"optimal_riemann_ref":0.6934673366834171,"optimal_riemann_ref_breaks":0.6683417085427136},"isReversed_true":{"ref_acc":0.4576271186440678,"adaption_acc":0.4350282485875706,"optimal_riemann_ref":0.423728813559322,"optimal_riemann_ref_breaks":0.4293785310734463}}},"run_1":{"subj_1":{"isReversed_false":{"ref_acc":0.8428571428571429,"adaption_acc":0.8666666666666667,"optimal_riemann_ref":0.8476190476190476,"optimal_riemann_ref_breaks":0.819047619047619},"isReversed_true":{"ref_acc":0.7912621359223301,"adaption_acc":0.7961165048543689,"optimal_riemann_ref":0.8009708737864077,"optimal_riemann_ref_breaks":0.8009708737864077}},"subj_2":{"isReversed_false":{"ref_acc":0.43601895734597157,"adaption_acc":0.46445497630331756,"optimal_riemann_ref":0.4312796208530806,"optimal_riemann_ref_breaks":0.4312796208530806},"isReversed_true":{"ref_acc":0.4207920792079208,"adaption_acc":0.4603960396039604,"optimal_riemann_ref":0.43564356435643564,"optimal_riemann_ref_breaks":0.44554455445544555}},"subj_3":{"isReversed_false":{"ref_acc":0.7414634146341463,"adaption_acc":0.7414634146341463,"optimal_riemann_ref":0.7268292682926829,"optimal_riemann_ref_breaks":0.6634146341463415},"isReversed_true":{"ref_acc":0.6945812807881774,"adaption_acc":0.7339901477832512,"optimal_riemann_ref":0.7241379310344828,"optimal_riemann_ref_breaks":0.6945812807881774}},"subj_4":{"isReversed_false":{"ref_acc":0.6571428571428571,"adaption_acc":0.6685714285714286,"optimal_riemann_ref":0.6457142857142857,"optimal_riemann_ref_breaks":0.6514285714285715},"isReversed_true":{"ref_acc":0.5051020408163265,"adaption_acc":0.4744897959183674,"optimal_riemann_ref":0.49489795918367346,"optimal_riemann_ref_breaks":0.5102040816326531}},"subj_5":{"isReversed_false":{"ref_acc":0.4106280193236715,"adaption_acc":0.45410628019323673,"optimal_riemann_ref":0.4830917874396135,"optimal_riemann_ref_breaks":0.48792270531400966},"isReversed_true":{"ref_acc":0.517948717948718,"adaption_acc":0.49230769230769234,"optimal_riemann_ref":0.47692307692307695,"optimal_riemann_ref_breaks":0.5333333333333333}},"subj_6":{"isReversed_false":{"ref_acc":0.49382716049382713,"adaption_acc":0.5246913580246914,"optimal_riemann_ref":0.5185185185185185,"optimal_riemann_ref_breaks":0.5246913580246914},"isReversed_true":{"ref_acc":0.49382716049382713,"adaption_acc":0.5061728395061729,"optimal_riemann_ref":0.5061728395061729,"optimal_riemann_ref_breaks":0.5061728395061729}},"subj_7":{"isReversed_false":{"ref_acc":0.5592417061611374,"adaption_acc":0.6208530805687204,"optimal_riemann_ref":0.6208530805687204,"optimal_riemann_ref_breaks":0.5545023696682464},"isReversed_true":{"ref_acc":0.61,"adaption_acc":0.66,"optimal_riemann_ref":0.655,"optimal_riemann_ref_breaks":0.61}},"subj_8":{"isReversed_false":{"ref_acc":0.6798029556650246,"adaption_acc":0.6945812807881774,"optimal_riemann_ref":0.7241379310344828,"optimal_riemann_ref_breaks":0.6995073891625616},"isReversed_true":{"ref_acc":0.7244897959183674,"adaption_acc":0.7142857142857143,"optimal_riemann_ref":0.7091836734693877,"optimal_riemann_ref_breaks":0.6836734693877551}},"subj_9":{"isReversed_false":{"ref_acc":0.6683417085427136,"adaption_acc":0.6633165829145728,"optimal_riemann_ref":0.6633165829145728,"optimal_riemann_ref_breaks":0.6582914572864321},"isReversed_true":{"ref_acc":0.4293785310734463,"adaption_acc":0.4406779661016949,"optimal_riemann_ref":0.4350282485875706,"optimal_riemann_ref_breaks":0.4406779661016949}}},"run_2":{"subj_1":{"isReversed_false":{"ref_acc":0.8238095238095238,"adaption_acc":0.8285714285714286,"optimal_riemann_ref":0.8238095238095238,"optimal_riemann_ref_breaks":0.7857142857142857},"isReversed_true":{"ref_acc":0.7864077669902912,"adaption_acc":0.7864077669902912,"optimal_riemann_ref":0.7912621359223301,"optimal_riemann_ref_breaks":0.7864077669902912}},"subj_2":{"isReversed_false":{"ref_acc":0.47393364928909953,"adaption_acc":0.4786729857819905,"optimal_riemann_ref":0.4834123222748815,"optimal_riemann_ref_breaks":0.4928909952606635},"isReversed_true":{"ref_acc":0.4504950495049505,"adaption_acc":0.4752475247524752,"optimal_riemann_ref":0.46534653465346537,"optimal_riemann_ref_breaks":0.43564356435643564}},"subj_3":{"isReversed_false":{"ref_acc":0.7902439024390244,"adaption_acc":0.8097560975609757,"optimal_riemann_ref":0.775609756097561,"optimal_riemann_ref_breaks":0.7024390243902439},"isReversed_true":{"ref_acc":0.6551724137931034,"adaption_acc":0.7241379310344828,"optimal_riemann_ref":0.7536945812807881,"optimal_riemann_ref_breaks":0.6798029556650246}},"subj_4":{"isReversed_false":{"ref_acc":0.64,"adaption_acc":0.6342857142857142,"optimal_riemann_ref":0.6457142857142857,"optimal_riemann_ref_breaks":0.6457142857142857},"isReversed_true":{"ref_acc":0.47959183673469385,"adaption_acc":0.4846938775510204,"optimal_riemann_ref":0.5,"optimal_riemann_ref_breaks":0.5153061224489796}},"subj_5":{"isReversed_false":{"ref_acc":0.4106280193236715,"adaption_acc":0.4251207729468599,"optimal_riemann_ref":0.45893719806763283,"optimal_riemann_ref_breaks":0.463768115942029},"isReversed_true":{"ref_acc":0.4256410256410256,"adaption_acc":0.4358974358974359,"optimal_riemann_ref":0.4666666666666667,"optimal_riemann_ref_breaks":0.4461538461538462}},"subj_6":{"isReversed_false":{"ref_acc":0.4444444444444444,"adaption_acc":0.4567901234567901,"optimal_riemann_ref":0.4876543209876543,"optimal_riemann_ref_breaks":0.5061728395061729},"isReversed_true":{"ref_acc":0.4876543209876543,"adaption_acc":0.47530864197530864,"optimal_riemann_ref":0.5185185185185185,"optimal_riemann_ref_breaks":0.4876543209876543}},"subj_7":{"isReversed_false":{"ref_acc":0.5687203791469194,"adaption_acc":0.6018957345971564,"optimal_riemann_ref":0.6350710900473934,"optimal_riemann_ref_breaks":0.5924170616113744},"isReversed_true":{"ref_acc":0.61,"adaption_acc":0.7,"optimal_riemann_ref":0.71,"optimal_riemann_ref_breaks":0.605}},"subj_8":{"isReversed_false":{"ref_acc":0.6995073891625616,"adaption_acc":0.7093596059113301,"optimal_riemann_ref":0.7536945812807881,"optimal_riemann_ref_breaks":0.6896551724137931},"isReversed_true":{"ref_acc":0.7448979591836735,"adaption_acc":0.7244897959183674,"optimal_riemann_ref":0.7295918367346939,"optimal_riemann_ref_breaks":0.6938775510204082}},"subj_9":{"isReversed_false":{"ref_acc":0.7135678391959799,"adaption_acc":0.7236180904522613,"optimal_riemann_ref":0.7035175879396985,"optimal_riemann_ref_breaks":0.6532663316582915},"isReversed_true":{"ref_acc":0.480225988700565,"adaption_acc":0.4632768361581921,"optimal_riemann_ref":0.4576271186440678,"optimal_riemann_ref_breaks":0.4632768361581921}}},"run_3":{"subj_1":{"isReversed_false":{"ref_acc":0.8571428571428571,"adaption_acc":0.8571428571428571,"optimal_riemann_ref":0.8476190476190476,"optimal_riemann_ref_breaks":0.8095238095238095},"isReversed_true":{"ref_acc":0.8009708737864077,"adaption_acc":0.8009708737864077,"optimal_riemann_ref":0.8009708737864077,"optimal_riemann_ref_breaks":0.7961165048543689}},"subj_2":{"isReversed_false":{"ref_acc":0.4834123222748815,"adaption_acc":0.47393364928909953,"optimal_riemann_ref":0.5023696682464455,"optimal_riemann_ref_breaks":0.4786729857819905},"isReversed_true":{"ref_acc":0.4504950495049505,"adaption_acc":0.40594059405940597,"optimal_riemann_ref":0.4207920792079208,"optimal_riemann_ref_breaks":0.4158415841584158}},"subj_3":{"isReversed_false":{"ref_acc":0.7414634146341463,"adaption_acc":0.7658536585365854,"optimal_riemann_ref":0.7170731707317073,"optimal_riemann_ref_breaks":0.6585365853658537},"isReversed_true":{"ref_acc":0.6896551724137931,"adaption_acc":0.729064039408867,"optimal_riemann_ref":0.7536945812807881,"optimal_riemann_ref_breaks":0.6945812807881774}},"subj_4":{"isReversed_false":{"ref_acc":0.6742857142857143,"adaption_acc":0.6457142857142857,"optimal_riemann_ref":0.6628571428571428,"optimal_riemann_ref_breaks":0.6342857142857142},"isReversed_true":{"ref_acc":0.49489795918367346,"adaption_acc":0.49489795918367346,"optimal_riemann_ref":0.4897959183673469,"optimal_riemann_ref_breaks":0.5204081632653061}},"subj_5":{"isReversed_false":{"ref_acc":0.43478260869565216,"adaption_acc":0.4396135265700483,"optimal_riemann_ref":0.43478260869565216,"optimal_riemann_ref_breaks":0.4251207729468599},"isReversed_true":{"ref_acc":0.4205128205128205,"adaption_acc":0.4256410256410256,"optimal_riemann_ref":0.4512820512820513,"optimal_riemann_ref_breaks":0.46153846153846156}},"subj_6":{"isReversed_false":{"ref_acc":0.48148148148148145,"adaption_acc":0.5246913580246914,"optimal_riemann_ref":0.5432098765432098,"optimal_riemann_ref_breaks":0.5555555555555556},"isReversed_true":{"ref_acc":0.5679012345679012,"adaption_acc":0.5740740740740741,"optimal_riemann_ref":0.5740740740740741,"optimal_riemann_ref_breaks":0.5617283950617284}},"subj_7":{"isReversed_false":{"ref_acc":0.5781990521327014,"adaption_acc":0.6113744075829384,"optimal_riemann_ref":0.6587677725118484,"optimal_riemann_ref_breaks":0.5592417061611374},"isReversed_true":{"ref_acc":0.62,"adaption_acc":0.705,"optimal_riemann_ref":0.72,"optimal_riemann_ref_breaks":0.64}},"subj_8":{"isReversed_false":{"ref_acc":0.7044334975369458,"adaption_acc":0.7339901477832512,"optimal_riemann_ref":0.7783251231527094,"optimal_riemann_ref_breaks":0.7192118226600985},"isReversed_true":{"ref_acc":0.7142857142857143,"adaption_acc":0.6989795918367347,"optimal_riemann_ref":0.7040816326530612,"optimal_riemann_ref_breaks":0.6785714285714286}},"subj_9":{"isReversed_false":{"ref_acc":0.6934673366834171,"adaption_acc":0.6733668341708543,"optimal_riemann_ref":0.6683417085427136,"optimal_riemann_ref_breaks":0.6683417085427136},"isReversed_true":{"ref_acc":0.5084745762711864,"adaption_acc":0.5141242937853108,"optimal_riemann_ref":0.5028248587570622,"optimal_riemann_ref_breaks":0.4858757062146893}}},"run_4":{"subj_1":{"isReversed_false":{"ref_acc":0.8476190476190476,"adaption_acc":0.8476190476190476,"optimal_riemann_ref":0.8333333333333334,"optimal_riemann_ref_breaks":0.8142857142857143},"isReversed_true":{"ref_acc":0.8058252427184466,"adaption_acc":0.8058252427184466,"optimal_riemann_ref":0.7912621359223301,"optimal_riemann_ref_breaks":0.8009708737864077}},"subj_2":{"isReversed_false":{"ref_acc":0.47393364928909953,"adaption_acc":0.4786729857819905,"optimal_riemann_ref":0.4881516587677725,"optimal_riemann_ref_breaks":0.46445497630331756},"isReversed_true":{"ref_acc":0.400990099009901,"adaption_acc":0.4306930693069307,"optimal_riemann_ref":0.4405940594059406,"optimal_riemann_ref_breaks":0.4752475247524752}},"subj_3":{"isReversed_false":{"ref_acc":0.7609756097560976,"adaption_acc":0.7804878048780488,"optimal_riemann_ref":0.7658536585365854,"optimal_riemann_ref_breaks":0.7219512195121951},"isReversed_true":{"ref_acc":0.6551724137931034,"adaption_acc":0.7093596059113301,"optimal_riemann_ref":0.729064039408867,"optimal_riemann_ref_breaks":0.6650246305418719}},"subj_4":{"isReversed_false":{"ref_acc":0.6685714285714286,"adaption_acc":0.6571428571428571,"optimal_riemann_ref":0.6571428571428571,"optimal_riemann_ref_breaks":0.6628571428571428},"isReversed_true":{"ref_acc":0.5,"adaption_acc":0.4744897959183674,"optimal_riemann_ref":0.4897959183673469,"optimal_riemann_ref_breaks":0.49489795918367346}},"subj_5":{"isReversed_false":{"ref_acc":0.4106280193236715,"adaption_acc":0.43478260869565216,"optimal_riemann_ref":0.45410628019323673,"optimal_riemann_ref_breaks":0.4492753623188406},"isReversed_true":{"ref_acc":0.4564102564102564,"adaption_acc":0.47692307692307695,"optimal_riemann_ref":0.4666666666666667,"optimal_riemann_ref_breaks":0.46153846153846156}},"subj_6":{"isReversed_false":{"ref_acc":0.4567901234567901,"adaption_acc":0.5123456790123457,"optimal_riemann_ref":0.5246913580246914,"optimal_riemann_ref_breaks":0.5185185185185185},"isReversed_true":{"ref_acc":0.5123456790123457,"adaption_acc":0.5,"optimal_riemann_ref":0.5,"optimal_riemann_ref_breaks":0.4876543209876543}},"subj_7":{"isReversed_false":{"ref_acc":0.5876777251184834,"adaption_acc":0.6255924170616114,"optimal_riemann_ref":0.6729857819905213,"optimal_riemann_ref_breaks":0.5592417061611374},"isReversed_true":{"ref_acc":0.655,"adaption_acc":0.72,"optimal_riemann_ref":0.725,"optimal_riemann_ref_breaks":0.69}},"subj_8":{"isReversed_false":{"ref_acc":0.6995073891625616,"adaption_acc":0.729064039408867,"optimal_riemann_ref":0.7389162561576355,"optimal_riemann_ref_breaks":0.7142857142857143},"isReversed_true":{"ref_acc":0.7142857142857143,"adaption_acc":0.7244897959183674,"optimal_riemann_ref":0.7142857142857143,"optimal_riemann_ref_breaks":0.6683673469387755}},"subj_9":{"isReversed_false":{"ref_acc":0.6633165829145728,"adaption_acc":0.6633165829145728,"optimal_riemann_ref":0.6582914572864321,"optimal_riemann_ref_breaks":0.6180904522613065},"isReversed_true":{"ref_acc":0.480225988700565,"adaption_acc":0.4689265536723164,"optimal_riemann_ref":0.4858757062146893,"optimal_riemann_ref_breaks":0.4463276836158192}}},"run_5":{"subj_1":{"isReversed_false":{"ref_acc":0.8333333333333334,"adaption_acc":0.8333333333333334,"optimal_riemann_ref":0.8333333333333334,"optimal_riemann_ref_breaks":0.8238095238095238},"isReversed_true":{"ref_acc":0.7864077669902912,"adaption_acc":0.7961165048543689,"optimal_riemann_ref":0.8009708737864077,"optimal_riemann_ref_breaks":0.7864077669902912}},"subj_2":{"isReversed_false":{"ref_acc":0.47393364928909953,"adaption_acc":0.4218009478672986,"optimal_riemann_ref":0.4312796208530806,"optimal_riemann_ref_breaks":0.43601895734597157},"isReversed_true":{"ref_acc":0.4504950495049505,"adaption_acc":0.45544554455445546,"optimal_riemann_ref":0.43564356435643564,"optimal_riemann_ref_breaks":0.4405940594059406}},"subj_3":{"isReversed_false":{"ref_acc":0.7365853658536585,"adaption_acc":0.7463414634146341,"optimal_riemann_ref":0.7219512195121951,"optimal_riemann_ref_breaks":0.6731707317073171},"isReversed_true":{"ref_acc":0.6798029556650246,"adaption_acc":0.7438423645320197,"optimal_riemann_ref":0.7487684729064039,"optimal_riemann_ref_breaks":0.6995073891625616}},"subj_4":{"isReversed_false":{"ref_acc":0.6971428571428572,"adaption_acc":0.7085714285714285,"optimal_riemann_ref":0.6971428571428572,"optimal_riemann_ref_breaks":0.72},"isReversed_true":{"ref_acc":0.5,"adaption_acc":0.5102040816326531,"optimal_riemann_ref":0.4897959183673469,"optimal_riemann_ref_breaks":0.5051020408163265}},"subj_5":{"isReversed_false":{"ref_acc":0.4106280193236715,"adaption_acc":0.4444444444444444,"optimal_riemann_ref":0.46859903381642515,"optimal_riemann_ref_breaks":0.46859903381642515},"isReversed_true":{"ref_acc":0.441025641025641,"adaption_acc":0.441025641025641,"optimal_riemann_ref":0.4358974358974359,"optimal_riemann_ref_breaks":0.4358974358974359}},"subj_6":{"isReversed_false":{"ref_acc":0.48148148148148145,"adaption_acc":0.48148148148148145,"optimal_riemann_ref":0.5246913580246914,"optimal_riemann_ref_breaks":0.5246913580246914},"isReversed_true":{"ref_acc":0.5061728395061729,"adaption_acc":0.4691358024691358,"optimal_riemann_ref":0.48148148148148145,"optimal_riemann_ref_breaks":0.47530864197530864}},"subj_7":{"isReversed_false":{"ref_acc":0.5497630331753555,"adaption_acc":0.5876777251184834,"optimal_riemann_ref":0.6350710900473934,"optimal_riemann_ref_breaks":0.6018957345971564},"isReversed_true":{"ref_acc":0.615,"adaption_acc":0.7,"optimal_riemann_ref":0.695,"optimal_riemann_ref_breaks":0.61}},"subj_8":{"isReversed_false":{"ref_acc":0.7093596059113301,"adaption_acc":0.7241379310344828,"optimal_riemann_ref":0.7586206896551724,"optimal_riemann_ref_breaks":0.729064039408867},"isReversed_true":{"ref_acc":0.7244897959183674,"adaption_acc":0.7193877551020408,"optimal_riemann_ref":0.7142857142857143,"optimal_riemann_ref_breaks":0.6887755102040817}},"subj_9":{"isReversed_false":{"ref_acc":0.7135678391959799,"adaption_acc":0.6884422110552764,"optimal_riemann_ref":0.7035175879396985,"optimal_riemann_ref_breaks":0.6633165829145728},"isReversed_true":{"ref_acc":0.5141242937853108,"adaption_acc":0.4971751412429379,"optimal_riemann_ref":0.480225988700565,"optimal_riemann_ref_breaks":0.480225988700565}}},"run_6":{"subj_1":{"isReversed_false":{"ref_acc":0.8428571428571429,"adaption_acc":0.8428571428571429,"optimal_riemann_ref":0.8428571428571429,"optimal_riemann_ref_breaks":0.819047619047619},"isReversed_true":{"ref_acc":0.8009708737864077,"adaption_acc":0.8203883495145631,"optimal_riemann_ref":0.8058252427184466,"optimal_riemann_ref_breaks":0.8009708737864077}},"subj_2":{"isReversed_false":{"ref_acc":0.44075829383886256,"adaption_acc":0.47393364928909953,"optimal_riemann_ref":0.4976303317535545,"optimal_riemann_ref_breaks":0.5023696682464455},"isReversed_true":{"ref_acc":0.43564356435643564,"adaption_acc":0.44554455445544555,"optimal_riemann_ref":0.43564356435643564,"optimal_riemann_ref_breaks":0.42574257425742573}},"subj_3":{"isReversed_false":{"ref_acc":0.7268292682926829,"adaption_acc":0.751219512195122,"optimal_riemann_ref":0.7560975609756098,"optimal_riemann_ref_breaks":0.6536585365853659},"isReversed_true":{"ref_acc":0.6995073891625616,"adaption_acc":0.7586206896551724,"optimal_riemann_ref":0.7586206896551724,"optimal_riemann_ref_breaks":0.7044334975369458}},"subj_4":{"isReversed_false":{"ref_acc":0.6857142857142857,"adaption_acc":0.7028571428571428,"optimal_riemann_ref":0.6685714285714286,"optimal_riemann_ref_breaks":0.6685714285714286},"isReversed_true":{"ref_acc":0.5357142857142857,"adaption_acc":0.5306122448979592,"optimal_riemann_ref":0.5153061224489796,"optimal_riemann_ref_breaks":0.5204081632653061}},"subj_5":{"isReversed_false":{"ref_acc":0.3864734299516908,"adaption_acc":0.42995169082125606,"optimal_riemann_ref":0.4106280193236715,"optimal_riemann_ref_breaks":0.4444444444444444},"isReversed_true":{"ref_acc":0.4512820512820513,"adaption_acc":0.5076923076923077,"optimal_riemann_ref":0.49743589743589745,"optimal_riemann_ref_breaks":0.5538461538461539}},"subj_6":{"isReversed_false":{"ref_acc":0.5370370370370371,"adaption_acc":0.5308641975308642,"optimal_riemann_ref":0.5555555555555556,"optimal_riemann_ref_breaks":0.5555555555555556},"isReversed_true":{"ref_acc":0.5185185185185185,"adaption_acc":0.5308641975308642,"optimal_riemann_ref":0.5432098765432098,"optimal_riemann_ref_breaks":0.4691358024691358}},"subj_7":{"isReversed_false":{"ref_acc":0.5497630331753555,"adaption_acc":0.6066350710900474,"optimal_riemann_ref":0.6255924170616114,"optimal_riemann_ref_breaks":0.6161137440758294},"isReversed_true":{"ref_acc":0.65,"adaption_acc":0.705,"optimal_riemann_ref":0.7,"optimal_riemann_ref_breaks":0.63}},"subj_8":{"isReversed_false":{"ref_acc":0.7044334975369458,"adaption_acc":0.729064039408867,"optimal_riemann_ref":0.7586206896551724,"optimal_riemann_ref_breaks":0.7142857142857143},"isReversed_true":{"ref_acc":0.6938775510204082,"adaption_acc":0.6989795918367347,"optimal_riemann_ref":0.6938775510204082,"optimal_riemann_ref_breaks":0.6581632653061225}},"subj_9":{"isReversed_false":{"ref_acc":0.6683417085427136,"adaption_acc":0.6884422110552764,"optimal_riemann_ref":0.6683417085427136,"optimal_riemann_ref_breaks":0.6633165829145728},"isReversed_true":{"ref_acc":0.480225988700565,"adaption_acc":0.4632768361581921,"optimal_riemann_ref":0.4350282485875706,"optimal_riemann_ref_breaks":0.4519774011299435}}},"run_7":{"subj_1":{"isReversed_false":{"ref_acc":0.8476190476190476,"adaption_acc":0.8476190476190476,"optimal_riemann_ref":0.8333333333333334,"optimal_riemann_ref_breaks":0.8},"isReversed_true":{"ref_acc":0.7961165048543689,"adaption_acc":0.7912621359223301,"optimal_riemann_ref":0.7912621359223301,"optimal_riemann_ref_breaks":0.7961165048543689}},"subj_2":{"isReversed_false":{"ref_acc":0.44075829383886256,"adaption_acc":0.43601895734597157,"optimal_riemann_ref":0.47393364928909953,"optimal_riemann_ref_breaks":0.46445497630331756},"isReversed_true":{"ref_acc":0.4306930693069307,"adaption_acc":0.41089108910891087,"optimal_riemann_ref":0.41089108910891087,"optimal_riemann_ref_breaks":0.4306930693069307}},"subj_3":{"isReversed_false":{"ref_acc":0.7170731707317073,"adaption_acc":0.7219512195121951,"optimal_riemann_ref":0.7121951219512195,"optimal_riemann_ref_breaks":0.6341463414634146},"isReversed_true":{"ref_acc":0.6699507389162561,"adaption_acc":0.7487684729064039,"optimal_riemann_ref":0.7733990147783252,"optimal_riemann_ref_breaks":0.6798029556650246}},"subj_4":{"isReversed_false":{"ref_acc":0.6971428571428572,"adaption_acc":0.6742857142857143,"optimal_riemann_ref":0.6628571428571428,"optimal_riemann_ref_breaks":0.6571428571428571},"isReversed_true":{"ref_acc":0.4897959183673469,"adaption_acc":0.5153061224489796,"optimal_riemann_ref":0.5102040816326531,"optimal_riemann_ref_breaks":0.5204081632653061}},"subj_5":{"isReversed_false":{"ref_acc":0.3961352657004831,"adaption_acc":0.42028985507246375,"optimal_riemann_ref":0.5024154589371981,"optimal_riemann_ref_breaks":0.4830917874396135},"isReversed_true":{"ref_acc":0.4461538461538462,"adaption_acc":0.4358974358974359,"optimal_riemann_ref":0.41025641025641024,"optimal_riemann_ref_breaks":0.4307692307692308}},"subj_6":{"isReversed_false":{"ref_acc":0.4876543209876543,"adaption_acc":0.5308641975308642,"optimal_riemann_ref":0.5061728395061729,"optimal_riemann_ref_breaks":0.5493827160493827},"isReversed_true":{"ref_acc":0.46296296296296297,"adaption_acc":0.5,"optimal_riemann_ref":0.5,"optimal_riemann_ref_breaks":0.49382716049382713}},"subj_7":{"isReversed_false":{"ref_acc":0.5545023696682464,"adaption_acc":0.6255924170616114,"optimal_riemann_ref":0.6587677725118484,"optimal_riemann_ref_breaks":0.5781990521327014},"isReversed_true":{"ref_acc":0.64,"adaption_acc":0.69,"optimal_riemann_ref":0.72,"optimal_riemann_ref_breaks":0.63}},"subj_8":{"isReversed_false":{"ref_acc":0.6847290640394089,"adaption_acc":0.7093596059113301,"optimal_riemann_ref":0.7241379310344828,"optimal_riemann_ref_breaks":0.7142857142857143},"isReversed_true":{"ref_acc":0.7397959183673469,"adaption_acc":0.7142857142857143,"optimal_riemann_ref":0.7142857142857143,"optimal_riemann_ref_breaks":0.6887755102040817}},"subj_9":{"isReversed_false":{"ref_acc":0.678391959798995,"adaption_acc":0.6733668341708543,"optimal_riemann_ref":0.6582914572864321,"optimal_riemann_ref_breaks":0.6633165829145728},"isReversed_true":{"ref_acc":0.4745762711864407,"adaption_acc":0.480225988700565,"optimal_riemann_ref":0.4745762711864407,"optimal_riemann_ref_breaks":0.4576271186440678}}},"run_8":{"subj_1":{"isReversed_false":{"ref_acc":0.8523809523809524,"adaption_acc":0.8285714285714286,"optimal_riemann_ref":0.8428571428571429,"optimal_riemann_ref_breaks":0.8},"isReversed_true":{"ref_acc":0.8009708737864077,"adaption_acc":0.7961165048543689,"optimal_riemann_ref":0.8009708737864077,"optimal_riemann_ref_breaks":0.8058252427184466}},"subj_2":{"isReversed_false":{"ref_acc":0.4312796208530806,"adaption_acc":0.4549763033175355,"optimal_riemann_ref":0.44075829383886256,"optimal_riemann_ref_breaks":0.4312796208530806},"isReversed_true":{"ref_acc":0.4405940594059406,"adaption_acc":0.4405940594059406,"optimal_riemann_ref":0.41089108910891087,"optimal_riemann_ref_breaks":0.4207920792079208}},"subj_3":{"isReversed_false":{"ref_acc":0.7804878048780488,"adaption_acc":0.7804878048780488,"optimal_riemann_ref":0.7902439024390244,"optimal_riemann_ref_breaks":0.7073170731707317},"isReversed_true":{"ref_acc":0.6847290640394089,"adaption_acc":0.7241379310344828,"optimal_riemann_ref":0.7389162561576355,"optimal_riemann_ref_breaks":0.6699507389162561}},"subj_4":{"isReversed_false":{"ref_acc":0.6685714285714286,"adaption_acc":0.7028571428571428,"optimal_riemann_ref":0.6857142857142857,"optimal_riemann_ref_breaks":0.6628571428571428},"isReversed_true":{"ref_acc":0.5102040816326531,"adaption_acc":0.5051020408163265,"optimal_riemann_ref":0.5153061224489796,"optimal_riemann_ref_breaks":0.5408163265306123}},"subj_5":{"isReversed_false":{"ref_acc":0.42028985507246375,"adaption_acc":0.3671497584541063,"optimal_riemann_ref":0.391304347826087,"optimal_riemann_ref_breaks":0.391304347826087},"isReversed_true":{"ref_acc":0.441025641025641,"adaption_acc":0.4256410256410256,"optimal_riemann_ref":0.47692307692307695,"optimal_riemann_ref_breaks":0.49230769230769234}},"subj_6":{"isReversed_false":{"ref_acc":0.4876543209876543,"adaption_acc":0.5246913580246914,"optimal_riemann_ref":0.5061728395061729,"optimal_riemann_ref_breaks":0.49382716049382713},"isReversed_true":{"ref_acc":0.49382716049382713,"adaption_acc":0.5370370370370371,"optimal_riemann_ref":0.5493827160493827,"optimal_riemann_ref_breaks":0.5308641975308642}},"subj_7":{"isReversed_false":{"ref_acc":0.5355450236966824,"adaption_acc":0.5829383886255924,"optimal_riemann_ref":0.6161137440758294,"optimal_riemann_ref_breaks":0.5687203791469194},"isReversed_true":{"ref_acc":0.655,"adaption_acc":0.685,"optimal_riemann_ref":0.685,"optimal_riemann_ref_breaks":0.63}},"subj_8":{"isReversed_false":{"ref_acc":0.6995073891625616,"adaption_acc":0.7241379310344828,"optimal_riemann_ref":0.7635467980295566,"optimal_riemann_ref_breaks":0.7192118226600985},"isReversed_true":{"ref_acc":0.6989795918367347,"adaption_acc":0.6887755102040817,"optimal_riemann_ref":0.6683673469387755,"optimal_riemann_ref_breaks":0.7040816326530612}},"subj_9":{"isReversed_false":{"ref_acc":0.7135678391959799,"adaption_acc":0.7135678391959799,"optimal_riemann_ref":0.7085427135678392,"optimal_riemann_ref_breaks":0.6633165829145728},"isReversed_true":{"ref_acc":0.4350282485875706,"adaption_acc":0.4632768361581921,"optimal_riemann_ref":0.4463276836158192,"optimal_riemann_ref_breaks":0.4406779661016949}}},"run_9":{"subj_1":{"isReversed_false":{"ref_acc":0.8523809523809524,"adaption_acc":0.8476190476190476,"optimal_riemann_ref":0.8476190476190476,"optimal_riemann_ref_breaks":0.8238095238095238},"isReversed_true":{"ref_acc":0.8009708737864077,"adaption_acc":0.8106796116504854,"optimal_riemann_ref":0.7961165048543689,"optimal_riemann_ref_breaks":0.8058252427184466}},"subj_2":{"isReversed_false":{"ref_acc":0.45023696682464454,"adaption_acc":0.4786729857819905,"optimal_riemann_ref":0.4834123222748815,"optimal_riemann_ref_breaks":0.4786729857819905},"isReversed_true":{"ref_acc":0.44554455445544555,"adaption_acc":0.41089108910891087,"optimal_riemann_ref":0.41089108910891087,"optimal_riemann_ref_breaks":0.40594059405940597}},"subj_3":{"isReversed_false":{"ref_acc":0.7170731707317073,"adaption_acc":0.7463414634146341,"optimal_riemann_ref":0.7317073170731707,"optimal_riemann_ref_breaks":0.6341463414634146},"isReversed_true":{"ref_acc":0.6748768472906403,"adaption_acc":0.7192118226600985,"optimal_riemann_ref":0.7142857142857143,"optimal_riemann_ref_breaks":0.6896551724137931}},"subj_4":{"isReversed_false":{"ref_acc":0.6628571428571428,"adaption_acc":0.6285714285714286,"optimal_riemann_ref":0.6228571428571429,"optimal_riemann_ref_breaks":0.6457142857142857},"isReversed_true":{"ref_acc":0.5102040816326531,"adaption_acc":0.4897959183673469,"optimal_riemann_ref":0.49489795918367346,"optimal_riemann_ref_breaks":0.5}},"subj_5":{"isReversed_false":{"ref_acc":0.4251207729468599,"adaption_acc":0.43478260869565216,"optimal_riemann_ref":0.463768115942029,"optimal_riemann_ref_breaks":0.45410628019323673},"isReversed_true":{"ref_acc":0.4358974358974359,"adaption_acc":0.4205128205128205,"optimal_riemann_ref":0.4307692307692308,"optimal_riemann_ref_breaks":0.441025641025641}},"subj_6":{"isReversed_false":{"ref_acc":0.41975308641975306,"adaption_acc":0.4444444444444444,"optimal_riemann_ref":0.4444444444444444,"optimal_riemann_ref_breaks":0.4567901234567901},"isReversed_true":{"ref_acc":0.5061728395061729,"adaption_acc":0.5123456790123457,"optimal_riemann_ref":0.5185185185185185,"optimal_riemann_ref_breaks":0.5061728395061729}},"subj_7":{"isReversed_false":{"ref_acc":0.5592417061611374,"adaption_acc":0.6066350710900474,"optimal_riemann_ref":0.6255924170616114,"optimal_riemann_ref_breaks":0.5971563981042654},"isReversed_true":{"ref_acc":0.585,"adaption_acc":0.66,"optimal_riemann_ref":0.65,"optimal_riemann_ref_breaks":0.63}},"subj_8":{"isReversed_false":{"ref_acc":0.6995073891625616,"adaption_acc":0.6995073891625616,"optimal_riemann_ref":0.7438423645320197,"optimal_riemann_ref_breaks":0.7142857142857143},"isReversed_true":{"ref_acc":0.7346938775510204,"adaption_acc":0.75,"optimal_riemann_ref":0.7091836734693877,"optimal_riemann_ref_breaks":0.6887755102040817}},"subj_9":{"isReversed_false":{"ref_acc":0.6884422110552764,"adaption_acc":0.6934673366834171,"optimal_riemann_ref":0.6733668341708543,"optimal_riemann_ref_breaks":0.6432160804020101},"isReversed_true":{"ref_acc":0.5254237288135594,"adaption_acc":0.5084745762711864,"optimal_riemann_ref":0.4858757062146893,"optimal_riemann_ref_breaks":0.4971751412429379}}}}
+{
+    "run_0": {
+        "subj_1": {
+            "isReversed_false": {
+                "ref_acc": 0.8476190476190476,
+                "adaption_acc": 0.8333333333333334,
+                "optimal_riemann_ref": 0.8333333333333334,
+                "optimal_riemann_ref_breaks": 0.819047619047619
+            },
+            "isReversed_true": {
+                "ref_acc": 0.8058252427184466,
+                "adaption_acc": 0.8058252427184466,
+                "optimal_riemann_ref": 0.7961165048543689,
+                "optimal_riemann_ref_breaks": 0.7961165048543689
+            }
+        },
+        "subj_2": {
+            "isReversed_false": {
+                "ref_acc": 0.45023696682464454,
+                "adaption_acc": 0.4549763033175355,
+                "optimal_riemann_ref": 0.47393364928909953,
+                "optimal_riemann_ref_breaks": 0.46445497630331756
+            },
+            "isReversed_true": {
+                "ref_acc": 0.4504950495049505,
+                "adaption_acc": 0.45544554455445546,
+                "optimal_riemann_ref": 0.45544554455445546,
+                "optimal_riemann_ref_breaks": 0.4504950495049505
+            }
+        },
+        "subj_3": {
+            "isReversed_false": {
+                "ref_acc": 0.7658536585365854,
+                "adaption_acc": 0.7463414634146341,
+                "optimal_riemann_ref": 0.751219512195122,
+                "optimal_riemann_ref_breaks": 0.6682926829268293
+            },
+            "isReversed_true": {
+                "ref_acc": 0.6896551724137931,
+                "adaption_acc": 0.729064039408867,
+                "optimal_riemann_ref": 0.7389162561576355,
+                "optimal_riemann_ref_breaks": 0.6748768472906403
+            }
+        },
+        "subj_4": {
+            "isReversed_false": {
+                "ref_acc": 0.6685714285714286,
+                "adaption_acc": 0.68,
+                "optimal_riemann_ref": 0.6571428571428571,
+                "optimal_riemann_ref_breaks": 0.6514285714285715
+            },
+            "isReversed_true": {
+                "ref_acc": 0.49489795918367346,
+                "adaption_acc": 0.49489795918367346,
+                "optimal_riemann_ref": 0.4846938775510204,
+                "optimal_riemann_ref_breaks": 0.4642857142857143
+            }
+        },
+        "subj_5": {
+            "isReversed_false": {
+                "ref_acc": 0.391304347826087,
+                "adaption_acc": 0.4057971014492754,
+                "optimal_riemann_ref": 0.43478260869565216,
+                "optimal_riemann_ref_breaks": 0.4444444444444444
+            },
+            "isReversed_true": {
+                "ref_acc": 0.40512820512820513,
+                "adaption_acc": 0.40512820512820513,
+                "optimal_riemann_ref": 0.4512820512820513,
+                "optimal_riemann_ref_breaks": 0.4512820512820513
+            }
+        },
+        "subj_6": {
+            "isReversed_false": {
+                "ref_acc": 0.4876543209876543,
+                "adaption_acc": 0.5432098765432098,
+                "optimal_riemann_ref": 0.5185185185185185,
+                "optimal_riemann_ref_breaks": 0.5246913580246914
+            },
+            "isReversed_true": {
+                "ref_acc": 0.5,
+                "adaption_acc": 0.5185185185185185,
+                "optimal_riemann_ref": 0.5308641975308642,
+                "optimal_riemann_ref_breaks": 0.5185185185185185
+            }
+        },
+        "subj_7": {
+            "isReversed_false": {
+                "ref_acc": 0.5402843601895735,
+                "adaption_acc": 0.6018957345971564,
+                "optimal_riemann_ref": 0.6492890995260664,
+                "optimal_riemann_ref_breaks": 0.5971563981042654
+            },
+            "isReversed_true": {
+                "ref_acc": 0.67,
+                "adaption_acc": 0.67,
+                "optimal_riemann_ref": 0.69,
+                "optimal_riemann_ref_breaks": 0.64
+            }
+        },
+        "subj_8": {
+            "isReversed_false": {
+                "ref_acc": 0.6896551724137931,
+                "adaption_acc": 0.7192118226600985,
+                "optimal_riemann_ref": 0.7536945812807881,
+                "optimal_riemann_ref_breaks": 0.7044334975369458
+            },
+            "isReversed_true": {
+                "ref_acc": 0.7091836734693877,
+                "adaption_acc": 0.7040816326530612,
+                "optimal_riemann_ref": 0.6887755102040817,
+                "optimal_riemann_ref_breaks": 0.7091836734693877
+            }
+        },
+        "subj_9": {
+            "isReversed_false": {
+                "ref_acc": 0.6834170854271356,
+                "adaption_acc": 0.7035175879396985,
+                "optimal_riemann_ref": 0.6934673366834171,
+                "optimal_riemann_ref_breaks": 0.6683417085427136
+            },
+            "isReversed_true": {
+                "ref_acc": 0.4576271186440678,
+                "adaption_acc": 0.4350282485875706,
+                "optimal_riemann_ref": 0.423728813559322,
+                "optimal_riemann_ref_breaks": 0.4293785310734463
+            }
+        }
+    },
+    "run_1": {
+        "subj_1": {
+            "isReversed_false": {
+                "ref_acc": 0.8428571428571429,
+                "adaption_acc": 0.8666666666666667,
+                "optimal_riemann_ref": 0.8476190476190476,
+                "optimal_riemann_ref_breaks": 0.819047619047619
+            },
+            "isReversed_true": {
+                "ref_acc": 0.7912621359223301,
+                "adaption_acc": 0.7961165048543689,
+                "optimal_riemann_ref": 0.8009708737864077,
+                "optimal_riemann_ref_breaks": 0.8009708737864077
+            }
+        },
+        "subj_2": {
+            "isReversed_false": {
+                "ref_acc": 0.43601895734597157,
+                "adaption_acc": 0.46445497630331756,
+                "optimal_riemann_ref": 0.4312796208530806,
+                "optimal_riemann_ref_breaks": 0.4312796208530806
+            },
+            "isReversed_true": {
+                "ref_acc": 0.4207920792079208,
+                "adaption_acc": 0.4603960396039604,
+                "optimal_riemann_ref": 0.43564356435643564,
+                "optimal_riemann_ref_breaks": 0.44554455445544555
+            }
+        },
+        "subj_3": {
+            "isReversed_false": {
+                "ref_acc": 0.7414634146341463,
+                "adaption_acc": 0.7414634146341463,
+                "optimal_riemann_ref": 0.7268292682926829,
+                "optimal_riemann_ref_breaks": 0.6634146341463415
+            },
+            "isReversed_true": {
+                "ref_acc": 0.6945812807881774,
+                "adaption_acc": 0.7339901477832512,
+                "optimal_riemann_ref": 0.7241379310344828,
+                "optimal_riemann_ref_breaks": 0.6945812807881774
+            }
+        },
+        "subj_4": {
+            "isReversed_false": {
+                "ref_acc": 0.6571428571428571,
+                "adaption_acc": 0.6685714285714286,
+                "optimal_riemann_ref": 0.6457142857142857,
+                "optimal_riemann_ref_breaks": 0.6514285714285715
+            },
+            "isReversed_true": {
+                "ref_acc": 0.5051020408163265,
+                "adaption_acc": 0.4744897959183674,
+                "optimal_riemann_ref": 0.49489795918367346,
+                "optimal_riemann_ref_breaks": 0.5102040816326531
+            }
+        },
+        "subj_5": {
+            "isReversed_false": {
+                "ref_acc": 0.4106280193236715,
+                "adaption_acc": 0.45410628019323673,
+                "optimal_riemann_ref": 0.4830917874396135,
+                "optimal_riemann_ref_breaks": 0.48792270531400966
+            },
+            "isReversed_true": {
+                "ref_acc": 0.517948717948718,
+                "adaption_acc": 0.49230769230769234,
+                "optimal_riemann_ref": 0.47692307692307695,
+                "optimal_riemann_ref_breaks": 0.5333333333333333
+            }
+        },
+        "subj_6": {
+            "isReversed_false": {
+                "ref_acc": 0.49382716049382713,
+                "adaption_acc": 0.5246913580246914,
+                "optimal_riemann_ref": 0.5185185185185185,
+                "optimal_riemann_ref_breaks": 0.5246913580246914
+            },
+            "isReversed_true": {
+                "ref_acc": 0.49382716049382713,
+                "adaption_acc": 0.5061728395061729,
+                "optimal_riemann_ref": 0.5061728395061729,
+                "optimal_riemann_ref_breaks": 0.5061728395061729
+            }
+        },
+        "subj_7": {
+            "isReversed_false": {
+                "ref_acc": 0.5592417061611374,
+                "adaption_acc": 0.6208530805687204,
+                "optimal_riemann_ref": 0.6208530805687204,
+                "optimal_riemann_ref_breaks": 0.5545023696682464
+            },
+            "isReversed_true": {
+                "ref_acc": 0.61,
+                "adaption_acc": 0.66,
+                "optimal_riemann_ref": 0.655,
+                "optimal_riemann_ref_breaks": 0.61
+            }
+        },
+        "subj_8": {
+            "isReversed_false": {
+                "ref_acc": 0.6798029556650246,
+                "adaption_acc": 0.6945812807881774,
+                "optimal_riemann_ref": 0.7241379310344828,
+                "optimal_riemann_ref_breaks": 0.6995073891625616
+            },
+            "isReversed_true": {
+                "ref_acc": 0.7244897959183674,
+                "adaption_acc": 0.7142857142857143,
+                "optimal_riemann_ref": 0.7091836734693877,
+                "optimal_riemann_ref_breaks": 0.6836734693877551
+            }
+        },
+        "subj_9": {
+            "isReversed_false": {
+                "ref_acc": 0.6683417085427136,
+                "adaption_acc": 0.6633165829145728,
+                "optimal_riemann_ref": 0.6633165829145728,
+                "optimal_riemann_ref_breaks": 0.6582914572864321
+            },
+            "isReversed_true": {
+                "ref_acc": 0.4293785310734463,
+                "adaption_acc": 0.4406779661016949,
+                "optimal_riemann_ref": 0.4350282485875706,
+                "optimal_riemann_ref_breaks": 0.4406779661016949
+            }
+        }
+    },
+    "run_2": {
+        "subj_1": {
+            "isReversed_false": {
+                "ref_acc": 0.8238095238095238,
+                "adaption_acc": 0.8285714285714286,
+                "optimal_riemann_ref": 0.8238095238095238,
+                "optimal_riemann_ref_breaks": 0.7857142857142857
+            },
+            "isReversed_true": {
+                "ref_acc": 0.7864077669902912,
+                "adaption_acc": 0.7864077669902912,
+                "optimal_riemann_ref": 0.7912621359223301,
+                "optimal_riemann_ref_breaks": 0.7864077669902912
+            }
+        },
+        "subj_2": {
+            "isReversed_false": {
+                "ref_acc": 0.47393364928909953,
+                "adaption_acc": 0.4786729857819905,
+                "optimal_riemann_ref": 0.4834123222748815,
+                "optimal_riemann_ref_breaks": 0.4928909952606635
+            },
+            "isReversed_true": {
+                "ref_acc": 0.4504950495049505,
+                "adaption_acc": 0.4752475247524752,
+                "optimal_riemann_ref": 0.46534653465346537,
+                "optimal_riemann_ref_breaks": 0.43564356435643564
+            }
+        },
+        "subj_3": {
+            "isReversed_false": {
+                "ref_acc": 0.7902439024390244,
+                "adaption_acc": 0.8097560975609757,
+                "optimal_riemann_ref": 0.775609756097561,
+                "optimal_riemann_ref_breaks": 0.7024390243902439
+            },
+            "isReversed_true": {
+                "ref_acc": 0.6551724137931034,
+                "adaption_acc": 0.7241379310344828,
+                "optimal_riemann_ref": 0.7536945812807881,
+                "optimal_riemann_ref_breaks": 0.6798029556650246
+            }
+        },
+        "subj_4": {
+            "isReversed_false": {
+                "ref_acc": 0.64,
+                "adaption_acc": 0.6342857142857142,
+                "optimal_riemann_ref": 0.6457142857142857,
+                "optimal_riemann_ref_breaks": 0.6457142857142857
+            },
+            "isReversed_true": {
+                "ref_acc": 0.47959183673469385,
+                "adaption_acc": 0.4846938775510204,
+                "optimal_riemann_ref": 0.5,
+                "optimal_riemann_ref_breaks": 0.5153061224489796
+            }
+        },
+        "subj_5": {
+            "isReversed_false": {
+                "ref_acc": 0.4106280193236715,
+                "adaption_acc": 0.4251207729468599,
+                "optimal_riemann_ref": 0.45893719806763283,
+                "optimal_riemann_ref_breaks": 0.463768115942029
+            },
+            "isReversed_true": {
+                "ref_acc": 0.4256410256410256,
+                "adaption_acc": 0.4358974358974359,
+                "optimal_riemann_ref": 0.4666666666666667,
+                "optimal_riemann_ref_breaks": 0.4461538461538462
+            }
+        },
+        "subj_6": {
+            "isReversed_false": {
+                "ref_acc": 0.4444444444444444,
+                "adaption_acc": 0.4567901234567901,
+                "optimal_riemann_ref": 0.4876543209876543,
+                "optimal_riemann_ref_breaks": 0.5061728395061729
+            },
+            "isReversed_true": {
+                "ref_acc": 0.4876543209876543,
+                "adaption_acc": 0.47530864197530864,
+                "optimal_riemann_ref": 0.5185185185185185,
+                "optimal_riemann_ref_breaks": 0.4876543209876543
+            }
+        },
+        "subj_7": {
+            "isReversed_false": {
+                "ref_acc": 0.5687203791469194,
+                "adaption_acc": 0.6018957345971564,
+                "optimal_riemann_ref": 0.6350710900473934,
+                "optimal_riemann_ref_breaks": 0.5924170616113744
+            },
+            "isReversed_true": {
+                "ref_acc": 0.61,
+                "adaption_acc": 0.7,
+                "optimal_riemann_ref": 0.71,
+                "optimal_riemann_ref_breaks": 0.605
+            }
+        },
+        "subj_8": {
+            "isReversed_false": {
+                "ref_acc": 0.6995073891625616,
+                "adaption_acc": 0.7093596059113301,
+                "optimal_riemann_ref": 0.7536945812807881,
+                "optimal_riemann_ref_breaks": 0.6896551724137931
+            },
+            "isReversed_true": {
+                "ref_acc": 0.7448979591836735,
+                "adaption_acc": 0.7244897959183674,
+                "optimal_riemann_ref": 0.7295918367346939,
+                "optimal_riemann_ref_breaks": 0.6938775510204082
+            }
+        },
+        "subj_9": {
+            "isReversed_false": {
+                "ref_acc": 0.7135678391959799,
+                "adaption_acc": 0.7236180904522613,
+                "optimal_riemann_ref": 0.7035175879396985,
+                "optimal_riemann_ref_breaks": 0.6532663316582915
+            },
+            "isReversed_true": {
+                "ref_acc": 0.480225988700565,
+                "adaption_acc": 0.4632768361581921,
+                "optimal_riemann_ref": 0.4576271186440678,
+                "optimal_riemann_ref_breaks": 0.4632768361581921
+            }
+        }
+    },
+    "run_3": {
+        "subj_1": {
+            "isReversed_false": {
+                "ref_acc": 0.8571428571428571,
+                "adaption_acc": 0.8571428571428571,
+                "optimal_riemann_ref": 0.8476190476190476,
+                "optimal_riemann_ref_breaks": 0.8095238095238095
+            },
+            "isReversed_true": {
+                "ref_acc": 0.8009708737864077,
+                "adaption_acc": 0.8009708737864077,
+                "optimal_riemann_ref": 0.8009708737864077,
+                "optimal_riemann_ref_breaks": 0.7961165048543689
+            }
+        },
+        "subj_2": {
+            "isReversed_false": {
+                "ref_acc": 0.4834123222748815,
+                "adaption_acc": 0.47393364928909953,
+                "optimal_riemann_ref": 0.5023696682464455,
+                "optimal_riemann_ref_breaks": 0.4786729857819905
+            },
+            "isReversed_true": {
+                "ref_acc": 0.4504950495049505,
+                "adaption_acc": 0.40594059405940597,
+                "optimal_riemann_ref": 0.4207920792079208,
+                "optimal_riemann_ref_breaks": 0.4158415841584158
+            }
+        },
+        "subj_3": {
+            "isReversed_false": {
+                "ref_acc": 0.7414634146341463,
+                "adaption_acc": 0.7658536585365854,
+                "optimal_riemann_ref": 0.7170731707317073,
+                "optimal_riemann_ref_breaks": 0.6585365853658537
+            },
+            "isReversed_true": {
+                "ref_acc": 0.6896551724137931,
+                "adaption_acc": 0.729064039408867,
+                "optimal_riemann_ref": 0.7536945812807881,
+                "optimal_riemann_ref_breaks": 0.6945812807881774
+            }
+        },
+        "subj_4": {
+            "isReversed_false": {
+                "ref_acc": 0.6742857142857143,
+                "adaption_acc": 0.6457142857142857,
+                "optimal_riemann_ref": 0.6628571428571428,
+                "optimal_riemann_ref_breaks": 0.6342857142857142
+            },
+            "isReversed_true": {
+                "ref_acc": 0.49489795918367346,
+                "adaption_acc": 0.49489795918367346,
+                "optimal_riemann_ref": 0.4897959183673469,
+                "optimal_riemann_ref_breaks": 0.5204081632653061
+            }
+        },
+        "subj_5": {
+            "isReversed_false": {
+                "ref_acc": 0.43478260869565216,
+                "adaption_acc": 0.4396135265700483,
+                "optimal_riemann_ref": 0.43478260869565216,
+                "optimal_riemann_ref_breaks": 0.4251207729468599
+            },
+            "isReversed_true": {
+                "ref_acc": 0.4205128205128205,
+                "adaption_acc": 0.4256410256410256,
+                "optimal_riemann_ref": 0.4512820512820513,
+                "optimal_riemann_ref_breaks": 0.46153846153846156
+            }
+        },
+        "subj_6": {
+            "isReversed_false": {
+                "ref_acc": 0.48148148148148145,
+                "adaption_acc": 0.5246913580246914,
+                "optimal_riemann_ref": 0.5432098765432098,
+                "optimal_riemann_ref_breaks": 0.5555555555555556
+            },
+            "isReversed_true": {
+                "ref_acc": 0.5679012345679012,
+                "adaption_acc": 0.5740740740740741,
+                "optimal_riemann_ref": 0.5740740740740741,
+                "optimal_riemann_ref_breaks": 0.5617283950617284
+            }
+        },
+        "subj_7": {
+            "isReversed_false": {
+                "ref_acc": 0.5781990521327014,
+                "adaption_acc": 0.6113744075829384,
+                "optimal_riemann_ref": 0.6587677725118484,
+                "optimal_riemann_ref_breaks": 0.5592417061611374
+            },
+            "isReversed_true": {
+                "ref_acc": 0.62,
+                "adaption_acc": 0.705,
+                "optimal_riemann_ref": 0.72,
+                "optimal_riemann_ref_breaks": 0.64
+            }
+        },
+        "subj_8": {
+            "isReversed_false": {
+                "ref_acc": 0.7044334975369458,
+                "adaption_acc": 0.7339901477832512,
+                "optimal_riemann_ref": 0.7783251231527094,
+                "optimal_riemann_ref_breaks": 0.7192118226600985
+            },
+            "isReversed_true": {
+                "ref_acc": 0.7142857142857143,
+                "adaption_acc": 0.6989795918367347,
+                "optimal_riemann_ref": 0.7040816326530612,
+                "optimal_riemann_ref_breaks": 0.6785714285714286
+            }
+        },
+        "subj_9": {
+            "isReversed_false": {
+                "ref_acc": 0.6934673366834171,
+                "adaption_acc": 0.6733668341708543,
+                "optimal_riemann_ref": 0.6683417085427136,
+                "optimal_riemann_ref_breaks": 0.6683417085427136
+            },
+            "isReversed_true": {
+                "ref_acc": 0.5084745762711864,
+                "adaption_acc": 0.5141242937853108,
+                "optimal_riemann_ref": 0.5028248587570622,
+                "optimal_riemann_ref_breaks": 0.4858757062146893
+            }
+        }
+    },
+    "run_4": {
+        "subj_1": {
+            "isReversed_false": {
+                "ref_acc": 0.8476190476190476,
+                "adaption_acc": 0.8476190476190476,
+                "optimal_riemann_ref": 0.8333333333333334,
+                "optimal_riemann_ref_breaks": 0.8142857142857143
+            },
+            "isReversed_true": {
+                "ref_acc": 0.8058252427184466,
+                "adaption_acc": 0.8058252427184466,
+                "optimal_riemann_ref": 0.7912621359223301,
+                "optimal_riemann_ref_breaks": 0.8009708737864077
+            }
+        },
+        "subj_2": {
+            "isReversed_false": {
+                "ref_acc": 0.47393364928909953,
+                "adaption_acc": 0.4786729857819905,
+                "optimal_riemann_ref": 0.4881516587677725,
+                "optimal_riemann_ref_breaks": 0.46445497630331756
+            },
+            "isReversed_true": {
+                "ref_acc": 0.400990099009901,
+                "adaption_acc": 0.4306930693069307,
+                "optimal_riemann_ref": 0.4405940594059406,
+                "optimal_riemann_ref_breaks": 0.4752475247524752
+            }
+        },
+        "subj_3": {
+            "isReversed_false": {
+                "ref_acc": 0.7609756097560976,
+                "adaption_acc": 0.7804878048780488,
+                "optimal_riemann_ref": 0.7658536585365854,
+                "optimal_riemann_ref_breaks": 0.7219512195121951
+            },
+            "isReversed_true": {
+                "ref_acc": 0.6551724137931034,
+                "adaption_acc": 0.7093596059113301,
+                "optimal_riemann_ref": 0.729064039408867,
+                "optimal_riemann_ref_breaks": 0.6650246305418719
+            }
+        },
+        "subj_4": {
+            "isReversed_false": {
+                "ref_acc": 0.6685714285714286,
+                "adaption_acc": 0.6571428571428571,
+                "optimal_riemann_ref": 0.6571428571428571,
+                "optimal_riemann_ref_breaks": 0.6628571428571428
+            },
+            "isReversed_true": {
+                "ref_acc": 0.5,
+                "adaption_acc": 0.4744897959183674,
+                "optimal_riemann_ref": 0.4897959183673469,
+                "optimal_riemann_ref_breaks": 0.49489795918367346
+            }
+        },
+        "subj_5": {
+            "isReversed_false": {
+                "ref_acc": 0.4106280193236715,
+                "adaption_acc": 0.43478260869565216,
+                "optimal_riemann_ref": 0.45410628019323673,
+                "optimal_riemann_ref_breaks": 0.4492753623188406
+            },
+            "isReversed_true": {
+                "ref_acc": 0.4564102564102564,
+                "adaption_acc": 0.47692307692307695,
+                "optimal_riemann_ref": 0.4666666666666667,
+                "optimal_riemann_ref_breaks": 0.46153846153846156
+            }
+        },
+        "subj_6": {
+            "isReversed_false": {
+                "ref_acc": 0.4567901234567901,
+                "adaption_acc": 0.5123456790123457,
+                "optimal_riemann_ref": 0.5246913580246914,
+                "optimal_riemann_ref_breaks": 0.5185185185185185
+            },
+            "isReversed_true": {
+                "ref_acc": 0.5123456790123457,
+                "adaption_acc": 0.5,
+                "optimal_riemann_ref": 0.5,
+                "optimal_riemann_ref_breaks": 0.4876543209876543
+            }
+        },
+        "subj_7": {
+            "isReversed_false": {
+                "ref_acc": 0.5876777251184834,
+                "adaption_acc": 0.6255924170616114,
+                "optimal_riemann_ref": 0.6729857819905213,
+                "optimal_riemann_ref_breaks": 0.5592417061611374
+            },
+            "isReversed_true": {
+                "ref_acc": 0.655,
+                "adaption_acc": 0.72,
+                "optimal_riemann_ref": 0.725,
+                "optimal_riemann_ref_breaks": 0.69
+            }
+        },
+        "subj_8": {
+            "isReversed_false": {
+                "ref_acc": 0.6995073891625616,
+                "adaption_acc": 0.729064039408867,
+                "optimal_riemann_ref": 0.7389162561576355,
+                "optimal_riemann_ref_breaks": 0.7142857142857143
+            },
+            "isReversed_true": {
+                "ref_acc": 0.7142857142857143,
+                "adaption_acc": 0.7244897959183674,
+                "optimal_riemann_ref": 0.7142857142857143,
+                "optimal_riemann_ref_breaks": 0.6683673469387755
+            }
+        },
+        "subj_9": {
+            "isReversed_false": {
+                "ref_acc": 0.6633165829145728,
+                "adaption_acc": 0.6633165829145728,
+                "optimal_riemann_ref": 0.6582914572864321,
+                "optimal_riemann_ref_breaks": 0.6180904522613065
+            },
+            "isReversed_true": {
+                "ref_acc": 0.480225988700565,
+                "adaption_acc": 0.4689265536723164,
+                "optimal_riemann_ref": 0.4858757062146893,
+                "optimal_riemann_ref_breaks": 0.4463276836158192
+            }
+        }
+    },
+    "run_5": {
+        "subj_1": {
+            "isReversed_false": {
+                "ref_acc": 0.8333333333333334,
+                "adaption_acc": 0.8333333333333334,
+                "optimal_riemann_ref": 0.8333333333333334,
+                "optimal_riemann_ref_breaks": 0.8238095238095238
+            },
+            "isReversed_true": {
+                "ref_acc": 0.7864077669902912,
+                "adaption_acc": 0.7961165048543689,
+                "optimal_riemann_ref": 0.8009708737864077,
+                "optimal_riemann_ref_breaks": 0.7864077669902912
+            }
+        },
+        "subj_2": {
+            "isReversed_false": {
+                "ref_acc": 0.47393364928909953,
+                "adaption_acc": 0.4218009478672986,
+                "optimal_riemann_ref": 0.4312796208530806,
+                "optimal_riemann_ref_breaks": 0.43601895734597157
+            },
+            "isReversed_true": {
+                "ref_acc": 0.4504950495049505,
+                "adaption_acc": 0.45544554455445546,
+                "optimal_riemann_ref": 0.43564356435643564,
+                "optimal_riemann_ref_breaks": 0.4405940594059406
+            }
+        },
+        "subj_3": {
+            "isReversed_false": {
+                "ref_acc": 0.7365853658536585,
+                "adaption_acc": 0.7463414634146341,
+                "optimal_riemann_ref": 0.7219512195121951,
+                "optimal_riemann_ref_breaks": 0.6731707317073171
+            },
+            "isReversed_true": {
+                "ref_acc": 0.6798029556650246,
+                "adaption_acc": 0.7438423645320197,
+                "optimal_riemann_ref": 0.7487684729064039,
+                "optimal_riemann_ref_breaks": 0.6995073891625616
+            }
+        },
+        "subj_4": {
+            "isReversed_false": {
+                "ref_acc": 0.6971428571428572,
+                "adaption_acc": 0.7085714285714285,
+                "optimal_riemann_ref": 0.6971428571428572,
+                "optimal_riemann_ref_breaks": 0.72
+            },
+            "isReversed_true": {
+                "ref_acc": 0.5,
+                "adaption_acc": 0.5102040816326531,
+                "optimal_riemann_ref": 0.4897959183673469,
+                "optimal_riemann_ref_breaks": 0.5051020408163265
+            }
+        },
+        "subj_5": {
+            "isReversed_false": {
+                "ref_acc": 0.4106280193236715,
+                "adaption_acc": 0.4444444444444444,
+                "optimal_riemann_ref": 0.46859903381642515,
+                "optimal_riemann_ref_breaks": 0.46859903381642515
+            },
+            "isReversed_true": {
+                "ref_acc": 0.441025641025641,
+                "adaption_acc": 0.441025641025641,
+                "optimal_riemann_ref": 0.4358974358974359,
+                "optimal_riemann_ref_breaks": 0.4358974358974359
+            }
+        },
+        "subj_6": {
+            "isReversed_false": {
+                "ref_acc": 0.48148148148148145,
+                "adaption_acc": 0.48148148148148145,
+                "optimal_riemann_ref": 0.5246913580246914,
+                "optimal_riemann_ref_breaks": 0.5246913580246914
+            },
+            "isReversed_true": {
+                "ref_acc": 0.5061728395061729,
+                "adaption_acc": 0.4691358024691358,
+                "optimal_riemann_ref": 0.48148148148148145,
+                "optimal_riemann_ref_breaks": 0.47530864197530864
+            }
+        },
+        "subj_7": {
+            "isReversed_false": {
+                "ref_acc": 0.5497630331753555,
+                "adaption_acc": 0.5876777251184834,
+                "optimal_riemann_ref": 0.6350710900473934,
+                "optimal_riemann_ref_breaks": 0.6018957345971564
+            },
+            "isReversed_true": {
+                "ref_acc": 0.615,
+                "adaption_acc": 0.7,
+                "optimal_riemann_ref": 0.695,
+                "optimal_riemann_ref_breaks": 0.61
+            }
+        },
+        "subj_8": {
+            "isReversed_false": {
+                "ref_acc": 0.7093596059113301,
+                "adaption_acc": 0.7241379310344828,
+                "optimal_riemann_ref": 0.7586206896551724,
+                "optimal_riemann_ref_breaks": 0.729064039408867
+            },
+            "isReversed_true": {
+                "ref_acc": 0.7244897959183674,
+                "adaption_acc": 0.7193877551020408,
+                "optimal_riemann_ref": 0.7142857142857143,
+                "optimal_riemann_ref_breaks": 0.6887755102040817
+            }
+        },
+        "subj_9": {
+            "isReversed_false": {
+                "ref_acc": 0.7135678391959799,
+                "adaption_acc": 0.6884422110552764,
+                "optimal_riemann_ref": 0.7035175879396985,
+                "optimal_riemann_ref_breaks": 0.6633165829145728
+            },
+            "isReversed_true": {
+                "ref_acc": 0.5141242937853108,
+                "adaption_acc": 0.4971751412429379,
+                "optimal_riemann_ref": 0.480225988700565,
+                "optimal_riemann_ref_breaks": 0.480225988700565
+            }
+        }
+    },
+    "run_6": {
+        "subj_1": {
+            "isReversed_false": {
+                "ref_acc": 0.8428571428571429,
+                "adaption_acc": 0.8428571428571429,
+                "optimal_riemann_ref": 0.8428571428571429,
+                "optimal_riemann_ref_breaks": 0.819047619047619
+            },
+            "isReversed_true": {
+                "ref_acc": 0.8009708737864077,
+                "adaption_acc": 0.8203883495145631,
+                "optimal_riemann_ref": 0.8058252427184466,
+                "optimal_riemann_ref_breaks": 0.8009708737864077
+            }
+        },
+        "subj_2": {
+            "isReversed_false": {
+                "ref_acc": 0.44075829383886256,
+                "adaption_acc": 0.47393364928909953,
+                "optimal_riemann_ref": 0.4976303317535545,
+                "optimal_riemann_ref_breaks": 0.5023696682464455
+            },
+            "isReversed_true": {
+                "ref_acc": 0.43564356435643564,
+                "adaption_acc": 0.44554455445544555,
+                "optimal_riemann_ref": 0.43564356435643564,
+                "optimal_riemann_ref_breaks": 0.42574257425742573
+            }
+        },
+        "subj_3": {
+            "isReversed_false": {
+                "ref_acc": 0.7268292682926829,
+                "adaption_acc": 0.751219512195122,
+                "optimal_riemann_ref": 0.7560975609756098,
+                "optimal_riemann_ref_breaks": 0.6536585365853659
+            },
+            "isReversed_true": {
+                "ref_acc": 0.6995073891625616,
+                "adaption_acc": 0.7586206896551724,
+                "optimal_riemann_ref": 0.7586206896551724,
+                "optimal_riemann_ref_breaks": 0.7044334975369458
+            }
+        },
+        "subj_4": {
+            "isReversed_false": {
+                "ref_acc": 0.6857142857142857,
+                "adaption_acc": 0.7028571428571428,
+                "optimal_riemann_ref": 0.6685714285714286,
+                "optimal_riemann_ref_breaks": 0.6685714285714286
+            },
+            "isReversed_true": {
+                "ref_acc": 0.5357142857142857,
+                "adaption_acc": 0.5306122448979592,
+                "optimal_riemann_ref": 0.5153061224489796,
+                "optimal_riemann_ref_breaks": 0.5204081632653061
+            }
+        },
+        "subj_5": {
+            "isReversed_false": {
+                "ref_acc": 0.3864734299516908,
+                "adaption_acc": 0.42995169082125606,
+                "optimal_riemann_ref": 0.4106280193236715,
+                "optimal_riemann_ref_breaks": 0.4444444444444444
+            },
+            "isReversed_true": {
+                "ref_acc": 0.4512820512820513,
+                "adaption_acc": 0.5076923076923077,
+                "optimal_riemann_ref": 0.49743589743589745,
+                "optimal_riemann_ref_breaks": 0.5538461538461539
+            }
+        },
+        "subj_6": {
+            "isReversed_false": {
+                "ref_acc": 0.5370370370370371,
+                "adaption_acc": 0.5308641975308642,
+                "optimal_riemann_ref": 0.5555555555555556,
+                "optimal_riemann_ref_breaks": 0.5555555555555556
+            },
+            "isReversed_true": {
+                "ref_acc": 0.5185185185185185,
+                "adaption_acc": 0.5308641975308642,
+                "optimal_riemann_ref": 0.5432098765432098,
+                "optimal_riemann_ref_breaks": 0.4691358024691358
+            }
+        },
+        "subj_7": {
+            "isReversed_false": {
+                "ref_acc": 0.5497630331753555,
+                "adaption_acc": 0.6066350710900474,
+                "optimal_riemann_ref": 0.6255924170616114,
+                "optimal_riemann_ref_breaks": 0.6161137440758294
+            },
+            "isReversed_true": {
+                "ref_acc": 0.65,
+                "adaption_acc": 0.705,
+                "optimal_riemann_ref": 0.7,
+                "optimal_riemann_ref_breaks": 0.63
+            }
+        },
+        "subj_8": {
+            "isReversed_false": {
+                "ref_acc": 0.7044334975369458,
+                "adaption_acc": 0.729064039408867,
+                "optimal_riemann_ref": 0.7586206896551724,
+                "optimal_riemann_ref_breaks": 0.7142857142857143
+            },
+            "isReversed_true": {
+                "ref_acc": 0.6938775510204082,
+                "adaption_acc": 0.6989795918367347,
+                "optimal_riemann_ref": 0.6938775510204082,
+                "optimal_riemann_ref_breaks": 0.6581632653061225
+            }
+        },
+        "subj_9": {
+            "isReversed_false": {
+                "ref_acc": 0.6683417085427136,
+                "adaption_acc": 0.6884422110552764,
+                "optimal_riemann_ref": 0.6683417085427136,
+                "optimal_riemann_ref_breaks": 0.6633165829145728
+            },
+            "isReversed_true": {
+                "ref_acc": 0.480225988700565,
+                "adaption_acc": 0.4632768361581921,
+                "optimal_riemann_ref": 0.4350282485875706,
+                "optimal_riemann_ref_breaks": 0.4519774011299435
+            }
+        }
+    },
+    "run_7": {
+        "subj_1": {
+            "isReversed_false": {
+                "ref_acc": 0.8476190476190476,
+                "adaption_acc": 0.8476190476190476,
+                "optimal_riemann_ref": 0.8333333333333334,
+                "optimal_riemann_ref_breaks": 0.8
+            },
+            "isReversed_true": {
+                "ref_acc": 0.7961165048543689,
+                "adaption_acc": 0.7912621359223301,
+                "optimal_riemann_ref": 0.7912621359223301,
+                "optimal_riemann_ref_breaks": 0.7961165048543689
+            }
+        },
+        "subj_2": {
+            "isReversed_false": {
+                "ref_acc": 0.44075829383886256,
+                "adaption_acc": 0.43601895734597157,
+                "optimal_riemann_ref": 0.47393364928909953,
+                "optimal_riemann_ref_breaks": 0.46445497630331756
+            },
+            "isReversed_true": {
+                "ref_acc": 0.4306930693069307,
+                "adaption_acc": 0.41089108910891087,
+                "optimal_riemann_ref": 0.41089108910891087,
+                "optimal_riemann_ref_breaks": 0.4306930693069307
+            }
+        },
+        "subj_3": {
+            "isReversed_false": {
+                "ref_acc": 0.7170731707317073,
+                "adaption_acc": 0.7219512195121951,
+                "optimal_riemann_ref": 0.7121951219512195,
+                "optimal_riemann_ref_breaks": 0.6341463414634146
+            },
+            "isReversed_true": {
+                "ref_acc": 0.6699507389162561,
+                "adaption_acc": 0.7487684729064039,
+                "optimal_riemann_ref": 0.7733990147783252,
+                "optimal_riemann_ref_breaks": 0.6798029556650246
+            }
+        },
+        "subj_4": {
+            "isReversed_false": {
+                "ref_acc": 0.6971428571428572,
+                "adaption_acc": 0.6742857142857143,
+                "optimal_riemann_ref": 0.6628571428571428,
+                "optimal_riemann_ref_breaks": 0.6571428571428571
+            },
+            "isReversed_true": {
+                "ref_acc": 0.4897959183673469,
+                "adaption_acc": 0.5153061224489796,
+                "optimal_riemann_ref": 0.5102040816326531,
+                "optimal_riemann_ref_breaks": 0.5204081632653061
+            }
+        },
+        "subj_5": {
+            "isReversed_false": {
+                "ref_acc": 0.3961352657004831,
+                "adaption_acc": 0.42028985507246375,
+                "optimal_riemann_ref": 0.5024154589371981,
+                "optimal_riemann_ref_breaks": 0.4830917874396135
+            },
+            "isReversed_true": {
+                "ref_acc": 0.4461538461538462,
+                "adaption_acc": 0.4358974358974359,
+                "optimal_riemann_ref": 0.41025641025641024,
+                "optimal_riemann_ref_breaks": 0.4307692307692308
+            }
+        },
+        "subj_6": {
+            "isReversed_false": {
+                "ref_acc": 0.4876543209876543,
+                "adaption_acc": 0.5308641975308642,
+                "optimal_riemann_ref": 0.5061728395061729,
+                "optimal_riemann_ref_breaks": 0.5493827160493827
+            },
+            "isReversed_true": {
+                "ref_acc": 0.46296296296296297,
+                "adaption_acc": 0.5,
+                "optimal_riemann_ref": 0.5,
+                "optimal_riemann_ref_breaks": 0.49382716049382713
+            }
+        },
+        "subj_7": {
+            "isReversed_false": {
+                "ref_acc": 0.5545023696682464,
+                "adaption_acc": 0.6255924170616114,
+                "optimal_riemann_ref": 0.6587677725118484,
+                "optimal_riemann_ref_breaks": 0.5781990521327014
+            },
+            "isReversed_true": {
+                "ref_acc": 0.64,
+                "adaption_acc": 0.69,
+                "optimal_riemann_ref": 0.72,
+                "optimal_riemann_ref_breaks": 0.63
+            }
+        },
+        "subj_8": {
+            "isReversed_false": {
+                "ref_acc": 0.6847290640394089,
+                "adaption_acc": 0.7093596059113301,
+                "optimal_riemann_ref": 0.7241379310344828,
+                "optimal_riemann_ref_breaks": 0.7142857142857143
+            },
+            "isReversed_true": {
+                "ref_acc": 0.7397959183673469,
+                "adaption_acc": 0.7142857142857143,
+                "optimal_riemann_ref": 0.7142857142857143,
+                "optimal_riemann_ref_breaks": 0.6887755102040817
+            }
+        },
+        "subj_9": {
+            "isReversed_false": {
+                "ref_acc": 0.678391959798995,
+                "adaption_acc": 0.6733668341708543,
+                "optimal_riemann_ref": 0.6582914572864321,
+                "optimal_riemann_ref_breaks": 0.6633165829145728
+            },
+            "isReversed_true": {
+                "ref_acc": 0.4745762711864407,
+                "adaption_acc": 0.480225988700565,
+                "optimal_riemann_ref": 0.4745762711864407,
+                "optimal_riemann_ref_breaks": 0.4576271186440678
+            }
+        }
+    },
+    "run_8": {
+        "subj_1": {
+            "isReversed_false": {
+                "ref_acc": 0.8523809523809524,
+                "adaption_acc": 0.8285714285714286,
+                "optimal_riemann_ref": 0.8428571428571429,
+                "optimal_riemann_ref_breaks": 0.8
+            },
+            "isReversed_true": {
+                "ref_acc": 0.8009708737864077,
+                "adaption_acc": 0.7961165048543689,
+                "optimal_riemann_ref": 0.8009708737864077,
+                "optimal_riemann_ref_breaks": 0.8058252427184466
+            }
+        },
+        "subj_2": {
+            "isReversed_false": {
+                "ref_acc": 0.4312796208530806,
+                "adaption_acc": 0.4549763033175355,
+                "optimal_riemann_ref": 0.44075829383886256,
+                "optimal_riemann_ref_breaks": 0.4312796208530806
+            },
+            "isReversed_true": {
+                "ref_acc": 0.4405940594059406,
+                "adaption_acc": 0.4405940594059406,
+                "optimal_riemann_ref": 0.41089108910891087,
+                "optimal_riemann_ref_breaks": 0.4207920792079208
+            }
+        },
+        "subj_3": {
+            "isReversed_false": {
+                "ref_acc": 0.7804878048780488,
+                "adaption_acc": 0.7804878048780488,
+                "optimal_riemann_ref": 0.7902439024390244,
+                "optimal_riemann_ref_breaks": 0.7073170731707317
+            },
+            "isReversed_true": {
+                "ref_acc": 0.6847290640394089,
+                "adaption_acc": 0.7241379310344828,
+                "optimal_riemann_ref": 0.7389162561576355,
+                "optimal_riemann_ref_breaks": 0.6699507389162561
+            }
+        },
+        "subj_4": {
+            "isReversed_false": {
+                "ref_acc": 0.6685714285714286,
+                "adaption_acc": 0.7028571428571428,
+                "optimal_riemann_ref": 0.6857142857142857,
+                "optimal_riemann_ref_breaks": 0.6628571428571428
+            },
+            "isReversed_true": {
+                "ref_acc": 0.5102040816326531,
+                "adaption_acc": 0.5051020408163265,
+                "optimal_riemann_ref": 0.5153061224489796,
+                "optimal_riemann_ref_breaks": 0.5408163265306123
+            }
+        },
+        "subj_5": {
+            "isReversed_false": {
+                "ref_acc": 0.42028985507246375,
+                "adaption_acc": 0.3671497584541063,
+                "optimal_riemann_ref": 0.391304347826087,
+                "optimal_riemann_ref_breaks": 0.391304347826087
+            },
+            "isReversed_true": {
+                "ref_acc": 0.441025641025641,
+                "adaption_acc": 0.4256410256410256,
+                "optimal_riemann_ref": 0.47692307692307695,
+                "optimal_riemann_ref_breaks": 0.49230769230769234
+            }
+        },
+        "subj_6": {
+            "isReversed_false": {
+                "ref_acc": 0.4876543209876543,
+                "adaption_acc": 0.5246913580246914,
+                "optimal_riemann_ref": 0.5061728395061729,
+                "optimal_riemann_ref_breaks": 0.49382716049382713
+            },
+            "isReversed_true": {
+                "ref_acc": 0.49382716049382713,
+                "adaption_acc": 0.5370370370370371,
+                "optimal_riemann_ref": 0.5493827160493827,
+                "optimal_riemann_ref_breaks": 0.5308641975308642
+            }
+        },
+        "subj_7": {
+            "isReversed_false": {
+                "ref_acc": 0.5355450236966824,
+                "adaption_acc": 0.5829383886255924,
+                "optimal_riemann_ref": 0.6161137440758294,
+                "optimal_riemann_ref_breaks": 0.5687203791469194
+            },
+            "isReversed_true": {
+                "ref_acc": 0.655,
+                "adaption_acc": 0.685,
+                "optimal_riemann_ref": 0.685,
+                "optimal_riemann_ref_breaks": 0.63
+            }
+        },
+        "subj_8": {
+            "isReversed_false": {
+                "ref_acc": 0.6995073891625616,
+                "adaption_acc": 0.7241379310344828,
+                "optimal_riemann_ref": 0.7635467980295566,
+                "optimal_riemann_ref_breaks": 0.7192118226600985
+            },
+            "isReversed_true": {
+                "ref_acc": 0.6989795918367347,
+                "adaption_acc": 0.6887755102040817,
+                "optimal_riemann_ref": 0.6683673469387755,
+                "optimal_riemann_ref_breaks": 0.7040816326530612
+            }
+        },
+        "subj_9": {
+            "isReversed_false": {
+                "ref_acc": 0.7135678391959799,
+                "adaption_acc": 0.7135678391959799,
+                "optimal_riemann_ref": 0.7085427135678392,
+                "optimal_riemann_ref_breaks": 0.6633165829145728
+            },
+            "isReversed_true": {
+                "ref_acc": 0.4350282485875706,
+                "adaption_acc": 0.4632768361581921,
+                "optimal_riemann_ref": 0.4463276836158192,
+                "optimal_riemann_ref_breaks": 0.4406779661016949
+            }
+        }
+    },
+    "run_9": {
+        "subj_1": {
+            "isReversed_false": {
+                "ref_acc": 0.8523809523809524,
+                "adaption_acc": 0.8476190476190476,
+                "optimal_riemann_ref": 0.8476190476190476,
+                "optimal_riemann_ref_breaks": 0.8238095238095238
+            },
+            "isReversed_true": {
+                "ref_acc": 0.8009708737864077,
+                "adaption_acc": 0.8106796116504854,
+                "optimal_riemann_ref": 0.7961165048543689,
+                "optimal_riemann_ref_breaks": 0.8058252427184466
+            }
+        },
+        "subj_2": {
+            "isReversed_false": {
+                "ref_acc": 0.45023696682464454,
+                "adaption_acc": 0.4786729857819905,
+                "optimal_riemann_ref": 0.4834123222748815,
+                "optimal_riemann_ref_breaks": 0.4786729857819905
+            },
+            "isReversed_true": {
+                "ref_acc": 0.44554455445544555,
+                "adaption_acc": 0.41089108910891087,
+                "optimal_riemann_ref": 0.41089108910891087,
+                "optimal_riemann_ref_breaks": 0.40594059405940597
+            }
+        },
+        "subj_3": {
+            "isReversed_false": {
+                "ref_acc": 0.7170731707317073,
+                "adaption_acc": 0.7463414634146341,
+                "optimal_riemann_ref": 0.7317073170731707,
+                "optimal_riemann_ref_breaks": 0.6341463414634146
+            },
+            "isReversed_true": {
+                "ref_acc": 0.6748768472906403,
+                "adaption_acc": 0.7192118226600985,
+                "optimal_riemann_ref": 0.7142857142857143,
+                "optimal_riemann_ref_breaks": 0.6896551724137931
+            }
+        },
+        "subj_4": {
+            "isReversed_false": {
+                "ref_acc": 0.6628571428571428,
+                "adaption_acc": 0.6285714285714286,
+                "optimal_riemann_ref": 0.6228571428571429,
+                "optimal_riemann_ref_breaks": 0.6457142857142857
+            },
+            "isReversed_true": {
+                "ref_acc": 0.5102040816326531,
+                "adaption_acc": 0.4897959183673469,
+                "optimal_riemann_ref": 0.49489795918367346,
+                "optimal_riemann_ref_breaks": 0.5
+            }
+        },
+        "subj_5": {
+            "isReversed_false": {
+                "ref_acc": 0.4251207729468599,
+                "adaption_acc": 0.43478260869565216,
+                "optimal_riemann_ref": 0.463768115942029,
+                "optimal_riemann_ref_breaks": 0.45410628019323673
+            },
+            "isReversed_true": {
+                "ref_acc": 0.4358974358974359,
+                "adaption_acc": 0.4205128205128205,
+                "optimal_riemann_ref": 0.4307692307692308,
+                "optimal_riemann_ref_breaks": 0.441025641025641
+            }
+        },
+        "subj_6": {
+            "isReversed_false": {
+                "ref_acc": 0.41975308641975306,
+                "adaption_acc": 0.4444444444444444,
+                "optimal_riemann_ref": 0.4444444444444444,
+                "optimal_riemann_ref_breaks": 0.4567901234567901
+            },
+            "isReversed_true": {
+                "ref_acc": 0.5061728395061729,
+                "adaption_acc": 0.5123456790123457,
+                "optimal_riemann_ref": 0.5185185185185185,
+                "optimal_riemann_ref_breaks": 0.5061728395061729
+            }
+        },
+        "subj_7": {
+            "isReversed_false": {
+                "ref_acc": 0.5592417061611374,
+                "adaption_acc": 0.6066350710900474,
+                "optimal_riemann_ref": 0.6255924170616114,
+                "optimal_riemann_ref_breaks": 0.5971563981042654
+            },
+            "isReversed_true": {
+                "ref_acc": 0.585,
+                "adaption_acc": 0.66,
+                "optimal_riemann_ref": 0.65,
+                "optimal_riemann_ref_breaks": 0.63
+            }
+        },
+        "subj_8": {
+            "isReversed_false": {
+                "ref_acc": 0.6995073891625616,
+                "adaption_acc": 0.6995073891625616,
+                "optimal_riemann_ref": 0.7438423645320197,
+                "optimal_riemann_ref_breaks": 0.7142857142857143
+            },
+            "isReversed_true": {
+                "ref_acc": 0.7346938775510204,
+                "adaption_acc": 0.75,
+                "optimal_riemann_ref": 0.7091836734693877,
+                "optimal_riemann_ref_breaks": 0.6887755102040817
+            }
+        },
+        "subj_9": {
+            "isReversed_false": {
+                "ref_acc": 0.6884422110552764,
+                "adaption_acc": 0.6934673366834171,
+                "optimal_riemann_ref": 0.6733668341708543,
+                "optimal_riemann_ref_breaks": 0.6432160804020101
+            },
+            "isReversed_true": {
+                "ref_acc": 0.5254237288135594,
+                "adaption_acc": 0.5084745762711864,
+                "optimal_riemann_ref": 0.4858757062146893,
+                "optimal_riemann_ref_breaks": 0.4971751412429379
+            }
+        }
+    }
+}

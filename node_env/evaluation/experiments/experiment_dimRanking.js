@@ -1,3 +1,7 @@
+/**
+ * Experiment to validate dimension ranking.
+ */
+
 import { SETTINGS } from "../../tools/hdc/hdcCiMBase";
 import { HdcCiMBsc } from "../../tools/hdc/hdcCiMBsc";
 import { HdcCiMHrr } from "../../tools/hdc/hdcCiMHrr";
