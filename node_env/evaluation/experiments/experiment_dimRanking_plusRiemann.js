@@ -56,6 +56,7 @@ async function processSubjects(isReversed, dataAll, hdc, subjects, riemann) {
         subjectsProcessed[subject] = {}
 
         const data = get_data(dataAll[subject], isReversed);
+        hdc._riemannKernel = riemann.RiemannKernel();
         for (var trialIdx = 0; trialIdx < data.train_data.length; trialIdx++) { hdc.collectTrial(data.train_data[trialIdx].trial, data.train_labels[trialIdx] - 1); }
         const labels = [...hdc._trialLabels]
         const trainingBatch = await hdc.fitEmitBatch();
@@ -68,6 +69,7 @@ async function processSubjects(isReversed, dataAll, hdc, subjects, riemann) {
             const trial = hdc._encodeBatch(buf, 1).reshape([hdc._hdDim]);
             testSet.push(trial);
             testLabels.push(data.benchmark_labels[trialIdx] - 1);
+            hdc._riemannKernel.updateMean(data.benchmark_data[trialIdx].trial, 4);
         }
 
         subjectsProcessed[subject]["trainingSet"]    = trainingBatch
@@ -199,7 +201,7 @@ export async function evaluate(riemann) {
     }
 
     const nRuns = 10;
-    const experimentID = "dimRankingSubjectTransfer_0.2percentile"
+    const experimentID = "crossSubjectAndCrossSession"
     // -------------------------
 
     var dataAll = loadCached(riemann, subjects);

@@ -561,6 +561,95 @@ export function sessionTransferRiemannEuclidianAccs() {
     console.log(accs);
 }
 
+export function crossSubjectAccs() {
+    const d1 = require("./dimRankingSubjectTransfer_0.2percentile_1657563068236.json")
+
+    const run_prefix = "run_"
+    const runs = arange(0, 10)
+
+    const subj_prefix = "subj_"
+    const subjects = arange(1, 10);
+
+    const sessions = ["isReversed_false", "isReversed_true"]
+
+    const percentile_prefix = "percentile_"
+    const percentiles = [0.2]
+
+    const ids = ["trainingAccBefore",
+        "trainingAccAfter",
+        "testAccBefore",
+        "testAccAfter",
+        "finetunedTestingAcc", 
+        "finetunedTrainingAcc"
+    ]
+
+    const accs = {}
+    for (const id of ids) {
+        accs[id] = 0;
+    }
+
+    for (const run of runs) {
+        for (const subj of subjects) {
+            for (const session of sessions) {
+                for (const percentile of percentiles)
+                for (const id of ids) {
+                    accs[id] += d1[run_prefix + run][session][subj_prefix + subj][percentile_prefix + percentile][id] / (runs.length * sessions.length * subjects.length * percentiles.length);
+                }
+            }
+        }
+    }
+
+    console.log(accs);
+
+}
+
+export function crossSubjectAccsPercentiles() {
+    const d1 = require("./dimRankingSubjectTransfer_perrcentilesGridSearch_1657563416730.json")
+
+    const run_prefix = "run_"
+    const runs = arange(0, 8)
+
+    const subj_prefix = "subj_"
+    const subjects = arange(1, 10);
+
+    const sessions = ["isReversed_false", "isReversed_true"]
+
+    const percentile_prefix = "percentile_"
+    const percentiles = [0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95]
+
+    const ids = ["trainingAccBefore",
+        "trainingAccAfter",
+        "testAccBefore",
+        "testAccAfter",
+        "finetunedTestingAcc", 
+        "finetunedTrainingAcc"
+    ]
+
+    const accs = {}
+    accs["acc_before"] = {}
+    const accsBefore = {}
+    for (const id of percentiles) {
+        accs[percentile_prefix + id] = 0;
+        accs["acc_before"][percentile_prefix + id] = 0
+    }
+    var refAcc = 0
+
+    for (const run of runs) {
+        for (const subj of subjects) {
+            for (const session of sessions) {
+                for (const percentile of percentiles) {
+                    accs[percentile_prefix + percentile] += d1[run_prefix + run][session][subj_prefix + subj][percentile_prefix + percentile]["finetunedTestingAcc"] / (runs.length * sessions.length * subjects.length);
+                    accs["acc_before"][percentile_prefix + percentile] +=d1[run_prefix + run][session][subj_prefix + subj][percentile_prefix + percentile]["testAccBefore"] / (runs.length * sessions.length * subjects.length);
+                }
+            }
+        }
+    }
+
+    console.log(accs);
+    
+
+}
+
 
 
 
