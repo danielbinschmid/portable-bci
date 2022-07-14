@@ -98,6 +98,38 @@ export class HdcCiMBase {
         const alpha = 15;
         return tf.tidy(() => {
             // moments
+            // moments
+            const moments = tf.moments(trainTensor, 2);
+            const std = moments.variance.sqrt();
+            const sigma = std.mul(tf.scalar(3)).reshape([nTrials, vm._nBands, 1]).tile([1, 1, vm._nTSpaceDims]);
+            const means = moments.mean.reshape([nTrials, vm._nBands, 1]).tile([1, 1, vm._nTSpaceDims]);
+
+            // int( (x - mean) * (q / sigma) + (q - 1) / 2) )
+            batchTensor = batchTensor.sub(means);   
+            batchTensor = batchTensor.div(sigma); 
+            batchTensor = batchTensor.mul(tf.scalar(vm._qLevel));
+            batchTensor = batchTensor.add(tf.scalar((vm._qLevel - 1) / 2)).toInt();
+
+            // clip to quantization levels
+            batchTensor = batchTensor.clipByValue(0, vm._qLevel - 1);
+
+            return batchTensor
+        });
+    }
+
+    /**
+     * Quantizes tangent space via formula:
+     * int( (x - mean) * (q / sigma) + (q - 1) / 2) )
+     * x, 1 / (1 + np.exp(-10*x)) - distributes better
+     * 
+     * 1 / (1 + exp(-alpha* ((x - mean) * (1 / sigma)) ) ) * q
+     * @param {tf.Tensor3D} trainTensor - of shape (nTrials, nBands, nTSpaceDims)
+     */
+    _unusedQuantized(trainTensor, nTrials) {
+        const vm = this;
+        const alpha = 15;
+        return tf.tidy(() => {
+            // moments
             const moments = tf.moments(trainTensor, 2);
             const std = moments.variance.sqrt();
             const sigma = std.mul(tf.scalar(6)).reshape([nTrials, vm._nBands, 1]).tile([1, 1, vm._nTSpaceDims]);
@@ -208,7 +240,7 @@ export class HdcCiMBase {
      * 
      * @param {tf.Tensor2D} trainingSet 
      */
-     _genAMNaive(trainingSet, labels) {
+    _genAMNaive(trainingSet, labels) {
         return tf.tidy(() => {
             const labelsWithIndeces = labels.map((val, ind) => [val, ind]);
             const classSymbols = [];
@@ -272,7 +304,7 @@ export class HdcCiMBase {
      * @param {number} nTrials
      * @returns {tf.Tensor2D} - shape (nTrials, hdDim)
      */
-     _encodeArray(batchBuffer, nTrials) {
+    _encodeArray(batchBuffer, nTrials) {
         if (this._CiMEmbedding === undefined) { throw new TypeError("_CiMEmbedding must be defined for encoding"); }
         var typedArr = new Float32Array(batchBuffer);
 
@@ -305,7 +337,7 @@ export class HdcCiMBase {
      * @param {tf.Tensor2D} trainingSet 
      */
     _genAM(trainingSet, labels) {
-        return this._genAMNaive(trainingSet, labels); 
+        return this._genAMNaive(trainingSet, labels);
     }
 
     _predictBatch(set, labels, AM) {
