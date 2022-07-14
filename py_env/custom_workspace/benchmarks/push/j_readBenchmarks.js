@@ -1,6 +1,6 @@
 function readNaiveFinetuning() {
     const nF_ID = "IV2a_21-06_20220621-172111"
-    const naiveFinetuningJson = require("./" + nF_ID + "/all_" + nF_ID + ".json")
+    const naiveFinetuningJson = require("./all_" + nF_ID + ".json")
     const runs = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     const subjects = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     const run_prefix = "run_";
@@ -227,8 +227,8 @@ function crossSubject() {
     console.log("baseline average: " + baselineAvg / subjects.length);
 } 
 
-crossSession()
+//crossSession()
 console.log("///////////")
-crossSubject()
-// readNaiveFinetuning()
+// crossSubject()
+readNaiveFinetuning()
 // readLayerConstrained()

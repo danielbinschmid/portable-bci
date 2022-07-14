@@ -51,7 +51,6 @@ export class HdcCiMBase {
 
         if (new.target === HdcCiMBase) { throw new TypeError("Cannot construct Abstract instances directly"); }
         if (this._vecSimilarity === undefined) { throw new TypeError("_vecSimilarity method must be defined"); }
-        if (this._vecLength === undefined) { throw new TypeError("_vecLength method must be defined"); }
         if (this._bundle === undefined) { throw new TypeError("_bundle method must be defined"); }
         if (this._transformFBands === undefined) { throw new TypeError("_transformFBands method must be defined"); }
         if (this._transformTSpace === undefined && !settings.useTSpaceNGrams) { throw new TypeError("configuration mismatch: useTSpaceNGrams"); }
@@ -242,6 +241,40 @@ export class HdcCiMBase {
         if (this._CiMEmbedding === undefined) { throw new TypeError("_CiMEmbedding must be defined for encoding"); }
         var typedArr = this._riemann.ArrayBufferToTypedArray(batchBuffer);
         typedArr = new Float32Array(typedArr);
+
+        const vm = this;
+        const batchTensor = tf.tidy(() => {
+            var trainTensor = tf.tensor3d(typedArr, [nTrials, vm._nBands, vm._nTSpaceDims]);
+            trainTensor = vm._quantize(trainTensor, nTrials);
+
+            // unstack trials to prevent allocating the whole training set as single tensor
+            const trials = trainTensor.unstack();
+            const trialsTransformed = []
+            for (const trial of trials) {
+                const trialTensor = tf.tidy(() => {
+                    var trialTensor_ = vm._CiMEmbedding.apply(trial);
+                    if (!vm._useTSpaceNGrams) { trialTensor_ = vm._transformTSpace(trialTensor_); }
+                    else { trialTensor_ = vm._transformTSpaceNGram(trialTensor_); }
+                    trialTensor_ = vm._transformFBands(trialTensor_);
+                    return trialTensor_
+                });
+                trialsTransformed.push(trialTensor);
+            }
+            const returnTensor = tf.stack(trialsTransformed);
+            return returnTensor;
+        });
+        return batchTensor;
+    }
+
+    /**
+     * Encodes a batch of trials to their hypervector representations.
+     * @param {Float64Array} batchBuffer - of shape (nTrials, nBands, nFeats)
+     * @param {number} nTrials
+     * @returns {tf.Tensor2D} - shape (nTrials, hdDim)
+     */
+     _encodeArray(batchBuffer, nTrials) {
+        if (this._CiMEmbedding === undefined) { throw new TypeError("_CiMEmbedding must be defined for encoding"); }
+        var typedArr = new Float32Array(batchBuffer);
 
         const vm = this;
         const batchTensor = tf.tidy(() => {

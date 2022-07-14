@@ -10,7 +10,7 @@ export var AMsData = {
     importanceVecs: null
 }
 
-export class DimensionRankingHrr extends DimensionRankingBase {
+export class DimensionRankingfHrr extends DimensionRankingBase {
 
     /**
      * 
@@ -36,7 +36,7 @@ export class DimensionRankingHrr extends DimensionRankingBase {
                 var trialRanking = tf.zeros([this._hdc._hdDim]);
                 for (const labelIdx of arange(0, AMVecs.length)) {
                     const AMVec = AMVecs[labelIdx];
-                    const sim = AMVec.mul(trial)
+                    const sim = tf.cos(AMVec.sub(trial));
                     if (labelIdx == labels[trialIdx]) { 
                         trialRanking = trialRanking.add(sim)
                     } else {

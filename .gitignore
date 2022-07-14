@@ -17,6 +17,7 @@ __pycache__*
 /node_env/evaluation/benchmarks/cache/*
 /node_env/evaluation/data/*
 /node_env/webapp_port/data/*
+/node_env/scripts/dataset/*
 
 /cpp_env/wasm_env/build/
 /cpp_env/wasm_env/CMakeFiles/

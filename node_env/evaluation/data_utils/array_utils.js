@@ -59,7 +59,7 @@ export function fill(scalar, size) {
  * @returns {number}
  */
 export function maxIdx(arr) {
-    var curMax = 0;
+    var curMax = -1000000;
     var curIdx = null;
     for (var idx = 0; idx < arr.length; idx++) {
         if (arr[idx] > curMax) {
