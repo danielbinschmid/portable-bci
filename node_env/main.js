@@ -3,7 +3,7 @@ import { Riemann } from "./tools/riemann/riemann";
 
 // import { evaluate } from "./evaluation/experiment_transferLogEucl";
 //import { evaluate } from "./evaluation/experiments/experiment_hdcMuseMI";
-import { evaluate } from "./evaluation/experiments/experiment_hdcHersche";
+import { evaluate } from "./evaluation/experiments/experiment_hdcRiemannCiM";
 // import { evaluate } from "./evaluation/experiments/experiment_dimRanking_plusRiemann";
 // import { evaluate } from "./evaluation/experiments/experiment_onlineCrossSessionAdaption";
 // import { evaluate } from "./evaluation/experiments/experiment_onlineCrossSubjectAdaptionNaive";

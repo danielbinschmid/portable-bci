@@ -65,6 +65,7 @@ export async function evaluate(riemann) {
         for (const subject of subjects) {
             const subj_id = "subj_" + subject
             accs[run_id][subj_id] = {};
+            var avg = 0;
             if (!dataAll[subject]) 
             { 
                 console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
@@ -93,18 +94,21 @@ export async function evaluate(riemann) {
                     const probs = await hdc.predict(trialTensor.trial);
                     const pred = maxIdx(probs)
                     nCorrects += pred == (data.benchmark_labels[trialIdx] - 1);
+                    hdc._riemannKernel.updateMean(data.benchmark_data[trialIdx].trial, 4)
                 }
                 const acc = nCorrects / data.benchmark_data.length; // data.benchmark_data.length
                 console.log("cross sesh acc: " + acc + ", training set acc: " + trainingAcc);
                 console.log("--------------------------------------------------------------------------")
 
                 accs[run_id][subj_id][sessionID] = acc;
+                avg += acc / (subjects.length * 2)
  
             }
-            saveAsJSON(accs, "cache/" + experimentID);
+            // saveAsJSON(accs, "cache/" + experimentID);
         }
+        console.log("avg: " + avg);
     }    
-    saveAsJSON(accs, experimentID);
+    // saveAsJSON(accs, experimentID);
 }
 
 export function analyzeQuantization(riemann) {

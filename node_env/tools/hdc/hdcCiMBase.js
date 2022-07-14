@@ -105,7 +105,7 @@ export class HdcCiMBase {
             const means = moments.mean.reshape([nTrials, vm._nBands, 1]).tile([1, 1, vm._nTSpaceDims]);
 
             // int( (x - mean) * (q / sigma) + (q - 1) / 2) )
-            batchTensor = batchTensor.sub(means);   
+            var batchTensor = trainTensor.sub(means);   
             batchTensor = batchTensor.div(sigma); 
             batchTensor = batchTensor.mul(tf.scalar(vm._qLevel));
             batchTensor = batchTensor.add(tf.scalar((vm._qLevel - 1) / 2)).toInt();
