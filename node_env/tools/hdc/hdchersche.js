@@ -1,7 +1,7 @@
 import * as tf from '@tensorflow/tfjs-node-gpu';
 // import '@tensorflow/tfjs-backend-wasm';
 import { randomUniformVariable } from '@tensorflow/tfjs-layers/dist/variables';
-
+import { maxIdx } from '../../evaluation/data_utils/array_utils';
 
 export const Encodings = {
     THERMOMETER: 1
@@ -13,6 +13,7 @@ var ThermometerConfig = {
 }
 
 import { Riemann } from "../riemann/riemann";
+import { arange } from '../../evaluation/data_utils/array_utils';
 // declare var riemann: Riemann;
 
 export class HdcHersche {
@@ -396,6 +397,62 @@ export class HdcHersche {
         measures.conversionTF = Date.now() - now;
 
         return [prediction, measures]
+    }
+
+    /**
+     * 
+     * @param {tf.Tensor2D} trainingSet 
+     * @param {*} labels 
+     * @param {*} AM 
+     * @param {*} learning_rate 
+     * @param {*} iterations 
+     * @returns 
+     */
+    _retrainAM(trainingSet, labels, AM, learning_rate = 0.1,iterations = 20) {
+        console.log("retraining ..");
+        return tf.tidy(() => {
+            AM = AM.unstack();
+            for (const it of arange(0, iterations)) {
+                AM = tf.tidy(() => {
+                    const trainingTrials = trainingSet.unstack();
+                    const AMUpdate = tf.zeros([this._classLabels.length, this._hdDim]).unstack();
+                    const nAMUpdates = tf.zeros([this._classLabels.length]).arraySync();
+                    var nCorrects = 0;
+                    for (const trialIdx of arange(0, labels.length)) {
+                        const trial = trainingTrials[trialIdx];
+                        const probs = tf.stack(AM).logicalXor(trainingTrials[trialIdx]).logicalXor(tf.scalar(true, 'bool')).sum(1).div(tf.scalar(this._hdDim)).arraySync();
+                        const prediction = maxIdx(probs);
+                        // update AM
+                        nCorrects += prediction == labels[trialIdx]
+
+                        if (prediction != labels[trialIdx]) {
+                            const rateTrue = tf.scalar(1).sub(tf.scalar(probs[labels[trialIdx]])).mul(tf.scalar(learning_rate));
+                            const rateFalse = tf.scalar(1).sub(tf.scalar(probs[prediction])).mul(tf.scalar(learning_rate));
+                            AMUpdate[labels[trialIdx]] = AMUpdate[labels[trialIdx]].add(trial.toFloat().mul(rateTrue));
+                            AMUpdate[prediction] = AMUpdate[prediction].add(trial.logicalXor(tf.scalar(true)).toFloat().mul(rateFalse));
+                            nAMUpdates[labels[trialIdx]] += rateTrue.arraySync();
+                            nAMUpdates[prediction] += rateFalse.arraySync();
+                        }
+                        // AM[prediction] = AM[prediction].div(tf.mul(AM[prediction], AM[prediction]).sum(0).sqrt());
+                    }
+                    console.log(nAMUpdates)
+                    console.log(nCorrects / labels.length)
+                    for (const clIdx of arange(0, AMUpdate.length)) {
+                        var fac = nAMUpdates[clIdx]
+                        
+                        if (fac > 0) {
+                            const AMUpdateVec = AMUpdate[clIdx].add(AM[clIdx].toFloat().mul(tf.scalar(fac * (1 - learning_rate))));
+                            fac = fac + fac * ( 1 - learning_rate);
+                            const threshhold = fac / 2;
+                            const x = tf.relu(AMUpdateVec.sub(tf.scalar(threshhold))).toBool();
+                            AM[clIdx] = x
+                        }
+                    }
+                    return AM;
+                }) 
+            }
+            return tf.stack(AM);
+        })
     }
     	
     destroy() {

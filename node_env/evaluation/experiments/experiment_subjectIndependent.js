@@ -228,29 +228,29 @@ export async function evaluate(riemann) {
             // fusion
             var avg = 0
             for (const subject of subjects) {
-                const X = []
-                const Y = []
+                //const X = []
+                //const Y = []
            
-                for (const subj of subjects) {
-                    if (subj != subject) {
-                        X.push(...subjectsProcessed[subj].trainingSet.unstack())
-                        Y.push(...subjectsProcessed[subj].trainingLabels);
-                    }
-                }
-                console.log("fitting")
-                const crossSubjectAM = hdc._genAM(tf.stack(X), Y, 1, true, 10, 0.05)
-                tf.dispose(X);
+                //for (const subj of subjects) {
+                //    if (subj != subject) {
+                //        X.push(...subjectsProcessed[subj].trainingSet.unstack())
+                //        Y.push(...subjectsProcessed[subj].trainingLabels);
+                //    }
+               // }
+                //console.log("fitting")
+                //const crossSubjectAM = hdc._genAM(tf.stack(X), Y, 1, true, 10, 0.05)
+                //tf.dispose(X);
 
-                const am = hdc._genAM(subjectsProcessed[subject].trainingSet, subjectsProcessed[subject].trainingLabels, 1, true, 5, 0.05)
-                const ranking1 = dimRanking.genRankingVec(crossSubjectAM, subjectsProcessed[subject].trainingSet, subjectsProcessed[subject].trainingLabels)
-                const ranking2 = dimRanking.genRankingVec(am, subjectsProcessed[subject].trainingSet, subjectsProcessed[subject].trainingLabels)
-                const amfused = await dimRanking.fuseAMs({
-                    AMs: [crossSubjectAM, am],
-                    importanceVecs: [ranking1, ranking2]
-                })
-                const am2 = hdc._retrainAM(subjectsProcessed[subject].trainingSet, subjectsProcessed[subject].trainingLabels, amfused, 0.05, 5)
-                const trainAcc = hdc._predictBatch(subjectsProcessed[subject].trainingSet, subjectsProcessed[subject].trainingLabels, am2);
-                const acc = hdc._predictBatch(subjectsProcessed[subject].testSet, subjectsProcessed[subject].testLabels, am2);
+                const am = hdc._genAM(subjectsProcessed[subject].trainingSet, subjectsProcessed[subject].trainingLabels, 1, false, 20, 0.1)
+                //const ranking1 = dimRanking.genRankingVec(crossSubjectAM, subjectsProcessed[subject].trainingSet, subjectsProcessed[subject].trainingLabels)
+                //const ranking2 = dimRanking.genRankingVec(am, subjectsProcessed[subject].trainingSet, subjectsProcessed[subject].trainingLabels)
+                //const amfused = await dimRanking.fuseAMs({
+                //    AMs: [crossSubjectAM, am],
+                //    importanceVecs: [ranking1, ranking2]
+                //})
+                // const am2 = hdc._retrainAM(subjectsProcessed[subject].trainingSet, subjectsProcessed[subject].trainingLabels, amfused, 0.05, 5)
+                const trainAcc = hdc._predictBatch(subjectsProcessed[subject].trainingSet, subjectsProcessed[subject].trainingLabels, am);
+                const acc = hdc._predictBatch(subjectsProcessed[subject].testSet, subjectsProcessed[subject].testLabels, am);
                 console.log(acc)
                 console.log(trainAcc)
                 avg += acc / subjects.length

@@ -11,7 +11,7 @@ from keras.regularizers import l1_l2
 from keras.layers import Input, Flatten
 from keras.constraints import max_norm
 from keras import backend as K
-
+import tensorflow as tf
 from enum import Enum, auto
 
 
@@ -126,6 +126,10 @@ def EEGNet(
     block2 = AveragePooling2D((1, 8))(block2)
     block2 = dropoutType(dropoutRate)(block2)
 
+    # new
+    block2 = BatchNormalization()(block2)
+    # new
+    
     flatten = Flatten(name="flatten")(block2)
 
     dense = Dense(nb_classes, name="dense", kernel_constraint=max_norm(norm_rate))(

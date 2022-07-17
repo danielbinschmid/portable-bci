@@ -34,7 +34,7 @@ function readNaiveFinetuning() {
 
 function readLayerConstrained() {
     const lCF_ID = "IV2a_layer-constrained-finetuning_20220622-123753"
-    const layerConstrainedFinetuningJson = require("./" + lCF_ID + "/all_" + lCF_ID + ".json")
+    const layerConstrainedFinetuningJson = require("./all_" + lCF_ID + ".json")
 
     const runs = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     const subjects = [1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -227,8 +227,10 @@ function crossSubject() {
     console.log("baseline average: " + baselineAvg / subjects.length);
 } 
 
-//crossSession()
+crossSession()
 console.log("///////////")
+crossSubject()
+// readNaiveFinetuning()
 // crossSubject()
-readNaiveFinetuning()
+// readLayerConstrained()
 // readLayerConstrained()

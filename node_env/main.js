@@ -3,8 +3,9 @@ import { Riemann } from "./tools/riemann/riemann";
 
 // import { evaluate } from "./evaluation/experiment_transferLogEucl";
 //import { evaluate } from "./evaluation/experiments/experiment_hdcMuseMI";
-import { evaluate } from "./evaluation/experiments/experiment_hdcRiemannCiM";
-// import { evaluate } from "./evaluation/experiments/experiment_dimRanking_plusRiemann";
+// import { evaluate } from "./evaluation/experiments/experiment_hdcHersche";
+import {evaluate} from "./evaluation/experiments/experiment_cnnhdc"
+// import { evaluate } from "./evaluation/experiments/experiment_subjectIndependent";
 // import { evaluate } from "./evaluation/experiments/experiment_onlineCrossSessionAdaption";
 // import { evaluate } from "./evaluation/experiments/experiment_onlineCrossSubjectAdaptionNaive";
 // import { evaluate } from "./evaluation/experiments/experiments_RiemannMean.js/experiment_transfer";
@@ -72,10 +73,10 @@ function riemannInstantiatedCallback(riemannInstance) {
     // analyzeQuantization(riemann);
     // testCiM()
     // testCosDist()
-    evaluate(riemann);
+    // evaluate();
     // benchmarkMeanRuntimes(riemann);
     // test(riemann);
-    // printAccuracies()
+    printAccuracies()
     // cacheIV2a(riemann);
     // const a = loadCached(riemann);
     // console.log(a)

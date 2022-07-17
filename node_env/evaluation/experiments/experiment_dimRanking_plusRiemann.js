@@ -214,7 +214,7 @@ export async function evaluate(riemann) {
     for (var run = 0; run < nRuns; run++) {
         const run_id = "run_" + run
         accsJson[run_id] = {}
-        for (const isReversed of [true, false]) {
+        for (const isReversed of [false, true]) {
             const sessionID = "isReversed_" + isReversed;
             accsJson[run_id][sessionID] = {}
             const hdc = new HdcCiMHrr(basicSettings, riemann);
@@ -237,7 +237,7 @@ export async function evaluate(riemann) {
                     console.log("   percentile: " + percentile)
 
                     const fusedAM = await dimRanking.fuseAMsCenter(fusionPack.extraAMsData, fusionPack.centerAMData, percentile);
-                    const finetunedAM = hdc._retrainAM(subjectsProcessed[subject].trainingSet, subjectsProcessed[subject].trainingLabels, fusedAM, 0.01, 5)
+                    const finetunedAM = hdc._retrainAM(subjectsProcessed[subject].trainingSet, subjectsProcessed[subject].trainingLabels, fusedAM, 0.05, 10)
                     const accs = runTest(subjectsProcessed, hdc, fusedAM, finetunedAM, subject);
                     
                     console.log("   trainingAccBefore: "    + accs.trainingAccBefore);

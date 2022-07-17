@@ -10,7 +10,7 @@ def resample(nb_timesteps, target_frequency, windowlength_seconds):
     return l
 
 
-def get_data(subject, training, PATH, class_vec=[1, 2, 3], trialtimerange=3.5, offset=2.5):
+def get_data(subject, training, PATH, class_vec=[1, 2, 3], trialtimerange=3.5, offset=2.5) -> tuple[np.ndarray, np.ndarray]:
     """	Loads the dataset 2a of the BCI Competition IV
 	available on http://bnci-horizon-2020.eu/database/data-sets
 

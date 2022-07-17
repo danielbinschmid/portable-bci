@@ -86,6 +86,16 @@ export async function evaluate(riemann) {
                 for (var trialIdx = 0; trialIdx < data.train_data.length; trialIdx++) { hdc.collectTrial(data.train_data[trialIdx].trial, data.train_labels[trialIdx] - 1); }
                 await hdc.fit();
                  
+                var nCorrectsTrain = 0;
+                for (const trialIdx of tqdm(arange(0, data.train_data.length), {logging: true} )) 
+                {
+                    const trialTensor = data.train_data[trialIdx];
+                    const [probs, runtimes] = await hdc.predict(trialTensor.trial);
+                    const pred = maxIdx(probs)
+                    nCorrectsTrain += pred == (data.train_labels[trialIdx] - 1);
+                }
+                const trainAcc = nCorrectsTrain / data.train_data.length; // data.benchmark_data.length
+                 
                 var nCorrects = 0;
                 for (const trialIdx of tqdm(arange(0, data.benchmark_data.length), {logging: true} )) 
                 {
@@ -96,7 +106,7 @@ export async function evaluate(riemann) {
                     hdc._riemannKernel.updateMean(trialTensor.trial, 4);
                 }
                 const acc = nCorrects / data.benchmark_data.length; // data.benchmark_data.length
-                console.log("cross sesh acc: " + acc);
+                console.log("cross sesh acc: " + acc + ", train acc: " + trainAcc);
                 console.log("--------------------------------------------------------------------------")
 
                 accs[run_id][subj_id][sessionID] = acc;
