@@ -227,10 +227,10 @@ function crossSubject() {
     console.log("baseline average: " + baselineAvg / subjects.length);
 } 
 
-crossSession()
+// crossSession()
 console.log("///////////")
-crossSubject()
+// crossSubject()
 // readNaiveFinetuning()
 // crossSubject()
-// readLayerConstrained()
+readLayerConstrained()
 // readLayerConstrained()

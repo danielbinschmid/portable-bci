@@ -25,6 +25,7 @@ for subject in subjects:
         data[subject] = data_parsed 
 
 avg = 0
+avgSVM = 0
 for subject in subjects:
     for session in sessions:
         session_id = "session" + ("_true" if session else "_false")
@@ -63,5 +64,16 @@ for subject in subjects:
             n += preds[i] - 1 == benchmark_labels[i]
         print(n / benchmark_data.shape[0])
         avg+= n / (benchmark_data.shape[0] * len(subjects) * len(sessions))
+
+
+
+        # preds = clf_SVM.predict(benchmark_data)
+        preds = clf_SVM.predict(benchmark_data)
+        n = 0
+        for i in range(len(preds)): 
+            n += preds[i] - 1 == benchmark_labels[i]
+        print(n / benchmark_data.shape[0])
+        avgSVM+= n / (benchmark_data.shape[0] * len(subjects) * len(sessions))
 print("avg:")
 print(avg)
+print(avgSVM)
