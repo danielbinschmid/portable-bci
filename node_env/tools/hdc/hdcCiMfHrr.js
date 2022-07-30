@@ -195,6 +195,20 @@ export class HdcCiMfHrr extends HdcCiMRetrainBase {
         })
     }
 
+    _retrainAMNaive(trainingSet, labels, AM) {
+        return tf.tidy(() => {
+            const trainingSetByLabel = this._sortSetForLabels(trainingSet, labels)
+            const AMStack = AM.unstack();
+
+            for (const c of arange(0, trainingSetByLabel.length)) {
+                const label = trainingSetByLabel[c].label;
+                const labelSet = trainingSetByLabel[c].trials.unstack();
+                AMStack[label] = this._bundle(tf.stack([...labelSet, AMStack[label]]), 0)
+            }
+            return tf.stack(AMStack);
+        })
+    }
+
     _retrainAM(trainingSet, labels, AM, learning_rate = 0.2, iterations = 20) {
         console.log("retraining ..");
         return tf.tidy(() => {

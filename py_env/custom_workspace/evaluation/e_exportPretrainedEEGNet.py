@@ -67,7 +67,8 @@ def validate_EEGNet_IV2a():
     global_dataset_path = os.path.abspath(os.path.join(os.curdir, "data", "IV2a")) + "/"
 
     nb_classes = 3
-    class_vec = [1, 2, 3]
+    class_vec_train = [1, 2]
+    class_vec_test = [3, 4]
     nb_channels = 4
     nb_epochs = 150
     nb_epochs_finetuning = 8
@@ -94,13 +95,14 @@ def validate_EEGNet_IV2a():
 
 
     avg = 0
+    avg2 = 0
     for subject in subjects:
         print("///////////// SUBJECT %s //////////////" %subject)
         model.set_weights(initial_weights)
         # new_weights = [glorot_uniform()(w.shape) for w in initial_weights]
         
         # -------- SUBJECT TEST DATA ----------
-        test_data, test_labels   = IV2a.get_data(subject, False, global_dataset_path, class_vec=class_vec, trialtimerange= time_range, offset=offset_time)
+        test_data, test_labels   = IV2a.get_data(subject, False, global_dataset_path, class_vec=class_vec_train, trialtimerange= time_range, offset=offset_time)
         test_labels = test_labels - 1
         test_labels = np_utils.to_categorical(test_labels, nb_classes)
         test_data = test_data.reshape((test_data.shape[0], nb_channels,nb_samples, 1))
@@ -120,7 +122,7 @@ def validate_EEGNet_IV2a():
             nb_classes=nb_classes,
             nb_epochs=nb_epochs,
             benchmark_file=benchmark_file,
-            class_vec=class_vec,
+            class_vec=class_vec_train,
             global_dataset_path=global_dataset_path,
             subjects=subjects_,
             model=model,
@@ -128,7 +130,7 @@ def validate_EEGNet_IV2a():
             initial_weights=initial_weights,
             validation_data=(test_data, test_labels)
         )
-        model_save_path = os.path.join(os.curdir,"data", "EEGNet", "hdcaddon", str(subject)) + "/"
+        model_save_path = os.path.join(os.curdir,"data", "EEGNet", "changedclasses" ,str(subject)) + "/"
         os.makedirs(model_save_path)
         tfjs.converters.save_keras_model(model, model_save_path + "pretrained/")
 
@@ -149,7 +151,7 @@ def validate_EEGNet_IV2a():
             nb_classes=nb_classes,
             nb_epochs=nb_epochs_,
             benchmark_file=benchmark_file,
-            class_vec=class_vec,
+            class_vec=class_vec_train,
             global_dataset_path=global_dataset_path,
             subjects=[subject],
             model=model,
@@ -160,10 +162,10 @@ def validate_EEGNet_IV2a():
 
         tfjs.converters.save_keras_model(model, model_save_path + "finetuned/")
         subj_data = {}
-        train_data, train_labels = IV2a.get_data(subject, True, global_dataset_path, class_vec=class_vec, trialtimerange= time_range, offset=offset_time)
-        test_data_export, test_labels_export = IV2a.get_data(subject, False, global_dataset_path, class_vec=class_vec, trialtimerange= time_range, offset=offset_time)
-        train_labels -= 1
-        test_labels_export -= 1
+        train_data, train_labels = IV2a.get_data(subject, True, global_dataset_path, class_vec=class_vec_test, trialtimerange= time_range, offset=offset_time)
+        test_data_export, test_labels_export = IV2a.get_data(subject, False, global_dataset_path, class_vec=class_vec_test, trialtimerange= time_range, offset=offset_time)
+        train_labels -= 3
+        test_labels_export -= 3
         subj_data["train_data"] = train_data.tolist()
         subj_data["train_labels"] = train_labels.tolist()
         subj_data["test_data"] = test_data_export.tolist()
@@ -178,7 +180,18 @@ def validate_EEGNet_IV2a():
         acc             = np.mean(preds == test_labels.argmax(axis=-1))
         print("Classification accuracy: %f " % (acc))
         avg += acc / (len(subjects))
+
+        test_labels_e = np_utils.to_categorical(test_labels_export, nb_classes)
+        test_data_e = test_data_export.reshape((test_data_export.shape[0], nb_channels,nb_samples, 1))
+        # -------- SUBJECT SPECIFIC EVALUATION ---------
+        probs           = model.predict(test_data_e)
+        preds           = probs.argmax(axis = -1)  
+        acc             = np.mean(preds == test_labels_e.argmax(axis=-1))
+        print("Classification accuracy: %f " % (acc))
+        avg2 += acc / (len(subjects))
         # ----------------------------------------------
+    print("avg 1: " + avg)
+    print("avg new classes: " + avg2)
 
 
 if __name__ == "__main__":

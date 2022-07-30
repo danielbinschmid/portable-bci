@@ -33,6 +33,27 @@ function split(X, labels, nCalibr) {
     return [tf.stack(X_train), train_lab, tf.stack(X_test), test_lab]
 }
 
+function prepareNNFinetune(test_data, test_labels, n) {
+    var X = []
+    var Y = []
+    const nClasses = 3
+    for (const i of arange(0, n)) {
+        X.push(test_data[i])
+
+        const label = []
+        for (const c of arange(0, nClasses)) { label.push(c == test_labels[i]);}
+        Y.push(label)
+    }
+
+    const nTrials = X.length;
+    const nChannels = X[0].length;
+    const nSamples = X[0][0].length 
+    X = tf.tensor3d(X, [nTrials, nChannels, nSamples]).reshape([nTrials, nChannels, nSamples, 1]);
+
+    return [X, tf.tensor2d(Y)]
+}
+
+
 export async function evaluate() {
 
     const subjects = [1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -52,9 +73,9 @@ export async function evaluate() {
         for (const subject of subjects) 
         {
             console.log("&&&&&& subject "+ subject + "&&&&&&&");
-            const datafolder = "file:///mnt/d/bachelor-thesis/git/portable-bci/node_env/evaluation/data/eegnet_experiment/hdcaddon/"
+            const datafolder = "file:///mnt/d/bachelor-thesis/git/portable-bci/node_env/evaluation/data/eegnet_experiment/changedclasses/"
 
-            const data = require("/mnt/d/bachelor-thesis/git/portable-bci/node_env/evaluation/data/eegnet_experiment/hdcaddon/"+subject+"/subj_data.json")
+            const data = require("/mnt/d/bachelor-thesis/git/portable-bci/node_env/evaluation/data/eegnet_experiment/changedclasses/"+subject+"/subj_data.json")
             const train_data = data["train_data"]
 
             const nTrainTrials = train_data.length;
@@ -73,38 +94,43 @@ export async function evaluate() {
 
             accs[run][subject] = {}
             const model = await tf.loadLayersModel(datafolder + subject + "/finetuned/model.json") 
-            const newmodel = tf.model({inputs: model.input, outputs: model.layers[model.layers.length - 4].output})
             const hdc = new HdcCnnAddonfHrr(10000, [16, 16], 1001);
 
+            const [eegnetX, eegnetY] = prepareNNFinetune(test_data, testsession_labels, 50)
 
-            const X_train = newmodel.predictOnBatch(train_batch);
-            await hdc.fit(X_train, train_labels);
-            accs[run][subject]["trainingAcc"] = getacc(await hdc.predictOnBatch(X_train), train_labels, "trainingAcc");
+            /** @type { ModelCompileArgs} */ 
+            const modelCompileArgs = {loss: "categoricalCrossentropy", optimizer: "adam", metrics: ["accuracy"]}
+            model.compile(modelCompileArgs);
+
+            /** @type { ModelFitArgs } */
+            const modelfitargs ={
+                batchSize: 32,
+                epochs: 12,
+            } 
+            await model.fit(eegnetX, eegnetY, modelfitargs )
+
+            const p = await model.predict(test_batch).arraySync()
+            var a = 0
+            for (const i of arange(0, p.length)) {
+                a += (maxIdx(p[i]) == testsession_labels[i]) / p.length
+            }
+            console.log("finetune acc: " + a)
+            accs[run][subject]["finetuneAcc"] = a
+
+            const newmodel = tf.model({inputs: model.input, outputs: model.layers[model.layers.length - 4].output})
 
             const X_testsession = newmodel.predictOnBatch(test_batch);
-            accs[run][subject]["refAcc"] = getacc(await hdc.predictOnBatch(X_testsession), testsession_labels, "refAcc");
-
             const [X_finetune, finetune_labels, X_test, test_labels] = split(X_testsession.unstack(), testsession_labels, 50);
 
-            accs[run][subject]["finetuneAccBefore"] = getacc(await hdc.predictOnBatch(X_finetune), finetune_labels, "finetuneAccBefore")
+            await hdc.fit(X_finetune, finetune_labels);
+            accs[run][subject]["trainingAcc"] = getacc(await hdc.predictOnBatch(X_finetune), finetune_labels, "trainingAcc");
+
             accs[run][subject]["testAccBefore"] = getacc(await hdc.predictOnBatch(X_test), test_labels, "testAccBefore")
 
             
 
-            hdc.retrain(X_finetune, finetune_labels, 0.1, 10);
-            
-            console.log("finished retraining")
-            accs[run][subject]["finetuneAcc"] = getacc(await hdc.predictOnBatch(X_finetune), finetune_labels, "finetuneAcc")
-            accs[run][subject]["testAcc"] = getacc(await hdc.predictOnBatch(X_test), test_labels, "testAcc")
-
-
-            await hdc.fit(X_finetune, finetune_labels)
-
-            accs[run][subject]["finetuneAccOnlyNewData"] = getacc(await hdc.predictOnBatch(X_finetune), finetune_labels, "finetuneAccOnlyNewData")
-            accs[run][subject]["testAccOnlyNewData"] = getacc(await hdc.predictOnBatch(X_test), test_labels, "testAccOnlyNewData")
-
-            avgRef += accs[run][subject]["testAccBefore"] * (1 / subjects.length)
-            avg += accs[run][subject]["testAcc"] * (1 / subjects.length)
+            avgRef += accs[run][subject]["trainingAcc"] * (1 / subjects.length)
+            avg += accs[run][subject]["testAccBefore"] * (1 / subjects.length)
             // const X_test = newmodel.predictOnBatch(test_batch);
             // const test_probs = await hdc.predictOnBatch(X_test);
             // getacc(test_probs, testsession_labels)

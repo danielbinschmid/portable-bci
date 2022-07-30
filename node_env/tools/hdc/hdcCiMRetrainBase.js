@@ -21,6 +21,7 @@ export class HdcCiMRetrainBase extends HdcCiMBase {
 
         this._retrainKernel = riemann.RiemannKernel();
         this._retrainTimetensors = [];
+        
     }
 
     /**
@@ -90,6 +91,30 @@ export class HdcCiMRetrainBase extends HdcCiMBase {
         this._retrainTimetensors.push(timetensor);
         this._nTrials += 1;
         this._trialLabels.push(label);
+    }
+
+    async refit() {
+        const trainingSet = tf.tidy(() => {
+            const batch = []
+            for (const timetensor of this._retrainTimetensors) {
+                const buffer_cpp = this._riemann.ArrayBuffer();
+                this._riemannKernel.apply(timetensor, buffer_cpp);
+                const trial = this._encodeBatch(buffer_cpp, 1);
+                batch.push(trial);
+            }
+            return tf.concat(batch);
+        });
+        const accBefore = this._predictBatch(trainingSet, this._trialLabels, this._AM);
+        console.log("accuracy on training set before retraining: " + accBefore);
+        var acc = -1
+        this._AM = tf.tidy(() => {
+            this._AM = this._retrainAMNaive(trainingSet, this._trialLabels, this._AM);
+            acc = this._predictBatch(trainingSet, this._trialLabels, this._AM);
+            console.log("accuracy on training set after retraining: " + acc);
+            return this._AM;
+        });
+        this._resetTrialMetaData();
+        return acc;
     }
 
     async retrain(iterations, lr) {

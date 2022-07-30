@@ -140,6 +140,7 @@ def pretrain():
     callbacks = [tensorboard_callback, early_stopping_callback, cache_callback]
     
     # fit model
+    model.save_weights("./deepConvNet_train1_" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S") +".h5", overwrite=True)
     history = model.fit(cropped_train_data, cropped_train_labels, batch_size=batch_size, epochs=epochs,verbose = 2,  callbacks=callbacks, validation_data=val_trials)
     model.save_weights("./deepConvNet_train1_" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S") +".h5", overwrite=True)
     second_stage_fitting((cropped_train_data, cropped_train_labels), val_trials, model, batch_size, experiment_ID, epochs_after_stopping, early_stopping_patience_after_stopping)

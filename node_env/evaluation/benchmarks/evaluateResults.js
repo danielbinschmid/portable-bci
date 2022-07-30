@@ -692,4 +692,88 @@ export function crossSubjectCrossSessionAccsPercentiles() {
     console.log(accs);
 }
 
+export function partialTrainingTransferHRR() {
+    const d1 = require("./partialTrainingSetsHDC_1658569213223.json")
+
+    const run_prefix = "run_"
+    const runs = [0, 1, 2, 3, 4]// arange(0, 10)
+
+    const subj_prefix = "subj_"
+    const subjects = arange(1, 10);
+
+    const sessions = ["isReversed_false", "isReversed_true"]
+
+    const percentile_prefix = "trainData"
+    const percentile_suffix = "_"
+    const training_percentiles = [0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 1]
+
+    const ids = ["trainingAccBefore",
+        "trainingAccAfter",
+        "testAccBefore",
+        "testAccAfter",
+        "finetunedTestingAcc", 
+        "finetunedTrainingAcc"
+    ]
+
+    const accs = {}
+    accs["acc_before"] = {}
+    const accsBefore = {}
+    for (const id of training_percentiles) {
+        accs[percentile_prefix + id] = 0;
+        accs["acc_before"][percentile_prefix + id] = 0
+    }
+    var refAcc = 0
+
+    for (const run of runs) {
+        for (const percentile of training_percentiles) {
+            for (const session of sessions) {
+                for (const subj of subjects) {
+                    const a = d1[run_prefix + run][percentile_prefix + percentile + percentile_suffix][session][subj_prefix + subj]
+                    accs[percentile_prefix + percentile] += a["finetunedTestingAcc"] / (runs.length * sessions.length * subjects.length);
+                    accs["acc_before"][percentile_prefix + percentile] +=a["testAccBefore"] / (runs.length * sessions.length * subjects.length);
+                }
+            }
+        }
+    }
+
+    console.log(accs);
+}
+
+export function partialTrainingTransferfHRR() {
+    const d1 = require("./partialTrainingFHRR.json")
+
+    const run_prefix = "run_"
+    const runs = [0, 1, 2, 3, 4]// arange(0, 10)
+
+    const subj_prefix = "subj_"
+    const subjects = arange(1, 10);
+
+    const sessions = ["isReversed_false", "isReversed_true"]
+
+    const percentile_prefix = "partialTraining_"
+    const percentile_suffix = ""
+    const training_percentiles = [0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 1]
+
+
+
+    const accs = {}
+    for (const id of training_percentiles) {
+        accs[percentile_prefix + id] = 0;
+    }
+    var refAcc = 0
+
+    for (const run of runs) {
+        for (const percentile of training_percentiles) {
+            for (const session of sessions) {
+                for (const subj of subjects) {
+                    const a = d1[run_prefix + run][percentile_prefix + percentile + percentile_suffix][subj_prefix + subj][session]
+                    accs[percentile_prefix + percentile] += a / (runs.length * sessions.length * subjects.length);
+                }
+            }
+        }
+    }
+
+    console.log(accs);
+}
+
 

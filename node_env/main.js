@@ -4,14 +4,15 @@ import { Riemann } from "./tools/riemann/riemann";
 // import { evaluate } from "./evaluation/experiment_transferLogEucl";
 //import { evaluate } from "./evaluation/experiments/experiment_hdcMuseMI";
 // import { evaluate } from "./evaluation/experiments/experiment_hdcHersche";
-import {evaluate} from "./evaluation/experiments/experiment_cnnhdc"
-// import { evaluate } from "./evaluation/experiments/experiment_subjectIndependent";
+// import {evaluate} from "./evaluation/experiments/experiment_cnnhdc"
+// import { evaluate } from "./evaluation/experiments/experiment_dimRanking_plusRiemann_plusPartialTraining";
+import { evaluate } from "./evaluation/experiments/experiment_hdcFHrrPartialTraining";
 // import { evaluate } from "./evaluation/experiments/experiment_onlineCrossSessionAdaption";
 // import { evaluate } from "./evaluation/experiments/experiment_onlineCrossSubjectAdaptionNaive";
 // import { evaluate } from "./evaluation/experiments/experiments_RiemannMean.js/experiment_transfer";
 import { testCiM } from "./tools/hdc/hdcCiMHrr";
 // import { test } from "./evaluation/test_runs";
-import { crossSubjectCrossSessionAccsPercentiles, crossSubjectCrossSessionAccs, crossSubjectAccsPercentiles, crossSubjectAccs,  sessionTransferRiemannEuclidianAccs, onlineCrossSubjectNaive, onlineCrossSessionAdaptionNoRiemannRefChangeAcc, onlineCrossSessionAdaptionAcc, meanMetricAccuracies, crossSessionMeanMetricAccuracies, transferBaselineAccs, riemannCiMAccs, hrrRetrainAcc, crossSubjectDataAugmentedRetrainingAccs } from "./evaluation/benchmarks/evaluateResults";
+import { partialTrainingTransferfHRR ,partialTrainingTransferHRR, crossSubjectCrossSessionAccsPercentiles, crossSubjectCrossSessionAccs, crossSubjectAccsPercentiles, crossSubjectAccs,  sessionTransferRiemannEuclidianAccs, onlineCrossSubjectNaive, onlineCrossSessionAdaptionNoRiemannRefChangeAcc, onlineCrossSessionAdaptionAcc, meanMetricAccuracies, crossSessionMeanMetricAccuracies, transferBaselineAccs, riemannCiMAccs, hrrRetrainAcc, crossSubjectDataAugmentedRetrainingAccs } from "./evaluation/benchmarks/evaluateResults";
 import { benchmarkMeanRuntimes } from "./webapp_port/experiment_meanMetricRuntimes";
 import { init, warmUpPrediction } from "./webapp_port/test_deepconvnet";
 import { cacheIV2a, loadCached } from "./evaluation/data_utils/readIV2a";
@@ -34,9 +35,6 @@ function printAccuracies(riemann) {
     // console.log("crossSubjectDataAugmentedRetrainingAccs")
     // crossSubjectDataAugmentedRetrainingAccs();
 
-    console.log("euclidian online transfer: ");
-    sessionTransferRiemannEuclidianAccs();
-
     console.log("cross subject accs, percentile 0.2");
     crossSubjectAccs()
 
@@ -48,6 +46,10 @@ function printAccuracies(riemann) {
 
     console.log("cross subject cross session percentiles")
     crossSubjectCrossSessionAccsPercentiles()
+
+    partialTrainingTransferHRR()
+
+    partialTrainingTransferfHRR()
 }
 
 function crossSessionAdaptionAccs() {
@@ -73,7 +75,7 @@ function riemannInstantiatedCallback(riemannInstance) {
     // analyzeQuantization(riemann);
     // testCiM()
     // testCosDist()
-    // evaluate();
+    // evaluate(riemann);
     // benchmarkMeanRuntimes(riemann);
     // test(riemann);
     printAccuracies()

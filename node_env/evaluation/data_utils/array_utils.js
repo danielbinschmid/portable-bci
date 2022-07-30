@@ -10,6 +10,29 @@ export function arange(start, end) {
     return arr;
 }
 
+export function balancedShuffle(labels, classVec) {
+    const classIndeces = []
+    for (const cIdx of classVec) {classIndeces.push([]); }
+
+    for (const cIdx of arange(0, classVec.length)) {
+        const cVal = classVec[cIdx];
+        for (const trialIdx of arange(0, labels.length)) 
+        { 
+            if (labels[trialIdx] == cVal) { classIndeces[cIdx].push(trialIdx); } 
+        }
+    }
+
+    for (const cIdx of arange(0, classVec.length)) { shuffle(classIndeces[cIdx]); }
+    const shuffledIndeces = []
+    var l = classIndeces[0].length;
+    for (const cIndeces of classIndeces) { if (cIndeces.length < l) { l = cIndeces.length}; }
+
+    for (const i of arange(0, l)) {
+        for (const cIndeces of classIndeces) { shuffledIndeces.push(cIndeces[i]); }
+    }
+    return shuffledIndeces;
+}
+
 /**
  * Shuffles array in place.
  * @param {Array} a items An array containing the items.
@@ -137,7 +160,6 @@ export function flatten3(data) {
             }
         }
     }
-    console.log(flattened.length);
     return flattened
 }
 

@@ -1,14 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import MuseInterface from '@/components/MuseInterface'
+import Interface from '@/components/Interface'
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
         path: '/',
-        name: 'MuseInterface',
-        component: MuseInterface
+        name: 'Interface',
+        component: Interface
     }
   ]
 })

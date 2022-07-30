@@ -6,6 +6,7 @@ import { SETTINGS, HdcCiMBase } from "../../tools/hdc/hdcCiMBase";
 import * as tf from '@tensorflow/tfjs-node-gpu';
 import { HdcCiMBsc } from "../../tools/hdc/hdcCiMBsc";
 import { HdcCiMHrr } from "../../tools/hdc/hdcCiMHrr";
+import { HdcCiMfHrr } from "../../tools/hdc/hdcCiMfHrr";
 import { HdcHersche, Encodings } from "../../tools/hdc/hdchersche";
 import { collectIV2a, loadCached } from "../data_utils/readIV2a";
 import { Riemann } from "../../tools/riemann/riemann";
@@ -76,7 +77,7 @@ function getCycleIndeces(configProportionAdaptionData, shuffledIndeces) {
  */
 export async function evaluate(riemann) {
     // --------- CONFIG ---------
-    const subjects = arange(1, 10)
+    const subjects = arange(2, 10)
     const frequency = 250;
     const trialLengthSecs = 3.5;
     const breakLengthSecs = 2.5;
@@ -96,11 +97,12 @@ export async function evaluate(riemann) {
     const experimentID = "onlineCrossSessionAdaption_noRiemannRefChange_12its_0-01lr"
 
     const configsProportionAdaptionData = [
+        {proportion: 0.5, nCycles: 2},
+        {proportion: 0.2, nCycles: 2},
+        {proportion: 0.15, nCycles: 2},
+        {proportion: 0.1, nCycles: 2},  
         {proportion: 0.05, nCycles: 10},  
-        {proportion: 0.5, nCycles: 2},   
-        {proportion: 0.2, nCycles: 5},
-        {proportion: 0.15, nCycles: 8},
-        {proportion: 0.1, nCycles: 10},    
+            
     ]
     // -------------------------
 
@@ -124,11 +126,11 @@ export async function evaluate(riemann) {
 
                 const data = get_data(dataAll[subject], isReversed);
 
-                const hdc = new HdcCiMHrr(basicSettings, riemann);
+                const hdc = new HdcCiMfHrr(basicSettings, riemann);
                 console.log("_________PRETRAINING_________")
                 console.log("fitting hdc ..")
                 for (var trialIdx = 0; trialIdx < data.train_data.length; trialIdx++) { hdc.collectTrial(data.train_data[trialIdx].trial, data.train_labels[trialIdx] - 1); }
-                const trainingAcc = await hdc.fit(true);
+                const trainingAcc = await hdc.fit(true, 1, true, 5);
                 const preTrainAcc = await computeAcc(data.benchmark_data, data.benchmark_labels, arange(0, data.benchmark_data.length), hdc);
                 console.log("pretrain cross sesh acc: " + preTrainAcc);
                 accs[run_id][subj_id][sessionID]["pretrain_ref_acc"] = preTrainAcc;
@@ -157,7 +159,7 @@ export async function evaluate(riemann) {
                         const accBefore = await computeAcc(data.benchmark_data, data.benchmark_labels, benchmarkIndeces, hdc);
                         console.log("benchmark accuracy before retraining: " + accBefore);
                         for (const trialIdx of adaptIndeces) { hdc.collectRetrainTrial(data.benchmark_data[trialIdx].trial, data.benchmark_labels[trialIdx] - 1, data.benchmark_data[trialIdx].break_); }
-                        const retrainAcc = await hdc.retrain(12, 0.01); // 5, 0.1 yields good results
+                        const retrainAcc = await hdc.refit()// await hdc.retrain(5, 0.1); // 5, 0.1 yields good results
 
                         const acc = await computeAcc(data.benchmark_data, data.benchmark_labels, benchmarkIndeces, hdc);
                         console.log("benchmark acc: " + acc);
@@ -192,6 +194,7 @@ async function computeAcc(data, labels, indeces, hdc) {
         const probs = await hdc.predict(trialTensor.trial);
         const pred = maxIdx(probs)
         nCorrects += pred == (labels[trialIdx] - 1);
+        hdc._riemannKernel.updateMean(trialTensor.trial, 4)
     }
     const acc = nCorrects / indeces.length; // data.benchmark_data.length
     return acc
