@@ -86,6 +86,7 @@ export default {
         selectLabel(labelIdx) {
             this.$emit("newTrial", labelIdx);
             this.state = "idle";
+            this.$emit("exit")
         },
     },
 };

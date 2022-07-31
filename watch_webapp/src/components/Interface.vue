@@ -24,7 +24,7 @@ export default {
         // console.log(getChromeVersion())
         // console.log(webgl_detect())
         return {
-            page: "start",
+            page: "muse",
             logs: [],
         };
     },

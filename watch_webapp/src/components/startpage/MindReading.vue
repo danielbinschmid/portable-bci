@@ -33,20 +33,27 @@
         </v-list>
         <v-dialog v-model="isTrial" fullscreen>
             <v-card color="rgba(236, 239, 241, 0.95)">
-                <overlay-back-button @exit="cancelTrial()" bottomPadding />
-                <div v-if="isImagining">
+                <overlay-back-button @exit="cancelTrial()" :bottomPadding="state != 'prepare' && state != 'trial'" />
+                <div v-if="state == 'prepare' || state == 'trial'">
                     <v-progress-circular
-                        class="center"
+                        class="topcenter"
                         :rotate="180"
                         :size="100"
                         :width="15"
                         :value="value"
-                        :color="'pink'"
+                        :color="state == 'prepare' ? 'orange' : 'pink'"
                     >
-                        {{ (value * 4) / 100 + "s" }}
+                        {{ (value * 6.5) / 100 + "s" }}
                     </v-progress-circular>
+                    <div
+                        name="muse name"
+                        class="mdc-typography-styles-overline"
+                        :style="{ color: layout_data.GREY }"
+                    >
+                        {{ state == "prepare" ? "PREPARE" : "IMAGINE" }}
+                    </div>
                 </div>
-                <div v-else-if="predictionLoading">
+                <div v-else-if="state == 'loading'">
                     <breeding-rhombus-spinner
                         :animation-duration="1800"
                         :size="layout_data.MAX_WIDTH / 6"
@@ -71,22 +78,29 @@ import OverlayBackButton from "@/components/ui-comps/OverlayBackButton.vue";
 import SimpleButton from "@/components/ui-comps/SimpleButton.vue";
 import { LAYOUT_DATA } from "@/data/layout_constraints";
 import { BreedingRhombusSpinner } from "epic-spinners/dist/lib/epic-spinners.min.js";
+import { MuseBLEStreaming } from "@/tools/ble/MuseBLEStreaming";
 export default {
     components: { BreedingRhombusSpinner, OverlayBackButton, SimpleButton },
     name: "MindReading",
     data() {
+        var bleStreaming = undefined 
+        if (this.museDevInfo) {
+            bleStreaming = new MuseBLEStreaming(this.museDevInfo, 6.5);
+        } 
+        
         return {
+            bleStreaming : bleStreaming,
             prediction: "CLASS A",
             interval: {},
             value: 0,
             isTrial: false,
-            isImagining: false,
-            predictionLoading: false,
+            state: "idle",
             layout_data: LAYOUT_DATA,
             logs: [],
         };
     },
     props: {
+        museDevInfo: undefined,
         finetunedSession: undefined,
     },
     methods: {
@@ -94,22 +108,30 @@ export default {
             this.$emit("exit");
         },
         startTrial() {
-            this.isImagining = true;
+            this.state = "prepare";
             this.isTrial = true;
+
             this.interval = setInterval(() => {
-                if (this.value === 100) {
-                    this.value = 0;
-                    this.isImagining = false;
-                    this.predictionLoading = true;
+                if (this.value == 25) {
                     clearInterval(this.interval);
+                    this.state = "trial";
                     this.interval = setInterval(() => {
-                        this.predictionLoading = false;
-                        clearInterval(this.interval);
-                    }, 1000);
+                        if (this.value == 100) {
+                            this.value = 0;
+                            this.state = "loading";
+                            clearInterval(this.interval);
+                            this.interval = setInterval(() => {
+                                this.state = "idle";
+                                clearInterval(this.interval);
+                            }, 1000);
+                        } else {
+                            this.value += 12.5;
+                        }
+                    }, 800);
                 } else {
-                    this.value += 20;
+                    this.value += 5;
                 }
-            }, 800);
+            }, 400);
         },
         cancelTrial() {
             clearInterval(this.interval);
