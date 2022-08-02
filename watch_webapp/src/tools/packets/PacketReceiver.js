@@ -50,7 +50,7 @@ export class PacketReceiver {
             const numMissingPackets = idx - 1 - this.lastReceivedIdx;
             for(var i = 0; i < numMissingPackets; i++) {
                 // push empty dummies to fill missing packets
-                emits = this.packetList.pushPacket([], emits)
+                // emits = this.packetList.pushPacket([], emits)
             }
             emits = this.packetList.pushPacket(data, emits);
             this.lastReceivedIdx = idx;

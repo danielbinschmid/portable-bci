@@ -26,11 +26,18 @@
                 :museDevInfo="museDevInfo"
                 @exit="clearCurrentMode()"
             />
+
+            <v-dialog v-model="isFBands" fullscreen>
+                <v-card :color="layout_data.WHITE_BACKGROUND"> 
+                    <frequency-bands :museDevInfo="museDevInfo" @exit="clearCurrentMode()" />
+                </v-card>
+            </v-dialog>
         </small-card>
     </div>
 </template>
 
 <script>
+import FrequencyBands from "@/components/visualization/FrequencyBands.vue"
 import IconListItem from "@/components/ui-comps/IconListItem.vue";
 import OverlayBackButton from "@/components/ui-comps/OverlayBackButton.vue";
 import { LAYOUT_DATA } from "@/data/layout_constraints";
@@ -47,6 +54,7 @@ export default {
         MuseRawEEGVis,
         MuseRawEeg,
         SmallCard,
+        FrequencyBands,
     },
     props: {
         museDevInfo: undefined,
@@ -56,7 +64,7 @@ export default {
         return {
             layout_data: LAYOUT_DATA,
             rawEEGMode: rawEEGMode,
-            visModes: [rawEEGMode],
+            visModes: [rawEEGMode, "FREQUENCY BANDS"],
             visModesInstantiated: false,
             currentMode: null,
             vCardStyle: { marginTop: LAYOUT_DATA.MARGIN_TOP },
@@ -83,10 +91,12 @@ export default {
         isRawEEGMode() {
             return this.visModes[this.currentMode] == this.rawEEGMode;
         },
+        isFBands() {
+            return this.currentMode == 1
+        }
     },
 };
 </script>
 
 <style scoped>
-
 </style>

@@ -120,7 +120,7 @@ export default {
                 } else {
                     this.finetuneProgress += 10;
                 }
-            }, 100);
+            }, 500);
         },
         finetuningFinished() {
             this.isFinetuning = false;

@@ -2,13 +2,13 @@
     <div id="OverlayBackButton">
         <v-list-item
             :style="{
-                paddingTop: layout_data.SMALL_PADDING_TOP,
-                paddingBottom: bottomPadding ? layout_data.SMALL_PADDING_TOP: '0px'
+                paddingTop: layout.SMALL_PADDING_TOP,
+                paddingBottom: bottomPadding ? layout.SMALL_PADDING_TOP: '0px'
             }"
         >
             <v-btn
                 class="center"
-                color="#038C8C"
+                :color="colorText"
                 text
                 rounded
                 outlined
@@ -22,21 +22,31 @@
 </template>
 
 <script>
-import {LAYOUT_DATA} from "@/data/layout_constraints"
+
 export default {
     name: "OverlayBackButton",
     props: {
-        bottomPadding: Boolean
+        bottomPadding: Boolean,
+        color: String
     },
     data() {
         return {
-            layout_data: LAYOUT_DATA
+            layout: window.layout
         }
        
     },
     methods: {
         exit() {
             this.$emit("exit")
+        }
+    },
+    computed: {
+        colorText() {
+            if (!this.color) {
+                return this.layout.GREEN;
+            } else {
+                return this.color;
+            }
         }
     }
 };

@@ -1,16 +1,17 @@
 <template>
     <div id="start">
+        <overlay-back-button @exit="exit()" :color="layout.ORANGE"/>
         <simple-card
             :popupName="'mind reading'"
             :isMenuOpened="mindReading"
             topMargin
             bottomMargin
-            :colorCard="layout_data.ORANGE"
-            :colorText="layout_data.WHITE_BACKGROUND"
+            :colorCard="layout.ORANGE"
+            :colorText="layout.WHITE_BACKGROUND"
             isOpaque
             @openMenu="mindReading = true"
         >
-            <mind-reading @exit="mindReading = false" :finetunedSession="finetunedSession"  />
+            <mind-reading @exit="mindReading = false" :finetunedSession="finetunedSession"  :museDevInfo="museDevInfo" />
         </simple-card>
         <simple-card
             :popupName="'record'"
@@ -18,8 +19,8 @@
             topMargin
             bottomMargin
             isOpaque
-            :colorCard="layout_data.ORANGE"
-            :colorText="layout_data.WHITE_BACKGROUND"
+            :colorCard="layout.ORANGE"
+            :colorText="layout.WHITE_BACKGROUND"
             @openMenu="train = true"
         >   
             <record @exit="train = false" @changeFinetunedSession="changeFinetunedSession" :finetunedSession="finetunedSession"/>
@@ -38,9 +39,10 @@ import SimpleCard from "@/components/ui-comps/SimpleCard.vue";
 import MindReading from "@/components/startpage/MindReading.vue";
 import Record from "@/components/startpage/Record.vue";
 import SimpleSettingsCard from "@/components/ui-comps/SimpleSettingsCard.vue";
-import { LAYOUT_DATA } from "@/data/layout_constraints";
+import OverlayBackButton from "@/components/ui-comps/OverlayBackButton.vue"
+import { EEGNet } from "@/tools/eegnet/load";
 export default {
-    components: { SimpleCard, SimpleSettingsCard, MindReading, Record, Settings },
+    components: { SimpleCard, SimpleSettingsCard, MindReading, Record, Settings, OverlayBackButton },
     name: "Start",
     data() {
         return {
@@ -48,11 +50,27 @@ export default {
             settings: false,
             train: false,
             mindReading: false,
-            layout_data: LAYOUT_DATA,
+            layout: window.layout,
             logs: [],
         };
     },
+    props: {
+        museDevInfo: undefined
+    },
+    mounted() {
+        const eegnet = new EEGNet();
+        eegnet.init().then((model) => {
+            const m = model;
+            model.warmUpPrediction().then(() => {
+                window.eegnet = m;
+            })
+            
+        })
+    },
     methods: {
+        exit() {
+            this.$emit("exit");
+        },
         mindReadingWindow() {
             this.mindReading = !this.mindReading;
         },

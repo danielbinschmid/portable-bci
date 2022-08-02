@@ -25,6 +25,7 @@
                         outlined
                         x-large
                         @click="startTrial()"
+                        :disabled="!resetted"
                     >
                         Start Imagine
                     </v-btn>
@@ -33,17 +34,20 @@
         </v-list>
         <v-dialog v-model="isTrial" fullscreen>
             <v-card color="rgba(236, 239, 241, 0.95)">
-                <overlay-back-button @exit="cancelTrial()" :bottomPadding="state != 'prepare' && state != 'trial'" />
+                <overlay-back-button
+                    @exit="cancelTrial()"
+                    :bottomPadding="state != 'prepare' && state != 'trial'"
+                />
                 <div v-if="state == 'prepare' || state == 'trial'">
                     <v-progress-circular
                         class="topcenter"
                         :rotate="180"
                         :size="100"
                         :width="15"
-                        :value="value"
+                        :value="uiValue"
                         :color="state == 'prepare' ? 'orange' : 'pink'"
                     >
-                        {{ (value * 6.5) / 100 + "s" }}
+                        {{ (uiValue * 6.5) / 100 + "s" }}
                     </v-progress-circular>
                     <div
                         name="muse name"
@@ -66,7 +70,7 @@
                         {{ prediction }}
                     </div>
 
-                    <simple-button @click="startTrial()"> RETRY </simple-button>
+                    <simple-button @click="startTrial()" :disabled="!resetted"> RETRY </simple-button>
                 </div>
             </v-card>
         </v-dialog>
@@ -79,24 +83,32 @@ import SimpleButton from "@/components/ui-comps/SimpleButton.vue";
 import { LAYOUT_DATA } from "@/data/layout_constraints";
 import { BreedingRhombusSpinner } from "epic-spinners/dist/lib/epic-spinners.min.js";
 import { MuseBLEStreaming } from "@/tools/ble/MuseBLEStreaming";
+import { EEG_FREQUENCY } from "@/data/constants";
+import { EEGNet} from "@/tools/eegnet/load";
+import { resample2ndDim, slice2ndDim, maxIdx} from "@/tools/data_utils/array_utils"
 export default {
     components: { BreedingRhombusSpinner, OverlayBackButton, SimpleButton },
     name: "MindReading",
     data() {
-        var bleStreaming = undefined 
+        var bleStreaming = undefined;
         if (this.museDevInfo) {
             bleStreaming = new MuseBLEStreaming(this.museDevInfo, 6.5);
-        } 
-        
+            
+        }
         return {
-            bleStreaming : bleStreaming,
+            bleStreaming: bleStreaming,
+            labels: ["FEET", "RIGHT ARM", "LEFT ARM"],
             prediction: "CLASS A",
             interval: {},
             value: 0,
+            uiIter: 0,
+            uiDelay: 20,
+            uiValue: 0,
             isTrial: false,
             state: "idle",
             layout_data: LAYOUT_DATA,
             logs: [],
+            resetted: true
         };
     },
     props: {
@@ -107,31 +119,51 @@ export default {
         exit() {
             this.$emit("exit");
         },
+        /**
+         * @param {number[][]} timeseries
+         */
+        streamSuccCallback(timeseries) {
+            this.state = "loading";
+            const vm = this;
+            this.bleStreaming.unsubscribe((result) => {
+                vm.bleStreaming.reset();
+                vm.resetted = true;
+            }, (err) => {console.log(err)});
+            this.bleStreaming.reset()
+            this.value = 0;
+            this.uiValue = 0;
+            this.uiIter = 0;
+            
+            const targetFrequency = 128;
+            const trial = resample2ndDim(targetFrequency * 4.0, slice2ndDim(2.5 * EEG_FREQUENCY, 6.5 * EEG_FREQUENCY, timeseries));
+
+            /** @type {EEGNet} */
+            const eegnet = window.eegnet
+            if (eegnet === undefined) { 
+                this.state = "idle"
+                this.prediction = this.labels[0];
+             }
+            eegnet.prediction(trial).then((prediction) => {
+                const labelIdx = maxIdx(prediction);
+                this.prediction = this.labels[labelIdx];
+                
+                this.state = "idle"
+            })
+
+        },
+        timestepCallback(nTimesteps) {
+            this.value += (nTimesteps * 100) / (EEG_FREQUENCY * 6.5);
+            this.uiIter += 1;
+            if (this.uiIter % this.uiDelay == 0) {
+                this.uiValue = Math.floor(this.value);
+            }
+            if (this.value > 35) { this.state = "trial"; }
+        },
         startTrial() {
             this.state = "prepare";
             this.isTrial = true;
-
-            this.interval = setInterval(() => {
-                if (this.value == 25) {
-                    clearInterval(this.interval);
-                    this.state = "trial";
-                    this.interval = setInterval(() => {
-                        if (this.value == 100) {
-                            this.value = 0;
-                            this.state = "loading";
-                            clearInterval(this.interval);
-                            this.interval = setInterval(() => {
-                                this.state = "idle";
-                                clearInterval(this.interval);
-                            }, 1000);
-                        } else {
-                            this.value += 12.5;
-                        }
-                    }, 800);
-                } else {
-                    this.value += 5;
-                }
-            }, 400);
+            this.resetted = false;
+            this.bleStreaming.subscribe(this.streamSuccCallback, (err) => { console.log(err);}, this.timestepCallback);
         },
         cancelTrial() {
             clearInterval(this.interval);

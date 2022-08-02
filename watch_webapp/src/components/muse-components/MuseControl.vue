@@ -1,10 +1,12 @@
 <template>
     <div id="muse-control">
+        <overlay-back-button @exit="exit()" :color="layout.ORANGE"/>
         <small-card
             :icon="bleIcon"
             :isMenuOpened="isDeviceListInstantiated"
             :popupName="'BLE'"
             @openMenu="showDetectedDevices()"
+            topMargin
         >
             <v-list style="padding: 0" color="rgba(0, 0, 0, 0)">
                 <overlay-back-button @exit="showDetectedDevices()" />
@@ -15,7 +17,7 @@
                     @press="bleButton()"
                 />
                 <v-list-item-group
-                    :color="layout_data.GREEN"
+                    :color="layout.GREEN"
                     v-model="selectedDevice"
                 >
                     <div v-for="(item, i) in detected_devices" :key="i">
@@ -45,7 +47,6 @@ import OverlayBackButton from "@/components/ui-comps/OverlayBackButton.vue";
 import SmallCard from "@/components/ui-comps/SmallCard.vue";
 import MuseStreamControl from "./MuseStreamControl.vue";
 import MuseVis from "./MuseVis.vue";
-import { LAYOUT_DATA } from "@/data/layout_constraints.js";
 import {
     ScanStatus,
     BleConnectionStatus,
@@ -65,7 +66,7 @@ export default {
     },
     data() {
         return {
-            layout_data: LAYOUT_DATA,
+            layout: window.layout,
             isDeviceListInstantiated: false,
             connected: false,
             detected_devices: [],
@@ -77,12 +78,17 @@ export default {
             scanStatus: ScanStatus.idle,
             selectedDevice: undefined,
             logs: [],
+            museControlData: {}
         };
     },
     mounted() {
         this.initialize();
     },
     methods: {
+        exit() {
+            this.museControlData.pairedDevice = this.pairedDevice;
+            this.$emit("exit", this.museControlData);
+        },
         showDetectedDevices() {
             this.isDeviceListInstantiated = !this.isDeviceListInstantiated;
         },

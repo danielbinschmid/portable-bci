@@ -8,38 +8,60 @@ import {
 
 import { decodeEEGSamples } from "@/scripts/museUtils";
 import { SyncedReceiver } from "@/tools/packets/synced/SyncedReceiver";
+import { arange } from "../evaluation/data_utils/array_utils";
 export class MuseBLEStreaming {
     constructor(museDevInfo, trialSizeSeconds) {
-        this.packetReceiver = new SyncedReceiver(4, EEG_FREQUENCY, EEG_SAMPLES_PER_READING);
+        this.nChannels = 4;
+        this.packetReceiver = new SyncedReceiver(this.nChannels, EEG_FREQUENCY, EEG_SAMPLES_PER_READING);
         this.museDevInfo = museDevInfo;
+        this.curTrial = [[], [], [], []];
+        this.trialSteps = trialSizeSeconds * EEG_FREQUENCY;
+        this.success = false;
+    }
+
+    reset() {
+        this.success = false;
+        this.curTrial = [[], [], [], []]
+        this.packetReceiver = new SyncedReceiver(this.nChannels, EEG_FREQUENCY, EEG_SAMPLES_PER_READING);
     }
 
     /**
      * 
      * @param {*} index 
      * @param {MuseBLEStreaming} vm 
-     * @returns 
      */
-    packetReceivingCallbackForIndex(index, vm, succCallback) {
+    packetReceivingCallbackForIndex(index, vm, succCallback, fullTimestepCallback) {
         return function (result) {
-            const readings = decodeEEGSamples(result.value);
-            const arrival = Date.now()
-            
-            const emit = vm.packetReceiver.addPacket(readings, arrival, index);
-            if (emit != null) { succCallback(emit); }
+            if (!this.success) {
+                const readings = decodeEEGSamples(result.value);
+                const arrival = Date.now()
+
+                const emit = vm.packetReceiver.addPacket(readings, arrival, index);
+                if (emit != null) {
+                    fullTimestepCallback(EEG_SAMPLES_PER_READING);
+                    for (const c of arange(0, vm.nChannels)) {
+                        vm.curTrial[c].push(...emit[c]);
+                    }
+                    if (vm.curTrial[0].length >= vm.trialSteps) {
+                        this.success = true;
+                        succCallback(vm.curTrial);
+                    }
+                }
+            }
         };
     }
 
 
-    subscribe(succCallback, errorCallback, museDevInfo) {
+    subscribe(succCallback, errorCallback, fullTimestepCallback) {
         var index = 0;
+        const vm = this;
         for (const characteristic of EEG_CHARACTERISTICS) {
-            const successCallback = packetReceivingCallbackForIndex(index, vm, succCallback);
+            const successCallback = this.packetReceivingCallbackForIndex(index, vm, succCallback, fullTimestepCallback);
             window.bluetoothle.subscribe(
                 successCallback,
                 errorCallback,
                 {
-                    address: museDevInfo.address,
+                    address: this.museDevInfo.address,
                     service: EEG_SERVICE,
                     characteristic: characteristic,
                 }
@@ -48,14 +70,14 @@ export class MuseBLEStreaming {
         }
     }
 
-    unsubscribe() {
+    unsubscribe(succCallback, errorCallback) {
         for (const characteristic of EEG_CHARACTERISTICS) {
             window.bluetoothle.unsubscribe(
-                (result) => {},
-                (error) => {},
+                succCallback,
+                errorCallback,
                 {
                     address: this.museDevInfo.address,
-                    service: this.eegService,
+                    service: EEG_SERVICE,
                     characteristic: characteristic,
                 }
             );

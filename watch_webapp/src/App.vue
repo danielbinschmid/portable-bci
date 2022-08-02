@@ -9,6 +9,7 @@
 <script>
 import { Riemann } from "@/tools/riemann/riemann";
 import { LAYOUT_DATA } from "@/data/layout_constraints";
+
 export default {
     name: "App",
     data() {
@@ -24,6 +25,7 @@ export default {
             console.log("compiled!");
             window.riemann = copy;
         });
+        
     },
 };
 </script>

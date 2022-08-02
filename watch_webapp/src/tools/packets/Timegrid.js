@@ -6,7 +6,7 @@ export class Timegrid {
      * @param {number} frequency 
      * @param {number} patience 
      */
-    constructor(instantiationTime, frequency, patience=2) {
+    constructor(instantiationTime, frequency, patience=20) {
         this.offset = 0;
         this.frequency = frequency;
         this.stepSize =   (1 / frequency) * (10 ** 3); 
