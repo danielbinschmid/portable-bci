@@ -2,7 +2,7 @@ import { Riemann } from '../../tools/riemann/riemann';
 import tqdm from "ntqdm"; // https://github.com/jhedin/ntqdm
 import { arange } from './array_utils';
 import { saveAsJSON } from './save_benchmarks';
-import { Data } from '../experiments/experiments_RiemannMean.js/run_eval';
+import { Data } from '../experiments/riemannMean/run_eval';
 const fs = require('fs');
 const IV2aDataFolter = './evaluation/data/IV2a/';
 const cacheFolder = IV2aDataFolter + 'cached/';

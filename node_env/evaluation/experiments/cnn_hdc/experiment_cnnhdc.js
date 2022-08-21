@@ -1,6 +1,6 @@
 import * as tf from '@tensorflow/tfjs';
-import { HdcCnnAddonfHrr } from '../../tools/hdc/HdcCnnAddon';
-import { arange, maxIdx } from '../data_utils/array_utils';
+import { HdcCnnAddonfHrr } from '../../../tools/hdc/HdcCnnAddon';
+import { arange, maxIdx } from '../../data_utils/array_utils';
 
 function getacc(probs, labels, id) {
     const nTrainTrials = probs.length;

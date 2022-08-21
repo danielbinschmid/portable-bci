@@ -9,7 +9,6 @@ export function arange(start, end) {
     for (var i = start; i < end; i++) { arr.push(i); }
     return arr;
 }
-
 export function balancedShuffle(labels, classVec) {
     const classIndeces = []
     for (const cIdx of classVec) {classIndeces.push([]); }
@@ -32,7 +31,6 @@ export function balancedShuffle(labels, classVec) {
     }
     return shuffledIndeces;
 }
-
 /**
  * Shuffles array in place.
  * @param {Array} a items An array containing the items.
