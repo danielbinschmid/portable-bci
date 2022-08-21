@@ -28,14 +28,17 @@
                         outlined
                         x-large
                         @click="openMenu()"
-                    >
+                        :disabled="menuDisabled"
+                    >   
+                    <div v-if="!hideMenuIcon">
                         <v-icon class="abitright-2"> mdi-menu-open </v-icon>
+                    </div>
                         {{ popupName }}
                     </v-btn>
                 </v-list-item-content>
             </v-list-item>
             <v-dialog v-model="isMenuOpened" fullscreen>
-                <v-card color="rgba(236, 239, 241, 0.8)">
+                <v-card :color="'rgba(236, 239, 241,'+ transparentness +')'">
                     <slot></slot>
                 </v-card>
             </v-dialog>
@@ -57,12 +60,24 @@ export default {
         popupName: String,
         isMenuOpened: Boolean,
         topMargin: Boolean,
+        isOpaque: Boolean,
+        hideMenuIcon: Boolean,
+        menuDisabled: Boolean
     },
     methods: {
         openMenu() {
             this.$emit("openMenu");
         },
     },
+    computed: {
+        transparentness() {
+            if (this.isOpaque) {
+                return 1
+            } else {
+                return 0.8
+            }
+        }
+    }
 };
 </script>
 

@@ -39,7 +39,7 @@
                     <slot> </slot>
                 </v-card>
             </v-dialog>
-            <v-list-item>
+            <v-list-item >
                 <v-btn
                     rounded
                     class="center"
@@ -49,6 +49,7 @@
                 </v-btn>
             </v-list-item>
         </v-card>
+        
     </div>
 </template>
 
@@ -59,7 +60,7 @@ export default {
     data() {
         return {
             cardStyleObject: {
-                marginTop: LAYOUT_DATA.MARGIN_TOP,
+                marginTop: LAYOUT_DATA.MARGIN_TOP
             },
             layout_data: LAYOUT_DATA
         }

@@ -3,25 +3,34 @@
         <overlay-back-button @exit="exit()" />
         
         <div v-for="(item, i) in labels" :key="i">
-             <simple-button @click="openLabel(i)" x_large :disabled="true">
+             <simple-button @click="openLabel(i)" x_large :disabled="trials[item].length <= 0">
                 {{ item + ": " + trials[item].length }}
             </simple-button>
         </div>
+
+        <v-dialog v-model="openLabelDialog" fullscreen>
+            <v-card :color="'rgba(236, 239, 241, 0.95)'">
+                <session-label @exit="exitLabel" :database="database" :labelIdx="selectedLabel" />
+            </v-card>
+        </v-dialog>
     </div>
 </template>
 
 
 
 <script>
+import SessionLabel from "./SessionLabel.vue"
 import OverlayBackButton from "@/components/ui-comps/OverlayBackButton.vue";
 import { MITrialDatabase} from "@/tools/database/MITrialDatabase";
 import SimpleButton from "@/components/ui-comps/SimpleButton.vue";
 export default {
-    components: { OverlayBackButton, SimpleButton },
+    components: { OverlayBackButton, SimpleButton, SessionLabel },
     name: "SessionDatabase",
     data() {
 
         return {
+            selectedLabel: null,
+            openLabelDialog: false,
             trials: {"FEET": [], "RIGHT HAND": [], "LEFT HAND": []},
             labels: ["FEET", "RIGHT HAND", "LEFT HAND"]
         };
@@ -40,8 +49,12 @@ export default {
         exit() {
             this.$emit("exit");
         },
-        openLabel() {
-
+        openLabel(idx) {
+            this.selectedLabel = idx;
+            this.openLabelDialog = true;
+        },
+        exitLabel() {
+            this.openLabelDialog = false;
         },
         syncWithDatabase() {
             const trials = {"FEET": [], "RIGHT HAND": [], "LEFT HAND": []}

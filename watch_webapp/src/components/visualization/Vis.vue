@@ -1,12 +1,15 @@
 <template>
-    <div id="muse-vis">
+    <div id="vis">
         <small-card
             :icon="'mdi-cctv'"
             :isMenuOpened="visModesInstantiated"
             :popupName="'VIS'"
             @openMenu="showModes()"
             topMargin
+            isOpaque
+            :menuDisabled="false"
         >
+        <!--"!isStreamingEnabled" -->
             <overlay-back-button @exit="showModes()" bottomPadding />
             <v-list style="padding: 0" color="rgba(0, 0, 0, 0)">
                 <v-list-item-group
@@ -33,11 +36,18 @@
                     <frequency-bands :museDevInfo="museDevInfo" @exit="clearCurrentMode()" />
                 </v-card>
             </v-dialog>
+
+            <v-dialog v-model="isTrialVis" fullscreen>
+                <v-card :color="layout_data.WHITE_BACKGROUND"> 
+                    <trial-vis @exit="clearCurrentMode()" />
+                </v-card>
+            </v-dialog>
         </small-card>
     </div>
 </template>
 
 <script>
+import TrialVis from "@/components/visualization/TrialVis.vue";
 import FrequencyBands from "@/components/visualization/FrequencyBands.vue"
 import IconListItem from "@/components/ui-comps/IconListItem.vue";
 import OverlayBackButton from "@/components/ui-comps/OverlayBackButton.vue";
@@ -47,7 +57,7 @@ import MuseRawEEGVis from "@/components/visualization/MuseRawEEGVis.vue";
 import MuseRawEeg from "./MuseRawEEG.vue";
 import SmallCard from "@/components/ui-comps/SmallCard.vue";
 export default {
-    name: "MuseVis",
+    name: "Vis",
     components: {
         IconListItem,
         OverlayBackButton,
@@ -56,6 +66,7 @@ export default {
         MuseRawEeg,
         SmallCard,
         FrequencyBands,
+        TrialVis
     },
     props: {
         museDevInfo: undefined,
@@ -66,7 +77,7 @@ export default {
         return {
             layout_data: LAYOUT_DATA,
             rawEEGMode: rawEEGMode,
-            visModes: [rawEEGMode, "FREQUENCY BANDS"],
+            visModes: [rawEEGMode, "FREQUENCY BANDS", "TRIAL VIS"],
             visModesInstantiated: false,
             currentMode: null,
             vCardStyle: { marginTop: LAYOUT_DATA.MARGIN_TOP },
@@ -95,6 +106,9 @@ export default {
         },
         isFBands() {
             return (this.currentMode == 1) && this.isStreamingEnabled
+        },
+        isTrialVis() {
+            return (this.currentMode == 2)
         }
     },
     watch: {

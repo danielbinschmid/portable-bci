@@ -1,59 +1,86 @@
 <template>
     <div id="session-database">
         <overlay-back-button @exit="exit()" />
-        
-        <div v-for="(item, i) in labels" :key="i">
-             <simple-button @click="openDatabase = true" x_large :disabled="isFinetuning">
-                DATABASE
+        <simple-button
+                @click="fetch()"
+                x_large
+            >
+                FETCH DATA
+            </simple-button>
+        <div v-for="(item, i) in trials" :key="i">
+            <simple-button
+                @click="openTrial(i)"
+                x_large
+            >
+                {{'REPLAY ' + i}} 
             </simple-button>
         </div>
+
+        <v-dialog v-model="trialSelected" fullscreen>
+            <v-card :color="layout_data.WHITE_BACKGROUND">
+                <trial-vis
+                    @exit="closeReplay()"
+                    :trialData="trials[selectedTrial]"
+                />
+            </v-card>
+        </v-dialog>
     </div>
 </template>
 
 
 
 <script>
+import TrialVis from "@/components/visualization/TrialVis.vue";
 import OverlayBackButton from "@/components/ui-comps/OverlayBackButton.vue";
-import { MITrialDatabase} from "@/tools/database/MITrialDatabase";
+import { MITrialDatabase } from "@/tools/database/MITrialDatabase";
 import SimpleButton from "@/components/ui-comps/SimpleButton.vue";
 export default {
-    components: { OverlayBackButton, SimpleButton },
-    name: "SessionDatabase",
+    components: { OverlayBackButton, SimpleButton, TrialVis },
+    name: "SessionLabel",
     data() {
-
         return {
+            layout_data: window.layout,
+            trialSelected: false,
+            selectedTrial: null,
             trials: [],
-            labels: ["FEET", "RIGHT HAND", "LEFT HAND"]
+            labels: ["FEET", "RIGHT HAND", "LEFT HAND"],
         };
     },
     props: {
-        database: MITrialDatabase
+        database: MITrialDatabase,
+        labelIdx: Number,
     },
-    mounted() {
-        this.syncWithDatabase()
-    },
-    activated() {
-        this.syncWithDatabase()
-    },
+    mounted() {},
+    activated() {},
     methods: {
         exit() {
-            this.$emit("exit");
+            this.$emit("exit")
         },
-        syncWithDatabase() {
-            const trials = []
-            const trialIDs = this.database.getTrialIDs();
-            const vm = this
-            for (const id of trialIDs) {
-                this.database.getTrial(id, (data, label) => {
-                    trials.push({
-                        data: data,
-                        label: label
-                    })
-                })
+        async fetch() {
+            this.init();
+        },
+        openTrial(idx) {
+            this.selectedTrial = idx;
+            this.trialSelected = true;
+        },
+        closeReplay() {
+            this.trialSelected = false;
+            this.selectedTrial = null
+        },
+        async init() {
+            const ids = this.database.getTrialIDs();
+            const vm = this;
+            const targetIDs = []
+            for (const id of ids) {
+                const trialMetadata = this.database.getTrialMetadata(id);
+                if (trialMetadata.label == this.labelIdx) {
+                    targetIDs.push(id);
+                }
             }
-
-
-        }
+            this.database.getTrials(targetIDs, (res, labels) => {
+                vm.trials = res;
+            })
+        },
     },
 };
 </script>

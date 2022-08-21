@@ -1,28 +1,12 @@
 <template>
     <div id="interface">
-        <simple-card
-            isOpaque
-            :popupName="'MUSE CONTROL'"
-            @openMenu="page = 'muse'"
-            :isMenuOpened="page == 'muse'"
-            :colorCard="layout.ORANGE"
-            :colorText="layout.PLAIN_WHITE"
-            bottomMargin
-        >
-            <muse-control @exit="exitMuseControl" />
-        </simple-card>
-        
-        <simple-card
-            isOpaque
-            :popupName="'READ MIND'"
-            @openMenu="page = 'start'"
-            :isMenuOpened="page == 'start'"
-            :colorCard="layout.ORANGE"
-            :colorText="layout.PLAIN_WHITE"
-            bottomMargin
-        >
-            <start @exit="page = 'home'" :museDevInfo="museControlData.pairedDevice"/>
-        </simple-card>
+
+        <muse-control @exit="exitMuseControl" @streamingChange="streamingChange" />
+
+        <vis :isStreamingEnabled="isStreamingEnabled" :museDevInfo="museControlData.pairedDevice" />
+
+
+        <start :museDevInfo="museControlData.pairedDevice"/>
 
         <!-- <ble-view /> -->
     </div>
@@ -32,15 +16,17 @@
 import MuseControl from "./muse-components/MuseControl.vue";
 import SimpleCard from "./ui-comps/SimpleCard.vue";
 import Home from "./Home.vue";
+import Vis from "./visualization/Vis.vue"
 import Start from "./startpage/Start.vue";
 import { getChromeVersion, webgl_detect } from "@/tools/tools";
 export default {
-    components: { MuseControl, Home, Start, SimpleCard },
+    components: { MuseControl, Home, Start, SimpleCard, Vis },
     name: "Interface",
     data() {
         console.log("chromium version: " + getChromeVersion())
         console.log("webgl: " + webgl_detect())
         return {
+            isStreamingEnabled: false,
             layout: window.layout,
             page: "home",
             logs: [],
@@ -48,6 +34,9 @@ export default {
         };
     },
     methods: {
+        streamingChange(isStreaming) {
+            this.isStreamingEnabled = isStreaming
+        },
         setPage(page) {
             // console.log(page)
 

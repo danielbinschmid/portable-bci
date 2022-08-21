@@ -177,6 +177,21 @@ export class MITrialDatabase {
         };
     }
 
+    getTrials(ids, succCallback) {
+        const results = []
+        const labels = []
+        const vm = this
+        for (const id of ids) {
+            this.getTrial(id, (res, label) => {
+                results.push(res);
+                labels.push(label);
+                if (results.length == ids.length && labels.length == ids.length) {
+                    succCallback(results, labels);
+                }
+            })
+        }
+    }
+
     /**
      * 
      * @param {number[][]} trial 

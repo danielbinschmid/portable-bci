@@ -12,9 +12,11 @@ export default {
     name: "DynamicLineChart",
     props: {
         currentVal: {val: Number, timestamp: Number},
-        minMaxRange: Number
+        minMaxRange: Number,
+        height: Number
     },
     data() {
+        const h_ = this.height ? this.height: 10;
         return {
             chart: new SmoothieChart({
                 grid: {
@@ -28,7 +30,7 @@ export default {
             }),
             series: new TimeSeries(),
             w: 100,
-            h: 10,
+            h: h_,
         };
     },
     beforeMount() {
@@ -45,7 +47,6 @@ export default {
     watch: {
         currentVal() {
             this.series.append(this.currentVal.timestamp, this.currentVal.val);
-            
         }
     },
 };

@@ -2,7 +2,7 @@
     <div id="mind-reading">
         <v-list style="padding: 0" color="rgba(0, 0, 0, 0)">
             <overlay-back-button @exit="exit()" bottomPadding />
-            <v-divider />
+
             <v-list-item>
                 <v-list-item-content>
                     <div
@@ -14,7 +14,7 @@
                     </div>
                 </v-list-item-content>
             </v-list-item>
-            <v-divider />
+
             <v-list-item>
                 <v-list-item-content>
                     <v-btn
@@ -29,6 +29,24 @@
                     >
                         Start Imagine
                     </v-btn>
+                </v-list-item-content>
+            </v-list-item>
+            <v-list-item>
+                <v-list-item-content>
+                <div :style="{ marginBottom: layout_data.SMALL_PADDING_TOP }">
+                    <v-btn
+                        class="center"
+                        :color="layout_data.GREEN"
+                        text
+                        rounded
+                        outlined
+                        x-large
+                        @click="warmupEEGNet()"
+                        :disabled="!resetted"
+                    >
+                        WARM UP AI
+                    </v-btn>
+                </div>
                 </v-list-item-content>
             </v-list-item>
         </v-list>
@@ -70,7 +88,19 @@
                         {{ prediction }}
                     </div>
 
-                    <simple-button @click="startTrial()" :disabled="!resetted"> RETRY </simple-button>
+                    <simple-button @click="startTrial()" :disabled="!resetted">
+                        RETRY
+                    </simple-button>
+        
+                    <simple-button @click="replayTrial()" :disabled="!resetted">
+                        REPLAY
+                    </simple-button>
+
+                    <v-dialog v-model="openReplayTrial" fullscreen>
+                        <v-card :color="layout_data.WHITE_BACKGROUND"> 
+                            <trial-vis @exit="closeReplay()" :frequency="targetFrequency" :trialData="curTrial" />
+                        </v-card>
+                    </v-dialog>
                 </div>
             </v-card>
         </v-dialog>
@@ -80,14 +110,23 @@
 <script>
 import OverlayBackButton from "@/components/ui-comps/OverlayBackButton.vue";
 import SimpleButton from "@/components/ui-comps/SimpleButton.vue";
-import { LAYOUT_DATA } from "@/data/layout_constraints";
+import TrialVis from "@/components/visualization/TrialVis.vue";
 import { BreedingRhombusSpinner } from "epic-spinners/dist/lib/epic-spinners.min.js";
 import { MuseBLEStreaming } from "@/tools/ble/MuseBLEStreaming";
 import { EEG_FREQUENCY } from "@/data/constants";
-import { EEGNet} from "@/tools/eegnet/load";
-import { resample2ndDim, slice2ndDim, maxIdx} from "@/tools/data_utils/array_utils"
+import { EEGNet } from "@/tools/eegnet/load";
+import {
+    resample2ndDim,
+    slice2ndDim,
+    maxIdx,
+} from "@/tools/data_utils/array_utils";
 export default {
-    components: { BreedingRhombusSpinner, OverlayBackButton, SimpleButton },
+    components: {
+        BreedingRhombusSpinner,
+        OverlayBackButton,
+        SimpleButton,
+        TrialVis,
+    },
     name: "MindReading",
     data() {
         /** @type { MuseBLEStreaming } */
@@ -96,6 +135,9 @@ export default {
             bleStreaming = new MuseBLEStreaming(this.museDevInfo, 6.5);
         }
         return {
+            curTrial: [[], [], [], []],
+            targetFrequency: 128,
+            openReplayTrial: false,
             bleStreaming: bleStreaming,
             labels: ["FEET", "RIGHT ARM", "LEFT ARM"],
             prediction: "CLASS A",
@@ -106,9 +148,9 @@ export default {
             uiValue: 0,
             isTrial: false,
             state: "idle",
-            layout_data: LAYOUT_DATA,
+            layout_data: window.layout,
             logs: [],
-            resetted: true
+            resetted: true,
         };
     },
     props: {
@@ -116,6 +158,15 @@ export default {
         finetunedSession: undefined,
     },
     methods: {
+        closeReplay() {
+            this.openReplayTrial = false;
+        },
+        replayTrial() {
+            this.openReplayTrial = true;
+        },
+        warmupEEGNet() {
+            window.eegnet.warmUpPrediction().then(() => {});
+        },
         exit() {
             this.$emit("exit");
         },
@@ -125,31 +176,44 @@ export default {
         streamSuccCallback(timeseries) {
             this.state = "loading";
             const vm = this;
-            this.bleStreaming.unsubscribe((result) => {
-                vm.bleStreaming.reset();
-                vm.resetted = true;
-            }, (err) => {console.log(err)});
-            this.bleStreaming.reset()
+            this.bleStreaming.unsubscribe(
+                (result) => {
+                    vm.bleStreaming.reset();
+                    vm.resetted = true;
+                },
+                (err) => {
+                    console.log(err);
+                }
+            );
+            this.bleStreaming.reset();
             this.value = 0;
             this.uiValue = 0;
             this.uiIter = 0;
-            
+
             const targetFrequency = 128;
-            const trial = resample2ndDim(targetFrequency * 4.0, slice2ndDim(2.5 * EEG_FREQUENCY, 6.5 * EEG_FREQUENCY, timeseries));
+            const trial = resample2ndDim(
+                targetFrequency * 4.0,
+                slice2ndDim(
+                    2.5 * EEG_FREQUENCY,
+                    6.5 * EEG_FREQUENCY,
+                    timeseries
+                )
+            );
+
+            this.curTrial = trial;
 
             /** @type {EEGNet} */
-            const eegnet = window.eegnet
-            if (eegnet === undefined) { 
-                this.state = "idle"
+            const eegnet = window.eegnet;
+            if (eegnet === undefined) {
+                this.state = "idle";
                 this.prediction = this.labels[0];
-             }
+            }
             eegnet.prediction(trial).then((prediction) => {
                 const labelIdx = maxIdx(prediction);
                 this.prediction = this.labels[labelIdx];
-                
-                this.state = "idle"
-            })
 
+                this.state = "idle";
+            });
         },
         timestepCallback(nTimesteps) {
             this.value += (nTimesteps * 100) / (EEG_FREQUENCY * 6.5);
@@ -157,13 +221,22 @@ export default {
             if (this.uiIter % this.uiDelay == 0) {
                 this.uiValue = Math.floor(this.value);
             }
-            if (this.value > 35) { this.state = "trial"; }
+            if (this.value > 35) {
+                this.state = "trial";
+            }
         },
         startTrial() {
             this.state = "prepare";
+            this.curTrial = [[], [], [], []]
             this.isTrial = true;
             this.resetted = false;
-            this.bleStreaming.subscribe(this.streamSuccCallback, (err) => { console.log(err);}, this.timestepCallback);
+            this.bleStreaming.subscribe(
+                this.streamSuccCallback,
+                (err) => {
+                    console.log(err);
+                },
+                this.timestepCallback
+            );
         },
         cancelTrial() {
             clearInterval(this.interval);

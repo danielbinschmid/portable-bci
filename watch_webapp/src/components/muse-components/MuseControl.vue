@@ -1,40 +1,55 @@
 <template>
     <div id="muse-control">
-        <overlay-back-button @exit="exit()" :color="layout.ORANGE"/>
         <small-card
-            :icon="bleIcon"
-            :isMenuOpened="isDeviceListInstantiated"
-            :popupName="'BLE'"
-            @openMenu="showDetectedDevices()"
+            :icon="globalIcon"
+            :isMenuOpened="isOpen"
+            :popupName="'MUSE'"
+            @openMenu="open()"
             topMargin
+            isOpaque
+            hideMenuIcon
+            
         >
-            <v-list style="padding: 0" color="rgba(0, 0, 0, 0)">
-                <overlay-back-button @exit="showDetectedDevices()" />
-                <loading-list-item
-                    :icon="bleIcon"
-                    :isLoading="scanStatus == ScanStatus.scanning"
-                    :text="bleButtonText"
-                    @press="bleButton()"
-                />
-                <v-list-item-group
-                    :color="layout.GREEN"
-                    v-model="selectedDevice"
-                >
-                    <div v-for="(item, i) in detected_devices" :key="i">
-                        <v-divider> </v-divider>
-                        <ble-device-item
-                            :devInfo="item"
-                            :selected="selectedDevice == i"
-                            @paired="devicePairedChange($event, i)"
-                        />
-                    </div>
-                </v-list-item-group>
-            </v-list>
+            <overlay-back-button @exit="exit()" :color="layout.ORANGE" />
+            <small-card
+                :icon="bleIcon"
+                :isMenuOpened="isDeviceListInstantiated"
+                :popupName="'BLE'"
+                @openMenu="showDetectedDevices()"
+                topMargin
+            >
+                <v-list style="padding: 0" color="rgba(0, 0, 0, 0)">
+                    <overlay-back-button @exit="showDetectedDevices()" />
+                    <loading-list-item
+                        :icon="bleIcon"
+                        :isLoading="scanStatus == ScanStatus.scanning"
+                        :text="bleButtonText"
+                        @press="bleButton()"
+                    />
+                    <v-list-item-group
+                        :color="layout.GREEN"
+                        v-model="selectedDevice"
+                    >
+                        <div v-for="(item, i) in detected_devices" :key="i">
+                            <v-divider> </v-divider>
+                            <ble-device-item
+                                :devInfo="item"
+                                :selected="selectedDevice == i"
+                                @paired="devicePairedChange($event, i)"
+                            />
+                        </div>
+                    </v-list-item-group>
+                </v-list>
+            </small-card>
+
+            <muse-stream-control
+                :connectedDevice="pairedDevice"
+                @streamingChange="streamingChange"
+                :streaming="isStreamingEnabled"
+            />
+            <div  :style="{color: 'rgba(0, 0, 0 ,0)' }"> _</div>
+            
         </small-card>
-
-        <muse-vis :museDevInfo="pairedDevice" :isStreamingEnabled="isStreamingEnabled" />
-        <muse-stream-control :connectedDevice="pairedDevice" @streamingChange="streamingChange" :streaming="isStreamingEnabled"/>
-
         <div v-for="(log, index) in logs" :key="index">
             {{ log }}
         </div>
@@ -46,7 +61,6 @@ import LoadingListItem from "@/components/ui-comps/LoadingListItem.vue";
 import OverlayBackButton from "@/components/ui-comps/OverlayBackButton.vue";
 import SmallCard from "@/components/ui-comps/SmallCard.vue";
 import MuseStreamControl from "./MuseStreamControl.vue";
-import MuseVis from "./MuseVis.vue";
 import {
     ScanStatus,
     BleConnectionStatus,
@@ -61,11 +75,11 @@ export default {
         MuseStreamControl,
         SmallCard,
         BleDeviceItem,
-        MuseVis,
         OverlayBackButton,
     },
     data() {
         return {
+            isOpen: false,
             isStreamingEnabled: false,
             layout: window.layout,
             isDeviceListInstantiated: false,
@@ -79,7 +93,8 @@ export default {
             scanStatus: ScanStatus.idle,
             selectedDevice: undefined,
             logs: [],
-            museControlData: {}
+            museControlData: {},
+
         };
     },
     mounted() {
@@ -88,10 +103,15 @@ export default {
     methods: {
         streamingChange(isStreaming) {
             this.isStreamingEnabled = isStreaming;
+            this.$emit("streamingChange", isStreaming);
+        },
+        open() {
+            this.isOpen = true;
         },
         exit() {
             this.museControlData.pairedDevice = this.pairedDevice;
             this.$emit("exit", this.museControlData);
+            this.isOpen = false;
         },
         showDetectedDevices() {
             this.isDeviceListInstantiated = !this.isDeviceListInstantiated;
@@ -204,10 +224,26 @@ export default {
                 return "BLE scan";
             }
         },
+        globalIcon() {
+            switch (this.bleConnectionStatus) {
+                case BleConnectionStatus.notConnected:
+                    return "mdi-bluetooth-off";
+                case BleConnectionStatus.connected:
+                    if (this.isStreamingEnabled) {
+                        return "mdi-access-point-check";
+                    } else {
+                        return "mdi-bluetooth-connect";
+                    }
+                    
+                case BleConnectionStatus.notInitialized:
+                    return "mdi-bluetooth-off";
+                default:
+                    return "Err";
+            }
+        },
     },
 };
 </script>
 
 <style>
-
 </style>
