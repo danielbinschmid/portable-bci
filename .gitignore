@@ -7,9 +7,11 @@ __pycache__*
 *.vs
 *CMakeFiles*
 *package-lock*
+*.pdf
 
 /py_env/custom_workspace/data/*
 /py_env/custom_workspace/logs/
+/py_env/custom_workspace/vis/*/*.svg
 /py_env/custom_workspace/benchmarks/*
 !/py_env/custom_workspace/benchmarks/push*
 /py_env/custom_workspace/checkpoints/

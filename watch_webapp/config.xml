@@ -8,12 +8,13 @@
     <content src="index.html" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
-    <preference name="xwalkCommandLine" value="--disable-gpu-blacklist --enable-gpu-rasterization"/>
+    <preference name="xwalkCommandLine" value="--ignore-gpu-blacklist --enable-gpu-rasterization"/>
     <platform name="android">
         <preference name="android-manifest/application/@android:hardwareAccelerated" value="true" />
         <hook type="before_build" src="hooks\before_build\move_iconfonts_css.js"/>
         <preference name="android-minSdkVersion" value="26" />
         <preference name="xwalkMultipleApk" value="false" />
+        <preference name="AndroidPersistentFileLocation" value="Compatibility" />
 
     </platform>
 </widget>

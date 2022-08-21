@@ -73,7 +73,7 @@ def plot_filters():
                                 ax[y][type].grid(True)
                                 ax[y][type].set_ylim((-10, 10))
                                 ax[y][type].set_xticks([])
-                                ax[y][type].set_xlabel(label_str)
+                                ax[y][type].set_xlabel(label_str + str(idx))
 
                     plt.tight_layout()
                     plt.show()

@@ -1,0 +1,402 @@
+{
+    "run_0": {
+        "nb_frozen_blocks_0": {
+            "1": {
+                "session_True": 0.7761904761904762,
+                "session_False": 0.7281553398058253
+            },
+            "2": {
+                "session_True": 0.5213270142180095,
+                "session_False": 0.4900990099009901
+            },
+            "3": {
+                "session_True": 0.7560975609756098,
+                "session_False": 0.7093596059113301
+            },
+            "4": {
+                "session_True": 0.6857142857142857,
+                "session_False": 0.6377551020408163
+            },
+            "5": {
+                "session_True": 0.6183574879227053,
+                "session_False": 0.6102564102564103
+            },
+            "6": {
+                "session_True": 0.5925925925925926,
+                "session_False": 0.5370370370370371
+            },
+            "7": {
+                "session_True": 0.6919431279620853,
+                "session_False": 0.65
+            },
+            "8": {
+                "session_True": 0.8620689655172413,
+                "session_False": 0.8061224489795918
+            },
+            "9": {
+                "session_True": 0.6582914572864321,
+                "session_False": 0.6610169491525424
+            }
+        }
+    },
+    "run_1": {
+        "nb_frozen_blocks_0": {
+            "1": {
+                "session_True": 0.7761904761904762,
+                "session_False": 0.7378640776699029
+            },
+            "2": {
+                "session_True": 0.5497630331753555,
+                "session_False": 0.48514851485148514
+            },
+            "3": {
+                "session_True": 0.6926829268292682,
+                "session_False": 0.6995073891625616
+            },
+            "4": {
+                "session_True": 0.6685714285714286,
+                "session_False": 0.5816326530612245
+            },
+            "5": {
+                "session_True": 0.6231884057971014,
+                "session_False": 0.5948717948717949
+            },
+            "6": {
+                "session_True": 0.5987654320987654,
+                "session_False": 0.5740740740740741
+            },
+            "7": {
+                "session_True": 0.6303317535545023,
+                "session_False": 0.625
+            },
+            "8": {
+                "session_True": 0.8669950738916257,
+                "session_False": 0.7551020408163265
+            },
+            "9": {
+                "session_True": 0.6532663316582915,
+                "session_False": 0.7062146892655368
+            }
+        }
+    },
+    "run_2": {
+        "nb_frozen_blocks_0": {
+            "1": {
+                "session_True": 0.7666666666666667,
+                "session_False": 0.7233009708737864
+            },
+            "2": {
+                "session_True": 0.4834123222748815,
+                "session_False": 0.4801980198019802
+            },
+            "3": {
+                "session_True": 0.7268292682926829,
+                "session_False": 0.7192118226600985
+            },
+            "4": {
+                "session_True": 0.7028571428571428,
+                "session_False": 0.6224489795918368
+            },
+            "5": {
+                "session_True": 0.6376811594202898,
+                "session_False": 0.5384615384615384
+            },
+            "6": {
+                "session_True": 0.5617283950617284,
+                "session_False": 0.49382716049382713
+            },
+            "7": {
+                "session_True": 0.6729857819905213,
+                "session_False": 0.62
+            },
+            "8": {
+                "session_True": 0.8325123152709359,
+                "session_False": 0.7397959183673469
+            },
+            "9": {
+                "session_True": 0.6482412060301508,
+                "session_False": 0.6836158192090396
+            }
+        }
+    },
+    "run_3": {
+        "nb_frozen_blocks_0": {
+            "1": {
+                "session_True": 0.7333333333333333,
+                "session_False": 0.6796116504854369
+            },
+            "2": {
+                "session_True": 0.5734597156398105,
+                "session_False": 0.5148514851485149
+            },
+            "3": {
+                "session_True": 0.7463414634146341,
+                "session_False": 0.6945812807881774
+            },
+            "4": {
+                "session_True": 0.6857142857142857,
+                "session_False": 0.6122448979591837
+            },
+            "5": {
+                "session_True": 0.642512077294686,
+                "session_False": 0.5846153846153846
+            },
+            "6": {
+                "session_True": 0.5555555555555556,
+                "session_False": 0.5925925925925926
+            },
+            "7": {
+                "session_True": 0.6587677725118484,
+                "session_False": 0.695
+            },
+            "8": {
+                "session_True": 0.8620689655172413,
+                "session_False": 0.7959183673469388
+            },
+            "9": {
+                "session_True": 0.6331658291457286,
+                "session_False": 0.7062146892655368
+            }
+        }
+    },
+    "run_4": {
+        "nb_frozen_blocks_0": {
+            "1": {
+                "session_True": 0.7714285714285715,
+                "session_False": 0.7475728155339806
+            },
+            "2": {
+                "session_True": 0.5071090047393365,
+                "session_False": 0.5148514851485149
+            },
+            "3": {
+                "session_True": 0.7414634146341463,
+                "session_False": 0.7142857142857143
+            },
+            "4": {
+                "session_True": 0.6628571428571428,
+                "session_False": 0.6428571428571429
+            },
+            "5": {
+                "session_True": 0.6473429951690821,
+                "session_False": 0.5538461538461539
+            },
+            "6": {
+                "session_True": 0.6049382716049383,
+                "session_False": 0.5617283950617284
+            },
+            "7": {
+                "session_True": 0.6492890995260664,
+                "session_False": 0.665
+            },
+            "8": {
+                "session_True": 0.8472906403940886,
+                "session_False": 0.8214285714285714
+            },
+            "9": {
+                "session_True": 0.678391959798995,
+                "session_False": 0.6271186440677966
+            }
+        }
+    },
+    "run_5": {
+        "nb_frozen_blocks_0": {
+            "1": {
+                "session_True": 0.7428571428571429,
+                "session_False": 0.6747572815533981
+            },
+            "2": {
+                "session_True": 0.5402843601895735,
+                "session_False": 0.49504950495049505
+            },
+            "3": {
+                "session_True": 0.7219512195121951,
+                "session_False": 0.7142857142857143
+            },
+            "4": {
+                "session_True": 0.64,
+                "session_False": 0.6428571428571429
+            },
+            "5": {
+                "session_True": 0.6038647342995169,
+                "session_False": 0.5897435897435898
+            },
+            "6": {
+                "session_True": 0.5740740740740741,
+                "session_False": 0.5617283950617284
+            },
+            "7": {
+                "session_True": 0.6635071090047393,
+                "session_False": 0.615
+            },
+            "8": {
+                "session_True": 0.8275862068965517,
+                "session_False": 0.7244897959183674
+            },
+            "9": {
+                "session_True": 0.592964824120603,
+                "session_False": 0.6666666666666666
+            }
+        }
+    },
+    "run_6": {
+        "nb_frozen_blocks_0": {
+            "1": {
+                "session_True": 0.7571428571428571,
+                "session_False": 0.7038834951456311
+            },
+            "2": {
+                "session_True": 0.5308056872037915,
+                "session_False": 0.47029702970297027
+            },
+            "3": {
+                "session_True": 0.7365853658536585,
+                "session_False": 0.6798029556650246
+            },
+            "4": {
+                "session_True": 0.6742857142857143,
+                "session_False": 0.6020408163265306
+            },
+            "5": {
+                "session_True": 0.6280193236714976,
+                "session_False": 0.5948717948717949
+            },
+            "6": {
+                "session_True": 0.5679012345679012,
+                "session_False": 0.5308641975308642
+            },
+            "7": {
+                "session_True": 0.7345971563981043,
+                "session_False": 0.65
+            },
+            "8": {
+                "session_True": 0.8423645320197044,
+                "session_False": 0.8010204081632653
+            },
+            "9": {
+                "session_True": 0.6683417085427136,
+                "session_False": 0.6497175141242938
+            }
+        }
+    },
+    "run_7": {
+        "nb_frozen_blocks_0": {
+            "1": {
+                "session_True": 0.7238095238095238,
+                "session_False": 0.6844660194174758
+            },
+            "2": {
+                "session_True": 0.5213270142180095,
+                "session_False": 0.46534653465346537
+            },
+            "3": {
+                "session_True": 0.7268292682926829,
+                "session_False": 0.6600985221674877
+            },
+            "4": {
+                "session_True": 0.7028571428571428,
+                "session_False": 0.5663265306122449
+            },
+            "5": {
+                "session_True": 0.6135265700483091,
+                "session_False": 0.5846153846153846
+            },
+            "6": {
+                "session_True": 0.5802469135802469,
+                "session_False": 0.5987654320987654
+            },
+            "7": {
+                "session_True": 0.7014218009478673,
+                "session_False": 0.675
+            },
+            "8": {
+                "session_True": 0.8374384236453202,
+                "session_False": 0.7908163265306123
+            },
+            "9": {
+                "session_True": 0.6432160804020101,
+                "session_False": 0.6666666666666666
+            }
+        }
+    },
+    "run_8": {
+        "nb_frozen_blocks_0": {
+            "1": {
+                "session_True": 0.7428571428571429,
+                "session_False": 0.7087378640776699
+            },
+            "2": {
+                "session_True": 0.5592417061611374,
+                "session_False": 0.4504950495049505
+            },
+            "3": {
+                "session_True": 0.7609756097560976,
+                "session_False": 0.6847290640394089
+            },
+            "4": {
+                "session_True": 0.6914285714285714,
+                "session_False": 0.6428571428571429
+            },
+            "5": {
+                "session_True": 0.6086956521739131,
+                "session_False": 0.5846153846153846
+            },
+            "6": {
+                "session_True": 0.5246913580246914,
+                "session_False": 0.6172839506172839
+            },
+            "7": {
+                "session_True": 0.6919431279620853,
+                "session_False": 0.635
+            },
+            "8": {
+                "session_True": 0.8768472906403941,
+                "session_False": 0.8061224489795918
+            },
+            "9": {
+                "session_True": 0.6331658291457286,
+                "session_False": 0.711864406779661
+            }
+        }
+    },
+    "run_9": {
+        "nb_frozen_blocks_0": {
+            "1": {
+                "session_True": 0.7428571428571429,
+                "session_False": 0.7281553398058253
+            },
+            "2": {
+                "session_True": 0.4976303317535545,
+                "session_False": 0.49504950495049505
+            },
+            "3": {
+                "session_True": 0.7804878048780488,
+                "session_False": 0.6748768472906403
+            },
+            "4": {
+                "session_True": 0.68,
+                "session_False": 0.5816326530612245
+            },
+            "5": {
+                "session_True": 0.6328502415458938,
+                "session_False": 0.5743589743589743
+            },
+            "6": {
+                "session_True": 0.5740740740740741,
+                "session_False": 0.5864197530864198
+            },
+            "7": {
+                "session_True": 0.6635071090047393,
+                "session_False": 0.68
+            },
+            "8": {
+                "session_True": 0.8472906403940886,
+                "session_False": 0.8010204081632653
+            },
+            "9": {
+                "session_True": 0.6432160804020101,
+                "session_False": 0.6666666666666666
+            }
+        }
+    }
+}

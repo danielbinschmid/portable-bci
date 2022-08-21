@@ -1,5 +1,8 @@
 """
 Implementation is from https://github.com/vlawhern/arl-eegmodels
+
+Additionally includes the functionality to freeze specific layers and 
+to run it for export to HDC.
 """
 from keras.models import Model
 from keras.layers import Dense, Activation, Permute, Dropout
@@ -26,6 +29,7 @@ def EEGNet(
     F2=16,
     norm_rate=0.25,
     dropoutType="Dropout",
+    export_to_hdc=False
 ):
     """ Keras Implementation of EEGNet
     http://iopscience.iop.org/article/10.1088/1741-2552/aace8c/meta
@@ -126,9 +130,8 @@ def EEGNet(
     block2 = AveragePooling2D((1, 8))(block2)
     block2 = dropoutType(dropoutRate)(block2)
 
-    # new
-    block2 = BatchNormalization()(block2)
-    # new
+    if export_to_hdc:
+        block2 = BatchNormalization()(block2)
     
     flatten = Flatten(name="flatten")(block2)
 
@@ -189,3 +192,4 @@ def unfreezeBlock(model: Model, block: EEGNetBlock):
 
 if __name__ == "__main__":
     model = EEGNet(4, 4, 128 * 4)
+    model.summary()

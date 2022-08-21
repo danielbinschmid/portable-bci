@@ -10,10 +10,7 @@ export function slice2ndDim(begin, end, array) {
             res[cIdx].push(array[cIdx][i])
         }
     }
-    console.log(array.length)
-    console.log(array[0].length)
-    console.log(res.length)
-    console.log(res[0].length)
+
     return res;
 }
 
@@ -32,8 +29,7 @@ export function resample2ndDim(nElementsTarget, timeseries) {
         }
         curT += stepSize;
     }
-    console.log(resTimeseries.length)
-    console.log(resTimeseries[0].length)
+
     return resTimeseries;
     
 }

@@ -51,6 +51,7 @@
     "cordova-android": "^8.0.0",
     "cordova-plugin-bluetoothle": "^6.6.2",
     "cordova-plugin-crosswalk-webview-v3": "Constaline/cordova-plugin-crosswalk-webview-v3",
+    "cordova-plugin-file": "^6.0.2",
     "cross-spawn": "^5.0.1",
     "css-loader": "^0.28.0",
     "deepmerge": "^4.2.2",
@@ -109,7 +110,8 @@
     ],
     "plugins": {
       "cordova-plugin-crosswalk-webview-v3": {},
-      "cordova-plugin-bluetoothle": {}
+      "cordova-plugin-bluetoothle": {},
+      "cordova-plugin-file": {}
     }
   }
 }

@@ -85,7 +85,7 @@ export default {
     props: {
         museDevInfo: undefined,
     },
-    beforeDestroy() {
+    destroyed() {
         this.stopStreaming();
     },
     methods: {
@@ -105,7 +105,6 @@ export default {
         emitCallback(emit, index) {
             if (index == this.selectedChannel) {
                 const arr = flatten2(emit)
-                console.log(arr)
                 const fBands = toFrequencyBands(arr, EEG_FREQUENCY);
                 for (const i of arange(0, this.fBands.length - 1)) {
                     this.fBands[i][1] = Math.round((fBands[i] + Number.EPSILON) * 100) / 100;
@@ -120,19 +119,20 @@ export default {
         startStreaming() {
             this.isStreaming = true;
             this.streaming.subscribe(this.emitCallback, (err) => {
-                console.log(err);
+                console.error(err);
             });
         },
         stopStreaming() {
-            this.streaming = false;
-            this.streaming.unsubscribe(
-                (succ) => {
-                    console.log(succ);
-                },
-                (err) => {
-                    console.log(err);
-                }
-            );
+            this.isStreaming = false;
+            if (this.museDevInfo !== undefined) {
+                this.streaming.unsubscribe(
+                    (succ) => {
+                    },
+                    (err) => {
+                        console.error(err);
+                    }
+                );
+            }
         },
     },
 };

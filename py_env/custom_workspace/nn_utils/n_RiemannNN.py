@@ -31,8 +31,6 @@ def RiemannNet(nChannels, nFeats, nClasses):
 
     block2 = Flatten()(block2)
 
-  
-
     block3 = Dense(nClasses, name="d4")(block2)
     softmax = Activation("softmax", name="softmax")(block3)
     return Model(inputs=input1, outputs=softmax)

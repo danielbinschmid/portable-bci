@@ -1,5 +1,5 @@
 
-import {arange} from "../data_utils/array_utils";
+import { arange } from "../data_utils/array_utils";
 
 
 
@@ -9,8 +9,7 @@ const TEST_RUN_ = "test_run_";
 const SUBJ_ = "subj_";
 const FOLD_ = "fold_";
 
-export function meanMetricAccuracies()
-{       
+export function meanMetricAccuracies() {
     const jsobj = require("./meanMetricAccuracies_15_06.json");
     const test_runs = [0, 1, 2]
     const subjects = arange(1, 10);
@@ -27,7 +26,7 @@ export function meanMetricAccuracies()
     ]
     const mode_ = "no-adaption";
     const folds = [1, 2, 3];
-    
+
     const accuracies = {}
 
     for (const metric of metrics) {
@@ -43,11 +42,11 @@ export function meanMetricAccuracies()
                     const subj_id = SUBJ_ + subject;
                     const fold_id = FOLD_ + fold;
                     const acc = jsobj[test_id][subj_id][metric][mode_][fold_id];
-                    
+
                     accuracies[metric] += acc;
 
                 }
-            } 
+            }
         }
     }
 
@@ -59,11 +58,10 @@ export function meanMetricAccuracies()
 
 }
 
-export function crossSessionMeanMetricAccuracies() 
-{
+export function crossSessionMeanMetricAccuracies() {
     const crossSessionMeanMetricAccuraciesJson = require("./noTransfer_17_06.json");
     const test_runs = [0, 1, 2, 3, 4]
-    const test_run_prefix = "test_run_" ;
+    const test_run_prefix = "test_run_";
     const subjects = arange(1, 10);
     const subject_prefix = "subj_";
     const metrics = [
@@ -89,19 +87,15 @@ export function crossSessionMeanMetricAccuracies()
         accuracies[metric] = 0;
     }
 
-    for (const test_run of test_runs)
-    {
-        for (const subject of subjects) 
-        {
-            for (const metric of metrics) 
-            {
-                for (const switch_ of switches)
-                {
+    for (const test_run of test_runs) {
+        for (const subject of subjects) {
+            for (const metric of metrics) {
+                for (const switch_ of switches) {
                     const test_id = test_run_prefix + test_run;
                     const subj_id = subject_prefix + subject;
                     const transferMetricID = transferMeanMetricPrefix + metric;
                     const trainingMetricID = trainingMeanMetricPrefix + metric;
-                    
+
                     const acc = crossSessionMeanMetricAccuraciesJson[test_id][subj_id][transferMetricID][trainingMetricID][mode_][fold_][switch_];
                     accuracies[metric] += acc;
                 }
@@ -114,16 +108,15 @@ export function crossSessionMeanMetricAccuracies()
     }
 
     console.log(accuracies);
-    
+
 }
 
 
 
-export function transferBaselineAccs() 
-{
+export function transferBaselineAccs() {
     const transferBaselineJson = require("./transferBaseline_1655480615422.json");
     const test_runs = [0]
-    const test_run_prefix = "test_run_" ;
+    const test_run_prefix = "test_run_";
     const subjects = arange(1, 10);
     const subject_prefix = "subj_";
     const metrics = [
@@ -149,19 +142,15 @@ export function transferBaselineAccs()
         accuracies[metric] = 0;
     }
 
-    for (const test_run of test_runs)
-    {
-        for (const subject of subjects) 
-        {
-            for (const metric of metrics) 
-            {
-                for (const switch_ of switches)
-                {
+    for (const test_run of test_runs) {
+        for (const subject of subjects) {
+            for (const metric of metrics) {
+                for (const switch_ of switches) {
                     const test_id = test_run_prefix + test_run;
                     const subj_id = subject_prefix + subject;
                     const transferMetricID = transferMeanMetricPrefix + metric;
                     const trainingMetricID = trainingMeanMetricPrefix + metric;
-                    
+
                     const acc = transferBaselineJson[test_id][subj_id][transferMetricID][trainingMetricID][mode_][fold_][switch_];
                     accuracies[metric] += acc;
                 }
@@ -179,8 +168,8 @@ export function transferBaselineAccs()
 
 export function riemannCiMAccs() {
     const riemannCiM = require("./hdcRiemannCiM_1656326660212.json")
-    const test_runs = arange(0,10);
-    const test_run_prefix = "run_" ;
+    const test_runs = arange(0, 10);
+    const test_run_prefix = "run_";
     const subjects = arange(1, 10);
     const subject_prefix = "subj_";
     const switches = ["isReversed_false", "isReversed_true"];
@@ -191,12 +180,9 @@ export function riemannCiMAccs() {
         accuracies[subj] = 0;
     }
 
-    for (const test_run of test_runs)
-    {
-        for (const subject of subjects) 
-        {
-            for (const switch_ of switches)
-            {
+    for (const test_run of test_runs) {
+        for (const subject of subjects) {
+            for (const switch_ of switches) {
                 const test_id = test_run_prefix + test_run;
                 const subj_id = subject_prefix + subject;
                 const acc = riemannCiM[test_id][subj_id][switch_];
@@ -217,8 +203,8 @@ export function riemannCiMAccs() {
 }
 
 export function hrrRetrainAcc() {
-    const hrrRetrainJson = require("./hdcHRR_retrain-it-20_lr-0-2_init-lr-1.json")
-    const test_runs = arange(0,8);
+    const hrrRetrainJson = require("./hdcHRR_02-08.json") //re("./hdcHRR_retrain-it-20_lr-0-2_init-lr-1.json")
+    const test_runs = arange(0, 8);
     const test_run_prefix = "run_";
     const subjects = arange(1, 10);
     const subject_prefix = "subj_";
@@ -230,12 +216,9 @@ export function hrrRetrainAcc() {
         accuracies[subj] = 0;
     }
 
-    for (const test_run of test_runs)
-    {
-        for (const subject of subjects) 
-        {
-            for (const switch_ of switches)
-            {
+    for (const test_run of test_runs) {
+        for (const subject of subjects) {
+            for (const switch_ of switches) {
                 const test_id = test_run_prefix + test_run;
                 const subj_id = subject_prefix + subject;
                 const acc = hrrRetrainJson[test_id][subj_id][switch_];
@@ -265,7 +248,7 @@ export function crossSubjectDataAugmentedRetrainingAccs() {
 
     const subjPrefix = "subj_"
     const subjects = arange(1, 10)
-    
+
     const valId = "subjIndiv" // "subjIndiv"
 
     const subjectAccs = {}
@@ -283,7 +266,7 @@ export function crossSubjectDataAugmentedRetrainingAccs() {
             }
         }
     }
-    
+
     var avg = 0
     for (const subject of subjects) {
         subjectAccs[subject] = subjectAccs[subject] / i;
@@ -304,7 +287,7 @@ export function onlineCrossSessionAdaptionAcc() {
     const proportionPrefix = "proportion_"
 
     const runs = [0]
-    const subjects = [1, 2, 3, 4 ,5]
+    const subjects = [1, 2, 3, 4, 5]
     const modes = ["isReversed_false", "isReversed_true"]
     const baselineID = "pretrain_ref_acc"
     const proportions = [0.5, 0.2, 0.15, 0.1, 0.05]
@@ -328,7 +311,7 @@ export function onlineCrossSessionAdaptionAcc() {
                     var a = 0;
                     const l = li.length;
                     for (const e of li) {
-                        a += e; 
+                        a += e;
                     }
                     a = a / l;
                     accs[subject][proportionPrefix + proportion] += a;
@@ -346,7 +329,7 @@ export function onlineCrossSessionAdaptionAcc() {
     for (const subject of subjects) {
         accs[subject][baselineID] = accs[subject][baselineID] / (runs.length * modes.length);
         baselineAvg += accs[subject][baselineID];
-        for (const proportion of proportions) { 
+        for (const proportion of proportions) {
             accs[subject][proportionPrefix + proportion] = accs[subject][proportionPrefix + proportion] / (runs.length * modes.length);
             proportionAvgs[proportionPrefix + proportion] += accs[subject][proportionPrefix + proportion];
         }
@@ -358,7 +341,7 @@ export function onlineCrossSessionAdaptionAcc() {
         console.log(proportionPrefix + proportion + ": " + (proportionAvgs[proportionPrefix + proportion] / subjects.length));
     }
     console.log("baseline average: " + baselineAvg / subjects.length);
-    
+
 
 }
 
@@ -394,7 +377,7 @@ export function onlineCrossSessionAdaptionNoRiemannRefChangeAcc() {
                     var a = 0;
                     const l = li.length;
                     for (const e of li) {
-                        a += e; 
+                        a += e;
                     }
                     a = a / l;
                     accs[subject][proportionPrefix + proportion] += a;
@@ -412,7 +395,7 @@ export function onlineCrossSessionAdaptionNoRiemannRefChangeAcc() {
     for (const subject of subjects) {
         accs[subject][baselineID] = accs[subject][baselineID] / (runs.length * modes.length);
         baselineAvg += accs[subject][baselineID];
-        for (const proportion of proportions) { 
+        for (const proportion of proportions) {
             accs[subject][proportionPrefix + proportion] = accs[subject][proportionPrefix + proportion] / (runs.length * modes.length);
             proportionAvgs[proportionPrefix + proportion] += accs[subject][proportionPrefix + proportion];
         }
@@ -424,7 +407,7 @@ export function onlineCrossSessionAdaptionNoRiemannRefChangeAcc() {
         console.log(proportionPrefix + proportion + ": " + (proportionAvgs[proportionPrefix + proportion] / subjects.length));
     }
     console.log("baseline average: " + baselineAvg / subjects.length);
-    
+
 }
 
 export function onlineCrossSubjectNaive() {
@@ -456,7 +439,7 @@ export function onlineCrossSubjectNaive() {
                     var a = 0;
                     const l = li.length;
                     for (const e of li) {
-                        a += e; 
+                        a += e;
                     }
                     a = a / l;
                     accs[subject][proportionPrefix + proportion] += a;
@@ -471,7 +454,7 @@ export function onlineCrossSubjectNaive() {
     }
 
     for (const subject of subjects) {
-        for (const proportion of proportions) { 
+        for (const proportion of proportions) {
             accs[subject][proportionPrefix + proportion] = accs[subject][proportionPrefix + proportion] / (runs.length * modes.length);
             proportionAvgs[proportionPrefix + proportion] += accs[subject][proportionPrefix + proportion];
         }
@@ -482,7 +465,7 @@ export function onlineCrossSubjectNaive() {
     for (const proportion of proportions) {
         console.log(proportionPrefix + proportion + ": " + (proportionAvgs[proportionPrefix + proportion] / subjects.length));
     }
-    
+
 }
 
 export function sessionTransferRiemannEuclidianAccs() {
@@ -534,7 +517,7 @@ export function crossSubjectAccs() {
         "trainingAccAfter",
         "testAccBefore",
         "testAccAfter",
-        "finetunedTestingAcc", 
+        "finetunedTestingAcc",
         "finetunedTrainingAcc"
     ]
 
@@ -547,9 +530,9 @@ export function crossSubjectAccs() {
         for (const subj of subjects) {
             for (const session of sessions) {
                 for (const percentile of percentiles)
-                for (const id of ids) {
-                    accs[id] += d1[run_prefix + run][session][subj_prefix + subj][percentile_prefix + percentile][id] / (runs.length * sessions.length * subjects.length * percentiles.length);
-                }
+                    for (const id of ids) {
+                        accs[id] += d1[run_prefix + run][session][subj_prefix + subj][percentile_prefix + percentile][id] / (runs.length * sessions.length * subjects.length * percentiles.length);
+                    }
             }
         }
     }
@@ -576,7 +559,7 @@ export function crossSubjectAccsPercentiles() {
         "trainingAccAfter",
         "testAccBefore",
         "testAccAfter",
-        "finetunedTestingAcc", 
+        "finetunedTestingAcc",
         "finetunedTrainingAcc"
     ]
 
@@ -594,22 +577,22 @@ export function crossSubjectAccsPercentiles() {
             for (const session of sessions) {
                 for (const percentile of percentiles) {
                     accs[percentile_prefix + percentile] += d1[run_prefix + run][session][subj_prefix + subj][percentile_prefix + percentile]["finetunedTestingAcc"] / (runs.length * sessions.length * subjects.length);
-                    accs["acc_before"][percentile_prefix + percentile] +=d1[run_prefix + run][session][subj_prefix + subj][percentile_prefix + percentile]["testAccBefore"] / (runs.length * sessions.length * subjects.length);
+                    accs["acc_before"][percentile_prefix + percentile] += d1[run_prefix + run][session][subj_prefix + subj][percentile_prefix + percentile]["testAccBefore"] / (runs.length * sessions.length * subjects.length);
                 }
             }
         }
     }
 
     console.log(accs);
-    
+
 
 }
 
 export function crossSubjectCrossSessionAccs() {
-    const d1 = require("./crossSubjectAndCrossSession_1657620236523.json")
+    const d1 = require("./dimRankingRiemannAdaption-02-08.json") // crossSubjectAndCrossSession_1657620236523.json")
 
     const run_prefix = "run_"
-    const runs = arange(0, 13)
+    const runs = arange(0, 10)
 
     const subj_prefix = "subj_"
     const subjects = arange(1, 10);
@@ -617,13 +600,13 @@ export function crossSubjectCrossSessionAccs() {
     const sessions = ["isReversed_false", "isReversed_true"]
 
     const percentile_prefix = "percentile_"
-    const percentiles = [0.2]
+    const percentiles = [0.5]
 
     const ids = ["trainingAccBefore",
         "trainingAccAfter",
         "testAccBefore",
         "testAccAfter",
-        "finetunedTestingAcc", 
+        "finetunedTestingAcc",
         "finetunedTrainingAcc"
     ]
 
@@ -636,9 +619,9 @@ export function crossSubjectCrossSessionAccs() {
         for (const subj of subjects) {
             for (const session of sessions) {
                 for (const percentile of percentiles)
-                for (const id of ids) {
-                    accs[id] += d1[run_prefix + run][session][subj_prefix + subj][percentile_prefix + percentile][id] / (runs.length * sessions.length * subjects.length * percentiles.length);
-                }
+                    for (const id of ids) {
+                        accs[id] += d1[run_prefix + run][session][subj_prefix + subj][percentile_prefix + percentile][id] / (runs.length * sessions.length * subjects.length * percentiles.length);
+                    }
             }
         }
     }
@@ -648,7 +631,7 @@ export function crossSubjectCrossSessionAccs() {
 }
 
 export function crossSubjectCrossSessionAccsPercentiles() {
-    const d1 = require("./crossSubjectAndCrossSession_percentilesGridSearch_1657635844546.json")
+    const d1 = require("./dimRankingGridSearch-02-08.json") // crossSubjectAndCrossSession_percentilesGridSearch_1657635844546.json")
 
     const run_prefix = "run_"
     const runs = arange(0, 10)
@@ -665,7 +648,7 @@ export function crossSubjectCrossSessionAccsPercentiles() {
         "trainingAccAfter",
         "testAccBefore",
         "testAccAfter",
-        "finetunedTestingAcc", 
+        "finetunedTestingAcc",
         "finetunedTrainingAcc"
     ]
 
@@ -683,7 +666,7 @@ export function crossSubjectCrossSessionAccsPercentiles() {
             for (const session of sessions) {
                 for (const percentile of percentiles) {
                     accs[percentile_prefix + percentile] += d1[run_prefix + run][session][subj_prefix + subj][percentile_prefix + percentile]["finetunedTestingAcc"] / (runs.length * sessions.length * subjects.length);
-                    accs["acc_before"][percentile_prefix + percentile] +=d1[run_prefix + run][session][subj_prefix + subj][percentile_prefix + percentile]["testAccBefore"] / (runs.length * sessions.length * subjects.length);
+                    accs["acc_before"][percentile_prefix + percentile] += d1[run_prefix + run][session][subj_prefix + subj][percentile_prefix + percentile]["testAccBefore"] / (runs.length * sessions.length * subjects.length);
                 }
             }
         }
@@ -711,7 +694,7 @@ export function partialTrainingTransferHRR() {
         "trainingAccAfter",
         "testAccBefore",
         "testAccAfter",
-        "finetunedTestingAcc", 
+        "finetunedTestingAcc",
         "finetunedTrainingAcc"
     ]
 
@@ -730,7 +713,7 @@ export function partialTrainingTransferHRR() {
                 for (const subj of subjects) {
                     const a = d1[run_prefix + run][percentile_prefix + percentile + percentile_suffix][session][subj_prefix + subj]
                     accs[percentile_prefix + percentile] += a["finetunedTestingAcc"] / (runs.length * sessions.length * subjects.length);
-                    accs["acc_before"][percentile_prefix + percentile] +=a["testAccBefore"] / (runs.length * sessions.length * subjects.length);
+                    accs["acc_before"][percentile_prefix + percentile] += a["testAccBefore"] / (runs.length * sessions.length * subjects.length);
                 }
             }
         }
@@ -775,5 +758,275 @@ export function partialTrainingTransferfHRR() {
 
     console.log(accs);
 }
+
+
+export function overfitReduce() {
+    const d1 = require("./dimRankingGridSearch-02-08.json") // crossSubjectAndCrossSession_percentilesGridSearch_1657635844546.json")
+
+    const run_prefix = "run_"
+    const runs = arange(0, 10)
+
+    const subj_prefix = "subj_"
+    const subjects = arange(1, 10);
+
+    const sessions = ["isReversed_false", "isReversed_true"]
+
+    const percentile_prefix = "percentile_"
+    const percentiles = [0.2]
+
+    const ids = ["trainingAccBefore",
+        "trainingAccAfter",
+        "testAccBefore",
+        "testAccAfter",
+        "finetunedTestingAcc",
+        "finetunedTrainingAcc"
+    ]
+
+    const accs = {}
+    for (const subj of subjects) {
+        accs[subj] = {}
+        accs[subj]["trainAccBefore"] = 0;
+        accs[subj]["testAccBefore"] = 0;
+        accs[subj]["trainAccAfter"] = 0;
+        accs[subj]["testAccAfter"] = 0;
+    }
+    accs["trainAccBefore"] = 0;
+    accs["testAccBefore"] = 0;
+    accs["trainAccAfter"] = 0;
+    accs["testAccAfter"] = 0;
+    var refAcc = 0
+
+    for (const run of runs) {
+        for (const subj of subjects) {
+            for (const session of sessions) {
+                for (const percentile of percentiles) {
+                    const config = d1[run_prefix + run][session][subj_prefix + subj][percentile_prefix + percentile]
+                    const trainAccAfter = config["finetunedTrainingAcc"]
+                    const testAccAfter = config["finetunedTestingAcc"]
+                    const trainAcc = config["trainingAccBefore"]
+                    const testAcc = config["testAccBefore"]
+
+                    accs["trainAccBefore"] += trainAcc / (runs.length * sessions.length * subjects.length);
+                    accs["testAccBefore"] += testAcc / (runs.length * sessions.length * subjects.length);
+                    accs["trainAccAfter"] += trainAccAfter / (runs.length * sessions.length * subjects.length);
+                    accs["testAccAfter"] += testAccAfter / (runs.length * sessions.length * subjects.length);
+
+                    accs[subj]["trainAccBefore"] += trainAcc / (runs.length * sessions.length);
+                    accs[subj]["testAccBefore"] += testAcc / (runs.length * sessions.length);
+                    accs[subj]["trainAccAfter"] += trainAccAfter / (runs.length * sessions.length);
+                    accs[subj]["testAccAfter"] += testAccAfter / (runs.length * sessions.length);
+
+                }
+            }
+        }
+    }
+
+    console.log(accs);
+}
+
+
+export function hrrImmediateOnline() {
+    const d1 = require("./hersche_immediate_online.json")
+
+    const run_prefix = "run_"
+    const subj_prefix = "subj_"
+    const proportionPrefix = "proportion_"
+
+    const runs = [0]
+    const subjects = arange(1, 10)
+    const modes = ["isReversed_false", "isReversed_true"]
+    const proportions = [0.5, 0.2, 0.15, 0.1, 0.05]
+
+
+    const accs = {}
+    for (const subject of subjects) {
+        accs[subject] = {}
+        for (const proportion of proportions) {
+            accs[subject][proportionPrefix + proportion] = 0;
+        }
+    }
+
+    for (const run of runs) {
+        for (const subject of subjects) {
+            for (const mode of modes) {
+                for (const proportion of proportions) {
+                    var li = d1[run_prefix + run][subj_prefix + subject][mode][proportionPrefix + proportion]
+                    var a = 0;
+                    const l = li.length;
+                    for (const e of li) {
+                        a += e;
+                    }
+                    a = a / l;
+                    accs[subject][proportionPrefix + proportion] += a;
+                }
+            }
+        }
+    }
+
+    const proportionAvgs = {}
+    for (const proportion of proportions) {
+        proportionAvgs[proportionPrefix + proportion] = 0
+    }
+
+    for (const subject of subjects) {
+        for (const proportion of proportions) {
+            accs[subject][proportionPrefix + proportion] = accs[subject][proportionPrefix + proportion] / (runs.length * modes.length);
+            proportionAvgs[proportionPrefix + proportion] += accs[subject][proportionPrefix + proportion];
+        }
+    }
+    console.log(accs);
+
+
+    for (const proportion of proportions) {
+        console.log(proportionPrefix + proportion + ": " + (proportionAvgs[proportionPrefix + proportion] / subjects.length));
+    }
+
+}
+
+
+export function herschePartialCrossSession() {
+    const d1 = require("./hersche_partial_cross_session_1659616644098.json")
+
+    const run_prefix = "run_"
+    const runs = [0, 1, 2, 3, 4, 5, 6, 7, 8]// arange(0, 10)
+
+    const subj_prefix = "subj_"
+    const subjects = arange(1, 10);
+
+    const sessions = ["isReversed_false", "isReversed_true"]
+
+    const percentile_prefix = "percentage_"
+    const percentile_suffix = ""
+    const training_percentiles = [0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 1]
+
+
+
+    const accs = {}
+    for (const id of training_percentiles) {
+        accs[percentile_prefix + id] = 0;
+    }
+
+    for (const run of runs) {
+        for (const percentile of training_percentiles) {
+            for (const session of sessions) {
+                for (const subj of subjects) {
+                    const a = d1[run_prefix + run][subj_prefix + subj][session][percentile_prefix + percentile + percentile_suffix]
+                    accs[percentile_prefix + percentile] += a / (runs.length * sessions.length * subjects.length);
+                }
+            }
+        }
+    }
+    console.log("$$")
+    console.log(accs);
+}
+
+export function cnnHDCPartialCrossSession() {
+    const d1 = require("./accs_cnnHDC_partialCrossSession_1659620131497.json")
+
+    const run_prefix = "run_"
+    const runs = [0, 1]// arange(0, 10)
+
+    const subj_prefix = ""
+    const subjects = arange(1, 10);
+
+    const sessions = ["false", "true"]
+
+    const percentile_prefix = ""
+    const percentile_suffix = ""
+    const training_percentiles = [0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 1]
+
+
+
+    const accs = {}
+    for (const id of training_percentiles) {
+        accs[percentile_prefix + id] = 0;
+    }
+
+    for (const run of runs) {
+        for (const percentile of training_percentiles) {
+            for (const session of sessions) {
+                for (const subj of subjects) {
+                    const a = d1[run_prefix + run][percentile_prefix + percentile + percentile_suffix][subj_prefix + subj][session]["testAcc"]
+                    accs[percentile_prefix + percentile] += a / (runs.length * sessions.length * subjects.length);
+                }
+            }
+        }
+    }
+
+    console.log(accs);
+}
+
+export function cnnHDCRef() {
+    const d1 = require("./accs_cnnHDC_Ref_16_08_YY_1660664297694.json") // "./accs_cnnHDC_Ref_16_08_1660648407953.json")
+    
+    const run_prefix = "run_"
+    const runs = [0, 1, 2, 3, 4, 5, 6, 7]
+
+    const subj_prefix = ""
+    const subjects = arange(1, 10);
+
+    const sessions = ["false", "true"]
+
+    const percentile_prefix = ""
+    const percentile_suffix = ""
+    const training_percentiles = [-1]
+
+
+
+    const accs = {}
+    for (const id of training_percentiles) {
+        accs[percentile_prefix + id] = 0;
+    }
+
+    for (const run of runs) {
+        for (const percentile of training_percentiles) {
+            for (const session of sessions) {
+                for (const subj of subjects) {
+                    const a = d1[run_prefix + run][percentile_prefix + percentile + percentile_suffix][subj_prefix + subj][session]["testAcc"]
+                    accs[percentile_prefix + percentile] += a / (runs.length * sessions.length * subjects.length);
+                }
+            }
+        }
+    }
+
+    console.log(accs);
+}
+
+export function cnnHDCPartial() {
+    const d1 = require("./accs_cnnHDC_partial.json")
+    
+    const run_prefix = "run_"
+    const runs = [0, 1, 2, 3, 4]
+
+    const subj_prefix = ""
+    const subjects = arange(1, 10);
+
+    const sessions = ["false", "true"]
+
+    const percentile_prefix = ""
+    const percentile_suffix = ""
+    const training_percentiles = [0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 1]
+
+
+
+    const accs = {}
+    for (const id of training_percentiles) {
+        accs[percentile_prefix + id] = 0;
+    }
+
+    for (const run of runs) {
+        for (const percentile of training_percentiles) {
+            for (const session of sessions) {
+                for (const subj of subjects) {
+                    const a = d1[run_prefix + run][percentile_prefix + percentile + percentile_suffix][subj_prefix + subj][session]["testAcc"]
+                    accs[percentile_prefix + percentile] += a / (runs.length * sessions.length * subjects.length);
+                }
+            }
+        }
+    }
+
+    console.log(accs);
+}
+
 
 

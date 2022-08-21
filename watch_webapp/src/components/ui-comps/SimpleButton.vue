@@ -46,7 +46,6 @@ export default {
     },
     computed: {
         isXLarge() {
-            console.log(this.x_large)
             if (!this.x_large && !this.large) {
                 return true;
             } else {

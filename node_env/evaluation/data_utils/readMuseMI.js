@@ -183,7 +183,7 @@ function split(data, labels, nTrials, totalK, k) {
 }
 
 
-export function collectMuseMI(subjects, timeseries, riemann, trials= arange(0, 10)) {
+export function collectMuseMI(subjects, timeseries, riemann, trials= arange(0, 10), shift=2.0) {
     // ------------ CONFIG --------------
     const prefix = "subj_";
     const suffix = ".json";
@@ -193,6 +193,7 @@ export function collectMuseMI(subjects, timeseries, riemann, trials= arange(0, 1
     const labelKey = "label"; 
     const crop_size = 2.0;
     const frequency = 250;
+    shift = shift * frequency;
 
     // ----------- LOAD DATA ------------
     const dataAll = {}
@@ -208,7 +209,7 @@ export function collectMuseMI(subjects, timeseries, riemann, trials= arange(0, 1
             var trialData = trial[dataKey];
             const label = trial[labelKey];
 
-            var croppedTrial = cropTrial(trialData, crop_size);
+            var croppedTrial = cropTrial(trialData, crop_size, frequency, shift);
             croppedTrial = get(croppedTrial, timeseries, crop_size * frequency, riemann);
             labels = labels.concat(fill(label, croppedTrial.length));
             trialTensors = trialTensors.concat(croppedTrial);

@@ -155,5 +155,5 @@ def bar_sgd_dim_datasets_accuracy():
 
 
 if __name__ == "__main__":
-    bar_sgd_dim_datasets_accuracy()
-    # bar_thermometer_dim_datasets_accuracy()
+    # bar_sgd_dim_datasets_accuracy()
+    bar_thermometer_dim_datasets_accuracy()

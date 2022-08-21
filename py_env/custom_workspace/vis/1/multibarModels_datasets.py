@@ -2,7 +2,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 from HDCtype import HDCtype
 from load_benchmarks_hersche import load, dim_vs_subject_mtrx, merge
+import plotting
 
+plotting.prepare_for_latex()
 
 def multibar_table(A, B, C, modelNames=["SVM", "HDC-thermometer", "HDC-SGD"]):
     """
@@ -108,6 +110,10 @@ def multibar_table(A, B, C, modelNames=["SVM", "HDC-thermometer", "HDC-SGD"]):
     ]
 
     fig, ax = plt.subplots()
+    w, h = plotting.get_dimensions(220, 1)
+    fig.set_size_inches(w, h)
+    # ax.grid(alpha=0.3)
+
     ax.set_ylim([0, 1])
     width = 0.6
     ind = np.arange(n_datasets)
@@ -154,7 +160,11 @@ def multibar_table(A, B, C, modelNames=["SVM", "HDC-thermometer", "HDC-SGD"]):
     ax.set_ylabel("Accuracy")
     ax.set_title("SVM vs HDC thermometer and SGD")
     ax.set_xticks([])
-    plt.show()
+
+    yticklabels = [0, 0.2, 0.4, 0.6, 0.8, 1]
+    ax.set_yticklabels(yticklabels)
+    
+    plt.savefig("MuseChannels.pdf")
 
 
 def p():
@@ -166,21 +176,21 @@ def p():
     }
     N_SUBJECTS = 5  # 5, 38
     # BENCHMARK_PATH = "D:/bachelor-thesis/python_workspace/HDembedding-BCI/dataset/physionet/bfe-vs-bfi_CP34FC34/dataresult/physionet_FC_CP_34"
-    BENCHMARK_PATH = "D:/bachelor-thesis/python_workspace/HDembedding-BCI/dataset/3classMI/results/3classMI_256Hz_4ch"
+    BENCHMARK_PATH = "/mnt/d/bachelor-thesis/python_workspace/HDembedding-BCI/dataset/3classMI/results/3classMI_256Hz_4ch"
 
     # xxxxxxxxxxxx DATASET2 xxxxxxxxxxxxxx
     N_SUBJECTS_2 = 38  # 5, 38
-    BENCHMARK_PATH_2 = "D:/bachelor-thesis/python_workspace/HDembedding-BCI/dataset/physionet/bfe-vs-bfi_CP34FC34/dataresult/physionet_FC_CP_34"
+    BENCHMARK_PATH_2 = "/mnt/d/bachelor-thesis/python_workspace/HDembedding-BCI/dataset/physionet/bfe-vs-bfi_CP34FC34/dataresult/physionet_FC_CP_34"
     # xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
     # xxxxxxxxxxxx DATASET3 xxxxxxxxxxxxxx
     N_SUBJECTS_3 = 38
-    BENCHMARK_PATH_3 = "D:/bachelor-thesis/python_workspace/HDembedding-BCI/dataset/physionet/bfe-vs-bfi_AF78_T910/dataresult/physionet_AF78T910"
+    BENCHMARK_PATH_3 = "/mnt/d/bachelor-thesis/python_workspace/HDembedding-BCI/dataset/physionet/bfe-vs-bfi_AF78_T910/dataresult/physionet_AF78T910"
 
     # ----------------------------
     svm, hdc = load(TYPES, DIMS, N_SUBJECTS, BENCHMARK_PATH)
     thermometer, sgd = dim_vs_subject_mtrx(hdc, TYPES, DIMS, N_SUBJECTS)
-    BENCHMARK_PATH_ = "D:/bachelor-thesis/python_workspace/HDembedding-BCI/dataset/3classMI/results/4ch_b"
+    BENCHMARK_PATH_ = "/mnt/d/bachelor-thesis/python_workspace/HDembedding-BCI/dataset/3classMI/results/4ch_b"
     svm_, hdc_ = load(TYPES, DIMS, N_SUBJECTS, BENCHMARK_PATH_)
     thermometer_, sgd_ = dim_vs_subject_mtrx(hdc_, TYPES, DIMS, N_SUBJECTS)
     svm, thermometer, sgd = merge(

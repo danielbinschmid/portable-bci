@@ -2,17 +2,18 @@
 import { Riemann } from "./tools/riemann/riemann";
 
 // import { evaluate } from "./evaluation/experiment_transferLogEucl";
-//import { evaluate } from "./evaluation/experiments/experiment_hdcMuseMI";
+// import { evaluate } from "./evaluation/experiments/experiment_hdcMuseMI";
 // import { evaluate } from "./evaluation/experiments/experiment_hdcHersche";
-// import {evaluate} from "./evaluation/experiments/experiment_cnnhdc"
+import {evaluate} from "./evaluation/experiments/experiment_cnnhdcRef"
+// import {evaluate} from "./evaluation/experiments/experiment_cnnhdcImmediateUse"
 // import { evaluate } from "./evaluation/experiments/experiment_dimRanking_plusRiemann_plusPartialTraining";
-import { evaluate } from "./evaluation/experiments/experiment_hdcFHrrPartialTraining";
+// import { evaluate } from "./evaluation/experiments/experiment_hdcFHrrPartialTraining";
 // import { evaluate } from "./evaluation/experiments/experiment_onlineCrossSessionAdaption";
-// import { evaluate } from "./evaluation/experiments/experiment_onlineCrossSubjectAdaptionNaive";
+// import { evaluate } from "./evaluation/experiments/e_thermometerCrossSessionOnline";
 // import { evaluate } from "./evaluation/experiments/experiments_RiemannMean.js/experiment_transfer";
 import { testCiM } from "./tools/hdc/hdcCiMHrr";
 // import { test } from "./evaluation/test_runs";
-import { partialTrainingTransferfHRR ,partialTrainingTransferHRR, crossSubjectCrossSessionAccsPercentiles, crossSubjectCrossSessionAccs, crossSubjectAccsPercentiles, crossSubjectAccs,  sessionTransferRiemannEuclidianAccs, onlineCrossSubjectNaive, onlineCrossSessionAdaptionNoRiemannRefChangeAcc, onlineCrossSessionAdaptionAcc, meanMetricAccuracies, crossSessionMeanMetricAccuracies, transferBaselineAccs, riemannCiMAccs, hrrRetrainAcc, crossSubjectDataAugmentedRetrainingAccs } from "./evaluation/benchmarks/evaluateResults";
+import { cnnHDCPartial, cnnHDCRef ,cnnHDCPartialCrossSession, herschePartialCrossSession, hrrImmediateOnline, overfitReduce, partialTrainingTransferfHRR ,partialTrainingTransferHRR, crossSubjectCrossSessionAccsPercentiles, crossSubjectCrossSessionAccs, crossSubjectAccsPercentiles, crossSubjectAccs,  sessionTransferRiemannEuclidianAccs, onlineCrossSubjectNaive, onlineCrossSessionAdaptionNoRiemannRefChangeAcc, onlineCrossSessionAdaptionAcc, meanMetricAccuracies, crossSessionMeanMetricAccuracies, transferBaselineAccs, riemannCiMAccs, hrrRetrainAcc, crossSubjectDataAugmentedRetrainingAccs } from "./evaluation/benchmarks/evaluateResults";
 import { benchmarkMeanRuntimes } from "./webapp_port/experiment_meanMetricRuntimes";
 import { init, warmUpPrediction } from "./webapp_port/test_deepconvnet";
 import { cacheIV2a, loadCached } from "./evaluation/data_utils/readIV2a";
@@ -34,7 +35,6 @@ function printAccuracies(riemann) {
 
     // console.log("crossSubjectDataAugmentedRetrainingAccs")
     // crossSubjectDataAugmentedRetrainingAccs();
-
     console.log("cross subject accs, percentile 0.2");
     crossSubjectAccs()
 
@@ -50,6 +50,26 @@ function printAccuracies(riemann) {
     partialTrainingTransferHRR()
 
     partialTrainingTransferfHRR()
+
+    console.log("Riemann CiM with HRR and retraining:")
+    hrrRetrainAcc();
+
+    console.log("cross subject and cross session")
+    crossSubjectCrossSessionAccs()
+
+    console.log("overfit reduce")
+    overfitReduce()
+
+    hrrImmediateOnline()
+
+    partialTrainingTransferHRR()
+
+    herschePartialCrossSession()
+
+    cnnHDCPartialCrossSession()
+    cnnHDCRef()
+
+    cnnHDCPartial()
 }
 
 function crossSessionAdaptionAccs() {
@@ -70,12 +90,12 @@ function test_deepconvnet() {
  * @param {Riemann} riemannInstance 
  */
 function riemannInstantiatedCallback(riemannInstance) {
-    const riemann = riemannInstance;
+    // const riemann = riemannInstance;
 
     // analyzeQuantization(riemann);
     // testCiM()
-    // testCosDist()
-    // evaluate(riemann);
+    //testCosDist()
+    // evaluate();
     // benchmarkMeanRuntimes(riemann);
     // test(riemann);
     printAccuracies()

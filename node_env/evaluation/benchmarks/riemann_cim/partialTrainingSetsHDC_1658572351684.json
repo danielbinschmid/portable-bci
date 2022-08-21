@@ -1,0 +1,604 @@
+{
+    "run_0": {
+        "trainData0.8_": {
+            "isReversed_false": {
+                "subj_1": {
+                    "trainingAccBefore": 0.9693251533742331,
+                    "trainingAccAfter": 0.8773006134969326,
+                    "testAccBefore": 0.819047619047619,
+                    "testAccAfter": 0.861904761904762,
+                    "finetunedTestingAcc": 0.8523809523809524,
+                    "finetunedTrainingAcc": 0.9877300613496932
+                },
+                "subj_2": {
+                    "trainingAccBefore": 1,
+                    "trainingAccAfter": 0.7721518987341772,
+                    "testAccBefore": 0.46919431279620855,
+                    "testAccAfter": 0.5071090047393365,
+                    "finetunedTestingAcc": 0.5071090047393365,
+                    "finetunedTrainingAcc": 1
+                },
+                "subj_3": {
+                    "trainingAccBefore": 1,
+                    "trainingAccAfter": 0.7848101265822784,
+                    "testAccBefore": 0.7853658536585366,
+                    "testAccAfter": 0.7268292682926829,
+                    "finetunedTestingAcc": 0.7853658536585366,
+                    "finetunedTrainingAcc": 1
+                },
+                "subj_4": {
+                    "trainingAccBefore": 1,
+                    "trainingAccAfter": 0.777027027027027,
+                    "testAccBefore": 0.6571428571428571,
+                    "testAccAfter": 0.7428571428571429,
+                    "finetunedTestingAcc": 0.6914285714285714,
+                    "finetunedTrainingAcc": 1
+                },
+                "subj_5": {
+                    "trainingAccBefore": 1,
+                    "trainingAccAfter": 0.8741721854304636,
+                    "testAccBefore": 0.3864734299516908,
+                    "testAccAfter": 0.4444444444444444,
+                    "finetunedTestingAcc": 0.4396135265700483,
+                    "finetunedTrainingAcc": 1
+                },
+                "subj_6": {
+                    "trainingAccBefore": 1,
+                    "trainingAccAfter": 0.7350427350427351,
+                    "testAccBefore": 0.49382716049382713,
+                    "testAccAfter": 0.5740740740740741,
+                    "finetunedTestingAcc": 0.6111111111111112,
+                    "finetunedTrainingAcc": 1
+                },
+                "subj_7": {
+                    "trainingAccBefore": 1,
+                    "trainingAccAfter": 0.8227848101265823,
+                    "testAccBefore": 0.6161137440758294,
+                    "testAccAfter": 0.5497630331753555,
+                    "finetunedTestingAcc": 0.5639810426540285,
+                    "finetunedTrainingAcc": 1
+                },
+                "subj_8": {
+                    "trainingAccBefore": 0.9607843137254902,
+                    "trainingAccAfter": 0.8366013071895425,
+                    "testAccBefore": 0.7241379310344828,
+                    "testAccAfter": 0.7586206896551724,
+                    "finetunedTestingAcc": 0.7438423645320197,
+                    "finetunedTrainingAcc": 1
+                },
+                "subj_9": {
+                    "trainingAccBefore": 0.889763779527559,
+                    "trainingAccAfter": 0.6929133858267716,
+                    "testAccBefore": 0.6482412060301508,
+                    "testAccAfter": 0.678391959798995,
+                    "finetunedTestingAcc": 0.7085427135678392,
+                    "finetunedTrainingAcc": 0.9606299212598425
+                }
+            },
+            "isReversed_true": {
+                "subj_1": {
+                    "trainingAccBefore": 1,
+                    "trainingAccAfter": 0.9272727272727272,
+                    "testAccBefore": 0.7961165048543689,
+                    "testAccAfter": 0.7961165048543689,
+                    "finetunedTestingAcc": 0.7961165048543689,
+                    "finetunedTrainingAcc": 1
+                },
+                "subj_2": {
+                    "trainingAccBefore": 1,
+                    "trainingAccAfter": 0.6363636363636364,
+                    "testAccBefore": 0.5,
+                    "testAccAfter": 0.4603960396039604,
+                    "finetunedTestingAcc": 0.49504950495049505,
+                    "finetunedTrainingAcc": 1
+                },
+                "subj_3": {
+                    "trainingAccBefore": 1,
+                    "trainingAccAfter": 0.8125,
+                    "testAccBefore": 0.7684729064039408,
+                    "testAccAfter": 0.7241379310344828,
+                    "finetunedTestingAcc": 0.7635467980295566,
+                    "finetunedTrainingAcc": 1
+                },
+                "subj_4": {
+                    "trainingAccBefore": 1,
+                    "trainingAccAfter": 0.8529411764705882,
+                    "testAccBefore": 0.5306122448979592,
+                    "testAccAfter": 0.5255102040816326,
+                    "finetunedTestingAcc": 0.5102040816326531,
+                    "finetunedTrainingAcc": 1
+                },
+                "subj_5": {
+                    "trainingAccBefore": 1,
+                    "trainingAccAfter": 0.6794871794871795,
+                    "testAccBefore": 0.40512820512820513,
+                    "testAccAfter": 0.4153846153846154,
+                    "finetunedTestingAcc": 0.4256410256410256,
+                    "finetunedTrainingAcc": 1
+                },
+                "subj_6": {
+                    "trainingAccBefore": 1,
+                    "trainingAccAfter": 0.7007874015748031,
+                    "testAccBefore": 0.5185185185185185,
+                    "testAccAfter": 0.5493827160493827,
+                    "finetunedTestingAcc": 0.5987654320987654,
+                    "finetunedTrainingAcc": 1
+                },
+                "subj_7": {
+                    "trainingAccBefore": 1,
+                    "trainingAccAfter": 0.7575757575757576,
+                    "testAccBefore": 0.665,
+                    "testAccAfter": 0.625,
+                    "finetunedTestingAcc": 0.63,
+                    "finetunedTrainingAcc": 1
+                },
+                "subj_8": {
+                    "trainingAccBefore": 1,
+                    "trainingAccAfter": 0.8164556962025317,
+                    "testAccBefore": 0.7091836734693877,
+                    "testAccAfter": 0.6785714285714286,
+                    "finetunedTestingAcc": 0.7091836734693877,
+                    "finetunedTrainingAcc": 1
+                },
+                "subj_9": {
+                    "trainingAccBefore": 0.9423076923076923,
+                    "trainingAccAfter": 0.8012820512820513,
+                    "testAccBefore": 0.480225988700565,
+                    "testAccAfter": 0.5480225988700564,
+                    "finetunedTestingAcc": 0.4915254237288136,
+                    "finetunedTrainingAcc": 0.9807692307692307
+                }
+            }
+        },
+        "trainData0.9_": {
+            "isReversed_false": {
+                "subj_1": {
+                    "trainingAccBefore": 0.9180327868852459,
+                    "trainingAccAfter": 0.8907103825136612,
+                    "testAccBefore": 0.7904761904761904,
+                    "testAccAfter": 0.8476190476190476,
+                    "finetunedTestingAcc": 0.819047619047619,
+                    "finetunedTrainingAcc": 0.9836065573770492
+                },
+                "subj_2": {
+                    "trainingAccBefore": 1,
+                    "trainingAccAfter": 0.7471910112359551,
+                    "testAccBefore": 0.4834123222748815,
+                    "testAccAfter": 0.4597156398104265,
+                    "finetunedTestingAcc": 0.4597156398104265,
+                    "finetunedTrainingAcc": 1
+                },
+                "subj_3": {
+                    "trainingAccBefore": 1,
+                    "trainingAccAfter": 0.8033707865168539,
+                    "testAccBefore": 0.7853658536585366,
+                    "testAccAfter": 0.751219512195122,
+                    "finetunedTestingAcc": 0.8097560975609757,
+                    "finetunedTrainingAcc": 1
+                },
+                "subj_4": {
+                    "trainingAccBefore": 1,
+                    "trainingAccAfter": 0.7664670658682635,
+                    "testAccBefore": 0.6971428571428572,
+                    "testAccAfter": 0.7485714285714286,
+                    "finetunedTestingAcc": 0.7257142857142858,
+                    "finetunedTrainingAcc": 1
+                },
+                "subj_5": {
+                    "trainingAccBefore": 1,
+                    "trainingAccAfter": 0.8058823529411765,
+                    "testAccBefore": 0.45410628019323673,
+                    "testAccAfter": 0.46859903381642515,
+                    "finetunedTestingAcc": 0.4830917874396135,
+                    "finetunedTrainingAcc": 1
+                },
+                "subj_6": {
+                    "trainingAccBefore": 1,
+                    "trainingAccAfter": 0.7196969696969697,
+                    "testAccBefore": 0.5370370370370371,
+                    "testAccAfter": 0.5493827160493827,
+                    "finetunedTestingAcc": 0.5555555555555556,
+                    "finetunedTrainingAcc": 1
+                },
+                "subj_7": {
+                    "trainingAccBefore": 1,
+                    "trainingAccAfter": 0.7696629213483146,
+                    "testAccBefore": 0.6208530805687204,
+                    "testAccAfter": 0.5687203791469194,
+                    "finetunedTestingAcc": 0.5876777251184834,
+                    "finetunedTrainingAcc": 1
+                },
+                "subj_8": {
+                    "trainingAccBefore": 0.9534883720930233,
+                    "trainingAccAfter": 0.8081395348837209,
+                    "testAccBefore": 0.7339901477832512,
+                    "testAccAfter": 0.7339901477832512,
+                    "finetunedTestingAcc": 0.7586206896551724,
+                    "finetunedTrainingAcc": 1
+                },
+                "subj_9": {
+                    "trainingAccBefore": 1,
+                    "trainingAccAfter": 0.6503496503496503,
+                    "testAccBefore": 0.678391959798995,
+                    "testAccAfter": 0.6683417085427136,
+                    "finetunedTestingAcc": 0.6984924623115578,
+                    "finetunedTrainingAcc": 1
+                }
+            },
+            "isReversed_true": {
+                "subj_1": {
+                    "trainingAccBefore": 1,
+                    "trainingAccAfter": 0.9516129032258065,
+                    "testAccBefore": 0.8009708737864077,
+                    "testAccAfter": 0.7815533980582524,
+                    "finetunedTestingAcc": 0.7912621359223301,
+                    "finetunedTrainingAcc": 1
+                },
+                "subj_2": {
+                    "trainingAccBefore": 0.9408602150537635,
+                    "trainingAccAfter": 0.6559139784946236,
+                    "testAccBefore": 0.46534653465346537,
+                    "testAccAfter": 0.48514851485148514,
+                    "finetunedTestingAcc": 0.47029702970297027,
+                    "finetunedTrainingAcc": 1
+                },
+                "subj_3": {
+                    "trainingAccBefore": 1,
+                    "trainingAccAfter": 0.7888888888888889,
+                    "testAccBefore": 0.7635467980295566,
+                    "testAccAfter": 0.7192118226600985,
+                    "finetunedTestingAcc": 0.7389162561576355,
+                    "finetunedTrainingAcc": 1
+                },
+                "subj_4": {
+                    "trainingAccBefore": 1,
+                    "trainingAccAfter": 0.8627450980392157,
+                    "testAccBefore": 0.5204081632653061,
+                    "testAccAfter": 0.5306122448979592,
+                    "finetunedTestingAcc": 0.5510204081632653,
+                    "finetunedTrainingAcc": 1
+                },
+                "subj_5": {
+                    "trainingAccBefore": 1,
+                    "trainingAccAfter": 0.6514285714285715,
+                    "testAccBefore": 0.4461538461538462,
+                    "testAccAfter": 0.4205128205128205,
+                    "finetunedTestingAcc": 0.4564102564102564,
+                    "finetunedTrainingAcc": 1
+                },
+                "subj_6": {
+                    "trainingAccBefore": 1,
+                    "trainingAccAfter": 0.6573426573426573,
+                    "testAccBefore": 0.5,
+                    "testAccAfter": 0.5185185185185185,
+                    "finetunedTestingAcc": 0.5246913580246914,
+                    "finetunedTrainingAcc": 1
+                },
+                "subj_7": {
+                    "trainingAccBefore": 1,
+                    "trainingAccAfter": 0.7526881720430108,
+                    "testAccBefore": 0.67,
+                    "testAccAfter": 0.645,
+                    "finetunedTestingAcc": 0.645,
+                    "finetunedTrainingAcc": 1
+                },
+                "subj_8": {
+                    "trainingAccBefore": 0.9550561797752809,
+                    "trainingAccAfter": 0.8146067415730337,
+                    "testAccBefore": 0.7091836734693877,
+                    "testAccAfter": 0.6887755102040817,
+                    "finetunedTestingAcc": 0.7244897959183674,
+                    "finetunedTrainingAcc": 1
+                },
+                "subj_9": {
+                    "trainingAccBefore": 0.8971428571428571,
+                    "trainingAccAfter": 0.76,
+                    "testAccBefore": 0.5028248587570622,
+                    "testAccAfter": 0.5480225988700564,
+                    "finetunedTestingAcc": 0.4858757062146893,
+                    "finetunedTrainingAcc": 0.9828571428571429
+                }
+            }
+        },
+        "trainData0.95_": {
+            "isReversed_false": {
+                "subj_1": {
+                    "trainingAccBefore": 0.9481865284974094,
+                    "trainingAccAfter": 0.8963730569948186,
+                    "testAccBefore": 0.8142857142857143,
+                    "testAccAfter": 0.861904761904762,
+                    "finetunedTestingAcc": 0.8238095238095238,
+                    "finetunedTrainingAcc": 0.9792746113989638
+                },
+                "subj_2": {
+                    "trainingAccBefore": 1,
+                    "trainingAccAfter": 0.7287234042553191,
+                    "testAccBefore": 0.4265402843601896,
+                    "testAccAfter": 0.4312796208530806,
+                    "finetunedTestingAcc": 0.46919431279620855,
+                    "finetunedTrainingAcc": 1
+                },
+                "subj_3": {
+                    "trainingAccBefore": 1,
+                    "trainingAccAfter": 0.824468085106383,
+                    "testAccBefore": 0.8146341463414634,
+                    "testAccAfter": 0.7219512195121951,
+                    "finetunedTestingAcc": 0.8097560975609757,
+                    "finetunedTrainingAcc": 1
+                },
+                "subj_4": {
+                    "trainingAccBefore": 1,
+                    "trainingAccAfter": 0.7556818181818182,
+                    "testAccBefore": 0.6857142857142857,
+                    "testAccAfter": 0.76,
+                    "finetunedTestingAcc": 0.72,
+                    "finetunedTrainingAcc": 1
+                },
+                "subj_5": {
+                    "trainingAccBefore": 1,
+                    "trainingAccAfter": 0.7430167597765364,
+                    "testAccBefore": 0.45893719806763283,
+                    "testAccAfter": 0.47342995169082125,
+                    "finetunedTestingAcc": 0.48792270531400966,
+                    "finetunedTrainingAcc": 1
+                },
+                "subj_6": {
+                    "trainingAccBefore": 1,
+                    "trainingAccAfter": 0.7410071942446043,
+                    "testAccBefore": 0.5185185185185185,
+                    "testAccAfter": 0.5617283950617284,
+                    "finetunedTestingAcc": 0.5432098765432098,
+                    "finetunedTrainingAcc": 1
+                },
+                "subj_7": {
+                    "trainingAccBefore": 1,
+                    "trainingAccAfter": 0.8138297872340425,
+                    "testAccBefore": 0.6113744075829384,
+                    "testAccAfter": 0.5592417061611374,
+                    "finetunedTestingAcc": 0.5734597156398105,
+                    "finetunedTrainingAcc": 1
+                },
+                "subj_8": {
+                    "trainingAccBefore": 0.967032967032967,
+                    "trainingAccAfter": 0.8021978021978022,
+                    "testAccBefore": 0.7044334975369458,
+                    "testAccAfter": 0.7241379310344828,
+                    "finetunedTestingAcc": 0.7339901477832512,
+                    "finetunedTrainingAcc": 1
+                },
+                "subj_9": {
+                    "trainingAccBefore": 0.9470198675496688,
+                    "trainingAccAfter": 0.609271523178808,
+                    "testAccBefore": 0.6884422110552764,
+                    "testAccAfter": 0.6733668341708543,
+                    "finetunedTestingAcc": 0.7035175879396985,
+                    "finetunedTrainingAcc": 1
+                }
+            },
+            "isReversed_true": {
+                "subj_1": {
+                    "trainingAccBefore": 0.9846938775510204,
+                    "trainingAccAfter": 0.9336734693877551,
+                    "testAccBefore": 0.8009708737864077,
+                    "testAccAfter": 0.7912621359223301,
+                    "finetunedTestingAcc": 0.8009708737864077,
+                    "finetunedTrainingAcc": 0.9948979591836735
+                },
+                "subj_2": {
+                    "trainingAccBefore": 0.923469387755102,
+                    "trainingAccAfter": 0.5969387755102041,
+                    "testAccBefore": 0.46534653465346537,
+                    "testAccAfter": 0.45544554455445546,
+                    "finetunedTestingAcc": 0.45544554455445546,
+                    "finetunedTrainingAcc": 1
+                },
+                "subj_3": {
+                    "trainingAccBefore": 1,
+                    "trainingAccAfter": 0.7842105263157895,
+                    "testAccBefore": 0.7487684729064039,
+                    "testAccAfter": 0.7339901477832512,
+                    "finetunedTestingAcc": 0.7389162561576355,
+                    "finetunedTrainingAcc": 1
+                },
+                "subj_4": {
+                    "trainingAccBefore": 1,
+                    "trainingAccAfter": 0.845679012345679,
+                    "testAccBefore": 0.5153061224489796,
+                    "testAccAfter": 0.5306122448979592,
+                    "finetunedTestingAcc": 0.5408163265306123,
+                    "finetunedTrainingAcc": 1
+                },
+                "subj_5": {
+                    "trainingAccBefore": 0.9945945945945946,
+                    "trainingAccAfter": 0.6810810810810811,
+                    "testAccBefore": 0.4358974358974359,
+                    "testAccAfter": 0.441025641025641,
+                    "finetunedTestingAcc": 0.5025641025641026,
+                    "finetunedTrainingAcc": 1
+                },
+                "subj_6": {
+                    "trainingAccBefore": 1,
+                    "trainingAccAfter": 0.7284768211920529,
+                    "testAccBefore": 0.5185185185185185,
+                    "testAccAfter": 0.5,
+                    "finetunedTestingAcc": 0.5493827160493827,
+                    "finetunedTrainingAcc": 1
+                },
+                "subj_7": {
+                    "trainingAccBefore": 1,
+                    "trainingAccAfter": 0.7653061224489796,
+                    "testAccBefore": 0.665,
+                    "testAccAfter": 0.63,
+                    "finetunedTestingAcc": 0.635,
+                    "finetunedTrainingAcc": 1
+                },
+                "subj_8": {
+                    "trainingAccBefore": 0.9893617021276596,
+                    "trainingAccAfter": 0.8031914893617021,
+                    "testAccBefore": 0.7448979591836735,
+                    "testAccAfter": 0.7040816326530612,
+                    "finetunedTestingAcc": 0.7346938775510204,
+                    "finetunedTrainingAcc": 1
+                },
+                "subj_9": {
+                    "trainingAccBefore": 0.9081081081081082,
+                    "trainingAccAfter": 0.7891891891891892,
+                    "testAccBefore": 0.4406779661016949,
+                    "testAccAfter": 0.5423728813559322,
+                    "finetunedTestingAcc": 0.4915254237288136,
+                    "finetunedTrainingAcc": 0.9837837837837838
+                }
+            }
+        },
+        "trainData1_": {
+            "isReversed_false": {
+                "subj_1": {
+                    "trainingAccBefore": 0.9558823529411765,
+                    "trainingAccAfter": 0.8872549019607843,
+                    "testAccBefore": 0.819047619047619,
+                    "testAccAfter": 0.8809523809523809,
+                    "finetunedTestingAcc": 0.8380952380952381,
+                    "finetunedTrainingAcc": 0.9754901960784313
+                },
+                "subj_2": {
+                    "trainingAccBefore": 0.9595959595959596,
+                    "trainingAccAfter": 0.7171717171717171,
+                    "testAccBefore": 0.4786729857819905,
+                    "testAccAfter": 0.4312796208530806,
+                    "finetunedTestingAcc": 0.4834123222748815,
+                    "finetunedTrainingAcc": 1
+                },
+                "subj_3": {
+                    "trainingAccBefore": 1,
+                    "trainingAccAfter": 0.803030303030303,
+                    "testAccBefore": 0.7804878048780488,
+                    "testAccAfter": 0.7073170731707317,
+                    "finetunedTestingAcc": 0.8097560975609757,
+                    "finetunedTrainingAcc": 1
+                },
+                "subj_4": {
+                    "trainingAccBefore": 1,
+                    "trainingAccAfter": 0.6774193548387096,
+                    "testAccBefore": 0.6857142857142857,
+                    "testAccAfter": 0.7542857142857143,
+                    "finetunedTestingAcc": 0.6857142857142857,
+                    "finetunedTrainingAcc": 1
+                },
+                "subj_5": {
+                    "trainingAccBefore": 1,
+                    "trainingAccAfter": 0.7195767195767195,
+                    "testAccBefore": 0.42028985507246375,
+                    "testAccAfter": 0.45410628019323673,
+                    "finetunedTestingAcc": 0.463768115942029,
+                    "finetunedTrainingAcc": 1
+                },
+                "subj_6": {
+                    "trainingAccBefore": 1,
+                    "trainingAccAfter": 0.7006802721088435,
+                    "testAccBefore": 0.5493827160493827,
+                    "testAccAfter": 0.5987654320987654,
+                    "finetunedTestingAcc": 0.5802469135802469,
+                    "finetunedTrainingAcc": 1
+                },
+                "subj_7": {
+                    "trainingAccBefore": 1,
+                    "trainingAccAfter": 0.7676767676767676,
+                    "testAccBefore": 0.6113744075829384,
+                    "testAccAfter": 0.5592417061611374,
+                    "finetunedTestingAcc": 0.6066350710900474,
+                    "finetunedTrainingAcc": 1
+                },
+                "subj_8": {
+                    "trainingAccBefore": 0.96875,
+                    "trainingAccAfter": 0.7552083333333334,
+                    "testAccBefore": 0.7438423645320197,
+                    "testAccAfter": 0.7241379310344828,
+                    "finetunedTestingAcc": 0.7487684729064039,
+                    "finetunedTrainingAcc": 0.984375
+                },
+                "subj_9": {
+                    "trainingAccBefore": 0.9182389937106918,
+                    "trainingAccAfter": 0.6289308176100629,
+                    "testAccBefore": 0.6834170854271356,
+                    "testAccAfter": 0.678391959798995,
+                    "finetunedTestingAcc": 0.7085427135678392,
+                    "finetunedTrainingAcc": 1
+                }
+            },
+            "isReversed_true": {
+                "subj_1": {
+                    "trainingAccBefore": 0.9565217391304348,
+                    "trainingAccAfter": 0.9082125603864735,
+                    "testAccBefore": 0.8106796116504854,
+                    "testAccAfter": 0.7961165048543689,
+                    "finetunedTestingAcc": 0.8058252427184466,
+                    "finetunedTrainingAcc": 0.9710144927536232
+                },
+                "subj_2": {
+                    "trainingAccBefore": 0.9227053140096618,
+                    "trainingAccAfter": 0.5797101449275363,
+                    "testAccBefore": 0.47029702970297027,
+                    "testAccAfter": 0.4603960396039604,
+                    "finetunedTestingAcc": 0.45544554455445546,
+                    "finetunedTrainingAcc": 1
+                },
+                "subj_3": {
+                    "trainingAccBefore": 1,
+                    "trainingAccAfter": 0.8059701492537313,
+                    "testAccBefore": 0.7438423645320197,
+                    "testAccAfter": 0.7241379310344828,
+                    "finetunedTestingAcc": 0.7142857142857143,
+                    "finetunedTrainingAcc": 1
+                },
+                "subj_4": {
+                    "trainingAccBefore": 1,
+                    "trainingAccAfter": 0.8187134502923976,
+                    "testAccBefore": 0.5153061224489796,
+                    "testAccAfter": 0.5357142857142857,
+                    "finetunedTestingAcc": 0.5255102040816326,
+                    "finetunedTrainingAcc": 1
+                },
+                "subj_5": {
+                    "trainingAccBefore": 0.9794871794871794,
+                    "trainingAccAfter": 0.6666666666666666,
+                    "testAccBefore": 0.4307692307692308,
+                    "testAccAfter": 0.4,
+                    "finetunedTestingAcc": 0.4358974358974359,
+                    "finetunedTrainingAcc": 1
+                },
+                "subj_6": {
+                    "trainingAccBefore": 1,
+                    "trainingAccAfter": 0.6918238993710691,
+                    "testAccBefore": 0.5,
+                    "testAccAfter": 0.5,
+                    "finetunedTestingAcc": 0.5308641975308642,
+                    "finetunedTrainingAcc": 1
+                },
+                "subj_7": {
+                    "trainingAccBefore": 1,
+                    "trainingAccAfter": 0.7391304347826086,
+                    "testAccBefore": 0.675,
+                    "testAccAfter": 0.63,
+                    "finetunedTestingAcc": 0.635,
+                    "finetunedTrainingAcc": 1
+                },
+                "subj_8": {
+                    "trainingAccBefore": 0.9646464646464646,
+                    "trainingAccAfter": 0.797979797979798,
+                    "testAccBefore": 0.7091836734693877,
+                    "testAccAfter": 0.6989795918367347,
+                    "finetunedTestingAcc": 0.7346938775510204,
+                    "finetunedTrainingAcc": 1
+                },
+                "subj_9": {
+                    "trainingAccBefore": 0.882051282051282,
+                    "trainingAccAfter": 0.7692307692307693,
+                    "testAccBefore": 0.4971751412429379,
+                    "testAccAfter": 0.5536723163841808,
+                    "finetunedTestingAcc": 0.4858757062146893,
+                    "finetunedTrainingAcc": 0.9743589743589743
+                }
+            }
+        }
+    }
+}

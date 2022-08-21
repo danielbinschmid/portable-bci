@@ -37,12 +37,12 @@ export class HdcHersche {
     _riemannKernel; // vectorizes trials 
     _itemMemory;
     _associativeMemory;
-    
+
     // data collection
     _supervisedTrialLabels;
-    
+
     _embeddingsInitTensor;
-    
+
     /**
      * 
      * @param {number} nBands - number of frequency bands. Defaults to 13.
@@ -51,7 +51,7 @@ export class HdcHersche {
      * @param {ThermometerConfig} encodingConfig
      * @param {Riemann} riemann
      */
-    constructor(nBands = 16, nChannels = 4, classLabels=[0, 1], encodingType = Encodings.THERMOMETER, encodingConfig = ThermometerConfig, riemann = null) {
+    constructor(nBands = 16, nChannels = 4, classLabels = [0, 1], encodingType = Encodings.THERMOMETER, encodingConfig = ThermometerConfig, riemann = null) {
 
         // get tf backend config info
         // console.log("backend:")
@@ -79,8 +79,8 @@ export class HdcHersche {
 
         // data
         this._supervisedTrialLabels = [];
-        
-    
+
+
         // configs which require initialization computation
         switch (encodingType) {
             case Encodings.THERMOMETER:
@@ -132,7 +132,7 @@ export class HdcHersche {
             return 0;
         } else {
             return 1;
-        } 
+        }
     }
 
     /**
@@ -144,7 +144,7 @@ export class HdcHersche {
         return iM;
     }
 
-    
+
     /**
      * 
      * @param {Float32Array | Float64Array} batch 
@@ -169,8 +169,8 @@ export class HdcHersche {
                     const means = moments.mean.reshape([nTrials, vm._nBands, 1]).tile([1, 1, vm._nVectorizedFeats]);
 
                     // int( (x - mean) * (q / sigma) + (q - 1) / 2) )
-                    batchTensor = batchTensor.sub(means);   
-                    batchTensor = batchTensor.div(sigma); 
+                    batchTensor = batchTensor.sub(means);
+                    batchTensor = batchTensor.div(sigma);
                     batchTensor = batchTensor.mul(tf.scalar(vm._encodingConfig.q));
                     batchTensor = batchTensor.add(tf.scalar((vm._encodingConfig.q - 1) / 2)).toInt();
 
@@ -178,7 +178,7 @@ export class HdcHersche {
                     batchTensor = batchTensor.clipByValue(0, vm._encodingConfig.q - 1);
 
                     // insert embedding and flatten
-                    batchTensor =  vm._encodingConfig.embedding.apply(batchTensor).toBool();
+                    batchTensor = vm._encodingConfig.embedding.apply(batchTensor).toBool();
                     batchTensor = batchTensor.reshape([nTrials, vm._nBands, vm._hdDim]);
                     return batchTensor;
                 });
@@ -195,15 +195,15 @@ export class HdcHersche {
      */
     spatialTransform(batchTensor) {
         var vm = this;
-        const batchTensor_ = batchTensor; 
-        
+        const batchTensor_ = batchTensor;
+
 
         const batchTensorReturn = tf.tidy(() => {
             // bind
             var batchTensor = batchTensor_.logicalXor(vm._itemMemory);
 
             // bundle
-            batchTensor =  batchTensor.toInt();
+            batchTensor = batchTensor.toInt();
             batchTensor = batchTensor.sum(1); // result: (trials, hdDim)
 
             // clip
@@ -215,7 +215,7 @@ export class HdcHersche {
         });
 
         return batchTensorReturn;
-        
+
     }
 
 
@@ -225,12 +225,10 @@ export class HdcHersche {
      */
     collectTrial(timetensor, label) {
 
-        if (timetensor.isCov) 
-        {
+        if (timetensor.isCov) {
             this._riemannKernel.addTrial(timetensor);
-        } 
-        else 
-        {
+        }
+        else {
             throw "No covariance computation beyond the wasm backend available"
         }
         this._nTrials += 1;
@@ -242,12 +240,10 @@ export class HdcHersche {
      * @param {Timetensor_d} timetensor 
      */
     collectBreak(timetensor) {
-        if (timetensor.isCov) 
-        {
+        if (timetensor.isCov) {
             this._riemannKernel.addBreak(timetensor);
-        } 
-        else 
-        {
+        }
+        else {
             throw "No covariance computation beyond the wasm backend available"
         }
     }
@@ -255,7 +251,7 @@ export class HdcHersche {
     newSession() {
         this._riemannKernel.reset();
     }
-    
+
     /**
      * 
      * @returns {number} - time for completion
@@ -271,15 +267,14 @@ export class HdcHersche {
      * @param {*} preLoadedData - has fields data, nTrials, labels
      * @returns 
      */
-    async fit(preLoadedData=null) {
-        const runTimeMeasures = {riemannMeanPlusCovs: 0, wasmToBuffer: 0, hdcEncoding: 0, hdcAMCreation: 0};
+    async fit(preLoadedData = null) {
+        const runTimeMeasures = { riemannMeanPlusCovs: 0, wasmToBuffer: 0, hdcEncoding: 0, hdcAMCreation: 0 };
         var now = Date.now();
 
         // riemann methods or load data
         var trainingBuffer = []
 
-        if (!preLoadedData) 
-        {   
+        if (!preLoadedData) {
             const trainTrials = this._riemann.ArrayBuffer();
             this._riemannKernel.fitTrials(trainTrials);
             runTimeMeasures.riemannMeanPlusCovs = Date.now() - now;
@@ -288,9 +283,8 @@ export class HdcHersche {
             trainingBuffer = this._riemann.ArrayBufferToTypedArray(trainTrials);
             runTimeMeasures.wasmToBuffer = Date.now() - now;
             now = Date.now();
-        } 
-        else 
-        {
+        }
+        else {
             this._nTrials = preLoadedData.nTrials;
             trainingBuffer = preLoadedData.data;
             this._supervisedTrialLabels = preLoadedData.labels;
@@ -306,26 +300,25 @@ export class HdcHersche {
 
         runTimeMeasures.hdcEncoding = Date.now() - now;
         now = Date.now();
-    
+
         const labels = this._supervisedTrialLabels.map((val, ind) => [val, ind]);
         const classSymbols = [];
 
-        for (const classIdx of this._classLabels) 
-        {
-            
-            const classLabels = labels.filter((val, ind, arr) => val[0] == classIdx).map((val, ind) => val[1]); 
+        for (const classIdx of this._classLabels) {
+
+            const classLabels = labels.filter((val, ind, arr) => val[0] == classIdx).map((val, ind) => val[1]);
 
             const classSymbol = tf.tidy(() => {
                 const classLabelsTensor = tf.tensor1d(classLabels, 'int32');
                 const classTrials = trainingBatchTensors.gather(classLabelsTensor);
-                
+
                 var classSymbol = classTrials.sum(0);
                 const threshhold = Math.floor(classLabels.length / 2);
 
                 classSymbol = classSymbol.clipByValue(threshhold, threshhold + 1).sub(tf.scalar(threshhold)).toBool();
                 return classSymbol;
             });
-        
+
             classSymbols.push(classSymbol);
         }
 
@@ -342,11 +335,97 @@ export class HdcHersche {
     }
 
     /**
+    * 
+    * @param {*} preLoadedData - has fields data, nTrials, labels
+    * @returns 
+    */
+    async _retrain(preLoadedData, existingAM, alpha) {
+        // load data
+        this._nTrials = preLoadedData.nTrials;
+        const trainingBuffer = preLoadedData.data;
+        this._supervisedTrialLabels = preLoadedData.labels;
+
+        // encoding
+        var vm = this;
+        const trainingBatchTensors = tf.tidy(() => {
+            const t1 = vm.encodeBatch(trainingBuffer, vm._nTrials);
+            const t2 = vm.spatialTransform(t1); // shape (nTrials, hdDim)
+            return t2;
+        });
+
+        const labels = this._supervisedTrialLabels.map((val, ind) => [val, ind]);
+        const classSymbols = [];
+
+        for (const classIdx of this._classLabels) {
+
+            const classLabels = labels.filter((val, ind, arr) => val[0] == classIdx).map((val, ind) => val[1]);
+            const nTrialsLabel = classLabels.length
+            const weightExisting = Math.floor(alpha * nTrialsLabel)
+
+            const classSymbol = tf.tidy(() => {
+                const classLabelsTensor = tf.tensor1d(classLabels, 'int32');
+                var classTrials = trainingBatchTensors.gather(classLabelsTensor);
+
+                for (const i of arange(0, weightExisting)) {
+                    classTrials = tf.tidy(() => {
+                        return classTrials.concat(existingAM[classIdx]); 
+                    })
+                }
+                
+                var classSymbol = classTrials.sum(0);
+                const threshhold = Math.floor(classLabels.length / 2);
+
+                classSymbol = classSymbol.clipByValue(threshhold, threshhold + 1).sub(tf.scalar(threshhold)).toBool();
+                return classSymbol;
+            });
+
+            classSymbols.push(classSymbol);
+        }
+
+        tf.dispose(this._associativeMemory);
+        this._associativeMemory = tf.stack(classSymbols);
+
+        tf.dispose(classSymbols);
+        tf.dispose(trainingBatchTensors);
+
+
+        this._nTrials = 0;
+        this._supervisedTrialLabels = [];
+
+    }
+
+    async refit(timetensorSet, labels) {
+        const AMCopy = this._associativeMemory.unstack()
+
+        for (const timetensor of timetensorSet) {
+            this._riemannKernel.updateMean(timetensor, 4)
+        }
+
+        var trainingBuffer = []
+        for (const timetensor of timetensorSet) {
+            const buff = this._riemann.ArrayBuffer()
+            this._riemannKernel.apply(timetensor, buff)
+            const arrBuff = this._riemann.ArrayBufferToTypedArray(buff);
+            trainingBuffer = trainingBuffer.concat(Array.from(arrBuff))
+        }
+
+        this._retrain({
+            data: trainingBuffer,
+            nTrials: labels.length,
+            labels: labels
+        }, AMCopy, 10)
+
+
+        // make a training buffer 
+
+    }
+
+    /**
      * 
      * @param {Timetensor_d} trial 
      */
     async predict(trial) {
-        const measures = {riemann: 0, conversionWasm: 0, hdcEncoding: 0, hdcAMQuery: 0, conversionTF: 0};
+        const measures = { riemann: 0, conversionWasm: 0, hdcEncoding: 0, hdcAMQuery: 0, conversionTF: 0 };
         var now = Date.now();
 
         const buffer_cpp = this._riemann.ArrayBuffer()
@@ -368,7 +447,7 @@ export class HdcHersche {
             const [trial] = hdcEmbedding.unstack();
             return vm._associativeMemory.logicalXor(trial).logicalXor(tf.scalar(true, 'bool')).sum(1).div(tf.scalar(this._hdDim));
         });
-        
+
         measures.hdcAMQuery = Date.now() - now;
         now = Date.now();
 
@@ -380,9 +459,9 @@ export class HdcHersche {
     }
 
     async predictPreloadedFeats(feats) {
-        const measures = {riemann: 0, conversionWasm: 0, hdcEncoding: 0, hdcAMQuery: 0, conversionTF: 0};
+        const measures = { riemann: 0, conversionWasm: 0, hdcEncoding: 0, hdcAMQuery: 0, conversionTF: 0 };
         var now = Date.now();
-        
+
         const trialVecs = this.encodeBatch(feats, 1);
         const hdcEmbedding = this.spatialTransform(trialVecs);
         measures.hdcEncoding = Date.now() - now;
@@ -408,7 +487,7 @@ export class HdcHersche {
      * @param {*} iterations 
      * @returns 
      */
-    _retrainAM(trainingSet, labels, AM, learning_rate = 0.1,iterations = 20) {
+    _retrainAM(trainingSet, labels, AM, learning_rate = 0.1, iterations = 20) {
         console.log("retraining ..");
         return tf.tidy(() => {
             AM = AM.unstack();
@@ -439,22 +518,22 @@ export class HdcHersche {
                     console.log(nCorrects / labels.length)
                     for (const clIdx of arange(0, AMUpdate.length)) {
                         var fac = nAMUpdates[clIdx]
-                        
+
                         if (fac > 0) {
                             const AMUpdateVec = AMUpdate[clIdx].add(AM[clIdx].toFloat().mul(tf.scalar(fac * (1 - learning_rate))));
-                            fac = fac + fac * ( 1 - learning_rate);
+                            fac = fac + fac * (1 - learning_rate);
                             const threshhold = fac / 2;
                             const x = tf.relu(AMUpdateVec.sub(tf.scalar(threshhold))).toBool();
                             AM[clIdx] = x
                         }
                     }
                     return AM;
-                }) 
+                })
             }
             return tf.stack(AM);
         })
     }
-    	
+
     destroy() {
         tf.dispose([this._associativeMemory, this._itemMemory, this._spatialTransformVals.threshholdTensor, this._embeddingsInitTensor]);
         this._encodingConfig.embedding.dispose();

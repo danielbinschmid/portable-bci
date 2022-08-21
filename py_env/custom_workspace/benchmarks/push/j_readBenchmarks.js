@@ -6,7 +6,7 @@ function readNaiveFinetuning() {
     const run_prefix = "run_";
 
     const modes = ["all_subjects", "individual", "naive-finetuning"]
-    
+
     for (const mode of modes) {
         const subjectAccs = {};
 
@@ -25,7 +25,7 @@ function readNaiveFinetuning() {
             avg += subjectAccs[subj]
         }
         avg = avg / (subjects.length);
- 
+
         console.log("Accuracies for mode: " + mode);
         console.log("Avg: " + avg)
         console.log(subjectAccs)
@@ -33,13 +33,14 @@ function readNaiveFinetuning() {
 }
 
 function readLayerConstrained() {
-    const lCF_ID = "IV2a_layer-constrained-finetuning_20220622-123753"
+    const lCF_ID = "EEGNetDTL"
     const layerConstrainedFinetuningJson = require("./all_" + lCF_ID + ".json")
 
-    const runs = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    const runs = [0, 1, 2, 3]
     const subjects = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     const run_prefix = "run_";
     const modes = ["nb_frozen_blocks_2", "nb_frozen_blocks_1"]
+    const sessions = ["session_False", "session_True"]
 
     for (const mode of modes) {
         const subjectAccs = {};
@@ -48,22 +49,101 @@ function readLayerConstrained() {
         for (const run of runs) {
             const run_id = run_prefix + run;
             for (const subject of subjects) {
-                subjectAccs[subject] += layerConstrainedFinetuningJson[run_id][mode][subject]
+                for (const session of sessions) {
+                    subjectAccs[subject] += layerConstrainedFinetuningJson[run_id][mode][subject][session]
+                }   
+                
             }
         }
 
         var avg = 0;
         for (const subj of subjects) {
-            subjectAccs[subj] = subjectAccs[subj] / (runs.length);
+            subjectAccs[subj] = subjectAccs[subj] / (runs.length * sessions.length);
             avg += subjectAccs[subj]
         }
         avg = avg / (subjects.length);
-        
+
         console.log("Accuracies for mode: " + mode);
         console.log("Avg: " + avg)
         console.log(subjectAccs)
     }
 }
+
+function readRefNaive() {
+    const lCF_ID = "EEGNet"
+    const layerConstrainedFinetuningJson = require("./all_" + lCF_ID + ".json")
+
+    const runs = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    const subjects = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    const run_prefix = "run_";
+    const modes = ["nb_frozen_blocks_0"]
+    const sessions = ["session_False", "session_True"]
+
+    for (const mode of modes) {
+        const subjectAccs = {};
+        for (const subj of subjects) { subjectAccs[subj] = 0; }
+
+        for (const run of runs) {
+            const run_id = run_prefix + run;
+            for (const subject of subjects) {
+                for (const session of sessions) {
+                    subjectAccs[subject] += layerConstrainedFinetuningJson[run_id][mode][subject][session]
+                }   
+                
+            }
+        }
+
+        var avg = 0;
+        for (const subj of subjects) {
+            subjectAccs[subj] = subjectAccs[subj] / (runs.length * sessions.length);
+            avg += subjectAccs[subj]
+        }
+        avg = avg / (subjects.length);
+
+        console.log("Accuracies for mode: " + mode);
+        console.log("Avg: " + avg)
+        console.log(subjectAccs)
+    }
+}
+
+function crossSubjRef() {
+    const lCF_ID = "eegnetCrossSubject"
+    const layerConstrainedFinetuningJson = require("./all_" + lCF_ID + ".json")
+
+    const runs = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    const subjects = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    const run_prefix = "run_";
+    const modes = ["nb_frozen_blocks_0"]
+    const sessions = ["session_False", "session_True"]
+
+    for (const mode of modes) {
+        const subjectAccs = {};
+        for (const subj of subjects) { subjectAccs[subj] = 0; }
+
+        for (const run of runs) {
+            const run_id = run_prefix + run;
+            for (const subject of subjects) {
+                for (const session of sessions) {
+                    subjectAccs[subject] += layerConstrainedFinetuningJson[run_id][mode][subject][session]
+                }   
+                
+            }
+        }
+
+        var avg = 0;
+        for (const subj of subjects) {
+            subjectAccs[subj] = subjectAccs[subj] / (runs.length * sessions.length);
+            avg += subjectAccs[subj]
+        }
+        avg = avg / (subjects.length);
+
+        console.log("Accuracies for mode: " + mode);
+        console.log("Avg: " + avg)
+        console.log(subjectAccs)
+    }
+}
+
+
 
 function crossSession() {
     const d1 = require("./all_crossSession_1657217205638.json")
@@ -99,7 +179,7 @@ function crossSession() {
                     var a = 0;
                     const l = li.length;
                     for (const e of li) {
-                        a += e; 
+                        a += e;
                     }
                     a = a / l;
                     accs[subject][proportion_prefix + proportion] += a;
@@ -117,7 +197,7 @@ function crossSession() {
     for (const subject of subjects) {
         accs[subject][refID] = accs[subject][refID] / (runs.length * sessions.length);
         baselineAvg += accs[subject][refID];
-        for (const proportion of proportions) { 
+        for (const proportion of proportions) {
             accs[subject][proportion_prefix + proportion] = accs[subject][proportion_prefix + proportion] / (runs.length * sessions.length);
             proportionAvgs[proportion_prefix + proportion] += accs[subject][proportion_prefix + proportion];
         }
@@ -195,7 +275,7 @@ function crossSubject() {
                     var a = 0;
                     const l = li.length;
                     for (const e of li) {
-                        a += e; 
+                        a += e;
                     }
                     a = a / l;
                     accs[subject][proportion_prefix + proportion] += a;
@@ -213,7 +293,7 @@ function crossSubject() {
     for (const subject of subjects) {
         accs[subject][refID] = accs[subject][refID] / (runs.length * sessions.length);
         baselineAvg += accs[subject][refID];
-        for (const proportion of proportions) { 
+        for (const proportion of proportions) {
             accs[subject][proportion_prefix + proportion] = accs[subject][proportion_prefix + proportion] / (runs.length * sessions.length);
             proportionAvgs[proportion_prefix + proportion] += accs[subject][proportion_prefix + proportion];
         }
@@ -225,12 +305,52 @@ function crossSubject() {
         console.log(proportion_prefix + proportion + ": " + (proportionAvgs[proportion_prefix + proportion] / subjects.length));
     }
     console.log("baseline average: " + baselineAvg / subjects.length);
-} 
+}
 
+function eegnetPartialFinetuning() {
+
+    const d1 = require("./all_EEGNetPartialFinetuning.json")
+
+    const run_prefix = "run_"
+    const runs = [0, 1, 2, 3, 4, 5]// arange(0, 10)
+
+    const subj_prefix = ""
+    const subjects = [1,2,3,4,5,6,7,8,9];
+
+    const sessions = ["session_False", "session_True"]
+
+    const percentile_prefix = "percentage_"
+    const percentile_suffix = ""
+    const training_percentiles = [0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 1]
+
+
+
+    const accs = {}
+    for (const id of training_percentiles) {
+        accs[percentile_prefix + id] = 0;
+    }
+
+    for (const run of runs) {
+        for (const percentile of training_percentiles) {
+            for (const session of sessions) {
+                for (const subj of subjects) {
+                    const a = d1[run_prefix + run][session][subj_prefix + subj][percentile_prefix + percentile + percentile_suffix]
+                    accs[percentile_prefix + percentile] += a / (runs.length * sessions.length * subjects.length);
+                }
+            }
+        }
+    }
+    console.log(accs);
+
+}
+// eegnetPartialFinetuning()
+crossSubjRef()
 // crossSession()
 console.log("///////////")
 // crossSubject()
-// readNaiveFinetuning()
+readRefNaive()
 // crossSubject()
 readLayerConstrained()
 // readLayerConstrained()
+subjectBlindTransfer()
+crossSubjRef()

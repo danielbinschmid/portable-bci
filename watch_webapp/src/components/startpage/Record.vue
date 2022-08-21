@@ -6,22 +6,24 @@
 
             <div v-for="(item, i) in sessions" :key="i">
                 <simple-button x_large @click="select(i)">
-                    {{ item }}
+                    {{ item.name }}
                 </simple-button>
             </div>
             <simple-button @click="addSession()" bottomPadding x_large>
                 +
             </simple-button>
 
-            <div v-for="(item, i) in sessions" :key="item + i">
-                <v-dialog v-model="isSessionOpened[i]" fullscreen>
+            <div v-for="(item, i) in sessions" :key="'_' + i">
+                <v-dialog v-model="item.isOpened" fullscreen>
                     <v-card :color="'rgba(236, 239, 241, 0.95)'">
                         <session
                             @exit="exitSession(i)"
+                            :museDevInfo="museDevInfo"
                             :isCurrentFinetuned="finetunedSession.idx == i"
+                            :database="item.database"                             
                             @finetune="
                                 changeFinetunedSession({
-                                    name: item,
+                                    name: item.name,
                                     idx: i,
                                 })
                             "
@@ -47,6 +49,7 @@ import SimpleButton from "@/components/ui-comps/SimpleButton.vue";
 import IconListItem from "@/components/ui-comps/IconListItem.vue";
 import Session from "./Session.vue";
 import Vue from "vue";
+import { Database } from "@/tools/database/Database"
 
 export default {
     components: { OverlayBackButton, SimpleButton, IconListItem, Session },
@@ -55,26 +58,60 @@ export default {
         const nSession = 3;
 
         return {
-            isSessionOpened: [false, false, false],
             currentSession: -1,
             layout_data: window.layout,
             logs: [],
-            sessions: ["DAY 1", "DAY 2", "DAY 3"],
+            sessions: [{
+                name: "DAY -1",
+                isOpened: false
+            }]
         };
     },
     props: {
         finetunedSession: undefined,
+        museDevInfo: undefined,
+    },
+    mounted() {
+        const vm = this;
+        window.globDatabase = new Database("bciMI", () => {
+            vm.updateSessions(vm);  
+        })
     },
     methods: {
         exit() {
             this.$emit("exit");
         },
-        addSession() {},
+        updateSessions(vm) {
+            const ids = window.globDatabase.getIDs();
+            var sessionIdx = 1
+            const sessions = []
+            for (const id of ids) {
+                sessions.push({
+                    isOpened: false,
+                    name: "DAY " + sessionIdx,
+                    database: window.globDatabase.getEntryDatabase(id)
+                })
+                sessionIdx += 1;
+            }
+            vm.sessions = sessions;
+        },
+        addSession() {
+            /** @type {Database} */
+            const globDatabase = window.globDatabase;
+            const vm = this;
+            globDatabase.createEntry(() => {
+                vm.updateSessions(vm);
+            })
+        },
         select(idx) {
-            Vue.set(this.isSessionOpened, idx, true);
+            const entry = this.sessions[idx] 
+            entry.isOpened = true;
+            Vue.set(this.sessions, idx, entry);
         },
         exitSession(idx) {
-            Vue.set(this.isSessionOpened, idx, false);
+            const entry = this.sessions[idx] 
+            entry.isOpened = false;
+            Vue.set(this.sessions, idx, entry);
             // this.isSessionOpened[idx] = false;
         },
         changeFinetunedSession(session) {

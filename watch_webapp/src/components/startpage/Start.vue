@@ -23,7 +23,7 @@
             :colorText="layout.WHITE_BACKGROUND"
             @openMenu="train = true"
         >   
-            <record @exit="train = false" @changeFinetunedSession="changeFinetunedSession" :finetunedSession="finetunedSession"/>
+            <record @exit="train = false" @changeFinetunedSession="changeFinetunedSession" :museDevInfo="museDevInfo" :finetunedSession="finetunedSession"/>
 
         </simple-card>
 
@@ -57,6 +57,7 @@ export default {
     props: {
         museDevInfo: undefined
     },
+
     mounted() {
         const eegnet = new EEGNet();
         eegnet.init().then((model) => {
@@ -64,7 +65,6 @@ export default {
             model.warmUpPrediction().then(() => {
                 window.eegnet = m;
             })
-            
         })
     },
     methods: {

@@ -38,8 +38,8 @@ export default {
     components: { MuseControl, Home, Start, SimpleCard },
     name: "Interface",
     data() {
-        // console.log(getChromeVersion())
-        // console.log(webgl_detect())
+        console.log("chromium version: " + getChromeVersion())
+        console.log("webgl: " + webgl_detect())
         return {
             layout: window.layout,
             page: "home",

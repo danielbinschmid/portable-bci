@@ -22,6 +22,10 @@
             </v-list-item-content>
         </v-list-item>
 
+        <simple-button @click="openDatabase = true" x_large :disabled="isFinetuning">
+            DATABASE
+        </simple-button>
+
         <simple-button @click="startRecordNew()" x_large :disabled="isFinetuning">
             RECORD NEW
         </simple-button>
@@ -58,34 +62,52 @@
 
         <v-dialog v-model="recordNew" fullscreen>
             <v-card :color="'rgba(236, 239, 241, 0.95)'">
-                <record-new @exit="exitRecordNew()" @newTrial="newTrial" />
+                <record-new @exit="exitRecordNew()" @newTrial="newTrial" :museDevInfo="museDevInfo"/>
+            </v-card>
+        </v-dialog>
+
+        <v-dialog v-model="openDatabase" fullscreen>
+            <v-card :color="'rgba(236, 239, 241, 0.95)'">
+                <session-database @exit="openDatabase = false" :database="database" :sync="sync"/>
             </v-card>
         </v-dialog>
     </div>
 </template>
 
 <script>
+import Vue from "vue";
 import OverlayBackButton from "@/components/ui-comps/OverlayBackButton.vue";
 import SimpleButton from "@/components/ui-comps/SimpleButton.vue";
 import RecordNew from "@/components/startpage/session/RecordNew.vue";
-
+import { EEG_FREQUENCY } from "@/data/constants";
+import { EEGNet} from "@/tools/eegnet/load";
+import { resample2ndDim, slice2ndDim, maxIdx} from "@/tools/data_utils/array_utils"
+import { MITrialDatabase} from "@/tools/database/MITrialDatabase";
+import SessionDatabase from "@/components/startpage/session/SessionDatabase.vue";
+import * as tf from '@tensorflow/tfjs';
 export default {
-    components: { OverlayBackButton, SimpleButton, RecordNew },
+    components: { OverlayBackButton, SimpleButton, RecordNew, SessionDatabase },
     name: "Session",
     data() {
         return {
+            curEpoch: 0,
+            nEpochs: 12,
             layout: window.layout,
             finetuneProgress: 0,
             interval: {},
             isFinetuning: false,
             recordNew: false,
+            openDatabase: false,
             isFinetuned: false,
-            nTrials: 7,
+            nTrials: -1,
+            sync: false,
             logs: [],
         };
     },
     props: {
-        isCurrentFinetuned: Boolean
+        isCurrentFinetuned: Boolean,
+        museDevInfo: undefined,
+        database: MITrialDatabase
     },
     watch: {
         isCurrentFinetuned(neww, old) {
@@ -93,9 +115,13 @@ export default {
         }
     },
     mounted() {
-        this.isFinetuned = this.isCurrentFinetuned;
+        this.databaseInitCallback()
     },
     methods: {
+        databaseInitCallback() {
+            this.nTrials = this.database.nTrials;
+            this.sync = !this.sync
+        },
         exit() {
             this.$emit("exit");
         },
@@ -105,32 +131,77 @@ export default {
         exitRecordNew() {
             this.recordNew = false;
         },
-        newTrial(labelIdx) {
+        newTrial(timeseries, labelIdx) {
             this.isFinetuned = false;
-            this.nTrials += 1;
+
+            this.database.saveTrial(timeseries, labelIdx, this.databaseInitCallback)
             this.$emit("forgetFinetune");
         },
-        startFinetuning() {
-            this.isFinetuning = true;
-            this.interval = setInterval(() => {
-                if (this.finetuneProgress == 100) {
-                    this.finetuneProgress = 0;
-                    clearInterval(this.interval);
-                    this.finetuningFinished();
-                } else {
-                    this.finetuneProgress += 10;
-                }
-            }, 500);
+        /**
+         * onTrainBegin(logs)`: called when training starts.
+        *   - `onTrainEnd(logs)`: called when training ends.
+        *   - `onEpochBegin(epoch, logs)`: called at the start of every epoch.
+         */
+        onTrainBegin(logs) {
+            this.curEpoch = 0
+            this.finetuneProgress = 0
         },
-        finetuningFinished() {
+        onEpoch(epoch, logs) {
+            this.curEpoch += 1;
+            this.finetuneProgress = Math.floor((this.curEpoch * 100) / this.nEpochs);
+        },
+        async finetune(X_, Y_, ids) {
+            
+            for (const id of ids) {
+                if (X_[id] === undefined || Y_[id] === undefined) {
+                    return null;
+                }
+            }
+            const X__ = []
+            const Y__ = []
+            for (const id of ids) {
+                X__.push(X_[id])
+                Y__.push(Y_[id])
+            }
+
+            /** @type {EEGNet} */
+            const eegnet = window.eegnet
+            const [X, Y] = eegnet.uploadAsBatch(X__, Y__)
+            console.log("finetuning with backend: " + tf.getBackend())
+            this.isFinetuning = true;
+            eegnet.finetune(X, Y, this.nEpochs, this.onTrainBegin, this.onTrainEnd, this.onEpoch)
+        },
+        async startFinetuning() {
+
+            const ids = this.database.getTrialIDs()
+            const X_ = {}
+            const Y_ = {}
+            const vm = this;
+            for (const id of ids) {
+                const trial = this.database.getTrial(id, (res, label) => {
+                    const targetFrequency = 128;
+                    const trial = resample2ndDim(targetFrequency * 4.0, slice2ndDim(2.5 * EEG_FREQUENCY, 6.5 * EEG_FREQUENCY, res));
+                    X_[id] = trial;
+                    Y_[id] = label;
+                    vm.finetune(X_, Y_, ids);
+                });
+            }
+            
+        },
+        onTrainEnd(logs) {
+            this.curEpoch = 0
+            this.finetuneProgress = 0
             this.isFinetuning = false;
             this.isFinetuned = true;
             this.$emit("finetune");
         },
         cancelFinetuning() {
-            clearInterval(this.interval);
-            this.isFinetuning = false;
-            this.finetuneProgress = 0;
+            if (false) {
+                clearInterval(this.interval);
+                this.isFinetuning = false;
+                this.finetuneProgress = 0;
+            }
+            
         },
     },
 };

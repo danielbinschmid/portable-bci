@@ -12,6 +12,7 @@
                 <v-list-item-group
                     :color="layout_data.GREEN"
                     v-model="currentMode"
+                     
                 >
                     <div v-for="(item, i) in visModes" :key="i">
                         <v-divider> </v-divider>
@@ -58,6 +59,7 @@ export default {
     },
     props: {
         museDevInfo: undefined,
+        isStreamingEnabled: Boolean
     },
     data() {
         const rawEEGMode = "RAW EEG";
@@ -89,12 +91,17 @@ export default {
             return this.museDevInfo != undefined;
         },
         isRawEEGMode() {
-            return this.visModes[this.currentMode] == this.rawEEGMode;
+            return (this.visModes[this.currentMode] == this.rawEEGMode) && this.isStreamingEnabled;
         },
         isFBands() {
-            return this.currentMode == 1
+            return (this.currentMode == 1) && this.isStreamingEnabled
         }
     },
+    watch: {
+        isStreamingEnabled() {
+            this.currentMode = null
+        }
+    }
 };
 </script>
 

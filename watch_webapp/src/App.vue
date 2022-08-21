@@ -22,7 +22,7 @@ export default {
     beforeCreate() {
         window.layout = LAYOUT_DATA;
         new Riemann((copy) => {
-            console.log("compiled!");
+            console.log("Riemann backend compiled!");
             window.riemann = copy;
         });
         

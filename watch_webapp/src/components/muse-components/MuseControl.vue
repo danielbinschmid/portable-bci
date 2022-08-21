@@ -32,8 +32,8 @@
             </v-list>
         </small-card>
 
-        <muse-vis :museDevInfo="pairedDevice" />
-        <muse-stream-control :connectedDevice="pairedDevice" />
+        <muse-vis :museDevInfo="pairedDevice" :isStreamingEnabled="isStreamingEnabled" />
+        <muse-stream-control :connectedDevice="pairedDevice" @streamingChange="streamingChange" :streaming="isStreamingEnabled"/>
 
         <div v-for="(log, index) in logs" :key="index">
             {{ log }}
@@ -66,6 +66,7 @@ export default {
     },
     data() {
         return {
+            isStreamingEnabled: false,
             layout: window.layout,
             isDeviceListInstantiated: false,
             connected: false,
@@ -85,6 +86,9 @@ export default {
         this.initialize();
     },
     methods: {
+        streamingChange(isStreaming) {
+            this.isStreamingEnabled = isStreaming;
+        },
         exit() {
             this.museControlData.pairedDevice = this.pairedDevice;
             this.$emit("exit", this.museControlData);

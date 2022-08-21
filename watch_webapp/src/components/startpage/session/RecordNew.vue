@@ -10,10 +10,10 @@
                 :rotate="180"
                 :size="100"
                 :width="15"
-                :value="value"
+                :value="uiValue"
                 :color="state =='prepare' ? 'orange' : 'pink'"
             >
-                {{ (value * 6.5) / 100 + "s" }}
+                {{ (uiValue * 6.5) / 100 + "s" }}
             </v-progress-circular>
             <div
                 name="muse name"
@@ -42,49 +42,70 @@
 import SimpleButton from "@/components/ui-comps/SimpleButton.vue";
 import OverlayBackButton from "@/components/ui-comps/OverlayBackButton.vue";
 import { LAYOUT_DATA } from "@/data/layout_constraints"
+import { MuseBLEStreaming } from "@/tools/ble/MuseBLEStreaming";
+import { EEG_FREQUENCY } from "@/data/constants";
 export default {
     components: { OverlayBackButton, SimpleButton },
     name: "RecordNew",
     data() {
-        console.log(window.layout)
+        /** @type { MuseBLEStreaming } */
+        var bleStreaming = undefined;
+        if (this.museDevInfo) {
+            bleStreaming = new MuseBLEStreaming(this.museDevInfo, 6.5);
+        }
         return {
+            bleStreaming: bleStreaming,
             layout_data: LAYOUT_DATA,
             labels: ["FEET", "RIGHT HAND", "LEFT HAND"],
             interval: {},
             state: "idle",
             value: 0,
+            uiIter: 0,
+            uiDelay: 20,
+            uiValue: 0,
+            trialData: null,
             logs: [],
         };
+    },
+    props: {
+        museDevInfo: undefined
     },
     methods: {
         exit() {
             this.$emit("exit");
         },
+        /**
+         * @param {number[][]} timeseries
+         */
+        streamSuccCallback(timeseries) {
+            const vm = this;
+            this.bleStreaming.reset()
+            this.bleStreaming.unsubscribe((suc) => {
+                vm.state = "choose"
+                vm.trialData = timeseries
+                vm.value = 0;
+                vm.uiValue = 0;
+            }, (err) => {
+                
+            })
+        },  
+        timestepCallback(nTimesteps) {
+            this.value += (nTimesteps * 100) / (EEG_FREQUENCY * 6.5);
+            this.uiIter += 1;
+            if (this.uiIter % this.uiDelay == 0) {
+                this.uiValue = Math.floor(this.value);
+            }
+            if (this.value > 35) { this.state = "trial"; }
+        },
         start() {
             this.state = "prepare";
-            this.interval = setInterval(() => {
-                if (this.value == 25) {
-                    clearInterval(this.interval);
-                    this.state = "trial";
-                    this.interval = setInterval(() => {
-                        if (this.value == 100) {
-                            this.value = 0;
-                            this.state = "choose";
-                            clearInterval(this.interval);
-                        } else {
-                            this.value += 12.5;
-                        }
-                    }, 800);
-                } else {
-                    this.value += 5;
-                }
-            }, 400);
+            this.bleStreaming.subscribe(this.streamSuccCallback, (err) => {}, this.timestepCallback)
         },
         discard() {
             this.state = "idle";
         },
         selectLabel(labelIdx) {
-            this.$emit("newTrial", labelIdx);
+            this.$emit("newTrial", this.trialData, labelIdx);
             this.state = "idle";
             this.$emit("exit")
         },

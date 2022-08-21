@@ -51,7 +51,6 @@ function encodeCommand(cmd) {
  */
 export function startRecording(address, writeSuccess, writeError, preset='p21') {
     // pause device
-    console.log("attempting to send commands")
     sendCommand('h', address, writeSuccess, writeError)
     // preset device
     sendCommand(preset, address, writeSuccess, writeError)

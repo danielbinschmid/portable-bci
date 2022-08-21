@@ -30,6 +30,7 @@ export default {
     name: "MuseStreamControl",
     props: {
         connectedDevice: undefined,
+        streaming: Boolean
     },
     components: {
         SettingsCard,
@@ -53,7 +54,6 @@ export default {
                 marginTop: LAYOUT_DATA.MARGIN_TOP,
             },
             logs: [],
-            streaming: false,
         };
     },
     methods: {
@@ -66,7 +66,7 @@ export default {
             pauseRecording(
                 this.connectedDevice.address,
                 (result) => {
-                    this.streaming = false;
+                    this.$emit("streamingChange", false);
                 },
                 (error) => {
                     this.logs.push(error);
@@ -97,7 +97,7 @@ export default {
                 },
                 preset
             );
-            this.streaming = true;
+            this.$emit("streamingChange", true);
         },
         setStreamMode(mode) {
             this.currentMode = mode;
@@ -123,7 +123,7 @@ export default {
         connectedToMuse() {
             const isConnected = this.connectedDevice != undefined;
             if (!isConnected) {
-                this.streaming = false;
+                this.$emit("streamingChange", false);
             }
             return isConnected;
         },

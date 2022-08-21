@@ -90,10 +90,10 @@ export default {
     components: { BreedingRhombusSpinner, OverlayBackButton, SimpleButton },
     name: "MindReading",
     data() {
+        /** @type { MuseBLEStreaming } */
         var bleStreaming = undefined;
         if (this.museDevInfo) {
             bleStreaming = new MuseBLEStreaming(this.museDevInfo, 6.5);
-            
         }
         return {
             bleStreaming: bleStreaming,
