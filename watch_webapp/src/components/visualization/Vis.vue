@@ -9,21 +9,25 @@
             isOpaque
             :menuDisabled="false"
         >
-        <!--"!isStreamingEnabled" -->
-            <overlay-back-button @exit="showModes()" bottomPadding />
+            <!--"!isStreamingEnabled" -->
+            <overlay-back-button @exit="showModes()" bottomPadding  :color="layout_data.ORANGE" withText>
+                VIS
+            </overlay-back-button>
+
             <v-list style="padding: 0" color="rgba(0, 0, 0, 0)">
                 <v-list-item-group
-                    :color="layout_data.GREEN"
+                    :color="layout_data.ORANGE"
                     v-model="currentMode"
-                     
                 >
                     <div v-for="(item, i) in visModes" :key="i">
                         <v-divider> </v-divider>
-                        <icon-list-item :item="item" />
+                        <icon-list-item :item="item"  :color="layout_data.ORANGE"/>
                     </div>
                     <v-divider> </v-divider>
                 </v-list-item-group>
             </v-list>
+
+            <div :style="{ color: 'rgba(0, 0, 0 ,0)' }">_</div>
 
             <muse-raw-eeg
                 :isActivated="isRawEEGMode"
@@ -32,13 +36,16 @@
             />
 
             <v-dialog v-model="isFBands" fullscreen>
-                <v-card :color="layout_data.WHITE_BACKGROUND"> 
-                    <frequency-bands :museDevInfo="museDevInfo" @exit="clearCurrentMode()" />
+                <v-card :color="layout_data.WHITE_BACKGROUND">
+                    <frequency-bands
+                        :museDevInfo="museDevInfo"
+                        @exit="clearCurrentMode()"
+                    />
                 </v-card>
             </v-dialog>
 
             <v-dialog v-model="isTrialVis" fullscreen>
-                <v-card :color="layout_data.WHITE_BACKGROUND"> 
+                <v-card :color="layout_data.WHITE_BACKGROUND">
                     <trial-vis @exit="clearCurrentMode()" />
                 </v-card>
             </v-dialog>
@@ -48,7 +55,7 @@
 
 <script>
 import TrialVis from "@/components/visualization/TrialVis.vue";
-import FrequencyBands from "@/components/visualization/FrequencyBands.vue"
+import FrequencyBands from "@/components/visualization/FrequencyBands.vue";
 import IconListItem from "@/components/ui-comps/IconListItem.vue";
 import OverlayBackButton from "@/components/ui-comps/OverlayBackButton.vue";
 import { LAYOUT_DATA } from "@/data/layout_constraints";
@@ -66,18 +73,18 @@ export default {
         MuseRawEeg,
         SmallCard,
         FrequencyBands,
-        TrialVis
+        TrialVis,
     },
     props: {
         museDevInfo: undefined,
-        isStreamingEnabled: Boolean
+        isStreamingEnabled: Boolean,
     },
     data() {
         const rawEEGMode = "RAW EEG";
         return {
             layout_data: LAYOUT_DATA,
             rawEEGMode: rawEEGMode,
-            visModes: [rawEEGMode, "FREQUENCY BANDS", "TRIAL VIS"],
+            visModes: [rawEEGMode, "FREQUENCY BANDS"],
             visModesInstantiated: false,
             currentMode: null,
             vCardStyle: { marginTop: LAYOUT_DATA.MARGIN_TOP },
@@ -102,20 +109,22 @@ export default {
             return this.museDevInfo != undefined;
         },
         isRawEEGMode() {
-            return (this.visModes[this.currentMode] == this.rawEEGMode) && this.isStreamingEnabled;
+            return (
+                this.visModes[this.currentMode] == this.rawEEGMode // && this.isStreamingEnabled
+            );
         },
         isFBands() {
-            return (this.currentMode == 1) && this.isStreamingEnabled
+            return this.currentMode == 1 //&& this.isStreamingEnabled;
         },
         isTrialVis() {
-            return (this.currentMode == 2)
-        }
+            return this.currentMode == 2;
+        },
     },
     watch: {
         isStreamingEnabled() {
-            this.currentMode = null
-        }
-    }
+            this.currentMode = null;
+        },
+    },
 };
 </script>
 

@@ -10,7 +10,9 @@
             hideMenuIcon
             
         >
-            <overlay-back-button @exit="exit()" :color="layout.ORANGE" />
+            <overlay-back-button @exit="exit()" :color="layout.ORANGE" withText> 
+                MUSE
+            </overlay-back-button>
             <small-card
                 :icon="bleIcon"
                 :isMenuOpened="isDeviceListInstantiated"

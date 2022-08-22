@@ -168,11 +168,11 @@ export default {
             const eegnet = window.eegnet
             const [X, Y] = eegnet.uploadAsBatch(X__, Y__)
             console.log("finetuning with backend: " + tf.getBackend())
-            this.isFinetuning = true;
+            
             eegnet.finetune(X, Y, this.nEpochs, this.onTrainBegin, this.onTrainEnd, this.onEpoch)
         },
         async startFinetuning() {
-
+            this.isFinetuning = true;
             const ids = this.database.getTrialIDs()
             const X_ = {}
             const Y_ = {}

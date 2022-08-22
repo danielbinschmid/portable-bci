@@ -15,7 +15,8 @@
                 x-large
                 @click="exit()"
             >
-                <v-icon> mdi-close-circle-multiple-outline </v-icon>
+                <v-icon :style="{marginRight: withText? '10px': '0px'}"> mdi-close-circle-multiple-outline </v-icon>
+                <slot> </slot>
             </v-btn>
         </v-list-item>
     </div>
@@ -27,7 +28,8 @@ export default {
     name: "OverlayBackButton",
     props: {
         bottomPadding: Boolean,
-        color: String
+        color: String,
+        withText: Boolean
     },
     data() {
         return {

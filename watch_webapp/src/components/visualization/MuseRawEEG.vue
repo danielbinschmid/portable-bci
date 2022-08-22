@@ -3,6 +3,19 @@
         <v-dialog v-model="isActivated" fullscreen>
             <v-card :color="layout_data.WHITE_BACKGROUND">
                 <overlay-back-button @exit="exit()" />
+                <v-list-item>
+                    <v-divider />
+                    <div
+                        class="mdc-typography-styles-overline"
+                        :style="{
+                            color: layout_data.GREEN,
+                        }"
+                    >
+                        RAW EEG VIS
+                    </div>
+                    <v-divider />
+                </v-list-item>
+
                 <menu-list-item :text="'options'" @open="options()" />
                 <div v-if="isActivated && !optionsOpened">
                     <muse-raw-eeg-vis
@@ -14,7 +27,13 @@
                 <v-dialog v-model="optionsOpened" fullscreen>
                     <v-card :color="layout_data.WHITE_BACKGROUND">
                         <overlay-back-button @exit="options()" />
-                        <slider-list-item v-model="minMaxRange" :max="1000" :min="50" :step="50" :name="'μV - range'" />
+                        <slider-list-item
+                            v-model="minMaxRange"
+                            :max="1000"
+                            :min="50"
+                            :step="50"
+                            :name="'μV - range'"
+                        />
                     </v-card>
                 </v-dialog>
             </v-card>

@@ -8,11 +8,14 @@
 
         <start :museDevInfo="museControlData.pairedDevice"/>
 
-        <!-- <ble-view /> -->
+        
+
+        <about />
     </div>
 </template>
 
 <script>
+import About from "./About.vue"
 import MuseControl from "./muse-components/MuseControl.vue";
 import SimpleCard from "./ui-comps/SimpleCard.vue";
 import Home from "./Home.vue";
@@ -20,7 +23,7 @@ import Vis from "./visualization/Vis.vue"
 import Start from "./startpage/Start.vue";
 import { getChromeVersion, webgl_detect } from "@/tools/tools";
 export default {
-    components: { MuseControl, Home, Start, SimpleCard, Vis },
+    components: { MuseControl, Home, Start, SimpleCard, Vis, About },
     name: "Interface",
     data() {
         console.log("chromium version: " + getChromeVersion())

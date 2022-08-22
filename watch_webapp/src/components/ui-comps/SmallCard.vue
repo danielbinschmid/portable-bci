@@ -4,8 +4,9 @@
             class="center"
             :max-width="layout_data.MAX_WIDTH"
             shaped
-            :color="layout_data.ORANGE"
+            :color="cardIsTransparent? layout_data.ORANGE :layout_data.ORANGE"
             :style="{ marginTop: topMargin ? layout_data.MARGIN_TOP : '0px' }"
+
         >
             <v-list-item>
                 <v-list-item-icon class="abitright-2">
@@ -62,7 +63,8 @@ export default {
         topMargin: Boolean,
         isOpaque: Boolean,
         hideMenuIcon: Boolean,
-        menuDisabled: Boolean
+        menuDisabled: Boolean,
+        cardIsTransparent: Boolean
     },
     methods: {
         openMenu() {

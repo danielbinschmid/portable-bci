@@ -9,32 +9,34 @@
             isOpaque
             hideMenuIcon
         >
-            <overlay-back-button @exit="exit()" :color="layout.ORANGE" />
-            <simple-card
-                :popupName="'mind reading'"
+            <overlay-back-button @exit="exit()" :color="layout.ORANGE" withText>
+                <div>READ MIND</div>
+            </overlay-back-button>
+
+            <small-card
+                :icon="'mdi-brain'"
                 :isMenuOpened="mindReading"
-                topMargin
-                bottomMargin
-                :colorCard="layout.ORANGE"
-                :colorText="layout.WHITE_BACKGROUND"
-                isOpaque
+                :popupName="'READ'"
                 @openMenu="mindReading = true"
+                topMargin
+                isOpaque
+                hideMenuIcon
             >
                 <mind-reading
                     @exit="mindReading = false"
                     :finetunedSession="finetunedSession"
                     :museDevInfo="museDevInfo"
                 />
-            </simple-card>
-            <simple-card
-                :popupName="'record'"
+            </small-card>
+
+            <small-card
+                :icon="'mdi-record-rec'"
                 :isMenuOpened="train"
-                topMargin
-                bottomMargin
-                isOpaque
-                :colorCard="layout.ORANGE"
-                :colorText="layout.WHITE_BACKGROUND"
+                :popupName="'RECORD'"
                 @openMenu="train = true"
+                topMargin
+                isOpaque
+                hideMenuIcon
             >
                 <record
                     @exit="train = false"
@@ -42,7 +44,8 @@
                     :museDevInfo="museDevInfo"
                     :finetunedSession="finetunedSession"
                 />
-            </simple-card>
+            </small-card>
+            
 
             <simple-settings-card
                 :isOpened="settings"
@@ -52,7 +55,7 @@
                 <settings @exit="settings = false" />
             </simple-settings-card>
 
-            <div  :style="{color: 'rgba(0, 0, 0 ,0)' }"> _</div>
+            <div :style="{ color: 'rgba(0, 0, 0 ,0)' }">_</div>
         </small-card>
     </div>
 </template>

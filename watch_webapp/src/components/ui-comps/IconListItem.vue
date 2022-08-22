@@ -2,7 +2,7 @@
     <div id="icon-list-item">
         <v-list-item>
             <v-list-item-icon class="abitright">
-                <v-icon :color="layout_data.GREEN">mdi-all-inclusive</v-icon>
+                <v-icon :color="c">mdi-all-inclusive</v-icon>
             </v-list-item-icon>
 
             <v-list-item-content>
@@ -19,10 +19,13 @@ import { LAYOUT_DATA } from "@/data/layout_constraints"
 export default {
     name: "IconListItem",
     props: {
-        item: String
+        item: String,
+        color: String,
     },
     data() {
+        const c = this.color? this.color: LAYOUT_DATA.GREEN
         return {
+            c: c,
             layout_data: LAYOUT_DATA
         }
     }

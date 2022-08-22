@@ -1,9 +1,16 @@
 <template>
     <div id="mind-reading">
         <v-list style="padding: 0" color="rgba(0, 0, 0, 0)">
-            <overlay-back-button @exit="exit()" bottomPadding />
+            <overlay-back-button @exit="exit()" bottomPadding withText>
+                READ MIND
+            </overlay-back-button>
 
             <v-list-item>
+                <v-list-item-icon>
+                    <v-icon :color="layout_data.GREEN">
+                        mdi-information-variant
+                    </v-icon>
+                </v-list-item-icon>
                 <v-list-item-content>
                     <div
                         name="muse name"
@@ -15,40 +22,29 @@
                 </v-list-item-content>
             </v-list-item>
 
-            <v-list-item>
-                <v-list-item-content>
-                    <v-btn
-                        class="center"
-                        :color="layout_data.GREEN"
-                        text
-                        rounded
-                        outlined
-                        x-large
-                        @click="startTrial()"
-                        :disabled="!resetted"
-                    >
-                        Start Imagine
-                    </v-btn>
-                </v-list-item-content>
-            </v-list-item>
-            <v-list-item>
-                <v-list-item-content>
-                <div :style="{ marginBottom: layout_data.SMALL_PADDING_TOP }">
-                    <v-btn
-                        class="center"
-                        :color="layout_data.GREEN"
-                        text
-                        rounded
-                        outlined
-                        x-large
-                        @click="warmupEEGNet()"
-                        :disabled="!resetted"
-                    >
-                        WARM UP AI
-                    </v-btn>
+            
+
+            <simple-button @click="startTrial()" :disabled="!resetted"> 
+                Start Imagine
+            </simple-button>
+            <simple-button @click="warmupEEGNet()" :disabled="!resetted"> 
+                <div v-if="!isPredicting">
+                    WARM UP AI
                 </div>
-                </v-list-item-content>
-            </v-list-item>
+                <div v-else>
+                    <half-circle-spinner
+                        :animation-duration="1800"
+                        :size="layout_data.MAX_WIDTH / 12"
+                        class="topcenter"
+                        :color="layout_data.GREEN"
+                    />
+                </div>
+            </simple-button>
+
+            <div :style="{ color: 'rgba(0, 0, 0 ,0)' }">_</div>
+
+            
+            
         </v-list>
         <v-dialog v-model="isTrial" fullscreen>
             <v-card color="rgba(236, 239, 241, 0.95)">
@@ -76,6 +72,7 @@
                     </div>
                 </div>
                 <div v-else-if="state == 'loading'">
+                    
                     <breeding-rhombus-spinner
                         :animation-duration="1800"
                         :size="layout_data.MAX_WIDTH / 6"
@@ -91,14 +88,18 @@
                     <simple-button @click="startTrial()" :disabled="!resetted">
                         RETRY
                     </simple-button>
-        
+
                     <simple-button @click="replayTrial()" :disabled="!resetted">
                         REPLAY
                     </simple-button>
 
                     <v-dialog v-model="openReplayTrial" fullscreen>
-                        <v-card :color="layout_data.WHITE_BACKGROUND"> 
-                            <trial-vis @exit="closeReplay()" :frequency="targetFrequency" :trialData="curTrial" />
+                        <v-card :color="layout_data.WHITE_BACKGROUND">
+                            <trial-vis
+                                @exit="closeReplay()"
+                                :frequency="targetFrequency"
+                                :trialData="curTrial"
+                            />
                         </v-card>
                     </v-dialog>
                 </div>
@@ -111,7 +112,7 @@
 import OverlayBackButton from "@/components/ui-comps/OverlayBackButton.vue";
 import SimpleButton from "@/components/ui-comps/SimpleButton.vue";
 import TrialVis from "@/components/visualization/TrialVis.vue";
-import { BreedingRhombusSpinner } from "epic-spinners/dist/lib/epic-spinners.min.js";
+import { BreedingRhombusSpinner, HalfCircleSpinner } from "epic-spinners/dist/lib/epic-spinners.min.js";
 import { MuseBLEStreaming } from "@/tools/ble/MuseBLEStreaming";
 import { EEG_FREQUENCY } from "@/data/constants";
 import { EEGNet } from "@/tools/eegnet/load";
@@ -126,6 +127,7 @@ export default {
         OverlayBackButton,
         SimpleButton,
         TrialVis,
+        HalfCircleSpinner
     },
     name: "MindReading",
     data() {
@@ -135,6 +137,7 @@ export default {
             bleStreaming = new MuseBLEStreaming(this.museDevInfo, 6.5);
         }
         return {
+            isPredicting: false,
             curTrial: [[], [], [], []],
             targetFrequency: 128,
             openReplayTrial: false,
@@ -165,7 +168,11 @@ export default {
             this.openReplayTrial = true;
         },
         warmupEEGNet() {
-            window.eegnet.warmUpPrediction().then(() => {});
+            const vm = this
+            vm.isPredicting = true;
+            window.eegnet.warmUpPrediction().then(() => {
+                vm.isPredicting = false
+            });
         },
         exit() {
             this.$emit("exit");
@@ -227,7 +234,7 @@ export default {
         },
         startTrial() {
             this.state = "prepare";
-            this.curTrial = [[], [], [], []]
+            this.curTrial = [[], [], [], []];
             this.isTrial = true;
             this.resetted = false;
             this.bleStreaming.subscribe(

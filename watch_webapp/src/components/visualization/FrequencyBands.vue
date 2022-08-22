@@ -1,10 +1,19 @@
 <template>
     <div id="frequency-bands">
         <overlay-back-button @exit="exit()" />
-
-        <simple-button @click="openSettings()" bottomPadding>
-            {{ "channel: " + channels[selectedChannel] }}
-        </simple-button>
+        <v-list-item>
+            <v-divider />
+            <div
+                class="mdc-typography-styles-overline"
+                :style="{
+                    color: layout.GREEN,
+                }"
+            >
+                F-BANDS VIS
+            </div>
+            <v-divider />
+        </v-list-item>
+        
         <div v-for="(item, i) in this.fBands" :key="item[0] + '_' + i">
             <div
                 class="mdc-typography-styles-overline"
@@ -12,15 +21,21 @@
                     color: layout.GREEN,
                 }"
             >
-                {{ item[0] + ": " + item[1] + ' Bels'}}
+                {{ item[0] + ": " + item[1] + " Bels" }}
             </div>
         </div>
+        
         <simple-button
             @click="isStreaming ? stopStreaming() : startStreaming()"
             :color="isStreaming ? layout.ORANGE : layout.GREEN"
         >
             {{ isStreaming ? "STOP" : "START" }}
         </simple-button>
+        <simple-button @click="openSettings()"  >
+            {{ "channel: " + channels[selectedChannel] }}
+        </simple-button>
+
+         <div :style="{ color: 'rgba(0, 0, 0 ,0)' }">_</div>
 
         <v-dialog v-model="settings" fullscreen>
             <v-card :color="'rgba(236, 239, 241, 0.95)'">
@@ -88,6 +103,15 @@ export default {
     destroyed() {
         this.stopStreaming();
     },
+    activated() {
+        this.startStreaming();
+    },
+    mounted() {
+        this.stopStreaming();
+    },
+    deactivated() {
+        this.stopStreaming();
+    },
     methods: {
         exit() {
             this.stopStreaming();
@@ -104,16 +128,18 @@ export default {
         },
         emitCallback(emit, index) {
             if (index == this.selectedChannel) {
-                const arr = flatten2(emit)
+                const arr = flatten2(emit);
                 const fBands = toFrequencyBands(arr, EEG_FREQUENCY);
                 for (const i of arange(0, this.fBands.length - 1)) {
-                    this.fBands[i][1] = Math.round((fBands[i] + Number.EPSILON) * 100) / 100;
-                } 
-                Vue.set(
-                    this.fBands,
-                    this.fBands.length - 1,
-                    [this.fBands[this.fBands.length - 1][0], Math.round((fBands[this.fBands.length - 1] + Number.EPSILON) * 100) / 100]
-                );
+                    this.fBands[i][1] =
+                        Math.round((fBands[i] + Number.EPSILON) * 100) / 100;
+                }
+                Vue.set(this.fBands, this.fBands.length - 1, [
+                    this.fBands[this.fBands.length - 1][0],
+                    Math.round(
+                        (fBands[this.fBands.length - 1] + Number.EPSILON) * 100
+                    ) / 100,
+                ]);
             }
         },
         startStreaming() {
@@ -126,8 +152,7 @@ export default {
             this.isStreaming = false;
             if (this.museDevInfo !== undefined) {
                 this.streaming.unsubscribe(
-                    (succ) => {
-                    },
+                    (succ) => {},
                     (err) => {
                         console.error(err);
                     }

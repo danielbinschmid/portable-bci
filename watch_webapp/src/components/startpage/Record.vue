@@ -2,7 +2,18 @@
     <div id="record">
         <v-list style="padding: 0" color="rgba(0, 0, 0, 0)">
             <overlay-back-button @exit="exit()" bottomPadding />
-            <v-divider />
+            <v-list-item>
+                <v-divider />
+                <div
+                    class="mdc-typography-styles-overline"
+                    :style="{
+                        color: layout_data.GREEN,
+                    }"
+                >
+                    RECORD
+                </div>
+                <v-divider />
+            </v-list-item>
 
             <div v-for="(item, i) in sessions" :key="i">
                 <simple-button x_large @click="select(i)">
@@ -20,7 +31,7 @@
                             @exit="exitSession(i)"
                             :museDevInfo="museDevInfo"
                             :isCurrentFinetuned="finetunedSession.idx == i"
-                            :database="item.database"                             
+                            :database="item.database"
                             @finetune="
                                 changeFinetunedSession({
                                     name: item.name,
@@ -49,7 +60,7 @@ import SimpleButton from "@/components/ui-comps/SimpleButton.vue";
 import IconListItem from "@/components/ui-comps/IconListItem.vue";
 import Session from "./Session.vue";
 import Vue from "vue";
-import { Database } from "@/tools/database/Database"
+import { Database } from "@/tools/database/Database";
 
 export default {
     components: { OverlayBackButton, SimpleButton, IconListItem, Session },
@@ -61,10 +72,12 @@ export default {
             currentSession: -1,
             layout_data: window.layout,
             logs: [],
-            sessions: [{
-                name: "DAY -1",
-                isOpened: false
-            }]
+            sessions: [
+                {
+                    name: "DAY -1",
+                    isOpened: false,
+                },
+            ],
         };
     },
     props: {
@@ -74,8 +87,8 @@ export default {
     mounted() {
         const vm = this;
         window.globDatabase = new Database("bciMI", () => {
-            vm.updateSessions(vm);  
-        })
+            vm.updateSessions(vm);
+        });
     },
     methods: {
         exit() {
@@ -83,14 +96,14 @@ export default {
         },
         updateSessions(vm) {
             const ids = window.globDatabase.getIDs();
-            var sessionIdx = 1
-            const sessions = []
+            var sessionIdx = 1;
+            const sessions = [];
             for (const id of ids) {
                 sessions.push({
                     isOpened: false,
                     name: "DAY " + sessionIdx,
-                    database: window.globDatabase.getEntryDatabase(id)
-                })
+                    database: window.globDatabase.getEntryDatabase(id),
+                });
                 sessionIdx += 1;
             }
             vm.sessions = sessions;
@@ -101,15 +114,15 @@ export default {
             const vm = this;
             globDatabase.createEntry(() => {
                 vm.updateSessions(vm);
-            })
+            });
         },
         select(idx) {
-            const entry = this.sessions[idx] 
+            const entry = this.sessions[idx];
             entry.isOpened = true;
             Vue.set(this.sessions, idx, entry);
         },
         exitSession(idx) {
-            const entry = this.sessions[idx] 
+            const entry = this.sessions[idx];
             entry.isOpened = false;
             Vue.set(this.sessions, idx, entry);
             // this.isSessionOpened[idx] = false;

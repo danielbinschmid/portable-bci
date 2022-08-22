@@ -18,7 +18,7 @@
             <v-list-item-content>
                 <v-btn
                     class="center"
-                    color="#038C8C"
+                    :color="layout_data.GREEN"
                     text
                     rounded
                     outlined
