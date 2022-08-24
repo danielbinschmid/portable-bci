@@ -24,21 +24,19 @@ PhysionetSGD = [
 
 
 import math
-def p(X, labels, colors, linestyles, title, fig, ax, xti, xlabel, ylabel, labelloc=None):
+def p(X, labels, colors, linestyles, title, fig, ax, xti, xlabel, ylabel, labelloc=None, dimThermometer=[]):
     # Major ticks every 20, minor ticks every 5
-    vals = np.asarray(X).flatten()
+    vals = np.concatenate((X[0], X[1]))
+
     ymin = int((np.min(vals) * 2 * 100)) / (2 * 100)
     ymax = math.ceil((np.max(vals) * 2 * 100)) / (2 * 100)
-    print(ymin)
-    print(ymax)
     ax.set_ylim(ymin, ymax)
     major_ticks_x = np.arange(ymin, ymax, 0.005)
     if len(major_ticks_x) > 3:
         major_ticks_x = np.arange(ymin, ymax, 0.01)
     minor_ticks_x = np.arange(ymin, ymax, 0.005)
-    major_ticks_y = np.arange(0, len(X[0]), 1)
-
-    ax.set_xticks(major_ticks_y)
+    major_ticks_y = np.arange(0, 10, 1)
+    y_ticks_labels = [str(ymin + (ymax - ymin) * i / 10) for i in major_ticks_y]
     ax.set_yticks(major_ticks_x)
     # ax.set_yticks(major_ticks_x)
     # ax.set_yticks(minor_ticks_x, minor=True)
@@ -46,15 +44,21 @@ def p(X, labels, colors, linestyles, title, fig, ax, xti, xlabel, ylabel, labell
     # ax.grid(which="minor", alpha=0.2)
     # ax.grid(which="major", alpha=0.5)
     ax.grid(alpha=0.125)
-    y = np.arange(0, len(X[0]))
+    y = np.arange(0, len(xti))
+    maxSGD = xti[len(xti) - 1]
+
+    isThermometer = lambda i: i == 0
     for i in range(len(X)):
+        if isThermometer(i):
+            y_ = [d * 10 for d in dimThermometer]
+        else:
+            y_ = xti
         x = X[i]
-        ax.scatter(y, x, s=10, color=colors[i])
-        ax.plot(y, x, ls=linestyles[i], color=colors[i], label=labels[i])
+        ax.scatter(y_, x, s=10, color=colors[i])
+        ax.plot(y_, x, ls=linestyles[i], color=colors[i], label=labels[i])
 
     ax.set_xlabel(xlabel)
     ax.set_ylabel(ylabel)
-    ax.set_xticklabels(xti)
     ax.set_yticklabels(major_ticks_x)
     ax.set_title(title)
     labels = np.asarray(labels)
@@ -77,48 +81,28 @@ def p(X, labels, colors, linestyles, title, fig, ax, xti, xlabel, ylabel, labell
 
 def main():
     fig, ax = plt.subplots()
-    w, h = plotting.get_dimensions(125, 1, True)
+    w, h = plotting.get_dimensions(125, 1, False)
     fig.set_size_inches(w, h)
-    X = [EPFThermometer]
+    X = [np.asarray(EPFThermometer), np.asarray(EPFSGD)]
     # ["solid", "dashed", "dotted", "dashdot", "-", "--", "-.", ":"]
-    labels =     ["EPF, Thermometer"]
-    colors =     ["purple"]
-    linestyles = ["solid"]
+    labels =     ["Thermometer", "SGD"]
+    colors =     ["purple", "orange"]
+    linestyles = ["solid", "dashed"]
 
-    p(X, labels, colors, linestyles, "", fig, ax, dimThermometer, "", "Accuracy")
-    plt.savefig("dimHerscheEPFThermometer.pdf")
+    p(X, labels, colors, linestyles, "", fig, ax, dimSGD, "", "Accuracy", None, dimThermometer)
+    plt.savefig("dimHerscheEPF.pdf")
     
     fig, ax = plt.subplots()
-    w, h = plotting.get_dimensions(125, 1, True)
+    w, h = plotting.get_dimensions(125, 1, False)
     fig.set_size_inches(w, h)
-    X = [PhysionetThermometer]
-    labels =     ["Physionet, Thermometer"]
-    colors =     ["purple"]
-    linestyles = ["dashed"]
-    p(X, labels, colors, linestyles, "", fig, ax, dimThermometer, "Quantization level", "Accuracy")
-    plt.savefig("dimHerschePhysionetThermometer.pdf")
+    X = [np.asarray(PhysionetThermometer), np.asarray(PhysionetSGD)]
+    labels =     ["Thermometer", "SGD"]
+    colors =     ["purple", "orange"]
+    linestyles = ["solid", "dashed"]
+    p(X, labels, colors, linestyles, "", fig, ax, dimSGD, "Hyperdimension", "Accuracy", None, dimThermometer)
+    plt.savefig("dimHerschePhysionet.pdf")
     
-    fig, ax = plt.subplots()
-    w, h = plotting.get_dimensions(125, 1, True)
-    fig.set_size_inches(w, h)
-    X = [PhysionetSGD]
-    labels =     ["Physionet, SGD"]
-    colors =     ["orange"]
-    linestyles = ["solid"]
-    p(X, labels, colors, linestyles, "", fig, ax, dimSGD, "Hyperdimension", "", "lower right")
-    plt.savefig("dimHerschePhysionetSGD.pdf")
-    
-    fig, ax = plt.subplots()
-    w, h = plotting.get_dimensions(125, 1, True)
-    fig.set_size_inches(w, h)
-    labels =     ["EPF, SGD"]
-    X = [EPFSGD]
-    colors =     ["orange"]
-    linestyles = ["dashed"]
 
-    p(X, labels, colors, linestyles, "", fig, ax, dimSGD, "", "")
-
-    plt.savefig("dimHerscheEPFSGD.pdf")
 
 if __name__ == "__main__":
     main()
