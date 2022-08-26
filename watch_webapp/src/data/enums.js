@@ -25,5 +25,6 @@ export const MuseStreamingModes = {
     EEG: "EEG",
     PGB: "PGB",
     AUX: "AUX",
+    RAND: "RAND",
     idle: 0
 }

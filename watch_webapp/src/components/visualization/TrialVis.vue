@@ -56,10 +56,12 @@
         <div v-for="(log, index) in logs" :key="index">
             {{ log }}
         </div>
+        <bottom-padding />
     </div>
 </template>
 
 <script>
+import BottomPadding from "@/components/ui-comps/BottomPadding.vue";
 import SelectListItem from "@/components/ui-comps/SelectListItem.vue";
 import SimpleButton from "@/components/ui-comps/SimpleButton.vue";
 import SliderListItem from "@/components/ui-comps/SliderListItem.vue";
@@ -74,6 +76,7 @@ export default {
         SliderListItem,
         SimpleButton,
         SelectListItem,
+        BottomPadding
     },
     props: {
         trialData: undefined,

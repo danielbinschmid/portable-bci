@@ -2,7 +2,7 @@
     <div id="session">
         <!-- <ble-view /> -->
 
-        <overlay-back-button bottomPadding @exit="exit()" />
+        <overlay-back-button bottomPadding @exit="exit()" withText> {{name}} </overlay-back-button>
         <v-list-item>
             <v-list-item-content>
                 <div
@@ -108,6 +108,7 @@ export default {
         };
     },
     props: {
+        name: "default",
         isCurrentFinetuned: Boolean,
         museDevInfo: undefined,
         database: MITrialDatabase

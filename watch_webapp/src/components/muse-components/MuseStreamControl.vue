@@ -7,25 +7,28 @@
             :text="'Streaming'"
             @openMain="streamBtn()"
             @openSettings="instantiateStreamingModes()"
-        >   
+        >
             <overlay-back-button @exit="instantiateStreamingModes()" />
             <div v-for="(item, i) in streamingModes" :key="i">
-                <select-list-item :name="item" :selected="currentMode == item" @select="setStreamMode(item)" />
+                <select-list-item
+                    :name="item"
+                    :selected="currentMode == item"
+                    @select="setStreamMode(item)"
+                />
             </div>
             <bottom-padding />
         </settings-card>
         <div v-for="(log, index) in logs" :key="index">
             {{ log }}
         </div>
-       
     </div>
 </template>
 
 <script>
 import BottomPadding from "@/components/ui-comps/BottomPadding.vue";
-import SelectListItem from "@/components/ui-comps/SelectListItem.vue"
-import OverlayBackButton from "@/components/ui-comps/OverlayBackButton.vue"
-import SettingsCard from "@/components/ui-comps/SettingsCard.vue"
+import SelectListItem from "@/components/ui-comps/SelectListItem.vue";
+import OverlayBackButton from "@/components/ui-comps/OverlayBackButton.vue";
+import SettingsCard from "@/components/ui-comps/SettingsCard.vue";
 import { LAYOUT_DATA } from "@/data/layout_constraints.js";
 import { MuseStreamingModes } from "@/data/enums";
 import { startRecording, pauseRecording } from "@/scripts/museUtils";
@@ -33,16 +36,17 @@ export default {
     name: "MuseStreamControl",
     props: {
         connectedDevice: undefined,
-        streaming: Boolean
+        streaming: Boolean,
     },
     components: {
         SettingsCard,
         OverlayBackButton,
         SelectListItem,
-        BottomPadding
+        BottomPadding,
     },
     data() {
         return {
+            randomStreaming: false,
             absolute: false,
             opacity: 0.8,
             MuseStreamingModes: MuseStreamingModes,
@@ -50,6 +54,7 @@ export default {
                 MuseStreamingModes.EEG,
                 MuseStreamingModes.PGB,
                 MuseStreamingModes.AUX,
+                MuseStreamingModes.RAND,
             ],
             currentMode: MuseStreamingModes.EEG,
             areStreamingModesInstantiated: false,
@@ -107,21 +112,39 @@ export default {
             this.currentMode = mode;
         },
         streamBtn() {
-            this.streaming
-                ? this.stopStreaming()
-                : this.startStreaming(this.currentMode);
+            if (this.currentMode == MuseStreamingModes.RAND) {
+                this.randomStreaming = true;
+                window.randomStreaming = true;
+                this.$emit("streamingChange", true);
+            } else {
+                if (this.randomStreaming) {
+                    window.randomStreaming = false;
+                    this.randomStreaming = false;
+                    this.$emit("streamingChange", false);
+                } else {
+                    this.streaming
+                    ? this.stopStreaming()
+                    : this.startStreaming(this.currentMode);
+                }
+                
+                
+            }
         },
     },
     computed: {
         streamingIcon() {
-            if (this.connectedToMuse) {
-                if (!this.streaming) {
-                    return "mdi-cog-pause";
-                } else {
-                    return "mdi-access-point-check";
-                }
+            if (this.randomStreaming) {
+                return "mdi-access-point-check"
             } else {
-                return "mdi-link-variant-off";
+                if (this.connectedToMuse) {
+                    if (!this.streaming) {
+                        return "mdi-cog-pause";
+                    } else {
+                        return "mdi-access-point-check";
+                    }
+                } else {
+                    return "mdi-link-variant-off";
+                }
             }
         },
         connectedToMuse() {
@@ -132,6 +155,15 @@ export default {
             return isConnected;
         },
     },
+    watch: {
+        currentMode() {
+            if (this.currentMode == MuseStreamingModes.RAND) {
+                this.streamBtn();
+            } else if (this.randomStreaming){
+                this.streamBtn();
+            }
+        }
+    }
 };
 </script>
 

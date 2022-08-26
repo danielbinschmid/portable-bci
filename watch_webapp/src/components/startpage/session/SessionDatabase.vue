@@ -1,6 +1,6 @@
 <template>
     <div id="session-database">
-        <overlay-back-button @exit="exit()" />
+        <overlay-back-button @exit="exit()" withText> DATABASE </overlay-back-button>
         
         <div v-for="(item, i) in labels" :key="i">
              <simple-button @click="openLabel(i)" x_large :disabled="trials[item].length <= 0">

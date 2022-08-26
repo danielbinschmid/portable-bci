@@ -42,7 +42,6 @@
                         </div>
                     </v-list-item-group>
                 </v-list>
-                <bottom-padding />
             </small-card>
 
             <muse-stream-control

@@ -1,20 +1,15 @@
 <template>
     <div id="record">
         <v-list style="padding: 0" color="rgba(0, 0, 0, 0)">
-            <overlay-back-button @exit="exit()" bottomPadding />
-            <v-list-item>
-                <v-divider />
-                <div
-                    class="mdc-typography-styles-overline"
-                    :style="{
-                        color: layout_data.GREEN,
-                    }"
-                >
-                    RECORD
-                </div>
-                <v-divider />
-            </v-list-item>
-
+            <overlay-back-button @exit="exit()" bottomPadding withText>
+                RECORD
+            </overlay-back-button>
+            <div
+                class="mdc-typography-styles-overline"
+                :style="{ color: layout_data.GREY }"
+            >
+                SESSIONS:
+            </div>
             <div v-for="(item, i) in sessions" :key="i">
                 <simple-button x_large @click="select(i)">
                     {{ item.name }}
@@ -28,6 +23,7 @@
                 <v-dialog v-model="item.isOpened" fullscreen>
                     <v-card :color="'rgba(236, 239, 241, 0.95)'">
                         <session
+                            :name="item.name"
                             @exit="exitSession(i)"
                             :museDevInfo="museDevInfo"
                             :isCurrentFinetuned="finetunedSession.idx == i"
@@ -64,7 +60,13 @@ import Vue from "vue";
 import { Database } from "@/tools/database/Database";
 
 export default {
-    components: { OverlayBackButton, SimpleButton, IconListItem, Session, BottomPadding },
+    components: {
+        OverlayBackButton,
+        SimpleButton,
+        IconListItem,
+        Session,
+        BottomPadding,
+    },
     name: "Record",
     data() {
         const nSession = 3;
@@ -75,7 +77,7 @@ export default {
             logs: [],
             sessions: [
                 {
-                    name: "DAY -1",
+                    name: "SESSION -1",
                     isOpened: false,
                 },
             ],
