@@ -35,7 +35,7 @@
             {{ "channel: " + channels[selectedChannel] }}
         </simple-button>
 
-         <div :style="{ color: 'rgba(0, 0, 0 ,0)' }">_</div>
+        <bottom-padding />
 
         <v-dialog v-model="settings" fullscreen>
             <v-card :color="'rgba(236, 239, 241, 0.95)'">
@@ -68,6 +68,7 @@
     
     
 <script>
+import BottomPadding from "@/components/ui-comps/BottomPadding.vue";
 import Vue from "vue";
 import SelectListItem from "@/components/ui-comps/SelectListItem.vue";
 import { EmittingStreaming } from "@/tools/ble/EmittingStreaming";
@@ -78,7 +79,7 @@ import { CHANNEL_NAMES_EEG, EEG_FREQUENCY } from "@/data/constants";
 import { arange, flatten2 } from "@/tools/evaluation/data_utils/array_utils";
 export default {
     name: "FrequencyBands",
-    components: { OverlayBackButton, SimpleButton, SelectListItem },
+    components: { OverlayBackButton, SimpleButton, SelectListItem, BottomPadding },
     data() {
         const streaming = new EmittingStreaming(this.museDevInfo, 200);
         return {

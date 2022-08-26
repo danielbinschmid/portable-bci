@@ -27,7 +27,7 @@
                 </v-list-item-group>
             </v-list>
 
-            <div :style="{ color: 'rgba(0, 0, 0 ,0)' }">_</div>
+            <bottom-padding />
 
             <muse-raw-eeg
                 :isActivated="isRawEEGMode"
@@ -54,6 +54,7 @@
 </template>
 
 <script>
+import BottomPadding from "@/components/ui-comps/BottomPadding.vue";
 import TrialVis from "@/components/visualization/TrialVis.vue";
 import FrequencyBands from "@/components/visualization/FrequencyBands.vue";
 import IconListItem from "@/components/ui-comps/IconListItem.vue";
@@ -74,6 +75,7 @@ export default {
         SmallCard,
         FrequencyBands,
         TrialVis,
+        BottomPadding
     },
     props: {
         museDevInfo: undefined,

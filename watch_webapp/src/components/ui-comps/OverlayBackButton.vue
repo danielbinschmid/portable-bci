@@ -2,7 +2,7 @@
     <div id="OverlayBackButton">
         <v-list-item
             :style="{
-                paddingTop: layout.SMALL_PADDING_TOP,
+                paddingTop: layout.PADDING_TOP_GLOBAL,
                 paddingBottom: bottomPadding ? layout.SMALL_PADDING_TOP: '0px'
             }"
         >

@@ -42,6 +42,7 @@
                         </div>
                     </v-list-item-group>
                 </v-list>
+                <bottom-padding />
             </small-card>
 
             <muse-stream-control
@@ -49,7 +50,7 @@
                 @streamingChange="streamingChange"
                 :streaming="isStreamingEnabled"
             />
-            <div  :style="{color: 'rgba(0, 0, 0 ,0)' }"> _</div>
+            <bottom-padding />
             
         </small-card>
         <div v-for="(log, index) in logs" :key="index">
@@ -57,8 +58,8 @@
         </div>
     </div>
 </template>
-
 <script>
+import BottomPadding from "@/components/ui-comps/BottomPadding.vue";
 import LoadingListItem from "@/components/ui-comps/LoadingListItem.vue";
 import OverlayBackButton from "@/components/ui-comps/OverlayBackButton.vue";
 import SmallCard from "@/components/ui-comps/SmallCard.vue";
@@ -78,6 +79,7 @@ export default {
         SmallCard,
         BleDeviceItem,
         OverlayBackButton,
+        BottomPadding
     },
     data() {
         return {

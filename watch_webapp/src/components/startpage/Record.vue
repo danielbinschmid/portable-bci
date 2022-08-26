@@ -23,7 +23,7 @@
             <simple-button @click="addSession()" bottomPadding x_large>
                 +
             </simple-button>
-
+            <bottom-padding />
             <div v-for="(item, i) in sessions" :key="'_' + i">
                 <v-dialog v-model="item.isOpened" fullscreen>
                     <v-card :color="'rgba(236, 239, 241, 0.95)'">
@@ -55,6 +55,7 @@
 
 
 <script>
+import BottomPadding from "@/components/ui-comps/BottomPadding.vue";
 import OverlayBackButton from "@/components/ui-comps/OverlayBackButton.vue";
 import SimpleButton from "@/components/ui-comps/SimpleButton.vue";
 import IconListItem from "@/components/ui-comps/IconListItem.vue";
@@ -63,7 +64,7 @@ import Vue from "vue";
 import { Database } from "@/tools/database/Database";
 
 export default {
-    components: { OverlayBackButton, SimpleButton, IconListItem, Session },
+    components: { OverlayBackButton, SimpleButton, IconListItem, Session, BottomPadding },
     name: "Record",
     data() {
         const nSession = 3;

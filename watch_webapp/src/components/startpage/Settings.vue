@@ -45,6 +45,7 @@
                 </v-card>
             </v-dialog>
         </div>
+        <bottom-padding />
     </div>
 </template>
 
@@ -52,9 +53,9 @@
 import Vue from "vue";
 import OverlayBackButton from "@/components/ui-comps/OverlayBackButton.vue";
 import SimpleButton from "@/components/ui-comps/SimpleButton.vue";
-
+import BottomPadding from "@/components/ui-comps/BottomPadding.vue";
 export default {
-    components: { OverlayBackButton, SimpleButton },
+    components: { OverlayBackButton, SimpleButton, BottomPadding },
     name: "Settings",
     data() {
         return {

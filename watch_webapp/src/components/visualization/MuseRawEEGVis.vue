@@ -14,10 +14,12 @@
         <div v-for="(log, index) in logs" :key="index">
             {{ log }}
         </div>
+        <bottom-padding />
     </div>
 </template>
 
 <script>
+import BottomPadding from "@/components/ui-comps/BottomPadding.vue";
 import Vue from "vue";
 import LineChart from "./LineChart.vue";
 import DynamicLineChart from "./DynamicLineChart.vue";
@@ -34,6 +36,7 @@ export default {
     components: {
         LineChart,
         DynamicLineChart,
+        BottomPadding
     },
     props: {
         museDevInfo: undefined,

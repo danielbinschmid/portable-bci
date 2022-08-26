@@ -12,14 +12,17 @@
             <div v-for="(item, i) in streamingModes" :key="i">
                 <select-list-item :name="item" :selected="currentMode == item" @select="setStreamMode(item)" />
             </div>
+            <bottom-padding />
         </settings-card>
         <div v-for="(log, index) in logs" :key="index">
             {{ log }}
         </div>
+       
     </div>
 </template>
 
 <script>
+import BottomPadding from "@/components/ui-comps/BottomPadding.vue";
 import SelectListItem from "@/components/ui-comps/SelectListItem.vue"
 import OverlayBackButton from "@/components/ui-comps/OverlayBackButton.vue"
 import SettingsCard from "@/components/ui-comps/SettingsCard.vue"
@@ -35,7 +38,8 @@ export default {
     components: {
         SettingsCard,
         OverlayBackButton,
-        SelectListItem
+        SelectListItem,
+        BottomPadding
     },
     data() {
         return {

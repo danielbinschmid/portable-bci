@@ -55,12 +55,13 @@
                 <settings @exit="settings = false" />
             </simple-settings-card>
 
-            <div :style="{ color: 'rgba(0, 0, 0 ,0)' }">_</div>
+            <bottom-padding />
         </small-card>
     </div>
 </template>
 
 <script>
+import BottomPadding from "@/components/ui-comps/BottomPadding.vue"
 import SmallCard from "@/components/ui-comps/SmallCard.vue";
 import Settings from "@/components/startpage/Settings.vue";
 import SimpleCard from "@/components/ui-comps/SimpleCard.vue";
@@ -78,6 +79,7 @@ export default {
         Settings,
         OverlayBackButton,
         SmallCard,
+        BottomPadding
     },
     name: "Start",
     data() {

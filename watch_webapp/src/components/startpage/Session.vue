@@ -30,7 +30,6 @@
             RECORD NEW
         </simple-button>
 
-
         <div v-if="isFinetuning">
             <v-list-item>
                 <v-list-item-content>
@@ -60,6 +59,8 @@
             </simple-button>
         </div>
 
+        <bottom-padding />
+
         <v-dialog v-model="recordNew" fullscreen>
             <v-card :color="'rgba(236, 239, 241, 0.95)'">
                 <record-new @exit="exitRecordNew()" @newTrial="newTrial" :museDevInfo="museDevInfo"/>
@@ -69,6 +70,7 @@
         <v-dialog v-model="openDatabase" fullscreen>
             <v-card :color="'rgba(236, 239, 241, 0.95)'">
                 <session-database @exit="openDatabase = false" :database="database" :sync="sync"/>
+                <bottom-padding />
             </v-card>
         </v-dialog>
     </div>
@@ -76,6 +78,7 @@
 
 <script>
 import Vue from "vue";
+import BottomPadding from "@/components/ui-comps/BottomPadding.vue";
 import OverlayBackButton from "@/components/ui-comps/OverlayBackButton.vue";
 import SimpleButton from "@/components/ui-comps/SimpleButton.vue";
 import RecordNew from "@/components/startpage/session/RecordNew.vue";
@@ -86,7 +89,7 @@ import { MITrialDatabase} from "@/tools/database/MITrialDatabase";
 import SessionDatabase from "@/components/startpage/session/SessionDatabase.vue";
 import * as tf from '@tensorflow/tfjs';
 export default {
-    components: { OverlayBackButton, SimpleButton, RecordNew, SessionDatabase },
+    components: { OverlayBackButton, SimpleButton, RecordNew, SessionDatabase, BottomPadding },
     name: "Session",
     data() {
         return {

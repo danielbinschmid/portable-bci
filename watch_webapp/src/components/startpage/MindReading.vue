@@ -41,11 +41,13 @@
                 </div>
             </simple-button>
 
-            <div :style="{ color: 'rgba(0, 0, 0 ,0)' }">_</div>
+            <bottom-padding />
 
             
             
         </v-list>
+
+        
         <v-dialog v-model="isTrial" fullscreen>
             <v-card color="rgba(236, 239, 241, 0.95)">
                 <overlay-back-button
@@ -103,6 +105,7 @@
                         </v-card>
                     </v-dialog>
                 </div>
+                <bottom-padding />
             </v-card>
         </v-dialog>
     </div>
@@ -121,8 +124,10 @@ import {
     slice2ndDim,
     maxIdx,
 } from "@/tools/data_utils/array_utils";
+import BottomPadding from "@/components/ui-comps/BottomPadding.vue";
 export default {
     components: {
+        BottomPadding,
         BreedingRhombusSpinner,
         OverlayBackButton,
         SimpleButton,

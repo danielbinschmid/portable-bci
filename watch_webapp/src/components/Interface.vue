@@ -1,5 +1,5 @@
 <template>
-    <div id="interface">
+    <div id="interface" :style="{paddingTop: layout.PADDING_TOP_GLOBAL_STARTMENU, paddingBottom: layout.PADDING_BOTTOM_GLOBAL}">
 
         <muse-control @exit="exitMuseControl" @streamingChange="streamingChange" />
 
