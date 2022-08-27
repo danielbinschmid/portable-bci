@@ -19,6 +19,32 @@ export class EEGNet {
         return this;
     }
 
+    async warmUpTraining(nTrials) {
+        const curWeights = this._model.getWeights()
+        const tensor = tf.zeros([nTrials, 4, 512, 1])
+        const y = []
+        for (const x in arange(0, nTrials)) {
+            const m = [0, 0, 0]
+            m[x % 3] = 1
+            y.push(m); 
+        }
+        const Y = tf.tensor2d(y);
+
+        /** @type {ModelFitArgs} */
+        const fitSettings = {batchSize: 15, epochs: 1, verbose: 0}
+        /** @type {ModelCompileArgs} */
+        const compileArgs = {loss: 'categoricalCrossentropy', optimizer: 'adam', metrics: 'accuracy'}
+        
+        this._model.compile(compileArgs);
+
+        var t = Date.now()
+        await this._model.fit(tensor, Y, fitSettings);
+        var t = Date.now() - t;
+        console.log("took time: ")
+        console.log(t)
+        this._model.setWeights(curWeights);
+    }
+
     async warmUpPrediction() {
         const tensor = tf.zeros([1, 4, 512, 1])
 

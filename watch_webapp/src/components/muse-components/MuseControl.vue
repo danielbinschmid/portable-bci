@@ -8,9 +8,8 @@
             topMargin
             isOpaque
             hideMenuIcon
-            
         >
-            <overlay-back-button @exit="exit()" :color="layout.ORANGE" withText> 
+            <overlay-back-button @exit="exit()" :color="layout.ORANGE" withText>
                 MUSE
             </overlay-back-button>
             <small-card
@@ -42,6 +41,7 @@
                         </div>
                     </v-list-item-group>
                 </v-list>
+                <bottom-padding />
             </small-card>
 
             <muse-stream-control
@@ -50,7 +50,6 @@
                 :streaming="isStreamingEnabled"
             />
             <bottom-padding />
-            
         </small-card>
         <div v-for="(log, index) in logs" :key="index">
             {{ log }}
@@ -78,7 +77,7 @@ export default {
         SmallCard,
         BleDeviceItem,
         OverlayBackButton,
-        BottomPadding
+        BottomPadding,
     },
     data() {
         return {
@@ -97,7 +96,6 @@ export default {
             selectedDevice: undefined,
             logs: [],
             museControlData: {},
-
         };
     },
     mounted() {
@@ -228,20 +226,19 @@ export default {
             }
         },
         globalIcon() {
-            switch (this.bleConnectionStatus) {
-                case BleConnectionStatus.notConnected:
-                    return "mdi-bluetooth-off";
-                case BleConnectionStatus.connected:
-                    if (this.isStreamingEnabled) {
-                        return "mdi-access-point-check";
-                    } else {
+            if (this.isStreamingEnabled) {
+                return "mdi-access-point-check";
+            } else {
+                switch (this.bleConnectionStatus) {
+                    case BleConnectionStatus.notConnected:
+                        return "mdi-bluetooth-off";
+                    case BleConnectionStatus.connected:
                         return "mdi-bluetooth-connect";
-                    }
-                    
-                case BleConnectionStatus.notInitialized:
-                    return "mdi-bluetooth-off";
-                default:
-                    return "Err";
+                    case BleConnectionStatus.notInitialized:
+                        return "mdi-bluetooth-off";
+                    default:
+                        return "Err";
+                }
             }
         },
     },

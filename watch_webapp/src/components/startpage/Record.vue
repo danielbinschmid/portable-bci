@@ -25,6 +25,7 @@
                         <session
                             :name="item.name"
                             @exit="exitSession(i)"
+                             :isStreamingEnabled="isStreamingEnabled"
                             :museDevInfo="museDevInfo"
                             :isCurrentFinetuned="finetunedSession.idx == i"
                             :database="item.database"
@@ -86,6 +87,7 @@ export default {
     props: {
         finetunedSession: undefined,
         museDevInfo: undefined,
+        isStreamingEnabled: Boolean
     },
     mounted() {
         const vm = this;
@@ -99,6 +101,7 @@ export default {
         },
         updateSessions(vm) {
             const ids = window.globDatabase.getIDs();
+            console.log(ids)
             var sessionIdx = 1;
             const sessions = [];
             for (const id of ids) {
@@ -128,6 +131,7 @@ export default {
             const entry = this.sessions[idx];
             entry.isOpened = false;
             Vue.set(this.sessions, idx, entry);
+            this.updateSessions(this);
             // this.isSessionOpened[idx] = false;
         },
         changeFinetunedSession(session) {

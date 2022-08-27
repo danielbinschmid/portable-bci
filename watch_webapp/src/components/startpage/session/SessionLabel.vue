@@ -16,6 +16,7 @@
             </simple-button>
         </div>
 
+        <bottom-padding />
         <v-dialog v-model="trialSelected" fullscreen>
             <v-card :color="layout_data.WHITE_BACKGROUND">
                 <trial-vis
@@ -30,12 +31,13 @@
 
 
 <script>
+import BottomPadding from "@/components/ui-comps/BottomPadding.vue"
 import TrialVis from "@/components/visualization/TrialVis.vue";
 import OverlayBackButton from "@/components/ui-comps/OverlayBackButton.vue";
 import { MITrialDatabase } from "@/tools/database/MITrialDatabase";
 import SimpleButton from "@/components/ui-comps/SimpleButton.vue";
 export default {
-    components: { OverlayBackButton, SimpleButton, TrialVis },
+    components: { OverlayBackButton, SimpleButton, TrialVis, BottomPadding },
     name: "SessionLabel",
     data() {
         return {

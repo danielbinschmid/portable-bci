@@ -69,7 +69,7 @@ export default {
 .center {
     margin-left: auto;
     margin-right: auto;
-    width: 100%;
+    width: 90%;
 }
 .icon {
     margin-top: 10%;

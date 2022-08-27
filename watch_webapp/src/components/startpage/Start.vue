@@ -26,6 +26,7 @@
                     @exit="mindReading = false"
                     :finetunedSession="finetunedSession"
                     :museDevInfo="museDevInfo"
+                     :isStreamingEnabled="isStreamingEnabled"
                 />
             </small-card>
 
@@ -39,6 +40,7 @@
                 hideMenuIcon
             >
                 <record
+                 :isStreamingEnabled="isStreamingEnabled"
                     @exit="train = false"
                     @changeFinetunedSession="changeFinetunedSession"
                     :museDevInfo="museDevInfo"
@@ -95,6 +97,7 @@ export default {
     },
     props: {
         museDevInfo: undefined,
+        isStreamingEnabled: Boolean
     },
 
     mounted() {

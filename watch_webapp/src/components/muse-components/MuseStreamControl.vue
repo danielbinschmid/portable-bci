@@ -4,11 +4,11 @@
             :disabled="!connectedToMuse"
             :icon="streamingIcon"
             :isOpened="areStreamingModesInstantiated"
-            :text="'Streaming'"
+            :text="'Stream'"
             @openMain="streamBtn()"
             @openSettings="instantiateStreamingModes()"
         >
-            <overlay-back-button @exit="instantiateStreamingModes()" />
+            <overlay-back-button @exit="instantiateStreamingModes()" withText> STREAM </overlay-back-button>
             <div v-for="(item, i) in streamingModes" :key="i">
                 <select-list-item
                     :name="item"

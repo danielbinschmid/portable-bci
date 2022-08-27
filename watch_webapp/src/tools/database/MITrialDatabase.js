@@ -70,6 +70,17 @@ export class MITrialDatabase {
         })
     }
 
+    _deleteMetadata(succCallback) {
+        const vm = this;
+        vm._databaseDirEntry.getFile("metadata.json", { create: true, exclusive: false }, (fileEntry) => {
+            /** @type {FileEntry} */
+            const fileEntry_ = fileEntry
+            fileEntry_.remove(succCallback, (err) => { console.error(err); })
+        }, (err) => {
+            console.error(err);
+        })
+    }
+
 
     _initMetadata(initSuccCallback) {
         function createMetadataJson() {
@@ -111,6 +122,33 @@ export class MITrialDatabase {
             ids.push(trial.id);
         }
         return ids;
+    }
+
+    deleteAll(succCallback) {
+        const ids = this.getTrialIDs()
+        var j = 0;
+        const vm = this;
+        for (var i = 0; i < ids.length; i++) {
+            this.deleteSingle(ids[i], () => {
+            })
+        }
+        vm._deleteMetadata(succCallback)
+    }
+
+    deleteSingle(id, succCallback) {
+        const vm = this;
+        const metadata = this.getTrialMetadata(id);
+        this._databaseDirEntry.getFile(metadata.filename, { create: false, exclusive: false }, function (fileEntry) {
+            /** @type {FileEntry} */
+            const fileEntry_ = fileEntry;
+            fileEntry_.remove(() => {
+                vm._metadata.trials = vm._metadata.trials.filter((val, idx, arr) => { return val.id != id; })
+                vm._writeMetadata(succCallback)
+            }, (err) => { console.error(err);
+                vm._metadata.trials = vm._metadata.trials.filter((val, idx, arr) => { return val.id != id; })
+                vm._writeMetadata(succCallback)
+            });
+        })
     }
 
     getTrialMetadata(id) {

@@ -6,7 +6,7 @@
         <vis :isStreamingEnabled="isStreamingEnabled" :museDevInfo="museControlData.pairedDevice" />
 
 
-        <start :museDevInfo="museControlData.pairedDevice"/>
+        <start :museDevInfo="museControlData.pairedDevice" :isStreamingEnabled="isStreamingEnabled"/>
 
         
 

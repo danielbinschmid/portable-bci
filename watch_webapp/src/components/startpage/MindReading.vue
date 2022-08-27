@@ -22,19 +22,14 @@
                 </v-list-item-content>
             </v-list-item>
 
-            <simple-button @click="startTrial()" :disabled="!resetted">
+            <simple-button @click="startTrial()" :disabled="!resetted || !isStreamingEnabled">
                 Start Imagine
             </simple-button>
-            <simple-button @click="warmupEEGNet()" :disabled="!resetted">
-                <div v-if="!isPredicting">WARM UP AI</div>
-                <div v-else>
-                    <half-circle-spinner
-                        :animation-duration="1800"
-                        :size="layout_data.MAX_WIDTH / 12"
-                        class="topcenter"
-                        :color="layout_data.GREEN"
-                    />
-                </div>
+            <simple-button
+                @click="warmupEEGNet()"
+                :disabled="!resetted || isPredicting"
+            >
+                WARM UP AI
             </simple-button>
 
             <bottom-padding />
@@ -42,10 +37,7 @@
 
         <v-dialog v-model="isTrial" fullscreen>
             <v-card color="rgba(236, 239, 241, 0.95)">
-                <overlay-back-button
-                    @exit="cancelTrial()"
-                    bottomPadding
-                />
+                <overlay-back-button @exit="cancelTrial()" bottomPadding />
                 <div v-if="state == 'prepare' || state == 'trial'">
                     <div
                         class="mdc-typography-styles-overline"
@@ -182,6 +174,7 @@ export default {
     props: {
         museDevInfo: undefined,
         finetunedSession: undefined,
+        isStreamingEnabled: Boolean
     },
     methods: {
         closeReplay() {
@@ -193,9 +186,11 @@ export default {
         warmupEEGNet() {
             const vm = this;
             vm.isPredicting = true;
-            window.eegnet.warmUpPrediction().then(() => {
-                vm.isPredicting = false;
-            });
+            setTimeout(() => {
+                window.eegnet.warmUpPrediction().then(() => {
+                    vm.isPredicting = false;
+                });
+            }, 500);
         },
         exit() {
             this.$emit("exit");

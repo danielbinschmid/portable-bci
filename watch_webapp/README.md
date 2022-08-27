@@ -64,10 +64,6 @@ as described on the crosswalk webview v3 github.
 
 Then yarn build, yarn dev to hot-reload debug the UI, cordova build android and cordova run android
 
-## TODOs
-Minify files to reduce bundle size:
-https://gist.github.com/jfoclpf/5be2694f47327ce7969c7b4dc942b528
-
 ```s
 adb logcat -s chromium 
 ```
@@ -91,3 +87,4 @@ adb shell rm /sdcard/screen.png
 #open the screenshot on your PC. 
 open /tmp/screen.png
 
+move webgl to webworker sources: https://github.com/ai/offscreen-canvas , https://github.com/tensorflow/tfjs/issues/5045

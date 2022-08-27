@@ -1,16 +1,29 @@
 <template>
     <div id="session-database">
-        <overlay-back-button @exit="exit()" withText> DATABASE </overlay-back-button>
-        
+        <overlay-back-button @exit="exit()" withText>
+            DATABASE
+        </overlay-back-button>
+
         <div v-for="(item, i) in labels" :key="i">
-             <simple-button @click="openLabel(i)" x_large :disabled="trials[item].length <= 0">
+            <simple-button
+                @click="openLabel(i)"
+                x_large
+                :disabled="trials[item].length <= 0"
+            >
                 {{ item + ": " + trials[item].length }}
             </simple-button>
         </div>
 
+        <simple-button :color="layout.ORANGE" @click="deleteAll()" x_large>
+            DELETE ALL
+        </simple-button>
         <v-dialog v-model="openLabelDialog" fullscreen>
             <v-card :color="'rgba(236, 239, 241, 0.95)'">
-                <session-label @exit="exitLabel" :database="database" :labelIdx="selectedLabel" />
+                <session-label
+                    @exit="exitLabel"
+                    :database="database"
+                    :labelIdx="selectedLabel"
+                />
             </v-card>
         </v-dialog>
     </div>
@@ -19,33 +32,49 @@
 
 
 <script>
-import SessionLabel from "./SessionLabel.vue"
+import SessionLabel from "./SessionLabel.vue";
 import OverlayBackButton from "@/components/ui-comps/OverlayBackButton.vue";
-import { MITrialDatabase} from "@/tools/database/MITrialDatabase";
+import { Database } from "@/tools/database/Database";
+import { MITrialDatabase } from "@/tools/database/MITrialDatabase";
 import SimpleButton from "@/components/ui-comps/SimpleButton.vue";
 export default {
     components: { OverlayBackButton, SimpleButton, SessionLabel },
     name: "SessionDatabase",
     data() {
-
         return {
+            layout: window.layout,
             selectedLabel: null,
             openLabelDialog: false,
-            trials: {"FEET": [], "RIGHT HAND": [], "LEFT HAND": []},
-            labels: ["FEET", "RIGHT HAND", "LEFT HAND"]
+            trials: { FEET: [], "RIGHT HAND": [], "LEFT HAND": [] },
+            labels: ["FEET", "RIGHT HAND", "LEFT HAND"],
         };
     },
     props: {
         database: MITrialDatabase,
-        sync: Boolean
+        sync: Boolean,
     },
     mounted() {
-        this.syncWithDatabase()
+        this.syncWithDatabase();
     },
     activated() {
         this.syncWithDatabase();
     },
     methods: {
+        deleteAll() {
+            const vm = this;
+            const metaID = this.database._metadata.id;
+            console.log(metaID)
+            this.database.deleteAll(() => {
+                /** @type {Database} */
+                const globDatabase = window.globDatabase;
+                globDatabase.deleteEntry(vm.database._databaseID, () => {
+                    vm.$emit("deleteAll");
+                })
+                //globDatabase.deleteEntry(metaID, () => {
+                //    
+                //});
+            })
+        },
         exit() {
             this.$emit("exit");
         },
@@ -57,25 +86,25 @@ export default {
             this.openLabelDialog = false;
         },
         syncWithDatabase() {
-            const trials = {"FEET": [], "RIGHT HAND": [], "LEFT HAND": []}
+            const trials = { FEET: [], "RIGHT HAND": [], "LEFT HAND": [] };
             const trialIDs = this.database.getTrialIDs();
-            const vm = this
+            const vm = this;
             for (const id of trialIDs) {
                 this.database.getTrial(id, (data, label) => {
                     trials[vm.labels[label]].push({
                         data: data,
-                        label: label
-                    })
-                })
+                        label: label,
+                    });
+                });
             }
-            this.trials = trials
-        }
+            this.trials = trials;
+        },
     },
     watch: {
         sync() {
-            this.syncWithDatabase()
-        }
-    }
+            this.syncWithDatabase();
+        },
+    },
 };
 </script>
 
