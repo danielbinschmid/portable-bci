@@ -3,11 +3,10 @@ import { arange } from "./data_utils/array_utils";
 import * as tf from "@tensorflow/tfjs"
 // import { ModelFitArgs, ModelCompileArgs } from '@tensorflow/tfjs';
 
-export async function exec() {
+export async function exec(nFinetuneTrials) {
     const model = new EEGNet();
     await model.init();
 
-    const nFinetuneTrials = 50
     /** @type {ModelFitArgs} */
     const fitSettings = {batchSize: 32, epochs: 12, verbose: 2}
     /** @type {ModelCompileArgs} */

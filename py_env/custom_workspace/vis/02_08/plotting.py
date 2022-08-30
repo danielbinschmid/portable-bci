@@ -83,6 +83,7 @@ def get_dimensions(height=140, num_cols=1, half_size=False):
     height_inches = height * inches_per_pt
     return width_inches, height_inches
 
+font_size = 14
 
 def prepare_matplotlib():
     us_cmap.activate()
@@ -92,13 +93,13 @@ def prepare_matplotlib():
         'savefig.transparent': True,
         'font.family': 'sans-serif',
         'mathtext.fontset': 'dejavuserif',
-        'font.size': 10.95,
-        'xtick.labelsize': 10.95,
-        'ytick.labelsize': 10.95,
-        'axes.titlesize': 10.95,
-        'axes.labelsize': 10.95,
-        'legend.fontsize': 10.95,
-        'figure.titlesize': 10.95,
+        'font.size': font_size,
+        'xtick.labelsize': font_size,
+        'ytick.labelsize': font_size,
+        'axes.titlesize': font_size,
+        'axes.labelsize': font_size,
+        'legend.fontsize': font_size,
+        'figure.titlesize': font_size,
         'figure.autolayout': True,
         'axes.labelweight': 'normal',
         'axes.titleweight': 'normal',

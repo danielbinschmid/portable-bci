@@ -4,7 +4,7 @@ import { Riemann } from "./tools/riemann/riemann";
 // import { evaluate } from "./evaluation/experiment_transferLogEucl";
 // import { evaluate } from "./evaluation/experiments/experiment_hdcMuseMI";
 // import { evaluate } from "./evaluation/experiments/experiment_hdcHersche";
-import {evaluate} from "./evaluation/experiments/experiment_cnnhdcRef"
+// import {evaluate} from "./evaluation/experiments/experiment_cnnhdcRef"
 // import {evaluate} from "./evaluation/experiments/experiment_cnnhdcImmediateUse"
 // import { evaluate } from "./evaluation/experiments/experiment_dimRanking_plusRiemann_plusPartialTraining";
 // import { evaluate } from "./evaluation/experiments/experiment_hdcFHrrPartialTraining";
@@ -19,8 +19,7 @@ import { init, warmUpPrediction } from "./webapp_port/test_deepconvnet";
 import { cacheIV2a, loadCached } from "./evaluation/data_utils/readIV2a";
 import { collectMuseMI } from "./evaluation/data_utils/readMuseMI";
 import { exec } from "./webapp_port/experiment_edgeAdaption";
-
-
+import { benchmarkEEGNetHDC } from "./webapp_port/experiment_hdcEdgeAdaption";
 function printAccuracies(riemann) {
     console.log("Single session 3 fold cross validation:");
     meanMetricAccuracies();
@@ -91,14 +90,30 @@ function test_deepconvnet() {
  */
 function riemannInstantiatedCallback(riemannInstance) {
     // const riemann = riemannInstance;
+    const n = 40
+    benchmarkEEGNetHDC(n).then(() => {
 
+        exec(n).then(() => {
+            benchmarkEEGNetHDC(n).then(() => {
+                exec(n).then(() => {
+                    benchmarkEEGNetHDC(n).then(() => {
+                        exec(n).then(() => {
+                            benchmarkEEGNetHDC(n).then(() => {
+                                exec(n)
+                            })
+                        });
+                    })
+                });
+            })
+        });
+    });
     // analyzeQuantization(riemann);
     // testCiM()
     //testCosDist()
     // evaluate();
     // benchmarkMeanRuntimes(riemann);
     // test(riemann);
-    printAccuracies()
+    // printAccuracies()
     // cacheIV2a(riemann);
     // const a = loadCached(riemann);
     // console.log(a)
@@ -108,7 +123,8 @@ function riemannInstantiatedCallback(riemannInstance) {
 
 
 function start() {
-    const riemann = new Riemann(riemannInstantiatedCallback);
+    riemannInstantiatedCallback()
+    // const riemann = new Riemann(riemannInstantiatedCallback);
 }
 
 

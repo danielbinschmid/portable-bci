@@ -30,8 +30,12 @@ export class HdcCnnAddonfHrr {
      */
     async fit(batch, labels, retrain=false, lr=.1, its=8) {
         const AM = tf.tidy(() => {
+            var now = Date.now()
             var x = this._encodeBatch(batch);
+            console.log("encoding training batch took " + (Date.now() - now ))
+            now = Date.now()
             var AM = this._genAMNaive(x, labels) 
+            console.log("Generating AM took " + (Date.now() - now ))
             if (retrain) {
                 AM = this._retrainAM(x, labels, AM, lr, its);
             }
@@ -89,7 +93,7 @@ export class HdcCnnAddonfHrr {
      * 
      * @param {tf.Tensor} batch 
      */
-    _encodeBatch(batch) {
+    _encodeBatchOld(batch) {
         const enc = tf.tidy(() => {
             const trials = batch.unstack();
             const encodedBatch = []
@@ -118,6 +122,49 @@ export class HdcCnnAddonfHrr {
                 encodedBatch.push(encoded);
             }
             return tf.stack(encodedBatch);
+        })
+        return enc;
+    }
+
+    /**
+     * 
+     * @param {tf.Tensor2D} batch 
+     */
+    _encodeBatch(batch) {
+        const enc = tf.tidy(() => {
+
+            const encoded = tf.tidy(() => {
+                const nTrials = batch.shape[0]
+                console.log(batch.shape)
+                var z = this._quantize(batch.reshape([nTrials, 16, 16]));
+                console.log(z.shape)
+                z = this._CiMEmbedding.apply(z);
+                console.log(z.shape)
+                for (const levelIdx of arange(0, this._iM.length)) {
+                    console.log(levelIdx)
+                    // bind level
+                    const level = this._iM[this._iM.length - levelIdx - 1];
+                    const reshape_shape = [1]
+                    const tile_shape = [nTrials]
+                    for (const j of arange(0, this._iM.length - levelIdx - 1)) {
+                        reshape_shape.push(1);
+                        tile_shape.push(this._nnOutputShape[j]);
+                    }
+                    reshape_shape.push(...level.shape);
+                    tile_shape.push(...[1, 1]);
+                    console.log(reshape_shape)
+                    console.log(tile_shape)
+                    z = this._bind(z, level.reshape(reshape_shape).tile(tile_shape));
+                    console.log(z.shape)
+                    // bundle level
+                    z = this._bundle(z, this._iM.length - levelIdx);
+                    console.log(z.shape)
+                }
+                return z;
+            })
+
+            return encoded;
+
         })
         return enc;
     }
@@ -245,6 +292,7 @@ export class HdcCnnAddonfHrr {
             return a.add(b).mod(tf.scalar(2 * Math.PI));
         });
     }
+
 
     /**
      * 

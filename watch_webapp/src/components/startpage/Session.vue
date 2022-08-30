@@ -90,7 +90,7 @@
 
         <div v-else>
             <simple-button @click="startFinetuning()" :disabled="isFinetuned">
-                TEACH
+                TRAIN
             </simple-button>
             <simple-button @click="warmUpAI()" :disabled="isWarmingUp">
                 WARM UP AI
@@ -156,7 +156,7 @@ export default {
             collectionProgress: 0,
             cancel: false,
             curEpoch: 0,
-            nEpochs: 12,
+            nEpochs: 25,// 12,
             layout: window.layout,
             finetuneProgress: 0,
             interval: {},

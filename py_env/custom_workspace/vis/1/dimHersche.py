@@ -35,8 +35,8 @@ def p(X, labels, colors, linestyles, title, fig, ax, xti, xlabel, ylabel, labell
     if len(major_ticks_x) > 3:
         major_ticks_x = np.arange(ymin, ymax, 0.01)
     minor_ticks_x = np.arange(ymin, ymax, 0.005)
-    major_ticks_y = np.arange(0, 10, 1)
-    y_ticks_labels = [str(ymin + (ymax - ymin) * i / 10) for i in major_ticks_y]
+    major_ticks_y = np.arange(0, 10001, 2000)
+    y_ticks_labels = [str(ymin + (ymax - ymin) * i / 5) for i in major_ticks_y]
     ax.set_yticks(major_ticks_x)
     # ax.set_yticks(major_ticks_x)
     # ax.set_yticks(minor_ticks_x, minor=True)
@@ -59,6 +59,7 @@ def p(X, labels, colors, linestyles, title, fig, ax, xti, xlabel, ylabel, labell
 
     ax.set_xlabel(xlabel)
     ax.set_ylabel(ylabel)
+    ax.set_xticklabels(major_ticks_y)
     ax.set_yticklabels(major_ticks_x)
     ax.set_title(title)
     labels = np.asarray(labels)

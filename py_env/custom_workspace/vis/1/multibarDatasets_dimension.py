@@ -66,7 +66,6 @@ def multibar_minmax_std_table(dimensions, X1, X2, title=""):
             cellDict[(j,i)].set_height(0.06)
             """
 
-    # the_table.set_fontsize(25)
 
     # Adjust layout to make room for the table:
     plt.subplots_adjust(left=0.2, bottom=0.2)

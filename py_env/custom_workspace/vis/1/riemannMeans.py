@@ -38,6 +38,8 @@ runtimes = {
 
 nTrials = np.arange(1, 16)
 fig, ax = plt.subplots()
+
+ax.set_yscale("log")
 w, h = plotting.get_dimensions(300, 1)
 fig.set_size_inches(w, h)
 colors = ["orange", "red", "magenta", "green", "blue", "black", "purple", "grey", "cyan"]
@@ -48,12 +50,14 @@ i = 0
 labels = []
 for key in runtimes:
     labels.append(key)
-    ax.plot(nTrials, np.log(np.array(runtimes[key])), ls=linestyles[i], color=colors[i])
-    ax.scatter(nTrials, np.log(np.array(runtimes[key])), marker=scatterStyle[i], label=key, color=colors[i])
+    # ax.plot(nTrials, np.log(np.array(runtimes[key])), ls=linestyles[i], color=colors[i])
+    # ax.scatter(nTrials, np.log(np.array(runtimes[key])), marker=scatterStyle[i], label=key, color=colors[i])
+    ax.plot(nTrials, np.array(runtimes[key]), ls=linestyles[i], color=colors[i])
+    ax.scatter(nTrials, np.array(runtimes[key]), marker=scatterStyle[i], label=key, color=colors[i])
 
     i += 1
 ax.set_xlabel("Number of trials")
-ax.set_ylabel(r"Milliseconds on logarithmic scale, $e^{x}$")
+ax.set_ylabel(r"Runtime in milliseconds")
 plt.grid(alpha=0.125)
 
 

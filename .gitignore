@@ -8,6 +8,7 @@ __pycache__*
 *CMakeFiles*
 *package-lock*
 *.pdf
+*.mp4
 
 /py_env/custom_workspace/data/*
 /py_env/custom_workspace/logs/

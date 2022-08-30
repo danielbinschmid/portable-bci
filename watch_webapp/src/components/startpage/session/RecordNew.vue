@@ -29,7 +29,7 @@
                     color: layout_data.GREY,
                 }"
             >
-                {{ "PLEASE IMAGINE TO MOVE " + labels[chosenLabel] }}
+                {{ "IMAGINE TO MOVE " + labels[chosenLabel] }}
             </div>
             <div v-if="state == 'prepare'">
                 <v-progress-circular

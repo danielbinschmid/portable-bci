@@ -20,7 +20,7 @@
                 topMargin
             >
                 <v-list style="padding: 0" color="rgba(0, 0, 0, 0)">
-                    <overlay-back-button @exit="showDetectedDevices()" />
+                    <overlay-back-button @exit="showDetectedDevices()" withText> BLE SCAN </overlay-back-button>
                     <loading-list-item
                         :icon="bleIcon"
                         :isLoading="scanStatus == ScanStatus.scanning"

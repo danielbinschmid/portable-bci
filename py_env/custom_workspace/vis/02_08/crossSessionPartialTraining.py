@@ -202,7 +202,7 @@ def p(X, labels, colors, linestyles, title, scatterStyle, plotDeepConvNet=True):
     ax.legend()
 
     
-    plt.savefig("crossSessionPartialTraining_reducedB.pdf")
+    plt.savefig("crossSessionPartialTraining_reducedA.svg")
 
 """
 X =            [riemannNN, SVM    , LDA    , HRR    , HRR_DimRanking  , thermometer      , eegnetHDC   , eegnet  ]
@@ -213,14 +213,14 @@ scatterStyle = ["*"      , "v"    , "x"    , "d"    , ">"             , "+"     
     """
 def main():
 
-    X =            [ SVM    , HRR_DimRanking  , eegnetHDC   , eegnet  ]
-    labels =       [ "SVM"  , "HRR+DimRanking", "EEGNet+HDC", "EEGNet"]
-    colors =       [ "green", "orange"        , "red"       , "grey"  ]
-    linestyles =   [ "solid", "solid"         , "solid"     , "solid" ]
-    scatterStyle = [ "v"    , ">"             , "s"         , "p"     ]
+    X =            [riemannNN, SVM    , LDA    , HRR    , HRR_DimRanking  , thermometer      ]
+    labels =       ["FNN"    , "SVM"  , "LDA"  , "HRR"  , "HRR+DimRanking", "HDC-thermometer"]
+    colors =       ["purple" , "green", "black", "brown", "orange"        , "blue"           ]
+    linestyles =   ["solid"  , "solid", ":"    , ":"    , "solid"         ,":"               ]
+    scatterStyle = ["*"      , "v"    , "x"    , "d"    , ">"             , "+"              ]
     # '-', '--', '-.', ':', 'None', ' ', '', 'solid', 'dashed', 'dashdot', 'dotted'
 
-    p(X, labels, colors, linestyles, "Partial training data for cross session prediction", scatterStyle, True)
+    p(X, labels, colors, linestyles, "Partial training data for cross session prediction", scatterStyle, False)
 
 
 
