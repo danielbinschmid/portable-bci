@@ -7,3 +7,6 @@
 [submodule "cpp_env/wasm_env/third-party/iir1"]
 	path = cpp_env/wasm_env/third-party/iir1
 	url = https://github.com/danielbinschmid/iir1
+[submodule "cpp_env/wasm_env/third-party/Eigen-fork"]
+	path = cpp_env/wasm_env/third-party/Eigen-fork
+	url = https://github.com/danielbinschmid/Eigen-fork
