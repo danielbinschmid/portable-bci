@@ -32,6 +32,13 @@ Contained in the `/riemann_cim/` folder.
 
 ### Riemannian mean adaption
 Contained in the `/riemann_mean/` folder.
-
+- `e_meanMetricRuntimes.js` - logs run time of different Riemannian mean approximation algorithms.
+- `e_meanMetrics3FoldCross.js` - 3-fold-cross within-session validation of mean metrics.
+- `e_noTransfer.js` - cross-session evaluation without mean metric adaption.
+- `e_transferBaseline.js` - cross-session offline evaluation with Riemannian transfer adaption
 
 ## Log results
+The results of the experiments are located in the folder `/benchmarks/`. Navigate into the desired folder and print the accuracies via 
+```s
+node printResults.js
+```

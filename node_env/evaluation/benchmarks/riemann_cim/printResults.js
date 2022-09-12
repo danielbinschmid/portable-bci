@@ -42,9 +42,12 @@ function hrrRetrainAcc() {
         accuracies[subj] = accuracies[subj] / (test_runs.length * switches.length);
         avg += accuracies[subj];
     }
-
-    console.log(accuracies);
-
+    console.log("------ WITHIN-SESSION ------")
+    console.log("Network: HDC-thermometer")
+    
+    console.log(accuracies)
+    console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
+    
     console.log("average: " + (avg / subjects.length))
 }
 
@@ -363,14 +366,14 @@ function partialTrainingTransferHRR() {
 
 hrrRetrainAcc()
 
-riemannCiMAccs()
+// riemannCiMAccs()
 
-onlineCrossSessionAdaptionAcc()
+// onlineCrossSessionAdaptionAcc()
 
-onlineCrossSessionAdaptionNoRiemannRefChangeAcc()
+// onlineCrossSessionAdaptionNoRiemannRefChangeAcc()
 
-onlineCrossSubjectNaive()
+//onlineCrossSubjectNaive()
 
-partialTrainingTransferHRR()
+//partialTrainingTransferHRR()
 
-partialTrainingTransferfHRR()
+// partialTrainingTransferfHRR()

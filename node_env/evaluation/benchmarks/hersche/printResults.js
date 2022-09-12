@@ -24,7 +24,7 @@ function hrrImmediateOnline() {
     const modes = ["isReversed_false", "isReversed_true"]
     const proportions = [0.5, 0.2, 0.15, 0.1, 0.05]
 
-
+    const precision = 100
     const accs = {}
     for (const subject of subjects) {
         accs[subject] = {}
@@ -52,20 +52,27 @@ function hrrImmediateOnline() {
 
     const proportionAvgs = {}
     for (const proportion of proportions) {
-        proportionAvgs[proportionPrefix + proportion] = 0
+        const id = Math.round(proportion * 100 * precision) / precision + "% of training set"
+        proportionAvgs[id] = 0
     }
 
     for (const subject of subjects) {
         for (const proportion of proportions) {
             accs[subject][proportionPrefix + proportion] = accs[subject][proportionPrefix + proportion] / (runs.length * modes.length);
-            proportionAvgs[proportionPrefix + proportion] += accs[subject][proportionPrefix + proportion];
+
+            const id = Math.round(proportion * 100 * precision) / precision + "% of training set"
+            proportionAvgs[id] += accs[subject][proportionPrefix + proportion] / subjects.length;
         }
     }
-    console.log(accs);
+    console.log("------ WITHIN-SESSION ------")
+    console.log("Network: HDC-thermometer")
+    
+    console.log(proportionAvgs)
+    console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
 
 
     for (const proportion of proportions) {
-        console.log(proportionPrefix + proportion + ": " + (proportionAvgs[proportionPrefix + proportion] / subjects.length));
+        // console.log(proportionPrefix + proportion + ": " + (proportionAvgs[proportionPrefix + proportion] / subjects.length));
     }
 }
 
@@ -87,24 +94,30 @@ function herschePartialCrossSession() {
     const training_percentiles = [0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 1]
 
 
-
+    const precision = 100
     const accs = {}
     for (const id of training_percentiles) {
-        accs[percentile_prefix + id] = 0;
+        const id_ = Math.round(id * 100 * precision) / precision + "% of training set"
+        accs[id_] = 0;
     }
+    
 
     for (const run of runs) {
         for (const percentile of training_percentiles) {
             for (const session of sessions) {
                 for (const subj of subjects) {
                     const a = d1[run_prefix + run][subj_prefix + subj][session][percentile_prefix + percentile + percentile_suffix]
-                    accs[percentile_prefix + percentile] += a / (runs.length * sessions.length * subjects.length);
+                    const id = Math.round(percentile * 100 * precision) / precision + "% of training set"
+                    accs[id] += a / (runs.length * sessions.length * subjects.length);
                 }
             }
         }
     }
-    console.log("$$")
-    console.log(accs);
+    console.log("------ CROSS-SESSION ------")
+    console.log("Network: HDC-thermometer")
+    
+    console.log(accs)
+    console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
 }
 
 herschePartialCrossSession()
