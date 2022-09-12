@@ -10,42 +10,6 @@ function arange(start, end) {
     return arr;
 }
 
-function cnnHDCPartialCrossSession() {
-    const d1 = require("./accs_cnnHDC_partialCrossSession_1659620131497.json")
-
-    const run_prefix = "run_"
-    const runs = [0, 1]// arange(0, 10)
-
-    const subj_prefix = ""
-    const subjects = arange(1, 10);
-
-    const sessions = ["false", "true"]
-
-    const percentile_prefix = ""
-    const percentile_suffix = ""
-    const training_percentiles = [0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 1]
-
-
-
-    const accs = {}
-    for (const id of training_percentiles) {
-        accs[percentile_prefix + id] = 0;
-    }
-
-    for (const run of runs) {
-        for (const percentile of training_percentiles) {
-            for (const session of sessions) {
-                for (const subj of subjects) {
-                    const a = d1[run_prefix + run][percentile_prefix + percentile + percentile_suffix][subj_prefix + subj][session]["testAcc"]
-                    accs[percentile_prefix + percentile] += a / (runs.length * sessions.length * subjects.length);
-                }
-            }
-        }
-    }
-
-    console.log(accs);
-}
-
 function cnnHDCPartial() {
     const d1 = require("./accs_cnnHDC_partial.json")
 
@@ -65,7 +29,8 @@ function cnnHDCPartial() {
 
     const accs = {}
     for (const id of training_percentiles) {
-        accs[percentile_prefix + id] = 0;
+        const id_ = id * 100 + "% of training set"
+        accs[id_] = 0;
     }
 
     for (const run of runs) {
@@ -73,13 +38,19 @@ function cnnHDCPartial() {
             for (const session of sessions) {
                 for (const subj of subjects) {
                     const a = d1[run_prefix + run][percentile_prefix + percentile + percentile_suffix][subj_prefix + subj][session]["testAcc"]
-                    accs[percentile_prefix + percentile] += a / (runs.length * sessions.length * subjects.length);
+                    const id_ = percentile * 100 + "% of training set"
+                    accs[id_] += a / (runs.length * sessions.length * subjects.length);
                 }
             }
         }
     }
 
-    console.log(accs);
+    console.log("------ CROSS-SESSION EVALUATION ------")
+    console.log("Network: EEGNet-HDC")
+    console.log("Mode: partial training sets")
+    
+    console.log(accs)
+    console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
 }
 
 
@@ -116,8 +87,12 @@ function cnnHDCRef() {
             }
         }
     }
-
-    console.log(accs);
+    console.log("------ CROSS-SESSION EVALUATION ------")
+    console.log("Network: EEGNet-HDC")
+    console.log("Mode: full training set")
+    
+    console.log(Math.round(accs[-1] * 100 * 100) / 100 + "% accuracy")
+    console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
 }
 
 function cnnHDCImmediateUse() {
@@ -131,23 +106,26 @@ function cnnHDCImmediateUse() {
 
     const accs = {}
     for (const p of percentiles) {
-        accs[p] = 0
+        const id = p * 100 + "% of session for training"
+        accs[id] = 0
     }
 
     for (const run of runs) {
         for (const perc of percentiles) {
             for (const s of session) {
                 for (const subj of subjects) {
-                    accs[perc] += f[run_prefix + run][perc][s][subj]["testAcc"] / (runs.length * session.length * subjects.length)
+                    const id = perc * 100 + "% of session for training"
+                    accs[id] += f[run_prefix + run][perc][s][subj]["testAcc"] / (runs.length * session.length * subjects.length)
                 }
             }
         }
     }
-
+    console.log("------ WITHIN-SESSION EVALUATION ------")
+    console.log("Network: EEGNet-HDC")
     console.log(accs)
+    console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
 }
 
-cnnHDCPartialCrossSession()
 cnnHDCPartial()
 
 cnnHDCRef()
