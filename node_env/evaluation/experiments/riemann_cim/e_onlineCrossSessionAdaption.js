@@ -94,7 +94,7 @@ export async function evaluate(riemann) {
     const nRuns = 10;
     const timeseries = riemann.Timeseries(basicSettings.nChannels, basicSettings.nBands, frequency, trialLengthSecs * frequency);
 
-    const experimentID = "onlineCrossSessionAdaption_noRiemannRefChange_12its_0-01lr"
+    const experimentID = "onlineCrossSessionAdaption"
 
     const configsProportionAdaptionData = [
         {proportion: 0.5, nCycles: 2},

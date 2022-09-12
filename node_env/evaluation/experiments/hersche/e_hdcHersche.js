@@ -51,7 +51,7 @@ export async function evaluate(riemann) {
     const nRuns = 10;
     const timeseries = riemann.Timeseries(basicSettings.nChannels, basicSettings.nBands, frequency, trialLengthSecs * frequency);
 
-    const experimentID = "hdcHRR_retrain_rerun"
+    const experimentID = "hdc_hersche"
     // -------------------------
 
     var dataAll = {};
@@ -113,9 +113,9 @@ export async function evaluate(riemann) {
                 avg += acc / (subjects.length * 2)
  
             }
-            // saveAsJSON(accs, "cache/" + experimentID);
+            saveAsJSON(accs, "cache/" + experimentID);
         }
         console.log("Avg: " + avg);
     }    
-    // saveAsJSON(accs, experimentID);
+    saveAsJSON(accs, experimentID);
 }

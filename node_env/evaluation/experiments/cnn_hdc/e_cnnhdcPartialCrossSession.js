@@ -1,3 +1,7 @@
+/**
+ * Cross session evaluation with partial training sets. 
+ */
+
 import * as tf from '@tensorflow/tfjs';
 import { HdcCnnAddonfHrr } from '../../tools/hdc/HdcCnnAddon';
 import { arange, maxIdx, balancedShuffle } from '../data_utils/array_utils';
@@ -59,7 +63,7 @@ function prepareNNFinetune(test_data, test_labels, perc) {
 }
 
 export async function evaluate() {
-
+    const globPath = "/mnt/d/bachelor-thesis/git/portable-bci/"
     const subjects = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     const runs = arange(0, 10)
     for (const i of runs) {
@@ -91,9 +95,9 @@ export async function evaluate() {
                     const trainsession = session ? "train" : "test";
                     const testsession = session ? "test" : "train";
                     console.log("&&&&&& subject " + subject + "&&&&&&&");
-                    const datafolder = "file:///mnt/d/bachelor-thesis/git/portable-bci/node_env/evaluation/data/eegnet_experiment/hdcaddon/"
+                    const datafolder = "file://" + globPath +"node_env/evaluation/data/eegnet_experiment/hdcaddon/"
 
-                    const data = require("/mnt/d/bachelor-thesis/git/portable-bci/node_env/evaluation/data/eegnet_experiment/hdcaddon/" + subject + "/subj_data.json")
+                    const data = require("/mnt" +globPath+"node_env/evaluation/data/eegnet_experiment/hdcaddon/" + subject + "/subj_data.json")
                     const train_data = data[trainsession + "_data"]
 
                     const nChannels = train_data[0].length;

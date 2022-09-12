@@ -1,7 +1,13 @@
+/**
+ * Experiment for the 'immediate use' usability case. 
+ * 
+ * First, EEGNet is pretrained on a subject database. Second, the user records labelled training 
+ * trials and then immediately uses the finetuned network after online finetuning.
+ */
+
 import * as tf from '@tensorflow/tfjs';
 import { HdcCnnAddonfHrr } from '../../tools/hdc/HdcCnnAddon';
 import { arange, maxIdx, balancedShuffle } from '../data_utils/array_utils';
-import { ModelFitArgs, ModelCompileArgs } from "@tensorflow/tfjs-node-gpu"
 import { saveAsJSON } from '../data_utils/save_benchmarks';
 function getacc(probs, labels, id) {
     const nTrainTrials = probs.length;
@@ -35,28 +41,9 @@ function split(X, labels, perc) {
     return [tf.stack(X_train), train_lab, tf.stack(X_test), test_lab]
 }
 
-function prepareNNFinetune(test_data, test_labels, n) {
-    var X = []
-    var Y = []
-    const nClasses = 3
-    for (const i of arange(0, n)) {
-        X.push(test_data[i])
-
-        const label = []
-        for (const c of arange(0, nClasses)) { label.push(c == test_labels[i]); }
-        Y.push(label)
-    }
-
-    const nTrials = X.length;
-    const nChannels = X[0].length;
-    const nSamples = X[0][0].length
-    X = tf.tensor3d(X, [nTrials, nChannels, nSamples]).reshape([nTrials, nChannels, nSamples, 1]);
-
-    return [X, tf.tensor2d(Y)]
-}
 
 export async function evaluate() {
-
+    const globPath = "/mnt/d/bachelor-thesis/git/portable-bci/"
     const subjects = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     const runs = arange(0, 10)
     for (const i of runs) {
@@ -84,9 +71,9 @@ export async function evaluate() {
                 accs[run][perc][session] = {}
                 for (const subject of subjects) {
                     console.log("&&&&&& subject " + subject + "&&&&&&&");
-                    const datafolder = "file:///mnt/d/bachelor-thesis/git/portable-bci/node_env/evaluation/data/eegnet_experiment/hdcaddon/"
+                    const datafolder = "file://" + globPath +"node_env/evaluation/data/eegnet_experiment/hdcaddon/"
 
-                    const data = require("/mnt/d/bachelor-thesis/git/portable-bci/node_env/evaluation/data/eegnet_experiment/hdcaddon/" + subject + "/subj_data.json")
+                    const data = require("/mnt"+ globPath +"node_env/evaluation/data/eegnet_experiment/hdcaddon/" + subject + "/subj_data.json")
                     const train_data = data[session + "_data"]
 
                     const nChannels = train_data[0].length;

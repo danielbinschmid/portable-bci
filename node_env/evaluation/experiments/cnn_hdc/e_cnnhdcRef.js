@@ -1,3 +1,7 @@
+/**
+ * Cross session evaluation with full training session.
+ */
+
 import * as tf from '@tensorflow/tfjs';
 import { HdcCnnAddonfHrr } from '../../tools/hdc/HdcCnnAddon';
 import { arange, maxIdx, balancedShuffle } from '../data_utils/array_utils';

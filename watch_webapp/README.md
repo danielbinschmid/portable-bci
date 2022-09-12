@@ -134,4 +134,3 @@ adb shell rm /sdcard/screen.png
 #open the screenshot on your PC. 
 open /tmp/screen.png
 
-move webgl to webworker sources: 
