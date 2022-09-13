@@ -12,6 +12,8 @@
     return arr;
 }
 
+const precision = 1000
+
 function hrrRetrainAcc() {
     const hrrRetrainJson = require("./hdcHRR_02-08.json") //re("./hdcHRR_retrain-it-20_lr-0-2_init-lr-1.json")
     const test_runs = arange(0, 8);
@@ -42,115 +44,13 @@ function hrrRetrainAcc() {
         accuracies[subj] = accuracies[subj] / (test_runs.length * switches.length);
         avg += accuracies[subj];
     }
-    console.log("------ WITHIN-SESSION ------")
-    console.log("Network: HDC-thermometer")
-    
-    console.log(accuracies)
+    console.log("------ CROSS-SESSION ------")
+    console.log("Network: Riemann-CiM-HRR")
+    console.log("Average accuracy: " + Math.round((avg * 100 * precision / subjects.length)) / precision)
     console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
     
-    console.log("average: " + (avg / subjects.length))
 }
 
-function riemannCiMAccs() {
-    const riemannCiM = require("./hdcRiemannCiM_1656326660212.json")
-    const test_runs = arange(0, 10);
-    const test_run_prefix = "run_";
-    const subjects = arange(1, 10);
-    const subject_prefix = "subj_";
-    const switches = ["isReversed_false", "isReversed_true"];
-
-
-    const accuracies = {}
-    for (const subj of subjects) {
-        accuracies[subj] = 0;
-    }
-
-    for (const test_run of test_runs) {
-        for (const subject of subjects) {
-            for (const switch_ of switches) {
-                const test_id = test_run_prefix + test_run;
-                const subj_id = subject_prefix + subject;
-                const acc = riemannCiM[test_id][subj_id][switch_];
-                accuracies[subject] += acc;
-            }
-        }
-    }
-
-    var avg = 0;
-    for (const subj of subjects) {
-        accuracies[subj] = accuracies[subj] / (test_runs.length * switches.length);
-        avg += accuracies[subj];
-    }
-
-    console.log(accuracies);
-
-    console.log("average: " + (avg / subjects.length))
-}
-
-
-function onlineCrossSessionAdaptionAcc() {
-    const d1 = require("./onlineCrossSessionAdaption_12its_0-01lr_1656973842777.json")
-
-    const run_prefix = "run_"
-    const subj_prefix = "subj_"
-    const proportionPrefix = "proportion_"
-
-    const runs = [0]
-    const subjects = [1, 2, 3, 4, 5]
-    const modes = ["isReversed_false", "isReversed_true"]
-    const baselineID = "pretrain_ref_acc"
-    const proportions = [0.5, 0.2, 0.15, 0.1, 0.05]
-
-
-    const accs = {}
-    for (const subject of subjects) {
-        accs[subject] = {}
-        accs[subject][baselineID] = 0;
-        for (const proportion of proportions) {
-            accs[subject][proportionPrefix + proportion] = 0;
-        }
-    }
-
-    for (const run of runs) {
-        for (const subject of subjects) {
-            for (const mode of modes) {
-                accs[subject][baselineID] += d1[run_prefix + run][subj_prefix + subject][mode][baselineID];
-                for (const proportion of proportions) {
-                    var li = d1[run_prefix + run][subj_prefix + subject][mode][proportionPrefix + proportion]
-                    var a = 0;
-                    const l = li.length;
-                    for (const e of li) {
-                        a += e;
-                    }
-                    a = a / l;
-                    accs[subject][proportionPrefix + proportion] += a;
-                }
-            }
-        }
-    }
-
-    const proportionAvgs = {}
-    for (const proportion of proportions) {
-        proportionAvgs[proportionPrefix + proportion] = 0
-    }
-    var baselineAvg = 0;
-
-    for (const subject of subjects) {
-        accs[subject][baselineID] = accs[subject][baselineID] / (runs.length * modes.length);
-        baselineAvg += accs[subject][baselineID];
-        for (const proportion of proportions) {
-            accs[subject][proportionPrefix + proportion] = accs[subject][proportionPrefix + proportion] / (runs.length * modes.length);
-            proportionAvgs[proportionPrefix + proportion] += accs[subject][proportionPrefix + proportion];
-        }
-    }
-    console.log(accs);
-
-
-    for (const proportion of proportions) {
-        console.log(proportionPrefix + proportion + ": " + (proportionAvgs[proportionPrefix + proportion] / subjects.length));
-    }
-    console.log("baseline average: " + baselineAvg / subjects.length);
-}
 
 function onlineCrossSessionAdaptionNoRiemannRefChangeAcc() {
     const d1 = require("./onlineCrossSessionAdaption_noRiemannRefChange_12its_0-01lr_1657131637883.json")
@@ -207,14 +107,15 @@ function onlineCrossSessionAdaptionNoRiemannRefChangeAcc() {
             proportionAvgs[proportionPrefix + proportion] += accs[subject][proportionPrefix + proportion];
         }
     }
-    console.log(accs);
 
-
+    console.log("------ CROSS-SESSION-ONLINE-LEARNING ------")
+    console.log("Network: Riemann-CiM-HRR")
+ 
     for (const proportion of proportions) {
-        console.log(proportionPrefix + proportion + ": " + (proportionAvgs[proportionPrefix + proportion] / subjects.length));
+        console.log(proportion * 100 + "% of test session for training: " + (proportionAvgs[proportionPrefix + proportion] / subjects.length));
     }
-    console.log("baseline average: " + baselineAvg / subjects.length);
-
+    console.log("0% of test session for training: " + baselineAvg / subjects.length);
+    console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
 }
 
 
@@ -268,12 +169,15 @@ function onlineCrossSubjectNaive() {
             proportionAvgs[proportionPrefix + proportion] += accs[subject][proportionPrefix + proportion];
         }
     }
-    console.log(accs);
 
-
+    console.log("------ CROSS-SUBJECT ------")
+    console.log("Network: Riemann-CiM-HRR")
+ 
     for (const proportion of proportions) {
-        console.log(proportionPrefix + proportion + ": " + (proportionAvgs[proportionPrefix + proportion] / subjects.length));
+        console.log(proportion * 100 + "% of target subject data for training: " + (proportionAvgs[proportionPrefix + proportion] / subjects.length));
     }
+    console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^")
+
 
 }
 
@@ -311,7 +215,15 @@ function partialTrainingTransferfHRR() {
         }
     }
 
-    console.log(accs);
+    console.log("------ CROSS-SESSION ------")
+    console.log("Network: Riemann-CiM-fHRR")
+    console.log("Mode: Partial training sets")
+    const accs_ = {}
+    for (const percentile of training_percentiles) {
+       accs_[percentile * 100 + "% of training set for training"] = accs[percentile_prefix + percentile]
+    }
+    console.log(accs_)
+    console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^")
 }
 
 
@@ -360,20 +272,24 @@ function partialTrainingTransferHRR() {
             }
         }
     }
-
-    console.log(accs);
+    
+    console.log("------ CROSS-SESSION ------")
+    console.log("Network: Riemann-CiM-HRR")
+    console.log("Mode: DRO, and partial training sets")
+    const accs_ = {}
+    for (const percentile of training_percentiles) {
+       accs_[percentile * 100 + "% of training set for training"] = accs[percentile_prefix + percentile]
+    }
+    console.log(accs_)
+    console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^")
 }
 
 hrrRetrainAcc()
 
-// riemannCiMAccs()
+onlineCrossSessionAdaptionNoRiemannRefChangeAcc()
 
-// onlineCrossSessionAdaptionAcc()
+onlineCrossSubjectNaive()
 
-// onlineCrossSessionAdaptionNoRiemannRefChangeAcc()
+partialTrainingTransferHRR()
 
-//onlineCrossSubjectNaive()
-
-//partialTrainingTransferHRR()
-
-// partialTrainingTransferfHRR()
+partialTrainingTransferfHRR()
