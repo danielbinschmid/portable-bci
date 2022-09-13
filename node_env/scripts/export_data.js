@@ -1,3 +1,7 @@
+/**
+ * Script to store/export preprocessed data.
+ */
+
 import { loadCached } from "../evaluation/data_utils/readIV2a";
 import { arange } from "../evaluation/data_utils/array_utils";
 import { saveAsJSON } from "../evaluation/data_utils/save_benchmarks";

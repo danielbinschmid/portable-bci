@@ -1,4 +1,9 @@
 /**
+ * Utils for array transformation.
+ */
+
+
+/**
  * 
  * @param {number} start 
  * @param {number} end 
@@ -11,20 +16,19 @@ export function arange(start, end) {
 }
 export function balancedShuffle(labels, classVec) {
     const classIndeces = []
-    for (const cIdx of classVec) {classIndeces.push([]); }
+    for (const cIdx of classVec) { classIndeces.push([]); }
 
     for (const cIdx of arange(0, classVec.length)) {
         const cVal = classVec[cIdx];
-        for (const trialIdx of arange(0, labels.length)) 
-        { 
-            if (labels[trialIdx] == cVal) { classIndeces[cIdx].push(trialIdx); } 
+        for (const trialIdx of arange(0, labels.length)) {
+            if (labels[trialIdx] == cVal) { classIndeces[cIdx].push(trialIdx); }
         }
     }
 
     for (const cIdx of arange(0, classVec.length)) { shuffle(classIndeces[cIdx]); }
     const shuffledIndeces = []
     var l = classIndeces[0].length;
-    for (const cIndeces of classIndeces) { if (cIndeces.length < l) { l = cIndeces.length}; }
+    for (const cIndeces of classIndeces) { if (cIndeces.length < l) { l = cIndeces.length }; }
 
     for (const i of arange(0, l)) {
         for (const cIndeces of classIndeces) { shuffledIndeces.push(cIndeces[i]); }
@@ -49,7 +53,7 @@ export function shuffle(a) {
  * Shuffles array in place.
  * @param {Array} a items An array containing the items.
  */
- export function shuffle2(a, b) {
+export function shuffle2(a, b) {
     var j, x, y, i;
     for (i = a.length - 1; i > 0; i--) {
         j = Math.floor(Math.random() * (i + 1));
@@ -99,8 +103,8 @@ export function maxIdx(arr) {
 export function maxIndeces(arr, nMax) {
     if (nMax > arr.length) { throw ("nMax is bigger than length of array"); }
 
-    arr = arr.map((val, ind, arr) => {return [ind, val]});
-    arr = arr.sort(function(a, b){return a[1] - b[1]}).reverse();
+    arr = arr.map((val, ind, arr) => { return [ind, val] });
+    arr = arr.sort(function (a, b) { return a[1] - b[1] }).reverse();
 
     const maxEls = []
     for (const i of arange(0, nMax)) {
@@ -115,11 +119,11 @@ export function maxIndeces(arr, nMax) {
  * @param {Number[]} arr 
  * @param {*} nMin 
  */
- export function minIndeces(arr, nMin) {
+export function minIndeces(arr, nMin) {
     if (nMin > arr.length) { throw ("nMax is bigger than length of array"); }
 
-    arr = arr.map((val, ind, arr) => {return [ind, val]});
-    arr = arr.sort(function(a, b){return a[1] - b[1]});
+    arr = arr.map((val, ind, arr) => { return [ind, val] });
+    arr = arr.sort(function (a, b) { return a[1] - b[1] });
 
     const maxEls = []
     for (const i of arange(0, nMin)) {
@@ -133,7 +137,7 @@ export function maxIndeces(arr, nMax) {
  * @param {Number[]} vector 
  * @param {Number} percentile 
  */
- export function isBelowPercentileVector(vector, percentile) {
+export function isBelowPercentileVector(vector, percentile) {
     const nMin = Math.floor(percentile * vector.length);
     const minIndecesArr = minIndeces(vector, nMin);
 
@@ -154,7 +158,7 @@ export function flatten3(data) {
         for (let d2 of d) {
             for (let d3 of d2) {
                 flattened = flattened.concat(d3);
-                
+
             }
         }
     }

@@ -1,3 +1,7 @@
+/**
+ * Array utils for k-fold-cross validation.
+ */
+
 import { arange } from "./array_utils";
 import { Data } from "../experiments/riemannMean/run_eval";
 

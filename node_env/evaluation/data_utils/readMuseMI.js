@@ -1,3 +1,7 @@
+/**
+ * Utils for reading the Reduced Muse MI dataset
+ */
+
 import { Riemann } from '../../tools/riemann/riemann';
 import tqdm from "ntqdm"; // https://github.com/jhedin/ntqdm
 import { arange, fill } from './array_utils';

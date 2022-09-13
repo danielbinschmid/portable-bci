@@ -1,3 +1,7 @@
+/**
+ * Utils for reading the BCI competition IV2a dataset.
+ */
+
 import { Riemann } from '../../tools/riemann/riemann';
 import tqdm from "ntqdm"; // https://github.com/jhedin/ntqdm
 import { arange } from './array_utils';

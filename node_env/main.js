@@ -1,130 +1,31 @@
 // ESM syntax is supported.
 import { Riemann } from "./tools/riemann/riemann";
 
-// import { evaluate } from "./evaluation/experiment_transferLogEucl";
-// import { evaluate } from "./evaluation/experiments/experiment_hdcMuseMI";
-// import { evaluate } from "./evaluation/experiments/experiment_hdcHersche";
-// import {evaluate} from "./evaluation/experiments/experiment_cnnhdcRef"
-// import {evaluate} from "./evaluation/experiments/experiment_cnnhdcImmediateUse"
-// import { evaluate } from "./evaluation/experiments/experiment_dimRanking_plusRiemann_plusPartialTraining";
-// import { evaluate } from "./evaluation/experiments/experiment_hdcFHrrPartialTraining";
-// import { evaluate } from "./evaluation/experiments/experiment_onlineCrossSessionAdaption";
-// import { evaluate } from "./evaluation/experiments/e_thermometerCrossSessionOnline";
-// import { evaluate } from "./evaluation/experiments/experiments_RiemannMean.js/experiment_transfer";
-import { testCiM } from "./tools/hdc/hdcCiMHrr";
-// import { test } from "./evaluation/test_runs";
-import { cnnHDCPartial, cnnHDCRef ,cnnHDCPartialCrossSession, herschePartialCrossSession, hrrImmediateOnline, overfitReduce, partialTrainingTransferfHRR ,partialTrainingTransferHRR, crossSubjectCrossSessionAccsPercentiles, crossSubjectCrossSessionAccs, crossSubjectAccsPercentiles, crossSubjectAccs,  sessionTransferRiemannEuclidianAccs, onlineCrossSubjectNaive, onlineCrossSessionAdaptionNoRiemannRefChangeAcc, onlineCrossSessionAdaptionAcc, meanMetricAccuracies, crossSessionMeanMetricAccuracies, transferBaselineAccs, riemannCiMAccs, hrrRetrainAcc, crossSubjectDataAugmentedRetrainingAccs } from "./evaluation/benchmarks/evaluateResults";
-import { benchmarkMeanRuntimes } from "./webapp_port/experiment_meanMetricRuntimes";
-import { init, warmUpPrediction } from "./webapp_port/test_deepconvnet";
-import { cacheIV2a, loadCached } from "./evaluation/data_utils/readIV2a";
-import { collectMuseMI } from "./evaluation/data_utils/readMuseMI";
-import { exec } from "./webapp_port/experiment_edgeAdaption";
-import { benchmarkEEGNetHDC } from "./webapp_port/experiment_hdcEdgeAdaption";
-function printAccuracies(riemann) {
-    console.log("Single session 3 fold cross validation:");
-    meanMetricAccuracies();
-    console.log("Cross session no transfer:");
-    crossSessionMeanMetricAccuracies();
-    console.log("Transfer session adaption:")
-    transferBaselineAccs();
-    // console.log("Riemann CiM Accs with Euclidian mean, no transfer cross session: ")
-    // riemannCiMAccs();
-    console.log("Riemann CiM with HRR and retraining:")
-    hrrRetrainAcc();
-
-    // console.log("crossSubjectDataAugmentedRetrainingAccs")
-    // crossSubjectDataAugmentedRetrainingAccs();
-    console.log("cross subject accs, percentile 0.2");
-    crossSubjectAccs()
-
-    console.log("cross subject percentiles")
-    crossSubjectAccsPercentiles()
-
-    console.log("cross subject and cross session")
-    crossSubjectCrossSessionAccs()
-
-    console.log("cross subject cross session percentiles")
-    crossSubjectCrossSessionAccsPercentiles()
-
-    partialTrainingTransferHRR()
-
-    partialTrainingTransferfHRR()
-
-    console.log("Riemann CiM with HRR and retraining:")
-    hrrRetrainAcc();
-
-    console.log("cross subject and cross session")
-    crossSubjectCrossSessionAccs()
-
-    console.log("overfit reduce")
-    overfitReduce()
-
-    hrrImmediateOnline()
-
-    partialTrainingTransferHRR()
-
-    herschePartialCrossSession()
-
-    cnnHDCPartialCrossSession()
-    cnnHDCRef()
-
-    cnnHDCPartial()
-}
-
-function crossSessionAdaptionAccs() {
-    onlineCrossSessionAdaptionAcc()
-    onlineCrossSessionAdaptionNoRiemannRefChangeAcc();
-    onlineCrossSubjectNaive()
-}
-
-function test_deepconvnet() {
-    init().then((model) => {
-        warmUpPrediction(model).then((number) =>
-        warmUpPrediction(model));
-    })
-}
-
 /**
  * 
  * @param {Riemann} riemannInstance 
  */
 function riemannInstantiatedCallback(riemannInstance) {
-    // const riemann = riemannInstance;
-    const n = 40
-    benchmarkEEGNetHDC(n).then(() => {
+    const riemann = riemannInstance;
 
-        exec(n).then(() => {
-            benchmarkEEGNetHDC(n).then(() => {
-                exec(n).then(() => {
-                    benchmarkEEGNetHDC(n).then(() => {
-                        exec(n).then(() => {
-                            benchmarkEEGNetHDC(n).then(() => {
-                                exec(n)
-                            })
-                        });
-                    })
-                });
-            })
+    const readline = require('readline');
+    const rl = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout
+    });
+
+    rl.question('What is your name ? ', function (name) {
+        rl.question('Where do you live ? ', function (country) {
+            console.log(`${name}, is a citizen of ${country}`);
+            rl.close();
         });
     });
-    // analyzeQuantization(riemann);
-    // testCiM()
-    //testCosDist()
-    // evaluate();
-    // benchmarkMeanRuntimes(riemann);
-    // test(riemann);
-    // printAccuracies()
-    // cacheIV2a(riemann);
-    // const a = loadCached(riemann);
-    // console.log(a)
-    // crossSessionAdaptionAccs();
-    // exec()
+
 }
 
 
 function start() {
-    riemannInstantiatedCallback()
-    // const riemann = new Riemann(riemannInstantiatedCallback);
+    const riemann = new Riemann(riemannInstantiatedCallback);
 }
 
 
