@@ -9,6 +9,7 @@ __pycache__*
 *package-lock*
 *.pdf
 *.mp4
+*.rar
 
 /py_env/custom_workspace/data/*
 /py_env/custom_workspace/logs/
