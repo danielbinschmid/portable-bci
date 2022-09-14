@@ -194,3 +194,5 @@ async function exec(riemann) {
 export async function evaluate(riemann) {
     exec(riemann);
 }
+
+export default evaluate;

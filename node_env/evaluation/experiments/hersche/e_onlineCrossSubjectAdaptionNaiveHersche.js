@@ -204,3 +204,5 @@ async function computeAcc(data, labels, indeces, hdc) {
     const acc = nCorrects / indeces.length; // data.benchmark_data.length
     return acc
 }
+
+export default evaluate;

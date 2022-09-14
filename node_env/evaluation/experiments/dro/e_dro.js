@@ -113,8 +113,10 @@ export async function evaluate(riemann) {
                 console.log(accRef);
  
             }
-            // saveAsJSON(accs, "cache/" + experimentID);
+            saveAsJSON(accs, "cache/" + experimentID);
         }
     }    
-    // saveAsJSON(accs, experimentID);
+    saveAsJSON(accs, experimentID);
 }
+
+export default evaluate;

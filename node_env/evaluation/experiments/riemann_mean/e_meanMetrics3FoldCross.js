@@ -55,7 +55,6 @@ function fetchConfig(config, data) {
         benchmark_data: benchmark_data,
         benchmark_labels: benchmark_labels,
         fitToTraining: fitToTraining,
-        transfer: 
     }
 }
 
@@ -168,3 +167,5 @@ async function hdc_full(riemann) {
 export async function evaluate(riemann) {
     hdc_full(riemann);
 }
+
+export default evaluate;

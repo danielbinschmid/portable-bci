@@ -51,3 +51,5 @@ export async function evaluate(riemann) {
     }
     console.log(accs)
 }
+
+export default evaluate;

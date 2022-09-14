@@ -166,6 +166,7 @@ export function analyzeQuantization(riemann) {
     for (const box of boxes) {
         console.log(box + " number of elements for " + i);
         i++;
-    }
-    
+    }   
 }
+
+export default evaluate;

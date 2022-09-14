@@ -1,3 +1,12 @@
+# Python machine learning experiments
+This subfolder contains the code of the machine learning experiments written in python. Additionally, scripts for the visualizations generated are located in folder `/vis/`.
+
+- `benchmarks` - Contains the results of the experiments.
+- `data_utils` - Data transformation and data reading utils.
+- `evaluation` - Experiment scripts.
+- `nn_utils` - Architectures of neural networks.
+
+## Setup
 ```s
 conda env create -n my_env python=3.10.4
 conda install -c conda-forge cudatoolkit=11.2 cudnn=8.1.0
@@ -8,12 +17,23 @@ pip install scipy
 pip install tqdm
 ```
 
-Files are structured by prefix. 
+## Use
+Navigate into the `evaluation/` directory and execute the desired python script by calling 
+```s
+python e_example.py
+```
 
-a_ - Functions that are directly called by main.
-n_ - Definitions of Neural Inspired Units
-r_ - Methods to read data from files
-u_ - General utils
-z_ - Class system and data configuration
+## Experiment documentation
+Documented in `./benchmarks/push/readme.md`
+
+## Filename prefix glossary
+a_ - Functions that are directly called by main. \
+n_ - Definitions of Neural Inspired Units \
+r_ - Methods to read data from files \
+u_ - General utils \
+z_ - Python classes and data configuration \
+
+
+
 
 

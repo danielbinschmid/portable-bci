@@ -274,9 +274,9 @@ export async function evaluate(riemann) {
                 }
                 console.log("AVG " + avg)
             }
-        }
-
-        
+        }        
     }    
     saveAsJSON(accsJson, experimentID);
 }
+
+export default evaluate;

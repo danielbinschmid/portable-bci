@@ -163,3 +163,5 @@ export async function evaluate() {
 
     saveAsJSON(avgs, "avgs_" + expID)
 }
+
+export default evaluate;

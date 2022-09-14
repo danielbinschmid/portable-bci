@@ -156,3 +156,5 @@ export function analyzeQuantization(riemann) {
     }
     
 }
+
+export default evaluate;

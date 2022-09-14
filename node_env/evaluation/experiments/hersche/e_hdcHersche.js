@@ -119,3 +119,5 @@ export async function evaluate(riemann) {
     }    
     saveAsJSON(accs, experimentID);
 }
+
+export default evaluate;
