@@ -6,9 +6,9 @@
  */
 
 import * as tf from '@tensorflow/tfjs';
-import { HdcCnnAddonfHrr } from '../../tools/hdc/HdcCnnAddon';
-import { arange, maxIdx, balancedShuffle } from '../data_utils/array_utils';
-import { saveAsJSON } from '../data_utils/save_benchmarks';
+import { HdcCnnAddonfHrr } from '../../../tools/hdc/HdcCnnAddon';
+import { arange, maxIdx, balancedShuffle } from '../../data_utils/array_utils';
+import { saveAsJSON } from '../../data_utils/save_benchmarks';
 function getacc(probs, labels, id) {
     const nTrainTrials = probs.length;
 
@@ -119,3 +119,5 @@ export async function evaluate() {
 
 
 }
+
+export default evaluate;
