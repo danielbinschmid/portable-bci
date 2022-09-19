@@ -4,8 +4,7 @@ This subfolder contains the code of the machine learning experiments written in 
 - `benchmarks` - Contains the results of the experiments.
 - `data_utils` - Data transformation and data reading utils.
 - `evaluation` - Experiment scripts.
-- `nn_utils` - Architectures of neural networks.
-
+- `nn_utils` - Architectures of neural networks. 
 ## Setup
 ```s
 conda create -n thesis python=3.10.4

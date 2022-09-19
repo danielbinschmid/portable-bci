@@ -3,7 +3,8 @@ Some machine learning experiments are written with NodeJs to facilitate the tran
 - The `evaluation` folder contains code for the experiments
 - `scripts` contains logic only used by the NodeJs shell experiments and not by the Smartwatch app
 - `tools` is the analogous to the tools folder in the Smartwatch application. Hence, this folder shall be synced.
-- `webapp_port` contains the runtime experiments for the Smartwatch  
+- `webapp_port` contains the runtime experiments for the Smartwatch  <br >
+Works on any linux system. Conda required.
 
 ## Setup
 Yarn is assumed to be installed on the system. The code only works on a Unix system.

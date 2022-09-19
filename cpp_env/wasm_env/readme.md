@@ -1,6 +1,6 @@
 # C++ and Webassembly workspace
 This subfolder contains the code for the Webassembly backend of the Smartwatch application and the javascript based experiments.
-Cmake is used for compilation.
+Cmake is used for compilation. Verified to work on Ubuntu/Linux with root priveleges.
 
 The workspace is structured in three folders.
 - `Geometry` contains function calls for Riemannian Geometry with covariance matrices. Uses the [RigByCpp](https://github.com/tmonseigne/RIGBy-cpp) library. 
@@ -9,6 +9,11 @@ The workspace is structured in three folders.
 
 ## Compilation
 Compilation is done by Cmake. In every subfolder sits a `CmakeLists.txt` file which contains the compilation logic. The `CmakeLists.txt` in the folder of this readme is the entry point. For building for execution on unix or windows modify the line `option(WEBIDL "export to js" ON)` to `OFF`, for targeting Webassembly set the option to `ON`. Consider making two separate build directories for both build options.
+Furthermore, it is required to run 
+```s
+sudo ln -s ./third-party/Eigen-fork/include /usr/local/include
+```
+so the compiler can find the Eigen library.
 
 ### Targeting Unix/ Windows
 This build mode will generate an executable file which will execute `Kernel/src/main.cpp`.
