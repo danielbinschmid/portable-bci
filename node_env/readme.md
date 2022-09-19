@@ -9,7 +9,7 @@ Some machine learning experiments are written with NodeJs to facilitate the tran
 Yarn is assumed to be installed on the system. The code only works on a Unix system.
 Navigate into the directory of 'index.js' and run 
 ```s
-yarn
+npm install
 ```
 To run Tensorflow on the CUDA GPU, follow the tutorial at https://emscripten.org/docs/optimizing/Optimizing-Code.html or follow 
 below instructions.
@@ -19,6 +19,7 @@ Then,
 conda create -n cudnn 
 conda install -c conda-forge cudatoolkit=11.2 cudnn=8.1.0
 mkdir -p $CONDA_PREFIX/etc/conda/activate.d
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/
 echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/' > $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
 ```
 ## Usage

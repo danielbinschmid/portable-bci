@@ -1,9 +1,9 @@
 /**
  * HDC on reduced Muse MI dataset
  */
-import { collectMuseMI } from "../data_utils/readMuseMI";
-import { arange, shuffle, shuffle2, maxIdx } from "../data_utils/array_utils";
-import { HdcHersche, Encodings } from "../../tools/hdc/hdchersche";
+import { collectMuseMI } from "../../data_utils/readMuseMI";
+import { arange, shuffle, shuffle2, maxIdx } from "../../data_utils/array_utils";
+import { HdcHersche, Encodings } from "../../../tools/hdc/hdchersche";
 
 
 export async function evaluate(riemann) {

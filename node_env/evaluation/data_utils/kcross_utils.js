@@ -3,7 +3,7 @@
  */
 
 import { arange } from "./array_utils";
-import { Data } from "../experiments/riemannMean/run_eval";
+import { Data } from "../experiments/riemann_mean/run_eval";
 
 const shuffleArray = array => {
     for (let i = array.length - 1; i > 0; i--) {

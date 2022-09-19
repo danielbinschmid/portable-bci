@@ -1,9 +1,9 @@
-import { HdcHersche, Encodings } from "../tools/hdc/hdchersche";
-import { arange } from "./data_utils/array_utils";
+import { HdcHersche, Encodings } from "../../../tools/hdc/hdchersche";
+import { arange } from "../../data_utils/array_utils";
 
-import { Riemann, getAllMeanMetrics, EMetric } from "../tools/riemann/riemann";
+import { Riemann, getAllMeanMetrics, EMetric } from "../../../tools/riemann/riemann";
 import { DataConfig, HdcConfig, Data, EvalRunConfig, evalRun } from "./run_eval";
-import { genTrials } from "./data_utils/genData";
+import { genTrials } from "../../data_utils/genData";
 
 
 

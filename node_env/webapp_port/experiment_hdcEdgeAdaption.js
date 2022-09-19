@@ -1,5 +1,5 @@
-import { HdcCnnAddonfHrr} from "../tools/hdc/HdcCnnAddon"
-import { EEGNet } from "../tools/eegnet/load"
+import { HdcCnnAddonfHrr} from "../../../tools/hdc/HdcCnnAddon"
+import { EEGNet } from "../../../tools/eegnet/load"
 import * as tf from "@tensorflow/tfjs"
 export async function benchmarkEEGNetHDC(nFinetuneTrials) {
     const eegnet = new EEGNet();

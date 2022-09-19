@@ -7,7 +7,7 @@ import { Riemann } from "../../../tools/riemann/riemann";
 import { maxIdx, arange, flatten3, maxIndeces, minIndeces, isBelowPercentileVector } from "../../data_utils/array_utils";
 import tqdm from "ntqdm"; // https://github.com/jhedin/ntqdm
 import { saveAsJSON } from "../../data_utils/save_benchmarks";
-import { DimensionRankingHrr, AMsData } from "../../../tools/hdc/DimensionRankingHrr";
+import { DimensionRankingHrr, AMsData } from "../../../tools/hdc/dimensionRankingHrr";
 import { DimensionRankingfHrr } from "../../../tools/hdc/DimensionRankingfHrr";
 import { HdcCiMfHrr } from "../../../tools/hdc/hdcCiMfHrr";
 import * as tf from "@tensorflow/tfjs-node-gpu"

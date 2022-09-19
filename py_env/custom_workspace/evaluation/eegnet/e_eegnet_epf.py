@@ -1,8 +1,16 @@
+import os
+import sys
+if __name__ == "__main__":
+    os.chdir("..")
+    os.chdir("..")
+    sys.path.append("./data_utils/")
+    sys.path.append("./data_utils/custom_typing/")
+    sys.path.append("./nn_utils/")
+
 import datetime
 import tensorflow as tf
 
 import keras.callbacks
-import n_CNN_LSTM
 from n_EEGNet import EEGNet
 import z_Physionet as physio
 import numpy as np
@@ -113,3 +121,5 @@ def validate_EEGNet():
     p = os.path.join("benchmarks", benchmark_file, "all_" + benchmark_file + ".json")
     with open(p, 'w', encoding='utf-8') as f:
         json.dump(benchmark_data, f, ensure_ascii=False, indent=4)
+
+validate_EEGNet()

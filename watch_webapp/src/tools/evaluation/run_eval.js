@@ -1,5 +1,5 @@
 import { HdcHersche, Encodings } from "../hdc/hdchersche";
-import { maxIdx, arange } from "./data_utils/array_utils";
+import { maxIdx, arange } from "../../data_utils/array_utils";
 
 import { Riemann, getAllMeanMetrics, EMetric } from "../riemann/riemann";
 

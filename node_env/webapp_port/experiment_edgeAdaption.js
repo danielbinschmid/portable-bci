@@ -1,5 +1,5 @@
-import { EEGNet } from "../tools/eegnet/load";
-import { arange } from "./data_utils/array_utils";
+import { EEGNet } from "../../../tools/eegnet/load";
+import { arange } from "../../data_utils/array_utils";
 import * as tf from "@tensorflow/tfjs"
 // import { ModelFitArgs, ModelCompileArgs } from '@tensorflow/tfjs';
 

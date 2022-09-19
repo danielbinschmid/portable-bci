@@ -2,17 +2,17 @@
  * Supervised online adaption, if subject data is available from a previous session
  */
 
-import { SETTINGS, HdcCiMBase } from "../../tools/hdc/hdcCiMBase";
+import { SETTINGS, HdcCiMBase } from "../../../tools/hdc/hdcCiMBase";
 import * as tf from '@tensorflow/tfjs-node-gpu';
-import { HdcCiMBsc } from "../../tools/hdc/hdcCiMBsc";
-import { HdcCiMHrr } from "../../tools/hdc/hdcCiMHrr";
-import { HdcCiMfHrr } from "../../tools/hdc/hdcCiMfHrr";
-import { HdcHersche, Encodings } from "../../tools/hdc/hdchersche";
-import { collectIV2a, loadCached } from "../data_utils/readIV2a";
-import { Riemann } from "../../tools/riemann/riemann";
-import { maxIdx, arange, flatten3, shuffle } from "../data_utils/array_utils";
+import { HdcCiMBsc } from "../../../tools/hdc/hdcCiMBsc";
+import { HdcCiMHrr } from "../../../tools/hdc/hdcCiMHrr";
+import { HdcCiMfHrr } from "../../../tools/hdc/hdcCiMfHrr";
+import { HdcHersche, Encodings } from "../../../tools/hdc/hdchersche";
+import { collectIV2a, loadCached } from "../../data_utils/readIV2a";
+import { Riemann } from "../../../tools/riemann/riemann";
+import { maxIdx, arange, flatten3, shuffle } from "../../data_utils/array_utils";
 import tqdm from "ntqdm"; // https://github.com/jhedin/ntqdm
-import { saveAsJSON } from "../data_utils/save_benchmarks";
+import { saveAsJSON } from "../../data_utils/save_benchmarks";
 
 function get_data(data, isReversed) {
     const data_ = {};

@@ -1,7 +1,7 @@
-import { HdcHersche, Encodings } from "../tools/hdc/hdchersche";
-import { maxIdx, arange } from "./data_utils/array_utils";
+import { HdcHersche, Encodings } from "../../../tools/hdc/hdchersche";
+import { maxIdx, arange } from "../../data_utils/array_utils";
 
-import { Riemann, getAllMeanMetrics, EMetric } from "../tools/riemann/riemann";
+import { Riemann, getAllMeanMetrics, EMetric } from "../../../tools/riemann/riemann";
 
 /**
  * 

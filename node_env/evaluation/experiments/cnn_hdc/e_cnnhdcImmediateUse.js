@@ -16,8 +16,6 @@ function getacc(probs, labels, id) {
     for (const trialIdx of arange(0, nTrainTrials)) {
         const prob = probs[trialIdx]
         const pred = maxIdx(prob);
-        // console.log(pred)
-        // console.log(train_labels[trialIdx])
         nCorrects += pred == labels[trialIdx]
     }
     console.log(id + " " + nCorrects / nTrainTrials);
@@ -43,7 +41,8 @@ function split(X, labels, perc) {
 
 
 export async function evaluate() {
-    const globPath = "/mnt/d/bachelor-thesis/git/portable-bci/"
+    var path = require("path");
+    var globPath = path.resolve("./")
     const subjects = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     const runs = arange(0, 10)
     for (const i of runs) {
@@ -71,9 +70,14 @@ export async function evaluate() {
                 accs[run][perc][session] = {}
                 for (const subject of subjects) {
                     console.log("&&&&&& subject " + subject + "&&&&&&&");
-                    const datafolder = "file://" + globPath +"node_env/evaluation/data/eegnet_experiment/hdcaddon/"
-
-                    const data = require("/mnt"+ globPath +"node_env/evaluation/data/eegnet_experiment/hdcaddon/" + subject + "/subj_data.json")
+                    var session_string = ""
+                    if (session == "train") {
+                        session_string = "session_False";
+                    } else {
+                        session_string = "session_True";
+                    }
+                    const datafolder = "file://" + globPath +"/evaluation/data/eegnet_experiment/bothsessions/" + session_string + "/"
+                    const data = require(globPath +"/evaluation/data/eegnet_experiment/bothsessions/" + session_string + "/" + subject + "/subj_data.json")
                     const train_data = data[session + "_data"]
 
                     const nChannels = train_data[0].length;
@@ -82,9 +86,11 @@ export async function evaluate() {
                     const test_data = data[session + "_data"]
 
                     const nTestTrials = test_data.length;
-
                     const test_batch = tf.tensor3d(test_data, [nTestTrials, nChannels, nSamples]).reshape([nTestTrials, nChannels, nSamples, 1]);
-                    const testsession_labels = data[session + "_labels"]
+                    const testsession_labels = []
+                    for (var i = 0 ; i < data[session + "_labels"].length; i++) {
+                        testsession_labels.push(data[session + "_labels"][i] + 2)
+                    }
 
                     accs[run][perc][session][subject] = {}
                     const model = await tf.loadLayersModel(datafolder + subject + "/pretrained/model.json")
@@ -110,10 +116,11 @@ export async function evaluate() {
 
             console.log("avg after perc " + perc + ": " + avgs[perc] / (runIdx * 2));
 
-            saveAsJSON(accs, "cnnhdc_immediateUse" + run + perc, "./evaluation/benchmarks/")
+            saveAsJSON(accs, "cache/cnnhdc_immediateUse" + run + perc, "./evaluation/benchmarks/")
         }
         
     }
+    saveAsJSON(accs, "cnnhdc_immediateUse", "./evaluation/benchmarks/")
 
     
 

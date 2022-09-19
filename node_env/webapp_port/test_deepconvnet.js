@@ -1,4 +1,4 @@
-import { DeepConvNet } from "../tools/deepconvnet/DeepConvNet";
+import { DeepConvNet } from "../../../tools/deepconvnet/DeepConvNet";
 
 
 

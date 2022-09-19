@@ -3,10 +3,10 @@
  */
 
 import * as tf from '@tensorflow/tfjs';
-import { HdcCnnAddonfHrr } from '../../tools/hdc/HdcCnnAddon';
-import { arange, maxIdx, balancedShuffle } from '../data_utils/array_utils';
+import { HdcCnnAddonfHrr } from '../../../tools/hdc/HdcCnnAddon';
+import { arange, maxIdx, balancedShuffle } from '../../data_utils/array_utils';
 import { ModelFitArgs, ModelCompileArgs } from "@tensorflow/tfjs-node-gpu"
-import { saveAsJSON } from '../data_utils/save_benchmarks';
+import { saveAsJSON } from '../../data_utils/save_benchmarks';
 function getacc(probs, labels, id) {
     const nTrainTrials = probs.length;
 
@@ -71,7 +71,8 @@ function fixLabels(labels) {
 }
 
 export async function evaluate() {
-
+    var path = require("path");
+    var globPath = path.resolve("./")
     const subjects = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     const runs = arange(0, 10)
     for (const i of runs) {
@@ -102,15 +103,16 @@ export async function evaluate() {
                     accs[run][percentage][subject][session] = {}
    
                     const sessionFolder = session? "session_True": "session_False"
-                    const datafolder = "file:///mnt/d/bachelor-thesis/git/portable-bci/node_env/evaluation/data/eegnet_experiment/bothsessions3/"+  sessionFolder +"/"
-                    const data = require("/mnt/d/bachelor-thesis/git/portable-bci/node_env/evaluation/data/eegnet_experiment/bothsessions3/"+ sessionFolder +"/" + subject + "/subj_data.json")
+                    const datafolder = "file://" + globPath +"/evaluation/data/eegnet_experiment/bothsessions/" + sessionFolder + "/"
+                    const data = require(globPath +"/evaluation/data/eegnet_experiment/bothsessions/" + sessionFolder + "/" + subject + "/subj_data.json")
+
                     const trainsession = "train"
                     const testsession = "test"
                     const train_data = data[trainsession + "_data"]
 
                     const nChannels = train_data[0].length;
                     const nSamples = train_data[0][0].length;
-                    var train_labels = data[trainsession + "_labels"]
+                    var train_labels =  data[trainsession + "_labels"]
                     train_labels = fixLabels(train_labels) 
 
                     const model = await tf.loadLayersModel(datafolder + subject + "/pretrained/model.json")
@@ -137,7 +139,6 @@ export async function evaluate() {
                     const test_batch = tf.tensor3d(test_data, [nTestTrials, nChannels, nSamples]).reshape([nTestTrials, nChannels, nSamples, 1]);
                     var testsession_labels = data[testsession + "_labels"]
                     testsession_labels = fixLabels(testsession_labels)
-
                     const X_trainsession = newmodel.predictOnBatch(train_batch);
                     const X_testsession = newmodel.predictOnBatch(test_batch);
 

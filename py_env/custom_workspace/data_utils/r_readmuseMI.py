@@ -41,10 +41,11 @@ def readsubject(subject: int) -> tuple[list[np.ndarray], np.ndarray]:
 
     trial_data, labels = [], []
     for c in classes:
-        data_path = os.path.join(path, c, str(subject))
+        data_path = os.path.join(path, c, str(subject)) + "/"
         all_files = os.listdir(data_path)
+        
         for filename in all_files:
-            full_file_path = os.path.join(data_path, filename)
+            full_file_path = os.path.join(data_path, filename) 
             df = pandas.read_csv(full_file_path)
             # print(df.head())
             df_ = df[channel_col_names]

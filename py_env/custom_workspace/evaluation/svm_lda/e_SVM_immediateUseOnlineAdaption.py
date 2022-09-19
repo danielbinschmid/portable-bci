@@ -4,6 +4,7 @@ from random import shuffle
 if __name__ == "__main__":
     import sys
     os.chdir("..")
+    os.chdir("..")
     sys.path.append("./data_utils/")
     sys.path.append("./data_utils/custom_typing/")
     sys.path.append("./nn_utils/")

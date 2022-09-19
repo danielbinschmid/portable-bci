@@ -2,16 +2,16 @@
  * Cross subject and Riemann cross session combined
  */
 
-import { SETTINGS } from "../../tools/hdc/hdcCiMBase";
-import { HdcCiMBsc } from "../../tools/hdc/hdcCiMBsc";
-import { HdcCiMHrr } from "../../tools/hdc/hdcCiMHrr";
-import { HdcHersche, Encodings } from "../../tools/hdc/hdchersche";
-import { collectIV2a, loadCached } from "../data_utils/readIV2a";
-import { Riemann } from "../../tools/riemann/riemann";
-import { maxIdx, arange, flatten3, maxIndeces, minIndeces, isBelowPercentileVector } from "../data_utils/array_utils";
+import { SETTINGS } from  "../../../tools/hdc/hdcCiMBase";
+import { HdcCiMBsc } from "../../../tools/hdc/hdcCiMBsc";
+import { HdcCiMHrr } from "../../../tools/hdc/hdcCiMHrr";
+import { HdcHersche, Encodings } from "../../../tools/hdc/hdchersche";
+import { collectIV2a, loadCached } from "../../data_utils/readIV2a";
+import { Riemann } from "../../../tools/riemann/riemann";
+import { maxIdx, arange, flatten3, maxIndeces, minIndeces, isBelowPercentileVector } from "../../data_utils/array_utils";
 import tqdm from "ntqdm"; // https://github.com/jhedin/ntqdm
-import { saveAsJSON } from "../data_utils/save_benchmarks";
-import { DimensionRankingHrr, AMsData } from "../../tools/hdc/dimensionRankingHrr";
+import { saveAsJSON } from "../../data_utils/save_benchmarks";
+import { DimensionRankingHrr, AMsData } from "../../../tools/hdc/dimensionRankingHrr";
 import * as tf from "@tensorflow/tfjs-node-gpu"
 
 function get_data(data, isReversed) {

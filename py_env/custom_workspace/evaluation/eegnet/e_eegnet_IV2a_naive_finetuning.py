@@ -1,6 +1,8 @@
+import os
 if __name__ == "__main__":
     import sys
-
+    os.chdir("..")
+    os.chdir("..")
     sys.path.append("./data_utils/")
     sys.path.append("./data_utils/custom_typing/")
     sys.path.append("./nn_utils/")
@@ -9,7 +11,7 @@ import datetime
 import tensorflow as tf
 
 import keras.callbacks
-from n_EEGNet import EEGNet, freezeLayer, EEGNetBlock
+from n_EEGNet import EEGNet, EEGNetBlock, freezeBlocks
 import numpy as np
 
 import r_readIV2a as IV2a
@@ -140,9 +142,8 @@ def validate_EEGNet_IV2a():
                     initial_weights=initial_weights,
                     validation_data=(test_data, test_labels)
                 )
+                freezeBlocks(model, frozenBlocks)
 
-                for frozenBlock in frozenBlocks:
-                    freezeLayer(model, frozenBlock)
                 # --------------------------- fine tune to relevant subject --------------------------
                 log_dir = "logs/fit/" + benchmark_file + "/" + "finetune_subj-" + str(subject) + "_run-" + str(run) + "_" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
                 nb_epochs_ = nb_epochs_finetuning

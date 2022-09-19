@@ -1,10 +1,12 @@
+import os
 if __name__ == "__main__":
     import sys
-
-    sys.path.append("../data_utils/")
-    sys.path.append("../data_utils/custom_typing/")
-    sys.path.append("../nn_utils/")
-
+    os.chdir("..")
+    os.chdir("..")
+    sys.path.append("./data_utils/")
+    sys.path.append("./data_utils/custom_typing/")
+    sys.path.append("./nn_utils/")
+# print(os.listdir("./data/musemotorimagery_reduced/left/3/"))
 from r_readmuseMI import read_crops
 import os
 from n_EEGNet import EEGNet, EEGNetBlock, freezeBlocks, unfreezeBlock
@@ -109,7 +111,6 @@ def eval():
     print(accs)
 
 if __name__ == "__main__":
-    os.chdir("..")
     eval()
 
     

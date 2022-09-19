@@ -2,11 +2,13 @@ import os
 
 if __name__ == "__main__":
     import sys
+    os.chdir("..")
+    os.chdir("..")
+    sys.path.append("./data_utils/")
+    sys.path.append("./data_utils/custom_typing/")
+    sys.path.append("./nn_utils/")
 
-    sys.path.append("../data_utils/")
-    sys.path.append("../data_utils/custom_typing/")
-    sys.path.append("../nn_utils/")
-
+os.mkdir("./checkpoints/")
 import datetime
 from n_DeepConvNet import DeepConvNet
 import numpy as np
@@ -15,8 +17,6 @@ import keras.callbacks
 from u_deepConvNetUtils import genShuffle,  get_data, validation_split, crop_trials, benchmark_subject, second_stage_fitting
 import n_DeepConvNet as dcnn
 
-if __name__ == "__main__":
-    os.chdir("..")
 
 # GLOBALS
 NB_CHANNELS = 4

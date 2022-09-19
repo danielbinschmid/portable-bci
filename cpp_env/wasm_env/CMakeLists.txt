@@ -12,6 +12,6 @@ option(WEBIDL "export to js" ON)
 
 add_subdirectory(Kernel)
 add_subdirectory(third-party/Eigen-fork)
-add_subdirectory(third-party/RIGBY-cpp)
+add_subdirectory(third-party/RIGBy-cpp)
 add_subdirectory(third-party/iir1)
 add_subdirectory(Geometry)

@@ -32,10 +32,8 @@ export class HdcCnnAddonfHrr {
         const AM = tf.tidy(() => {
             var now = Date.now()
             var x = this._encodeBatch(batch);
-            console.log("encoding training batch took " + (Date.now() - now ))
             now = Date.now()
             var AM = this._genAMNaive(x, labels) 
-            console.log("Generating AM took " + (Date.now() - now ))
             if (retrain) {
                 AM = this._retrainAM(x, labels, AM, lr, its);
             }
@@ -93,7 +91,7 @@ export class HdcCnnAddonfHrr {
      * 
      * @param {tf.Tensor} batch 
      */
-    _encodeBatchOld(batch) {
+    _encodeBatch(batch) {
         const enc = tf.tidy(() => {
             const trials = batch.unstack();
             const encodedBatch = []
@@ -130,7 +128,7 @@ export class HdcCnnAddonfHrr {
      * 
      * @param {tf.Tensor2D} batch 
      */
-    _encodeBatch(batch) {
+    _encodeBatchEfficient(batch) {
         const enc = tf.tidy(() => {
 
             const encoded = tf.tidy(() => {

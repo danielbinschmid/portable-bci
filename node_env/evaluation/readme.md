@@ -5,6 +5,8 @@
 
 
 ## Experiment documentation
+Make sure that the `evaluation/benchmarks/cache/` exist before re-running experiments
+
 ### EEGNet+HDC Hybrid
 Contained in the `/cnn_hdc/` folder.
 - `e_cnnhdcImmediateUse.js` - within-session evaluation.

@@ -1,7 +1,7 @@
 import sys
 
-sys.path.append("./data_utils/")
-sys.path.append("./data_utils/custom_typing/")
+sys.path.append("../../data_utils/")
+sys.path.append("../../data_utils/custom_typing/")
 sys.path.append("./nn_utils/")
 
 

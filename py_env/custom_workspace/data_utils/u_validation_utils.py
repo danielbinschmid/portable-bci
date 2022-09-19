@@ -1,8 +1,8 @@
 import random
 import numpy as np
-import torch
+
 import z_Physionet as physio
-from n_CNN_LSTM import window_data
+
 from enum import Enum, auto
 from r_readphysionet import fetch_as_bands, fetch_physionet_data
 
@@ -33,7 +33,7 @@ def to_training_batches(
     batch_size: int,
     window_size: float,
     label_to_gt: dict,
-) -> tuple[list[tuple[torch.Tensor, torch.Tensor]], list[int]]:
+): # -> tuple[list[tuple[torch.Tensor, torch.Tensor]], list[int]]:
     """
     Fuses training split indeces and fetched data into training batches.
 
@@ -41,6 +41,8 @@ def to_training_batches(
     - list of (xbatch: Tensor, ybatch: Tensor) tuples
     - mutated training split
     """
+    import torch
+    from n_CNN_LSTM import window_data
     # print(len(training_split))
     remainder_batch_size = batch_size - len(training_split) % batch_size
     original_split = np.asarray(training_split).copy()
@@ -76,6 +78,8 @@ def to_training_batches(
 def validation_split_to_data(
     data, split: list[int], window_size: int, label_to_gt: dict
 ):
+    import torch
+    from n_CNN_LSTM import window_datas
     validation_events = []
     split_ = split.copy()
     for v in split:
@@ -102,7 +106,8 @@ def training_class_weights(
     training_split: list[int],
     data: list[tuple[np.ndarray, physio.Annotation]],
     label_to_gt: dict,
-) -> torch.Tensor:
+):
+    import torch
     total = len(training_split)
     weights = [0 for label in label_to_gt]
     for event_idx in training_split:

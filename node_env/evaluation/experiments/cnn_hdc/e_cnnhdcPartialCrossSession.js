@@ -3,10 +3,10 @@
  */
 
 import * as tf from '@tensorflow/tfjs';
-import { HdcCnnAddonfHrr } from '../../tools/hdc/HdcCnnAddon';
-import { arange, maxIdx, balancedShuffle } from '../data_utils/array_utils';
+import { HdcCnnAddonfHrr } from '../../../tools/hdc/HdcCnnAddon';
+import { arange, maxIdx, balancedShuffle } from '../../data_utils/array_utils';
 import { ModelFitArgs, ModelCompileArgs } from "@tensorflow/tfjs-node-gpu"
-import { saveAsJSON } from '../data_utils/save_benchmarks';
+import { saveAsJSON } from '../../data_utils/save_benchmarks';
 function getacc(probs, labels, id) {
     const nTrainTrials = probs.length;
 
@@ -63,7 +63,8 @@ function prepareNNFinetune(test_data, test_labels, perc) {
 }
 
 export async function evaluate() {
-    const globPath = "/mnt/d/bachelor-thesis/git/portable-bci/"
+    var path = require("path");
+    var globPath = path.resolve("./")
     const subjects = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     const runs = arange(0, 10)
     for (const i of runs) {
@@ -95,15 +96,21 @@ export async function evaluate() {
                     const trainsession = session ? "train" : "test";
                     const testsession = session ? "test" : "train";
                     console.log("&&&&&& subject " + subject + "&&&&&&&");
-                    const datafolder = "file://" + globPath +"node_env/evaluation/data/eegnet_experiment/hdcaddon/"
-
-                    const data = require("/mnt" +globPath+"node_env/evaluation/data/eegnet_experiment/hdcaddon/" + subject + "/subj_data.json")
-                    const train_data = data[trainsession + "_data"]
-
+                    var session_string = ""
+                    if (session) {
+                        session_string = "session_False";
+                    } else {
+                        session_string = "session_True";
+                    }
+                    const datafolder = "file://" + globPath +"/evaluation/data/eegnet_experiment/bothsessions/" + session_string + "/"
+                    const data = require(globPath +"/evaluation/data/eegnet_experiment/bothsessions/" + session_string + "/" + subject + "/subj_data.json")
+                    const train_data = data["train_data"]
                     const nChannels = train_data[0].length;
                     const nSamples = train_data[0][0].length;
-                    const train_labels = data[trainsession + "_labels"]
-
+                    const train_labels =  [] 
+                    for (var i = 0 ; i < data[trainsession + "_labels"].length; i++) {
+                        train_labels.push(data[trainsession + "_labels"][i] + 2)
+                    }
 
 
                     const model = await tf.loadLayersModel(datafolder + subject + "/pretrained/model.json")
@@ -128,7 +135,10 @@ export async function evaluate() {
                     const test_data = data[testsession + "_data"]
                     const nTestTrials = test_data.length;
                     const test_batch = tf.tensor3d(test_data, [nTestTrials, nChannels, nSamples]).reshape([nTestTrials, nChannels, nSamples, 1]);
-                    const testsession_labels = data[testsession + "_labels"]
+                    const testsession_labels =  [] 
+                    for (var i = 0 ; i < data[testsession + "_labels"].length; i++) {
+                        testsession_labels.push(data[testsession + "_labels"][i] + 2)
+                    }
 
                     const X_trainsession = newmodel.predictOnBatch(train_batch);
                     const X_testsession = newmodel.predictOnBatch(test_batch);
