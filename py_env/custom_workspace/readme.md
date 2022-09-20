@@ -31,11 +31,11 @@ python e_example.py
 Documented in `./benchmarks/push/readme.md`
 
 ## Filename prefix glossary
-a_ - Functions that are directly called by main. \
-n_ - Definitions of Neural Inspired Units \
-r_ - Methods to read data from files \
-u_ - General utils \
-z_ - Python classes and data configuration \
+a_ - Functions that are directly called by main. <br >
+n_ - Definitions of Neural Inspired Units <br >
+r_ - Methods to read data from files <br >
+u_ - General utils <br >
+z_ - Python classes and data configuration <br >
 
 
 
